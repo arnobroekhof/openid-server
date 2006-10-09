@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+	http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	<display-name>OpenID Server</display-name>
+	<description>OpenID Server.</description>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/applicationContext.xml</param-value>
+	</context-param>
+	<listener>
+		<listener-class>
+			org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+	<filter>
+		<display-name>Set Character Encoding Filter</display-name>
+		<filter-name>Set Character Encoding Filter</filter-name>
+		<filter-class>
+			org.springframework.web.filter.CharacterEncodingFilter
+		</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<servlet>
+		<display-name>Open ID Provider</display-name>
+		<servlet-name>server</servlet-name>
+		<servlet-class>cn.net.openid.web.ServerServlet</servlet-class>
+		<load-on-startup>10</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>openid</servlet-name>
+		<servlet-class>
+			org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+		<load-on-startup>20</load-on-startup>
+	</servlet>
+	<servlet>
+		<display-name>Open ID Member</display-name>
+		<servlet-name>member</servlet-name>
+		<servlet-class>cn.net.openid.web.MemberServlet</servlet-class>
+		<init-param>
+			<param-name>openIdServer</param-name>
+			<param-value>
+				http://localhost/openid-server/openid.server
+			</param-value>
+		</init-param>
+		<load-on-startup>30</load-on-startup>
+	</servlet>
+	<filter-mapping>
+		<filter-name>Set Character Encoding Filter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<servlet-mapping>
+		<servlet-name>server</servlet-name>
+		<url-pattern>/openid.server</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>openid</servlet-name>
+		<url-pattern>/login</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>member</servlet-name>
+		<url-pattern>/member/*</url-pattern>
+	</servlet-mapping>
+</web-app>

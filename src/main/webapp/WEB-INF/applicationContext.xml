@@ -1,0 +1,34 @@
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+		  "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+	<bean id="provider" class="cn.net.openid.impl.ProviderImpl"></bean>
+
+	<bean id="associateService"
+		class="cn.net.openid.modes.AssociateService" />
+	<bean id="checkAuthenticationService"
+		class="cn.net.openid.modes.CheckAuthenticationService" />
+	<bean id="checkIdImmediateService"
+		class="cn.net.openid.modes.CheckIdImmediateService" />
+	<bean id="checkIdSetupService"
+		class="cn.net.openid.modes.CheckIdSetupService">
+		<property name="provider" ref="provider" />
+	</bean>
+
+	<bean id="modes" class="cn.net.openid.Modes">
+		<property name="getModes">
+			<map>
+				<entry key="checkid_immediate"
+					value-ref="checkIdImmediateService" />
+				<entry key="checkid_setup"
+					value-ref="checkIdSetupService" />
+			</map>
+		</property>
+		<property name="postModes">
+			<map>
+				<entry key="associate" value-ref="associateService" />
+				<entry key="check_authentication"
+					value-ref="checkAuthenticationService" />
+			</map>
+		</property>
+	</bean>
+</beans>
