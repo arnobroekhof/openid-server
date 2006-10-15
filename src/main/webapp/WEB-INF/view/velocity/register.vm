@@ -13,8 +13,8 @@
 	<body>
 	<div>
 		<form action="register" method="post">
-			<label for="openidUrl">Your OpenID URL:</label>
-			http://<input type="text" id="openidUrl" name="openidUrl" class="sexy" size="10" value="$!{esc.html($!{command.openidUrl})}" />.openid.org.cn
+			<label for="memeber">Your OpenID URL:</label>
+			http://<input type="text" id="member" name="member" class="sexy" size="10" value="$!{esc.html($!{command.member})}" />.openid.org.cn
 			<input type="submit" value="Register" style="background: rgb(255, 98, 0) none repeat scroll 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: rgb(255, 255, 255);"/>
 		</form>
 	</div>

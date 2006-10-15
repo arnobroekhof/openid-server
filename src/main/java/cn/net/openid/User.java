@@ -17,6 +17,8 @@ public class User implements Serializable {
 	 */
 	private static final long serialVersionUID = -6219139356897428716L;
 
+	private String id;
+
 	private String openid;
 
 	/**
@@ -80,18 +82,81 @@ public class User implements Serializable {
 	}
 
 	/**
+	 * @return the dob
+	 */
+	public Date getDob() {
+		return dob;
+	}
+
+	/**
+	 * @return the email
+	 */
+	public String getEmail() {
+		return email;
+	}
+
+	/**
+	 * @return the fullname
+	 */
+	public String getFullname() {
+		return fullname;
+	}
+
+	/**
+	 * @return the gender
+	 */
+	public char getGender() {
+		return gender;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		return id;
+	}
+
+	/**
+	 * @return the language
+	 */
+	public String getLanguage() {
+		return language;
+	}
+
+	/**
+	 * @return the nickname
+	 */
+	public String getNickname() {
+		return nickname;
+	}
+
+	/**
+	 * @return the openid
+	 */
+	public String getOpenid() {
+		return openid;
+	}
+
+	/**
+	 * @return the postcode
+	 */
+	public String getPostcode() {
+		return postcode;
+	}
+
+	/**
+	 * @return the timezone
+	 */
+	public String getTimezone() {
+		return timezone;
+	}
+
+	/**
 	 * @param country
 	 *            the country to set
 	 */
 	public void setCountry(String country) {
 		this.country = country;
-	}
-
-	/**
-	 * @return the dob
-	 */
-	public Date getDob() {
-		return dob;
 	}
 
 	/**
@@ -103,25 +168,11 @@ public class User implements Serializable {
 	}
 
 	/**
-	 * @return the email
-	 */
-	public String getEmail() {
-		return email;
-	}
-
-	/**
 	 * @param email
 	 *            the email to set
 	 */
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	/**
-	 * @return the fullname
-	 */
-	public String getFullname() {
-		return fullname;
 	}
 
 	/**
@@ -133,13 +184,6 @@ public class User implements Serializable {
 	}
 
 	/**
-	 * @return the gender
-	 */
-	public char getGender() {
-		return gender;
-	}
-
-	/**
 	 * @param gender
 	 *            the gender to set
 	 */
@@ -148,10 +192,11 @@ public class User implements Serializable {
 	}
 
 	/**
-	 * @return the language
+	 * @param id
+	 *            the id to set
 	 */
-	public String getLanguage() {
-		return language;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	/**
@@ -163,25 +208,11 @@ public class User implements Serializable {
 	}
 
 	/**
-	 * @return the nickname
-	 */
-	public String getNickname() {
-		return nickname;
-	}
-
-	/**
 	 * @param nickname
 	 *            the nickname to set
 	 */
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
-	}
-
-	/**
-	 * @return the openid
-	 */
-	public String getOpenid() {
-		return openid;
 	}
 
 	/**
@@ -193,25 +224,11 @@ public class User implements Serializable {
 	}
 
 	/**
-	 * @return the postcode
-	 */
-	public String getPostcode() {
-		return postcode;
-	}
-
-	/**
 	 * @param postcode
 	 *            the postcode to set
 	 */
 	public void setPostcode(String postcode) {
 		this.postcode = postcode;
-	}
-
-	/**
-	 * @return the timezone
-	 */
-	public String getTimezone() {
-		return timezone;
 	}
 
 	/**

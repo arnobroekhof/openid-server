@@ -3,6 +3,11 @@
 <beans>
 	<bean id="registerController"
 		class="cn.net.openid.web.RegisterController">
+		<property name="daoFacade" ref="daoFacade" />
+		<property name="commandClass"
+			value="cn.net.openid.web.RegisterForm" />
+		<property name="formView" value="register" />
+		<property name="successView" value="register" />
 	</bean>
 	<bean id="loginController"
 		class="cn.net.openid.web.LoginController">
