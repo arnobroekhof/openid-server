@@ -16,10 +16,10 @@
 			<table>
 				<tr>
 					<td>
-						<label for="openIdUrl">Your OpenID URL:</label>
+						<label for="openidUrl">Your OpenID URL:</label>
 					</td>
 					<td>
-						<input type="text" id="openIdUrl" name="openIdUrl" class="sexy" size="30" value="$!{esc.html($!{command.openIdUrl})}" />
+						<input type="text" id="openidUrl" name="openidUrl" class="sexy" size="30" value="$!{esc.html($!{command.openidUrl})}" />
 					</td>
 				</tr>
 				<tr>

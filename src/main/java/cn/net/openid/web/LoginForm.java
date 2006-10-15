@@ -15,25 +15,25 @@ public class LoginForm implements Serializable {
 	 */
 	private static final long serialVersionUID = -5037879147649703902L;
 
-	private String openIdUrl;
+	private String openidUrl;
 
 	private String username;
 
 	private String password;
 
 	/**
-	 * @return the openIdUrl
+	 * @return the openidUrl
 	 */
-	public String getOpenIdUrl() {
-		return openIdUrl;
+	public String getOpenidUrl() {
+		return openidUrl;
 	}
 
 	/**
-	 * @param openIdUrl
-	 *            the openIdUrl to set
+	 * @param openidUrl
+	 *            the openidUrl to set
 	 */
-	public void setOpenIdUrl(String openIdUrl) {
-		this.openIdUrl = openIdUrl;
+	public void setOpenidUrl(String openidUrl) {
+		this.openidUrl = openidUrl;
 	}
 
 	/**

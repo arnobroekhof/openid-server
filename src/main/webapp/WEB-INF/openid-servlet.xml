@@ -1,6 +1,9 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
 		  "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 <beans>
+	<bean id="registerController"
+		class="cn.net.openid.web.RegisterController">
+	</bean>
 	<bean id="loginController"
 		class="cn.net.openid.web.LoginController">
 		<property name="commandClass"
@@ -13,6 +16,9 @@
 		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="urlMap">
 			<map>
+				<entry key="/register">
+					<ref local="registerController" />
+				</entry>
 				<entry key="/login">
 					<ref local="loginController" />
 				</entry>

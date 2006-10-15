@@ -56,8 +56,8 @@ public class ProviderImpl implements Provider {
 		} catch (Fault e) {
 			throw new RuntimeException(e);
 		}
-		String inputBlogId = lf.getOpenIdUrl().substring(7,
-				lf.getOpenIdUrl().indexOf("."));
+		String inputBlogId = lf.getOpenidUrl().substring(7,
+				lf.getOpenidUrl().indexOf("."));
 		log.debug("inputBlogId: " + inputBlogId);
 		for (Blog blog : blogs) {
 			if (inputBlogId.equalsIgnoreCase(blog.getBlogid())) {

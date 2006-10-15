@@ -43,7 +43,7 @@ public class LoginController extends SimpleFormController {
 		Map<String, String[]> parameterMap = (Map<String, String[]>) session
 				.getAttribute("parameterMap");
 		if (parameterMap != null) {
-			lf.setOpenIdUrl(OpenIDUtils.getFirstValue(parameterMap,
+			lf.setOpenidUrl(OpenIDUtils.getFirstValue(parameterMap,
 					"openid.identity"));
 		}
 		return super.referenceData(request, command, errors);
@@ -64,7 +64,7 @@ public class LoginController extends SimpleFormController {
 		LoginForm lf = (LoginForm) command;
 		if (this.provider.checkPassword(lf)) {
 			HttpSession session = request.getSession();
-			session.setAttribute("cn.net.openid.identity", lf.getOpenIdUrl());
+			session.setAttribute("cn.net.openid.identity", lf.getOpenidUrl());
 			this.provider.checkIdSetupResponse(session.getAttribute(
 					"cn.net.openid.identity").toString(),
 					(Map<String, String[]>) request.getSession().getAttribute(
