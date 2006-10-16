@@ -8,14 +8,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.Controller;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
+import cn.net.openid.User;
 import cn.net.openid.dao.DaoFacade;
 
 /**
@@ -35,12 +34,46 @@ public class RegisterController extends SimpleFormController {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see org.springframework.web.servlet.mvc.BaseCommandController#onBindAndValidate(javax.servlet.http.HttpServletRequest,
+	 *      java.lang.Object, org.springframework.validation.BindException)
+	 */
+	@Override
+	protected void onBindAndValidate(HttpServletRequest request,
+			Object command, BindException errors) throws Exception {
+		RegisterForm form = (RegisterForm) command;
+		String member = form.getMember();
+		if (member != null) {
+			Matcher m = this.pattern.matcher(member);
+			if (!m.matches()) {
+				errors.rejectValue("member", "error", "错误的格式。");
+			}
+		}
+
+		if (!errors.hasErrors()) {
+			User user = this.daoFacade.getUserByOpenid(member
+					+ ".openid.org.cn");
+			if (user != null) {
+				errors.rejectValue("member", "error",
+						"该OpenID已经被其他人申请了，你只能换一个了。");
+			}
+		}
+
+		super.onBindAndValidate(request, command, errors);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(java.lang.Object,
 	 *      org.springframework.validation.BindException)
 	 */
 	@Override
 	protected ModelAndView onSubmit(Object command, BindException errors)
 			throws Exception {
+		RegisterForm form = (RegisterForm) command;
+		User user = new User();
+		user.setOpenid(form.getMember() + ".openid.org.cn");
+		this.daoFacade.saveUser(user);
 		return super.onSubmit(command, errors);
 	}
 
@@ -54,13 +87,7 @@ public class RegisterController extends SimpleFormController {
 	protected Map referenceData(HttpServletRequest request, Object command,
 			Errors errors) throws Exception {
 		RegisterForm form = (RegisterForm) command;
-		String member = form.getMember();
-		if (member != null) {
-			Matcher m = this.pattern.matcher(member);
-			if (!m.matches()) {
-				errors.rejectValue("member", "错误的格式。");
-			}
-		}
+		form.setMember(request.getParameter("member"));
 		return super.referenceData(request, command, errors);
 	}
 

@@ -3,8 +3,9 @@
 
 <hibernate-mapping package="cn.net.openid">
 	<class name="User" table="USER">
-		<id name="id" type="java.lang.String" length="32">
-			<generator class="assigned" />
+		<id name="id" unsaved-value="null" type="java.lang.String"
+			length="32">
+			<generator class="uuid" />
 		</id>
 		<property name="openid" length="255" />
 	</class>

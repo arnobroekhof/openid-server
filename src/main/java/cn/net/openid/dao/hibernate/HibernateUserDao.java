@@ -40,4 +40,13 @@ public class HibernateUserDao extends BaseHibernateEntityDao<User> implements
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.dao.UserDao#saveUser(cn.net.openid.User)
+	 */
+	public String saveUser(User user) {
+		return (String) this.getHibernateTemplate().save(user);
+	}
+
 }

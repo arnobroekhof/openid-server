@@ -46,6 +46,10 @@ public class LoginController extends SimpleFormController {
 			lf.setOpenidUrl(OpenIDUtils.getFirstValue(parameterMap,
 					"openid.identity"));
 		}
+
+		if (lf.getOpenidUrl() == null || lf.getOpenidUrl().length() == 0) {
+			lf.setOpenidUrl(request.getParameter("openid"));
+		}
 		return super.referenceData(request, command, errors);
 	}
 

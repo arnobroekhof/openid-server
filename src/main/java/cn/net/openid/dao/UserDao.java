@@ -13,4 +13,6 @@ public interface UserDao {
 	User getUser(String id);
 
 	User getUserByOpenid(String openid);
+
+	String saveUser(User user);
 }

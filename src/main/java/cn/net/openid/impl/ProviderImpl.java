@@ -19,15 +19,15 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.redv.bloggerapi.client.Blog;
-import com.redv.bloggerapi.client.Blogger;
-import com.redv.bloggerapi.client.BloggerImpl;
-import com.redv.bloggerapi.client.Fault;
-
 import cn.net.openid.Provider;
 import cn.net.openid.utils.OpenIDNVFormat;
 import cn.net.openid.utils.OpenIDUtils;
 import cn.net.openid.web.LoginForm;
+
+import com.redv.bloggerapi.client.Blog;
+import com.redv.bloggerapi.client.Blogger;
+import com.redv.bloggerapi.client.BloggerImpl;
+import com.redv.bloggerapi.client.Fault;
 
 /**
  * @author Shutra

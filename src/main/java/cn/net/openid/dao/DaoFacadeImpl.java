@@ -12,14 +12,6 @@ import cn.net.openid.User;
 public class DaoFacadeImpl implements DaoFacade {
 	private UserDao userDao;
 
-	/**
-	 * @param userDao
-	 *            the userDao to set
-	 */
-	public void setUserDao(UserDao userDao) {
-		this.userDao = userDao;
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -36,6 +28,23 @@ public class DaoFacadeImpl implements DaoFacade {
 	 */
 	public User getUserByOpenid(String openid) {
 		return this.userDao.getUserByOpenid(openid);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.dao.DaoFacade#saveUser(cn.net.openid.User)
+	 */
+	public String saveUser(User user) {
+		return this.userDao.saveUser(user);
+	}
+
+	/**
+	 * @param userDao
+	 *            the userDao to set
+	 */
+	public void setUserDao(UserDao userDao) {
+		this.userDao = userDao;
 	}
 
 }

@@ -9,12 +9,62 @@
 		<meta name="description" content="OpenID Provider" />
 		<link rel="stylesheet" type="text/css" media="screen"
 			href="openid.css" />
+		<script type="text/javascript">
+			function chkFrm() {
+				var objMember = document.getElementById("member");
+				if (objMember.value == "") {
+					alert("OpenID URL error.");
+					objMember.focus();
+					return false;
+				}
+				var objPassword = document.getElementById("password");
+				if (objPassword.value == "") {
+					alert("Password can't empty.");
+					objPassword.focus();
+					return false;
+				}
+				var objRetypePassword = document.getElementById("retypePassword");
+				if (objPassword.value != objRetypePassword.value) {
+					alert("Retype password not correct.");
+					objRetypePassword.focus();
+					return false;
+				}
+			}
+		</script>
 	</head>
 	<body>
 	<div>
-		<form action="register" method="post">
-			<label for="memeber">Your OpenID URL:</label>
-			http://<input type="text" id="member" name="member" class="sexy" size="10" value="$!{esc.html($!{command.member})}" />.openid.org.cn
+		<form action="register" method="post" onsubmit="return chkFrm()">
+			<table>
+				#springBind("command.member")
+				<tr>
+					<td>
+						<label for="memeber">Your OpenID URL:</label>
+					</td>
+					<td>
+						http://<input type="text" id="member" name="member" class="sexy" size="10" value="$!{esc.html($!{status.value})}" />.openid.org.cn
+						$!status.errorMessage
+					</td>
+				</tr>
+			</table>
+			<table>
+				<tr>
+					<td>
+						<label for="password">Password:</label>
+					</td>
+					<td>
+						<input type="password" id="password" name="password" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="retypePassword">Retype Password: </label>
+					</td>
+					<td>
+						<input type="password" id="retypePassword" name="retypePpassword" />
+					</td>
+				</tr>
+			</table>
 			<input type="submit" value="Register" style="background: rgb(255, 98, 0) none repeat scroll 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: rgb(255, 255, 255);"/>
 		</form>
 	</div>

@@ -13,4 +13,6 @@ public interface DaoFacade {
 	User getUser(String id);
 
 	User getUserByOpenid(String openid);
+
+	String saveUser(User user);
 }

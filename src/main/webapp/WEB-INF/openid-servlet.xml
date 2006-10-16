@@ -7,7 +7,7 @@
 		<property name="commandClass"
 			value="cn.net.openid.web.RegisterForm" />
 		<property name="formView" value="register" />
-		<property name="successView" value="register" />
+		<property name="successView" value="register-success" />
 	</bean>
 	<bean id="loginController"
 		class="cn.net.openid.web.LoginController">
