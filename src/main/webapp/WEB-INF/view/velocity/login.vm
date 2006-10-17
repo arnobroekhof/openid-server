@@ -12,6 +12,7 @@
 	</head>
 	<body>
 	<div>
+		#parse("header.vm")
 		<form action="login" method="post">
 			<table>
 				<tr>
@@ -35,6 +36,7 @@
 				</tr>
 			</table>
 		</form>
+		#parse("footer.vm")
 	</div>
 </body>
 </html>

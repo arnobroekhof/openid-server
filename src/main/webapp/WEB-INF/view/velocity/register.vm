@@ -34,6 +34,7 @@
 	</head>
 	<body>
 	<div>
+		#parse("header.vm")
 		<form action="register" method="post" onsubmit="return chkFrm()">
 			<table>
 				#springBind("command.member")
@@ -67,6 +68,7 @@
 			</table>
 			<input type="submit" value="Register" style="background: rgb(255, 98, 0) none repeat scroll 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: rgb(255, 255, 255);"/>
 		</form>
+		#parse("footer.vm")
 	</div>
 </body>
 </html>

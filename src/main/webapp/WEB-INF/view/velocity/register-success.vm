@@ -12,9 +12,11 @@
 	</head>
 	<body>
 	<div>
+		#parse("header.vm")
 		#springBind("command.member")
 		<a href="http://$!{status.value}.openid.org.cn">http://$!{status.value}.openid.org.cn</a> register OK.
 		<a href="login?openid=http://$!{status.value}.openid.org.cn">Login</a>
+		#parse("footer.vm")
 	</div>
 </body>
 </html>
