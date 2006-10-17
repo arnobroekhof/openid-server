@@ -49,6 +49,12 @@
 			</table>
 			<table>
 				<tr>
+				  <td>
+				  	<lable for="username">Username:</label>
+				  </td>
+				  <td>
+					  <input tyep="text" id="username" name="username" />
+				  </td>
 					<td>
 						<label for="password">Password:</label>
 					</td>

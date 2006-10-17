@@ -8,10 +8,5 @@
 			<generator class="uuid" />
 		</id>
 		<property name="openid" length="255" />
-		<list name="credentials" table="CREDENTIAL" lazy="false" inverse="true">
-			<key column="userId"></key>
-			<index column="id" />
-			<one-to-many class="UsernamePasswordCredential" />
-		</list>
 	</class>
 </hibernate-mapping>

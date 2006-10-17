@@ -3,6 +3,8 @@
  */
 package cn.net.openid.dao;
 
+import java.util.List;
+
 import cn.net.openid.Credential;
 import cn.net.openid.User;
 
@@ -14,6 +16,8 @@ public interface DaoFacade {
 	User getUser(String id);
 
 	User getUserByOpenid(String openid);
+
+	List<Credential> getCredentials(String userId);
 
 	String saveUser(User user);
 

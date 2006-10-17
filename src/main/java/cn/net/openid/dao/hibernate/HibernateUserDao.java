@@ -59,4 +59,16 @@ public class HibernateUserDao extends BaseHibernateEntityDao<User> implements
 		return (String) this.getHibernateTemplate().save(credential);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.dao.UserDao#getCredentials(java.lang.String)
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Credential> getCredentials(String userId) {
+		List<Credential> credentials = getHibernateTemplate().find(
+				"from UsernamePasswordCredential where user.id = ?", userId);
+		return credentials;
+	}
+
 }

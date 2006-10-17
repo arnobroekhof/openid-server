@@ -59,7 +59,11 @@ public class ProviderImpl implements Provider {
 	public boolean checkCredential(LoginForm lf) {
 		String openid = clean(lf.getOpenidUrl());
 		User user = this.daoFacade.getUserByOpenid(openid);
-		List<Credential> credentials = user.getCredentials();
+		if (user == null) {
+			return false;
+		}
+		List<Credential> credentials = this.daoFacade.getCredentials(user
+				.getId());
 		if (credentials.size() == 0) {
 			return false;
 		}
