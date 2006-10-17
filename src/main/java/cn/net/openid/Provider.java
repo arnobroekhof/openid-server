@@ -15,6 +15,13 @@ import cn.net.openid.web.LoginForm;
  * 
  */
 public interface Provider {
+	boolean checkCredential(LoginForm lf);
+
+	/**
+	 * @param lf
+	 * @return
+	 * @deprecated
+	 */
 	boolean checkPassword(LoginForm lf);
 
 	String sign(Map<String, String> verificationStringValueMap, byte[] macKey);

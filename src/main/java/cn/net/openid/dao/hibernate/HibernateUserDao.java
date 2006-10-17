@@ -5,6 +5,7 @@ package cn.net.openid.dao.hibernate;
 
 import java.util.List;
 
+import cn.net.openid.Credential;
 import cn.net.openid.User;
 import cn.net.openid.dao.UserDao;
 
@@ -47,6 +48,15 @@ public class HibernateUserDao extends BaseHibernateEntityDao<User> implements
 	 */
 	public String saveUser(User user) {
 		return (String) this.getHibernateTemplate().save(user);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.dao.UserDao#saveCredential(cn.net.openid.Credential)
+	 */
+	public String saveCredential(Credential credential) {
+		return (String) this.getHibernateTemplate().save(credential);
 	}
 
 }

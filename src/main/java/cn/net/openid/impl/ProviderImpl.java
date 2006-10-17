@@ -9,6 +9,7 @@ import java.net.MalformedURLException;
 import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.crypto.Mac;
@@ -19,7 +20,11 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import cn.net.openid.Credential;
 import cn.net.openid.Provider;
+import cn.net.openid.User;
+import cn.net.openid.UsernamePasswordCredential;
+import cn.net.openid.dao.DaoFacade;
 import cn.net.openid.utils.OpenIDNVFormat;
 import cn.net.openid.utils.OpenIDUtils;
 import cn.net.openid.web.LoginForm;
@@ -36,83 +41,35 @@ import com.redv.bloggerapi.client.Fault;
 public class ProviderImpl implements Provider {
 	private static final Log log = LogFactory.getLog(ProviderImpl.class);
 
+	private DaoFacade daoFacade;
+
+	/**
+	 * @param daoFacade
+	 *            the daoFacade to set
+	 */
+	public void setDaoFacade(DaoFacade daoFacade) {
+		this.daoFacade = daoFacade;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.Provider#checkPassword(java.lang.String,
-	 *      java.lang.String)
+	 * @see cn.net.openid.Provider#checkCredential(cn.net.openid.web.LoginForm)
 	 */
-	public boolean checkPassword(LoginForm lf) {
-		Blogger blogger = null;
-		try {
-			blogger = new BloggerImpl("http://xpert.cn/xmlrpc");
-		} catch (MalformedURLException e) {
-			throw new RuntimeException(e);
+	public boolean checkCredential(LoginForm lf) {
+		String openid = clean(lf.getOpenidUrl());
+		User user = this.daoFacade.getUserByOpenid(openid);
+		List<Credential> credentials = user.getCredentials();
+		if (credentials.size() == 0) {
+			return false;
 		}
-		Blog[] blogs = null;
-		try {
-			blogs = blogger.getUsersBlogs("", lf.getUsername(), lf
-					.getPassword());
-		} catch (Fault e) {
-			throw new RuntimeException(e);
-		}
-		String inputBlogId = lf.getOpenidUrl().substring(7,
-				lf.getOpenidUrl().indexOf("."));
-		log.debug("inputBlogId: " + inputBlogId);
-		for (Blog blog : blogs) {
-			if (inputBlogId.equalsIgnoreCase(blog.getBlogid())) {
-				return true;
-			}
+		UsernamePasswordCredential c = (UsernamePasswordCredential) credentials
+				.get(0);
+		if (c.getUsername().equalsIgnoreCase(lf.getUsername())
+				&& c.getPassword().equals(lf.getPassword())) {
+			return true;
 		}
 		return false;
-	}
-
-	public String sign(Map<String, String> verificationStringValueMap,
-			byte[] macKey) {
-		return this.sign(OpenIDNVFormat
-				.encodeToString(verificationStringValueMap), macKey);
-	}
-
-	public boolean checkSignature(
-			Map<String, String> verificationStringValueMap, String signature,
-			byte[] macKey) {
-		String messageInput = OpenIDNVFormat
-				.encodeToString(verificationStringValueMap);
-		BigInteger n = generateMAC(messageInput, macKey);
-		BigInteger input = new BigInteger(Base64.decodeBase64(signature
-				.getBytes()));
-		return n.equals(input);
-	}
-
-	private String sign(String inputString, byte[] macKey) {
-		return new String(Base64.encodeBase64(generateMAC(inputString, macKey)
-				.toByteArray()));
-	}
-
-	private BigInteger generateMAC(String messageInput, byte[] macKey) {
-		if (log.isDebugEnabled()) {
-			log.debug("Generating MAC for '" + messageInput + "'");
-		}
-		try {
-			Mac macAlg = Mac.getInstance("HmacSHA1");
-			macAlg.init(new SecretKeySpec(macKey, "HmacSHA1"));
-			byte[] digest = macAlg.doFinal(messageInput.getBytes());
-			if (log.isDebugEnabled()) {
-				log.debug("Generated MAC '"
-						+ new String(Base64.encodeBase64(digest)) + "'");
-			}
-			return new BigInteger(digest);
-		} catch (Exception e) {
-			log.error("Exception generating signature", e);
-			return null;
-		}
-	}
-
-	public byte[] generateMACKey() {
-		SecureRandom secureRandom = new SecureRandom();
-		byte[] newMACKey = new byte[20];
-		secureRandom.nextBytes(newMACKey);
-		return newMACKey;
 	}
 
 	/*
@@ -152,4 +109,94 @@ public class ProviderImpl implements Provider {
 		log.debug("redirectUrl: " + redirectUrl);
 		resp.sendRedirect(redirectUrl.toString());
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.Provider#checkPassword(java.lang.String,
+	 *      java.lang.String)
+	 */
+	public boolean checkPassword(LoginForm lf) {
+		Blogger blogger = null;
+		try {
+			blogger = new BloggerImpl("http://xpert.cn/xmlrpc");
+		} catch (MalformedURLException e) {
+			throw new RuntimeException(e);
+		}
+		Blog[] blogs = null;
+		try {
+			blogs = blogger.getUsersBlogs("", lf.getUsername(), lf
+					.getPassword());
+		} catch (Fault e) {
+			throw new RuntimeException(e);
+		}
+		String inputBlogId = lf.getOpenidUrl().substring(7,
+				lf.getOpenidUrl().indexOf("."));
+		log.debug("inputBlogId: " + inputBlogId);
+		for (Blog blog : blogs) {
+			if (inputBlogId.equalsIgnoreCase(blog.getBlogid())) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean checkSignature(
+			Map<String, String> verificationStringValueMap, String signature,
+			byte[] macKey) {
+		String messageInput = OpenIDNVFormat
+				.encodeToString(verificationStringValueMap);
+		BigInteger n = generateMAC(messageInput, macKey);
+		BigInteger input = new BigInteger(Base64.decodeBase64(signature
+				.getBytes()));
+		return n.equals(input);
+	}
+
+	private BigInteger generateMAC(String messageInput, byte[] macKey) {
+		if (log.isDebugEnabled()) {
+			log.debug("Generating MAC for '" + messageInput + "'");
+		}
+		try {
+			Mac macAlg = Mac.getInstance("HmacSHA1");
+			macAlg.init(new SecretKeySpec(macKey, "HmacSHA1"));
+			byte[] digest = macAlg.doFinal(messageInput.getBytes());
+			if (log.isDebugEnabled()) {
+				log.debug("Generated MAC '"
+						+ new String(Base64.encodeBase64(digest)) + "'");
+			}
+			return new BigInteger(digest);
+		} catch (Exception e) {
+			log.error("Exception generating signature", e);
+			return null;
+		}
+	}
+
+	public byte[] generateMACKey() {
+		SecureRandom secureRandom = new SecureRandom();
+		byte[] newMACKey = new byte[20];
+		secureRandom.nextBytes(newMACKey);
+		return newMACKey;
+	}
+
+	public String sign(Map<String, String> verificationStringValueMap,
+			byte[] macKey) {
+		return this.sign(OpenIDNVFormat
+				.encodeToString(verificationStringValueMap), macKey);
+	}
+
+	private String sign(String inputString, byte[] macKey) {
+		return new String(Base64.encodeBase64(generateMAC(inputString, macKey)
+				.toByteArray()));
+	}
+
+	private String clean(String url) {
+		if (url.startsWith("http://")) {
+			return url.substring("http://".length());
+		} else if (url.startsWith("https://")) {
+			return url.substring("https://".length());
+		} else {
+			return url;
+		}
+	}
+
 }

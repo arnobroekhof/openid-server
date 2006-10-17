@@ -5,6 +5,7 @@ package cn.net.openid;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Shutra
@@ -73,6 +74,8 @@ public class User implements Serializable {
 	 * example, "Europe/Paris" or "America/Los_Angeles".
 	 */
 	private String timezone;
+
+	private List<Credential> credentials;
 
 	/**
 	 * @return the country
@@ -237,6 +240,14 @@ public class User implements Serializable {
 	 */
 	public void setTimezone(String timezone) {
 		this.timezone = timezone;
+	}
+
+	public void setCredentials(List<Credential> credentails) {
+		this.credentials = credentails;
+	}
+
+	public List<Credential> getCredentials() {
+		return credentials;
 	}
 
 }

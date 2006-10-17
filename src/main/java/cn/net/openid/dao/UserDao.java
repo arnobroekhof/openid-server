@@ -3,6 +3,7 @@
  */
 package cn.net.openid.dao;
 
+import cn.net.openid.Credential;
 import cn.net.openid.User;
 
 /**
@@ -15,4 +16,6 @@ public interface UserDao {
 	User getUserByOpenid(String openid);
 
 	String saveUser(User user);
+
+	String saveCredential(Credential credential);
 }

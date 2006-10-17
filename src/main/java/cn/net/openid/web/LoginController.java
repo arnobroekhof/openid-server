@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import cn.net.openid.Provider;
+import cn.net.openid.dao.DaoFacade;
 import cn.net.openid.utils.OpenIDUtils;
 
 /**
@@ -24,8 +25,19 @@ import cn.net.openid.utils.OpenIDUtils;
 public class LoginController extends SimpleFormController {
 	private Provider provider;
 
+	@SuppressWarnings("unused")
+	private DaoFacade daoFacade;
+
 	public void setProvider(Provider provider) {
 		this.provider = provider;
+	}
+
+	/**
+	 * @param daoFacade
+	 *            the daoFacade to set
+	 */
+	public void setDaoFacade(DaoFacade daoFacade) {
+		this.daoFacade = daoFacade;
 	}
 
 	/*
@@ -66,7 +78,7 @@ public class LoginController extends SimpleFormController {
 			HttpServletResponse response, Object command, BindException errors)
 			throws Exception {
 		LoginForm lf = (LoginForm) command;
-		if (this.provider.checkPassword(lf)) {
+		if (this.check(lf)) {
 			HttpSession session = request.getSession();
 			session.setAttribute("cn.net.openid.identity", lf.getOpenidUrl());
 			this.provider.checkIdSetupResponse(session.getAttribute(
@@ -78,4 +90,13 @@ public class LoginController extends SimpleFormController {
 			return super.onSubmit(request, response, command, errors);
 		}
 	}
+
+	private boolean check(LoginForm lf) {
+		if (this.provider.checkCredential(lf)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 }

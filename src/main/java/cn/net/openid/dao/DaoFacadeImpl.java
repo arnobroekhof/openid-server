@@ -3,6 +3,7 @@
  */
 package cn.net.openid.dao;
 
+import cn.net.openid.Credential;
 import cn.net.openid.User;
 
 /**
@@ -45,6 +46,15 @@ public class DaoFacadeImpl implements DaoFacade {
 	 */
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.dao.DaoFacade#saveCredential(cn.net.openid.Credential)
+	 */
+	public String saveCredential(Credential credential) {
+		return this.userDao.saveCredential(credential);
 	}
 
 }

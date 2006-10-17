@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import cn.net.openid.User;
+import cn.net.openid.UsernamePasswordCredential;
 import cn.net.openid.dao.DaoFacade;
 
 /**
@@ -74,6 +75,11 @@ public class RegisterController extends SimpleFormController {
 		User user = new User();
 		user.setOpenid(form.getMember() + ".openid.org.cn");
 		this.daoFacade.saveUser(user);
+		UsernamePasswordCredential credential = new UsernamePasswordCredential();
+		credential.setUser(user);
+		credential.setUsername(form.getUsername());
+		credential.setPassword(form.getPassword());
+		this.daoFacade.saveCredential(credential);
 		return super.onSubmit(command, errors);
 	}
 
