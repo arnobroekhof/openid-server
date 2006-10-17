@@ -23,7 +23,6 @@ import org.apache.commons.logging.LogFactory;
 import cn.net.openid.Credential;
 import cn.net.openid.Provider;
 import cn.net.openid.User;
-import cn.net.openid.UsernamePasswordCredential;
 import cn.net.openid.dao.DaoFacade;
 import cn.net.openid.utils.OpenIDNVFormat;
 import cn.net.openid.utils.OpenIDUtils;
@@ -67,10 +66,8 @@ public class ProviderImpl implements Provider {
 		if (credentials.size() == 0) {
 			return false;
 		}
-		UsernamePasswordCredential c = (UsernamePasswordCredential) credentials
-				.get(0);
-		if (c.getUsername().equalsIgnoreCase(lf.getUsername())
-				&& c.getPassword().equals(lf.getPassword())) {
+		Credential c = (Credential) credentials.get(0);
+		if (new String(c.getInfo()).equals(lf.getPassword())) {
 			return true;
 		}
 		return false;
@@ -121,6 +118,8 @@ public class ProviderImpl implements Provider {
 	 *      java.lang.String)
 	 */
 	public boolean checkPassword(LoginForm lf) {
+		return false;
+		/*
 		Blogger blogger = null;
 		try {
 			blogger = new BloggerImpl("http://xpert.cn/xmlrpc");
@@ -143,6 +142,7 @@ public class ProviderImpl implements Provider {
 			}
 		}
 		return false;
+		*/
 	}
 
 	public boolean checkSignature(

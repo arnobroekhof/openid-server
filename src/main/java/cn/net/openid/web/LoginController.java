@@ -28,16 +28,54 @@ public class LoginController extends SimpleFormController {
 	@SuppressWarnings("unused")
 	private DaoFacade daoFacade;
 
-	public void setProvider(Provider provider) {
-		this.provider = provider;
+	private boolean check(LoginForm lf) {
+		if (this.provider.checkCredential(lf)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
-	/**
-	 * @param daoFacade
-	 *            the daoFacade to set
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.springframework.web.servlet.mvc.BaseCommandController#onBindAndValidate(javax.servlet.http.HttpServletRequest,
+	 *      java.lang.Object, org.springframework.validation.BindException)
 	 */
-	public void setDaoFacade(DaoFacade daoFacade) {
-		this.daoFacade = daoFacade;
+	@Override
+	protected void onBindAndValidate(HttpServletRequest request,
+			Object command, BindException errors) throws Exception {
+		LoginForm lf = (LoginForm) command;
+		if (!this.check(lf)) {
+			errors.rejectValue("openidUrl", "", "认证失败。");
+		}
+		super.onBindAndValidate(request, command, errors);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax.servlet.http.HttpServletRequest,
+	 *      javax.servlet.http.HttpServletResponse, java.lang.Object,
+	 *      org.springframework.validation.BindException)
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	protected ModelAndView onSubmit(HttpServletRequest request,
+			HttpServletResponse response, Object command, BindException errors)
+			throws Exception {
+		LoginForm lf = (LoginForm) command;
+		HttpSession session = request.getSession();
+		session.setAttribute("cn.net.openid.identity", lf.getOpenidUrl());
+		Map<String, String[]> pm = (Map<String, String[]>) request.getSession()
+				.getAttribute("parameterMap");
+		if (pm != null) {
+			this.provider.checkIdSetupResponse(session.getAttribute(
+					"cn.net.openid.identity").toString(), pm, response);
+			return null;
+		} else {
+			return super.onSubmit(request, response, command, errors);
+		}
 	}
 
 	/*
@@ -65,38 +103,16 @@ public class LoginController extends SimpleFormController {
 		return super.referenceData(request, command, errors);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax.servlet.http.HttpServletRequest,
-	 *      javax.servlet.http.HttpServletResponse, java.lang.Object,
-	 *      org.springframework.validation.BindException)
+	/**
+	 * @param daoFacade
+	 *            the daoFacade to set
 	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	protected ModelAndView onSubmit(HttpServletRequest request,
-			HttpServletResponse response, Object command, BindException errors)
-			throws Exception {
-		LoginForm lf = (LoginForm) command;
-		if (this.check(lf)) {
-			HttpSession session = request.getSession();
-			session.setAttribute("cn.net.openid.identity", lf.getOpenidUrl());
-			this.provider.checkIdSetupResponse(session.getAttribute(
-					"cn.net.openid.identity").toString(),
-					(Map<String, String[]>) request.getSession().getAttribute(
-							"parameterMap"), response);
-			return null;
-		} else {
-			return super.onSubmit(request, response, command, errors);
-		}
+	public void setDaoFacade(DaoFacade daoFacade) {
+		this.daoFacade = daoFacade;
 	}
 
-	private boolean check(LoginForm lf) {
-		if (this.provider.checkCredential(lf)) {
-			return true;
-		} else {
-			return false;
-		}
+	public void setProvider(Provider provider) {
+		this.provider = provider;
 	}
 
 }

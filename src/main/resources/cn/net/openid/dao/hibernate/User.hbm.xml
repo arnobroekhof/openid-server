@@ -8,5 +8,14 @@
 			<generator class="uuid" />
 		</id>
 		<property name="openid" length="255" />
+		<property name="nickname" length="255" />
+		<property name="email" length="255" />
+		<property name="fullname" length="255" />
+		<property name="dob" />
+		<property name="gender" />
+		<property name="postcode" />
+		<property name="country" />
+		<property name="language" />
+		<property name="timezone" />
 	</class>
 </hibernate-mapping>

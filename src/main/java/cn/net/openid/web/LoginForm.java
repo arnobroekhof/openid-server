@@ -17,8 +17,6 @@ public class LoginForm implements Serializable {
 
 	private String openidUrl;
 
-	private String username;
-
 	private String password;
 
 	/**
@@ -49,21 +47,6 @@ public class LoginForm implements Serializable {
 	 */
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	/**
-	 * @return the username
-	 */
-	public String getUsername() {
-		return username;
-	}
-
-	/**
-	 * @param username
-	 *            the username to set
-	 */
-	public void setUsername(String username) {
-		this.username = username;
 	}
 
 }

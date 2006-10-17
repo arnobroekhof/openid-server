@@ -67,7 +67,7 @@ public class HibernateUserDao extends BaseHibernateEntityDao<User> implements
 	@SuppressWarnings("unchecked")
 	public List<Credential> getCredentials(String userId) {
 		List<Credential> credentials = getHibernateTemplate().find(
-				"from UsernamePasswordCredential where user.id = ?", userId);
+				"from Credential where user.id = ?", userId);
 		return credentials;
 	}
 

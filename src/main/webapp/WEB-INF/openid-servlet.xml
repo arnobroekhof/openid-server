@@ -14,7 +14,7 @@
 		<property name="commandClass"
 			value="cn.net.openid.web.LoginForm" />
 		<property name="formView" value="login" />
-		<property name="successView" value="login" />
+		<property name="successView" value="login-success" />
 		<property name="provider" ref="provider" />
 	</bean>
 	<bean id="secureHandlerMapping"

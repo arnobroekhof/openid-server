@@ -24,14 +24,6 @@
 				</tr>
 				<tr>
 					<td>
-						<label for="username">Username:</label>
-					</td>
-					<td>
-						<input type="text" id="username" name="username" size="30" value="$!{esc.html($!{command.username})}" />
-					</td>
-				</tr>
-				<tr>
-					<td>
 						<label for="password">Password:</lable>
 					</td>
 					<td>
