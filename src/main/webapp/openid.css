@@ -40,6 +40,13 @@ input.button {
 	color: rgb(255, 255, 255);
 }
 
+input {
+	background-color: #fff;
+	background-position: 0 50%;
+	color: #000;
+	border: 1px #A5ACB2 solid;
+}
+
 a {
 	color: #ff5600;
 }
@@ -67,9 +74,22 @@ pre {
 }
 
 #navbar {
-	background-color: #EEE;
-	border-top: 1px solid #AAA;
-	border-bottom: 1px solid #AAA;
+	text-align:center;
+	line-height:30px;
 	padding-left: 4px;
 	padding-right: 4px;
 }
+#navbar a{
+	font-size:16px;
+	font-weight:bold;
+	padding-left:10px;
+	letter-spacing:10px;
+	border-bottom:1px solid #FF0000;
+}
+
+#navbar a:hover {
+	text-decoration: none;
+	background-color: yellow;
+	border-top:20px yellow solid;
+}
+
