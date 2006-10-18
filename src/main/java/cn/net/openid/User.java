@@ -47,7 +47,7 @@ public class User implements Serializable {
 	/**
 	 * The End User's gender, "M" for male, "F" for female.
 	 */
-	private char gender;
+	private String gender;
 
 	/**
 	 * UTF-8 string free text that SHOULD conform to the End User's country's
@@ -107,7 +107,7 @@ public class User implements Serializable {
 	/**
 	 * @return the gender
 	 */
-	public char getGender() {
+	public String getGender() {
 		return gender;
 	}
 
@@ -196,7 +196,7 @@ public class User implements Serializable {
 	 * @param gender
 	 *            the gender to set
 	 */
-	public void setGender(char gender) {
+	public void setGender(String gender) {
 		this.gender = gender;
 	}
 
