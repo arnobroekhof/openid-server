@@ -7,8 +7,8 @@
 		<meta name="robots" content="all" />
 		<meta name="keywords" content="openid" />
 		<meta name="description" content="OpenID Provider" />
-		<link rel="stylesheet" type="text/css" media="screen"
-			href="openid.css" />
+		#parse("css.vm")
+		#parse("scripts.vm")
 		<script type="text/javascript">
 			function chkFrm() {
 				var objMember = document.getElementById("member");
@@ -40,18 +40,18 @@
 				#springBind("command.member")
 				<tr>
 					<td>
-						<label for="memeber">Your OpenID URL:</label>
+						<label for="memeber">OpenID：</label>
 					</td>
 					<td>
 						http://<input type="text" id="member" name="member" class="sexy" size="10" value="$!{esc.html($!{status.value})}" />.openid.org.cn
-						$!status.errorMessage
+						<span class="error">$!{status.errorMessage}</span>
 					</td>
 				</tr>
 			</table>
 			<table>
 				<tr>
 					<td>
-						<label for="password">Password:</label>
+						<label for="password">密码：</label>
 					</td>
 					<td>
 						<input type="password" id="password" name="password" />
@@ -59,14 +59,14 @@
 				</tr>
 				<tr>
 					<td>
-						<label for="retypePassword">Retype Password: </label>
+						<label for="retypePassword">密码确认：</label>
 					</td>
 					<td>
 						<input type="password" id="retypePassword" name="retypePpassword" />
 					</td>
 				</tr>
 			</table>
-			<input type="submit" value="Register" style="background: rgb(255, 98, 0) none repeat scroll 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: rgb(255, 255, 255);"/>
+			<input type="submit" value="注册" class="button" />
 		</form>
 		#parse("footer.vm")
 	</div>

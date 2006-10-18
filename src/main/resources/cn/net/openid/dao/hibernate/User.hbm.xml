@@ -17,5 +17,6 @@
 		<property name="country" />
 		<property name="language" />
 		<property name="timezone" />
+		<property name="registerTime" type="date" />
 	</class>
 </hibernate-mapping>

@@ -7,15 +7,15 @@
 		<meta name="robots" content="all" />
 		<meta name="keywords" content="openid" />
 		<meta name="description" content="OpenID Provider" />
-		<link rel="stylesheet" type="text/css" media="screen"
-			href="openid.css" />
+		#parse("css.vm")
+		#parse("scripts.vm")
 	</head>
 	<body>
 	<div>
 		#parse("header.vm")
 		#springBind("command.member")
-		<a href="http://$!{status.value}.openid.org.cn">http://$!{status.value}.openid.org.cn</a> register OK.
-		<a href="login?openid=http://$!{status.value}.openid.org.cn">Login</a>
+		OpenID：<a href="http://$!{status.value}.openid.org.cn">http://$!{status.value}.openid.org.cn</a> 注册成功。
+		<a href="login?openidUrl=http://$!{status.value}.openid.org.cn">登录</a>
 		#parse("footer.vm")
 	</div>
 </body>

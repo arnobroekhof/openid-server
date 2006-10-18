@@ -98,7 +98,7 @@ public class LoginController extends SimpleFormController {
 		}
 
 		if (lf.getOpenidUrl() == null || lf.getOpenidUrl().length() == 0) {
-			lf.setOpenidUrl(request.getParameter("openid"));
+			lf.setOpenidUrl(request.getParameter("openidUrl"));
 		}
 		return super.referenceData(request, command, errors);
 	}

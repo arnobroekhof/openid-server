@@ -7,13 +7,35 @@
 		<meta name="robots" content="all" />
 		<meta name="keywords" content="openid" />
 		<meta name="description" content="OpenID Provider" />
-		<link rel="stylesheet" type="text/css" media="screen"
-			href="openid.css" />
+		#parse("css.vm")
+		#parse("scripts.vm")
 	</head>
 	<body>
 	<div>
 		#parse("header.vm")
-		login success.
+		登录成功。
+		<h3>Using Your Own OpenID URL</h3>
+
+<p>
+你的OpenID是:
+</p>
+
+<pre>
+$!{command.openidUrl}
+</pre>
+
+<p>
+
+或者你可以使用自己的URL作为OpenID。只需要在你的URL对应网页的<code>&lt;HEAD&gt;</code>部分加入下列两行内容
+
+<pre>
+&lt;link rel="openid.server" href="http://openid.org.cn/openid.server"&gt;
+&lt;link rel="openid.delegate" href="$!{command.openidUrl}"&gt;
+</pre>
+
+这样即可使用自己的URL作为OpenID。
+
+</p>
 		#parse("footer.vm")
 	</div>
 </body>

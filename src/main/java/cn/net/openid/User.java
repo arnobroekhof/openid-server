@@ -74,6 +74,8 @@ public class User implements Serializable {
 	 */
 	private String timezone;
 
+	private Date registerTime = new Date();
+
 	/**
 	 * @return the country
 	 */
@@ -237,6 +239,21 @@ public class User implements Serializable {
 	 */
 	public void setTimezone(String timezone) {
 		this.timezone = timezone;
+	}
+
+	/**
+	 * @return the registerTime
+	 */
+	public Date getRegisterTime() {
+		return registerTime;
+	}
+
+	/**
+	 * @param registerTime
+	 *            the registerTime to set
+	 */
+	public void setRegisterTime(Date registerTime) {
+		this.registerTime = registerTime;
 	}
 
 }
