@@ -28,6 +28,17 @@
 			<param-value>UTF-8</param-value>
 		</init-param>
 	</filter>
+	<filter>
+		<display-name>Member Filter</display-name>
+		<filter-name>Member Filter</filter-name>
+		<filter-class>cn.net.openid.web.MemberFilter</filter-class>
+		<init-param>
+			<param-name>fromPattern</param-name>
+			<param-value>
+				<![CDATA[^[0-9a-zA-Z]+://([0-9a-zA-Z]+).openid.org.cn]]>
+			</param-value>
+		</init-param>
+	</filter>
 	<servlet>
 		<display-name>Open ID Provider</display-name>
 		<servlet-name>server</servlet-name>
@@ -55,6 +66,10 @@
 	</servlet>
 	<filter-mapping>
 		<filter-name>Set Character Encoding Filter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Member Filter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	<servlet-mapping>

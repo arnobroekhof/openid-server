@@ -33,7 +33,7 @@ public class HibernateUserDao extends BaseHibernateEntityDao<User> implements
 	@SuppressWarnings("unchecked")
 	public User getUserByOpenid(String openid) {
 		List<User> users = getHibernateTemplate().find(
-				"from User where openid = ?", openid);
+				"from User where username = ?", openid);
 		if (users.isEmpty()) {
 			return null;
 		} else {

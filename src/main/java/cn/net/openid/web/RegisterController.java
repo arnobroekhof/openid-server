@@ -73,7 +73,7 @@ public class RegisterController extends SimpleFormController {
 			throws Exception {
 		RegisterForm form = (RegisterForm) command;
 		User user = new User();
-		user.setOpenid(form.getMember() + ".openid.org.cn");
+		user.setUsername(form.getMember());
 		this.daoFacade.saveUser(user);
 		Credential credential = new Credential();
 		credential.setUser(user);

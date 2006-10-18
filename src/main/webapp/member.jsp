@@ -1,7 +1,9 @@
 <html>
 	<head>
 		<link rel="openid.server" href="${openIdServer}" />
+		<%--
 		<link rel="openid.delegate" href="${openIdDelegate}" />
+		--%>
 	</head>
 	<body>
 		<h3>

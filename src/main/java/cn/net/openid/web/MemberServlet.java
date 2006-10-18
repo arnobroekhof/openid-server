@@ -54,7 +54,7 @@ public class MemberServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		req.setAttribute("openIdServer", this.openIdServer);
-		req.setAttribute("openIdDelegate", req.getRequestURL());
+		// req.setAttribute("openIdDelegate", req.getRequestURL());
 		req.setAttribute("openIdMember", req.getPathInfo().substring(1));
 		this.context.getRequestDispatcher("/member.jsp").forward(req, resp);
 	}

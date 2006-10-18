@@ -7,7 +7,7 @@
 			length="32">
 			<generator class="uuid" />
 		</id>
-		<property name="openid" length="255" />
+		<property name="username" length="255" unique="true" />
 		<property name="nickname" length="255" />
 		<property name="email" length="255" />
 		<property name="fullname" length="255" />

@@ -19,7 +19,7 @@ public class User implements Serializable {
 
 	private String id;
 
-	private String openid;
+	private String username;
 
 	/**
 	 * Any UTF-8 string that the End User wants to use as a nickname.
@@ -133,13 +133,6 @@ public class User implements Serializable {
 	}
 
 	/**
-	 * @return the openid
-	 */
-	public String getOpenid() {
-		return openid;
-	}
-
-	/**
 	 * @return the postcode
 	 */
 	public String getPostcode() {
@@ -147,10 +140,24 @@ public class User implements Serializable {
 	}
 
 	/**
+	 * @return the registerTime
+	 */
+	public Date getRegisterTime() {
+		return registerTime;
+	}
+
+	/**
 	 * @return the timezone
 	 */
 	public String getTimezone() {
 		return timezone;
+	}
+
+	/**
+	 * @return the username
+	 */
+	public String getUsername() {
+		return username;
 	}
 
 	/**
@@ -218,19 +225,19 @@ public class User implements Serializable {
 	}
 
 	/**
-	 * @param openid
-	 *            the openid to set
-	 */
-	public void setOpenid(String openid) {
-		this.openid = openid;
-	}
-
-	/**
 	 * @param postcode
 	 *            the postcode to set
 	 */
 	public void setPostcode(String postcode) {
 		this.postcode = postcode;
+	}
+
+	/**
+	 * @param registerTime
+	 *            the registerTime to set
+	 */
+	public void setRegisterTime(Date registerTime) {
+		this.registerTime = registerTime;
 	}
 
 	/**
@@ -242,18 +249,11 @@ public class User implements Serializable {
 	}
 
 	/**
-	 * @return the registerTime
+	 * @param username
+	 *            the username to set
 	 */
-	public Date getRegisterTime() {
-		return registerTime;
-	}
-
-	/**
-	 * @param registerTime
-	 *            the registerTime to set
-	 */
-	public void setRegisterTime(Date registerTime) {
-		this.registerTime = registerTime;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 }

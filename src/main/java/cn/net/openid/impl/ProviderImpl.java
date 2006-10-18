@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -56,8 +58,11 @@ public class ProviderImpl implements Provider {
 	 * @see cn.net.openid.Provider#checkCredential(cn.net.openid.web.LoginForm)
 	 */
 	public boolean checkCredential(LoginForm lf) {
-		String openid = clean(lf.getOpenidUrl());
-		User user = this.daoFacade.getUserByOpenid(openid);
+		String username = this.getUsername(lf.getOpenidUrl());
+		if (username == null) {
+			return false;
+		}
+		User user = this.daoFacade.getUserByOpenid(username);
 		if (user == null) {
 			return false;
 		}
@@ -120,29 +125,17 @@ public class ProviderImpl implements Provider {
 	public boolean checkPassword(LoginForm lf) {
 		return false;
 		/*
-		Blogger blogger = null;
-		try {
-			blogger = new BloggerImpl("http://xpert.cn/xmlrpc");
-		} catch (MalformedURLException e) {
-			throw new RuntimeException(e);
-		}
-		Blog[] blogs = null;
-		try {
-			blogs = blogger.getUsersBlogs("", lf.getUsername(), lf
-					.getPassword());
-		} catch (Fault e) {
-			throw new RuntimeException(e);
-		}
-		String inputBlogId = lf.getOpenidUrl().substring(7,
-				lf.getOpenidUrl().indexOf("."));
-		log.debug("inputBlogId: " + inputBlogId);
-		for (Blog blog : blogs) {
-			if (inputBlogId.equalsIgnoreCase(blog.getBlogid())) {
-				return true;
-			}
-		}
-		return false;
-		*/
+		 * Blogger blogger = null; try { blogger = new
+		 * BloggerImpl("http://xpert.cn/xmlrpc"); } catch (MalformedURLException
+		 * e) { throw new RuntimeException(e); } Blog[] blogs = null; try {
+		 * blogs = blogger.getUsersBlogs("", lf.getUsername(), lf
+		 * .getPassword()); } catch (Fault e) { throw new RuntimeException(e); }
+		 * String inputBlogId = lf.getOpenidUrl().substring(7,
+		 * lf.getOpenidUrl().indexOf(".")); log.debug("inputBlogId: " +
+		 * inputBlogId); for (Blog blog : blogs) { if
+		 * (inputBlogId.equalsIgnoreCase(blog.getBlogid())) { return true; } }
+		 * return false;
+		 */
 	}
 
 	public boolean checkSignature(
@@ -193,14 +186,14 @@ public class ProviderImpl implements Provider {
 				.toByteArray()));
 	}
 
-	private String clean(String url) {
-		if (url.startsWith("http://")) {
-			return url.substring("http://".length());
-		} else if (url.startsWith("https://")) {
-			return url.substring("https://".length());
-		} else {
-			return url;
+	private String getUsername(String openid) {
+		Pattern p = Pattern
+				.compile("^[0-9a-zA-Z]+://([0-9a-zA-Z]+).openid.org.cn");
+		Matcher m = p.matcher(openid);
+		if (m.find()) {
+			return m.group(1);
 		}
+		return null;
 	}
 
 }
