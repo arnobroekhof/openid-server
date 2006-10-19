@@ -31,7 +31,7 @@
 						<label for="password">密码：</lable>
 					</td>
 					<td>
-						<input type="password" id="password" name="password" size="33" />
+						<input type="password" class="common" id="password" name="password" size="33" />
 						<span class="error">$!{status.errorMessage}</span>
 					</td>
 				</tr>
