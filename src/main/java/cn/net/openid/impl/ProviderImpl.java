@@ -5,7 +5,6 @@ package cn.net.openid.impl;
 
 import java.io.IOException;
 import java.math.BigInteger;
-import java.net.MalformedURLException;
 import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -29,11 +28,6 @@ import cn.net.openid.dao.DaoFacade;
 import cn.net.openid.utils.OpenIDNVFormat;
 import cn.net.openid.utils.OpenIDUtils;
 import cn.net.openid.web.LoginForm;
-
-import com.redv.bloggerapi.client.Blog;
-import com.redv.bloggerapi.client.Blogger;
-import com.redv.bloggerapi.client.BloggerImpl;
-import com.redv.bloggerapi.client.Fault;
 
 /**
  * @author Shutra
@@ -62,7 +56,7 @@ public class ProviderImpl implements Provider {
 		if (username == null) {
 			return false;
 		}
-		User user = this.daoFacade.getUserByOpenid(username);
+		User user = this.daoFacade.getUserByUsername(username);
 		if (user == null) {
 			return false;
 		}

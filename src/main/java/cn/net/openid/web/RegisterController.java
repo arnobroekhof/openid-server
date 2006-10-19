@@ -51,8 +51,7 @@ public class RegisterController extends SimpleFormController {
 		}
 
 		if (!errors.hasErrors()) {
-			User user = this.daoFacade.getUserByOpenid(member
-					+ ".openid.org.cn");
+			User user = this.daoFacade.getUserByUsername(member);
 			if (user != null) {
 				errors.rejectValue("member", "error",
 						"该OpenID已经被其他人申请了，你只能换一个了。");

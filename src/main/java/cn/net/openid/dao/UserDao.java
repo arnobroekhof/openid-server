@@ -15,7 +15,7 @@ import cn.net.openid.User;
 public interface UserDao {
 	User getUser(String id);
 
-	User getUserByOpenid(String openid);
+	User getUserByUsername(String username);
 
 	List<Credential> getCredentials(String userId);
 

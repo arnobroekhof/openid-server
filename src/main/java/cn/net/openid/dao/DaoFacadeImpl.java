@@ -27,10 +27,10 @@ public class DaoFacadeImpl implements DaoFacade {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.dao.DaoFacade#getUserByOpenid(java.lang.String)
+	 * @see cn.net.openid.dao.DaoFacade#getUserByUsername(java.lang.String)
 	 */
-	public User getUserByOpenid(String openid) {
-		return this.userDao.getUserByOpenid(openid);
+	public User getUserByUsername(String username) {
+		return this.userDao.getUserByUsername(username);
 	}
 
 	/*
@@ -59,7 +59,9 @@ public class DaoFacadeImpl implements DaoFacade {
 		return this.userDao.saveCredential(credential);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see cn.net.openid.dao.DaoFacade#getCredentiasl(java.lang.String)
 	 */
 	public List<Credential> getCredentials(String userId) {

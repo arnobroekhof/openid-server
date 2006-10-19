@@ -28,12 +28,12 @@ public class HibernateUserDao extends BaseHibernateEntityDao<User> implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.dao.UserDao#getUserByOpenid(java.lang.String)
+	 * @see cn.net.openid.dao.UserDao#getUserByUsername(java.lang.String)
 	 */
 	@SuppressWarnings("unchecked")
-	public User getUserByOpenid(String openid) {
+	public User getUserByUsername(String username) {
 		List<User> users = getHibernateTemplate().find(
-				"from User where username = ?", openid);
+				"from User where username = ?", username);
 		if (users.isEmpty()) {
 			return null;
 		} else {
