@@ -105,7 +105,7 @@ public class LoginController extends SimpleFormController {
 		}
 
 		if (StringUtils.isEmpty(lf.getUsername())) {
-			lf.setUsername(request.getParameter("member"));
+			lf.setUsername(request.getParameter("username"));
 		}
 		return super.referenceData(request, command, errors);
 	}

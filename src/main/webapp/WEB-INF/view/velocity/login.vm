@@ -17,7 +17,7 @@
 			<table>
 				#springBind("command.username")
 				<tr>
-					<td width="90" align="right">
+					<td class="label">
 						<label for="username">OpenID：</label>
 					</td>
 					<td>
@@ -27,22 +27,19 @@
 				</tr>
 				#springBind("command.password")
 				<tr>
-					<td align="right">
-						<label for="password">密码：</lable>
+					<td class="label">
+						<label for="password">密码：</label>
 					</td>
 					<td>
 						<input type="password" class="common" id="password" name="password" size="33" />
 						<span class="error">$!{status.errorMessage}</span>
 					</td>
 				</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td><input type="submit" value="登录" class="button" /></td>
+				</tr>
 			</table>
-			<table width="200" border="0">
-              <tr>
-                <td width="90">&nbsp;</td>
-                <td><input type="submit" value="登录" class="button" /></td>
-              </tr>
-            </table>
-			
 		</form>
 		#parse("footer.vm")
 	</div>

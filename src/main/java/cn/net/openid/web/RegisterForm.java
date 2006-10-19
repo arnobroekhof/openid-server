@@ -16,16 +16,9 @@ public class RegisterForm implements Serializable {
 	 */
 	private static final long serialVersionUID = 8100263157196112732L;
 
-	private String member;
+	private String username;
 
 	private String password;
-
-	/**
-	 * @return the member
-	 */
-	public String getMember() {
-		return member;
-	}
 
 	/**
 	 * @return the password
@@ -35,11 +28,10 @@ public class RegisterForm implements Serializable {
 	}
 
 	/**
-	 * @param member
-	 *            the member to set
+	 * @return the username
 	 */
-	public void setMember(String member) {
-		this.member = member;
+	public String getUsername() {
+		return username;
 	}
 
 	/**
@@ -48,6 +40,14 @@ public class RegisterForm implements Serializable {
 	 */
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	/**
+	 * @param username
+	 *            the username to set
+	 */
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 }

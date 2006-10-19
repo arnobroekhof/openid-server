@@ -1,16 +1,19 @@
 * {
 	font-size: 14px;
-	font-family: Tahoma;
+	font-family: Arial, verdana, sans-serif, Tahoma;
 	line-height: 150%;
 }
 
 a {
 	text-decoration: none;
+	background-color: #fff;
+	color: #ff5600;
 }
 
 a:hover {
 	text-decoration: underline;
 	background-color: yellow;
+	color: #ff5600;
 }
 
 body {
@@ -33,9 +36,11 @@ input.sexy {
 
 input.button {
 	background: rgb(255, 98, 0) none repeat scroll 0%;
+	/*
 	-moz-background-clip: -moz-initial;
 	-moz-background-origin: -moz-initial;
 	-moz-background-inline-policy: -moz-initial;
+	*/
 	color: rgb(255, 255, 255);
 }
 
@@ -46,15 +51,12 @@ input.common {
 	border: 1px #A5ACB2 solid;
 }
 
-a {
-	color: #ff5600;
-}
-
 p {
 	margin-top: 0;
 }
 
 pre {
+	color: #000;
 	background: #eee;
 	border: 1px solid #777;
 	padding: 7px;
@@ -62,10 +64,20 @@ pre {
 
 .error {
 	color: red;
+	background: #fff;
+}
+
+td.label {
+	width: 90px;
+	text-align: right;
 }
 
 #header {
 	
+}
+
+#logo {
+	text-align: center;
 }
 
 #footer {
@@ -96,6 +108,7 @@ pre {
 
 #navbar a:hover {
 	text-decoration: none;
+	color: #ff5600;
 	background-color: yellow;
 	padding-top: 5px;
 	border-top: 3px #006699 solid;

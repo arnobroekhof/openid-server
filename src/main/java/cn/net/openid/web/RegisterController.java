@@ -42,19 +42,19 @@ public class RegisterController extends SimpleFormController {
 	protected void onBindAndValidate(HttpServletRequest request,
 			Object command, BindException errors) throws Exception {
 		RegisterForm form = (RegisterForm) command;
-		String member = form.getMember();
-		if (member != null) {
-			Matcher m = this.pattern.matcher(member);
+		String username = form.getUsername();
+		if (username != null) {
+			Matcher m = this.pattern.matcher(username);
 			if (!m.matches()) {
-				errors.rejectValue("member", "error", "错误的格式。");
+				errors.rejectValue("username", "error", "错误的格式。");
 			}
 		}
 
 		if (!errors.hasErrors()) {
-			User user = this.daoFacade.getUserByUsername(member);
+			User user = this.daoFacade.getUserByUsername(username);
 			if (user != null) {
-				errors.rejectValue("member", "error",
-						"该OpenID已经被其他人申请了，你只能换一个了。");
+				errors.rejectValue("username", "error",
+						"该 OpenID 已经被其他人申请了，你只能换一个了。");
 			}
 		}
 
@@ -72,7 +72,7 @@ public class RegisterController extends SimpleFormController {
 			throws Exception {
 		RegisterForm form = (RegisterForm) command;
 		User user = new User();
-		user.setUsername(form.getMember());
+		user.setUsername(form.getUsername());
 		this.daoFacade.saveUser(user);
 		Credential credential = new Credential();
 		credential.setUser(user);
@@ -91,7 +91,7 @@ public class RegisterController extends SimpleFormController {
 	protected Map referenceData(HttpServletRequest request, Object command,
 			Errors errors) throws Exception {
 		RegisterForm form = (RegisterForm) command;
-		form.setMember(request.getParameter("member"));
+		form.setUsername(request.getParameter("username"));
 		return super.referenceData(request, command, errors);
 	}
 

@@ -15,12 +15,14 @@
 		<div>
 			#parse("header.vm")
 			<form action="home" method="post">
-				<label for="member">OpenID: </label>
-				http://
-				<input type="text" id="member" name="member" class="sexy" size="10" />
-				.openid.org.cn
-				<input type="submit" name="login" value="登录" class="button" />
-				<input type="submit" name="register" value="注册" class="button" />
+				<div>
+					<label for="username">OpenID: </label>
+					http://
+					<input type="text" id="username" name="username" class="sexy" size="10" />
+					.openid.org.cn
+					<input type="submit" name="login" value="登录" class="button" />
+					<input type="submit" name="register" value="注册" class="button" />
+				</div>
 			</form>
 			#parse("footer.vm")
 		</div>

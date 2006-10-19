@@ -23,12 +23,12 @@ public class HomeController implements Controller {
 	 */
 	public ModelAndView handleRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		Object member = request.getParameter("member");
+		Object member = request.getParameter("username");
 		if (member != null) {
 			if (request.getParameter("login") != null) {
-				response.sendRedirect("login?member=" + member);
+				response.sendRedirect("login?username=" + member);
 			} else {
-				response.sendRedirect("register?member=" + member);
+				response.sendRedirect("register?username=" + member);
 			}
 		}
 		return new ModelAndView("home");

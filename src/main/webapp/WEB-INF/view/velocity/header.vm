@@ -1,5 +1,5 @@
 <div id="header">
-	<div style="text-align:center;"><img src="openid-logo.png" /></div>
+	<div id="logo"><img src="openid-logo.png" alt="OpenID" /></div>
 	<div id="navbar">
 		<ul>
 			<li><a href="./">首页</a></li>
