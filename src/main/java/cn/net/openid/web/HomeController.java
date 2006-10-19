@@ -25,9 +25,8 @@ public class HomeController implements Controller {
 			HttpServletResponse response) throws Exception {
 		Object member = request.getParameter("member");
 		if (member != null) {
-			String openidUrl = member + ".openid.org.cn";
 			if (request.getParameter("login") != null) {
-				response.sendRedirect("login?openidUrl=" + openidUrl);
+				response.sendRedirect("login?member=" + member);
 			} else {
 				response.sendRedirect("register?member=" + member);
 			}

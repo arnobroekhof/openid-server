@@ -34,4 +34,6 @@ public interface Provider {
 	void checkIdSetupResponse(String verifiedIdentifier,
 			Map<String, String[]> parameterMap, HttpServletResponse response)
 			throws IOException;
+
+	String getUsername(String openid);
 }

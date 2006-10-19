@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
@@ -47,7 +48,7 @@ public class LoginController extends SimpleFormController {
 			Object command, BindException errors) throws Exception {
 		LoginForm lf = (LoginForm) command;
 		if (!this.check(lf)) {
-			errors.rejectValue("openidUrl", "", "认证失败。");
+			errors.rejectValue("username", "", "认证失败。");
 		}
 		super.onBindAndValidate(request, command, errors);
 	}
@@ -66,7 +67,8 @@ public class LoginController extends SimpleFormController {
 			throws Exception {
 		LoginForm lf = (LoginForm) command;
 		HttpSession session = request.getSession();
-		session.setAttribute("cn.net.openid.identity", lf.getOpenidUrl());
+		session.setAttribute("cn.net.openid.identity", "http://"
+				+ lf.getUsername() + ".openid.org.cn");
 		Map<String, String[]> pm = (Map<String, String[]>) request.getSession()
 				.getAttribute("parameterMap");
 		if (pm != null) {
@@ -93,12 +95,17 @@ public class LoginController extends SimpleFormController {
 		Map<String, String[]> parameterMap = (Map<String, String[]>) session
 				.getAttribute("parameterMap");
 		if (parameterMap != null) {
-			lf.setOpenidUrl(OpenIDUtils.getFirstValue(parameterMap,
-					"openid.identity"));
+			lf.setUsername(this.provider.getUsername(OpenIDUtils.getFirstValue(
+					parameterMap, "openid.identity")));
 		}
 
-		if (lf.getOpenidUrl() == null || lf.getOpenidUrl().length() == 0) {
-			lf.setOpenidUrl(request.getParameter("openidUrl"));
+		if (StringUtils.isEmpty(lf.getUsername())) {
+			lf.setUsername(this.provider.getUsername(request
+					.getParameter("openidUrl")));
+		}
+
+		if (StringUtils.isEmpty(lf.getUsername())) {
+			lf.setUsername(request.getParameter("member"));
 		}
 		return super.referenceData(request, command, errors);
 	}

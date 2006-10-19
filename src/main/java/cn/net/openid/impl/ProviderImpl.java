@@ -52,7 +52,7 @@ public class ProviderImpl implements Provider {
 	 * @see cn.net.openid.Provider#checkCredential(cn.net.openid.web.LoginForm)
 	 */
 	public boolean checkCredential(LoginForm lf) {
-		String username = this.getUsername(lf.getOpenidUrl());
+		String username = lf.getUsername();
 		if (username == null) {
 			return false;
 		}
@@ -180,7 +180,10 @@ public class ProviderImpl implements Provider {
 				.toByteArray()));
 	}
 
-	private String getUsername(String openid) {
+	public String getUsername(String openid) {
+		if (openid == null) {
+			return null;
+		}
 		Pattern p = Pattern
 				.compile("^[0-9a-zA-Z]+://([0-9a-zA-Z]+).openid.org.cn");
 		Matcher m = p.matcher(openid);

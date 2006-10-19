@@ -15,13 +15,13 @@
 		#parse("header.vm")
 		<form action="login" method="post">
 			<table>
-				#springBind("command.openidUrl")
+				#springBind("command.username")
 				<tr>
 					<td width="90" align="right">
-						<label for="openidUrl">OpenID：</label>
+						<label for="username">OpenID：</label>
 					</td>
 					<td>
-						<input type="text" id="openidUrl" name="$!{status.expression}" class="sexy" size="30" value="$!{esc.html($!{status.value})}" />
+						http://<input type="text" id="username" name="$!{status.expression}" class="sexy" size="10" value="$!{esc.html($!{status.value})}" />.openid.org.cn
 						<span class="error">$!{status.errorMessage}</span>
 					</td>
 				</tr>

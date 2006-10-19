@@ -35,4 +35,9 @@
 		<scope>application</scope>
 		<class>org.apache.velocity.tools.generic.RenderTool</class>
 	</tool>
+	<tool>
+		<key>link</key>
+		<scope>request</scope>
+		<class>org.apache.velocity.tools.view.tools.LinkTool</class>
+	</tool>
 </toolbox>
