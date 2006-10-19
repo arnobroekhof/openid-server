@@ -66,6 +66,7 @@ pre {
 }
 
 #header {
+	
 }
 
 #footer {
@@ -74,24 +75,23 @@ pre {
 }
 
 #navbar {
-	text-align:center;
-	line-height:30px;
+	text-align: center;
+	line-height: 30px;
 	padding-left: 4px;
 	padding-right: 4px;
-	border-bottom:1px solid #AAA;
+	border-bottom: 1px solid #AAA;
 }
-#navbar a{
-	font-size:16px;
-	font-weight:bold;
-	padding-left:5px;
-	padding-right:5px;
-	
+
+#navbar a {
+	font-size: 16px;
+	font-weight: bold;
+	padding-left: 5px;
+	padding-right: 5px;
 }
 
 #navbar a:hover {
 	text-decoration: none;
 	background-color: yellow;
-	padding-top:5px;
-	border-top:3px #006699 solid;
+	padding-top: 5px;
+	border-top: 3px #006699 solid;
 }
-

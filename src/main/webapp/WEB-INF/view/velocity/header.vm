@@ -1,14 +1,15 @@
 <div id="header">
-<div style="text-align:center;"><img src="openid-logo.png" /></div>
-<div id="navbar">
-<a href="./">首 页</a>
-<a href="login">登 录</a>
-<a href="register">注 册</a>
-<a href="http://openid.net.cn">关 于</a>
+	<div style="text-align:center;"><img src="openid-logo.png" /></div>
+	<div id="navbar">
+		<ul>
+			<li><a href="./">首页</a></li>
+			<li><a href="login">登录</a></li>
+			<li><a href="register">注册</a></li>
+			<li><a href="http://openid.net.cn">关于</a></li>
+		</ul>
+	</div>
 </div>
-</div>
-<div>
-<br />
-<p>Welcome!</p>
-<p>OpenID.org.cn 提供互联网新一代的简单、开放、分布和安全的统一认证体系，让你在互联网的各种网站之间穿梭自如，一劳永逸... </p>
+<div id="description">
+	<p>Welcome!</p>
+	<p>OpenID.org.cn 提供互联网新一代的简单、开放、分布和安全的统一认证体系，让你在互联网的各种网站之间穿梭自如，一劳永逸... </p>
 </div>
