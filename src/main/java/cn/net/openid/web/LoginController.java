@@ -68,7 +68,7 @@ public class LoginController extends SimpleFormController {
 		LoginForm lf = (LoginForm) command;
 		HttpSession session = request.getSession();
 		session.setAttribute("cn.net.openid.identity", "http://"
-				+ lf.getUsername() + ".openid.org.cn");
+				+ lf.getUsername() + ".openid.org.cn/");
 		Map<String, String[]> pm = (Map<String, String[]>) request.getSession()
 				.getAttribute("parameterMap");
 		if (pm != null) {

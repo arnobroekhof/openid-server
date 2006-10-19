@@ -14,8 +14,8 @@
 	<div>
 		#parse("header.vm")
 		#springBind("command.username")
-		OpenID：<a href="http://$!{status.value}.openid.org.cn">http://$!{status.value}.openid.org.cn</a> 注册成功。
-		#set($url="http://$!{status.value}.openid.org.cn")
+		OpenID：<a href="http://$!{status.value}.openid.org.cn/">http://$!{status.value}.openid.org.cn/</a> 注册成功。
+		#set($url="http://$!{status.value}.openid.org.cn/")
 		<a href="login?openidUrl=${link.encodeURL($!{url})}">登录</a>
 		#parse("footer.vm")
 	</div>
