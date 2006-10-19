@@ -4,7 +4,7 @@
   <artifactId>openid-server</artifactId>
   <packaging>war</packaging>
   <name>OpenID Server</name>
-  <version>1.0</version>
+  <version>0.1</version>
   <url>http://openid.net.cn</url>
   <build>
     <plugins>
