@@ -97,6 +97,10 @@
 		<url-pattern>/login</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
+		<servlet-name>openid</servlet-name>
+		<url-pattern>*.login</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
 		<servlet-name>member</servlet-name>
 		<url-pattern>/member/*</url-pattern>
 	</servlet-mapping>

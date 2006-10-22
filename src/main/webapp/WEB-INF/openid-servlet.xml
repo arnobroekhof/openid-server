@@ -6,17 +6,26 @@
 	</bean>
 	<bean id="registerController"
 		class="cn.net.openid.web.RegisterController">
-		<property name="daoFacade" ref="daoFacade" />
 		<property name="commandClass"
 			value="cn.net.openid.web.RegisterForm" />
 		<property name="formView" value="register" />
 		<property name="successView" value="register-success" />
+		<property name="daoFacade" ref="daoFacade" />
 	</bean>
-	<bean id="loginController"
-		class="cn.net.openid.web.LoginController">
+	<bean id="loginHandlersController"
+		class="cn.net.openid.web.LoginHandlersController">
 		<property name="commandClass"
-			value="cn.net.openid.web.LoginForm" />
-		<property name="formView" value="login" />
+			value="cn.net.openid.web.LoginHandlersForm" />
+		<property name="formView" value="login-handlers" />
+		<property name="successView" value="login-handlers" />
+		<property name="daoFacade" ref="daoFacade" />
+		<property name="provider" ref="provider" />
+	</bean>
+	<bean id="passwordLoginController"
+		class="cn.net.openid.web.login.PasswordLoginController">
+		<property name="commandClass"
+			value="cn.net.openid.web.login.PasswordLoginForm" />
+		<property name="formView" value="login/password" />
 		<property name="successView" value="login-success" />
 		<property name="provider" ref="provider" />
 	</bean>
@@ -34,7 +43,10 @@
 					<ref local="registerController" />
 				</entry>
 				<entry key="/login">
-					<ref local="loginController" />
+					<ref local="loginHandlersController" />
+				</entry>
+				<entry key="/password.login">
+					<ref local="passwordLoginController" />
 				</entry>
 			</map>
 		</property>

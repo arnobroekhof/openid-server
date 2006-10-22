@@ -25,13 +25,21 @@
 						<span class="error">$!{status.errorMessage}</span>
 					</td>
 				</tr>
-				#springBind("command.password")
+				#springBind("command.credentialHandler.id")
 				<tr>
 					<td class="label">
-						<label for="password">密码：</label>
+						凭据类型：
 					</td>
 					<td>
-						<input type="password" class="common" id="password" name="password" size="33" />
+						<dl>
+							#foreach($credentialHandler in $command.credentialHandlers)
+							<dt>
+								<input type="radio" id="${credentialHandler.id}" name="${status.expression}" value="${credentialHandler.id}" />
+								<label for="${credentialHandler.id}">${credentialHandler.name}</label>
+							</dt>
+							<dd>${credentialHandler.description}</dd>
+							#end
+						</dl>
 						<span class="error">$!{status.errorMessage}</span>
 					</td>
 				</tr>

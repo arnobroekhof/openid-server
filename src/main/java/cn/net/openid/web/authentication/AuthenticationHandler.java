@@ -16,8 +16,8 @@ import cn.net.openid.Credential;
  * 
  */
 public interface AuthenticationHandler {
-	void showForm(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException;
+	void showForm(String username, HttpServletRequest req,
+			HttpServletResponse resp) throws ServletException, IOException;
 
-	Credential gatherInfo(HttpServletRequest req);
+	Credential gatherInfo(String username, HttpServletRequest req);
 }

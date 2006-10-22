@@ -39,7 +39,31 @@ public class GoogleAccountAuthenticationHandler implements
 	public void showForm(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		resp.sendRedirect(resp.encodeRedirectURL(WebUtils.getContextPath(req)
-				+ "/authentication/handlers/googleaccount/"));
+				+ "/google-account.login"));
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.web.authentication.AuthenticationHandler#gatherInfo(java.lang.String,
+	 *      javax.servlet.http.HttpServletRequest)
+	 */
+	public Credential gatherInfo(String username, HttpServletRequest req) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.web.authentication.AuthenticationHandler#showForm(java.lang.String,
+	 *      javax.servlet.http.HttpServletRequest,
+	 *      javax.servlet.http.HttpServletResponse)
+	 */
+	public void showForm(String username, HttpServletRequest req,
+			HttpServletResponse resp) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+
 	}
 
 }
