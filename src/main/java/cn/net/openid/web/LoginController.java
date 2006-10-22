@@ -1,7 +1,7 @@
 /**
  * Created on 2006-10-7 上午12:05:13
  */
-package cn.net.openid.web.login;
+package cn.net.openid.web;
 
 import java.util.Map;
 
@@ -22,13 +22,13 @@ import cn.net.openid.dao.DaoFacade;
  * @author Shutra
  * 
  */
-public class PasswordLoginController extends SimpleFormController {
+public class LoginController extends SimpleFormController {
 	private Provider provider;
 
 	@SuppressWarnings("unused")
 	private DaoFacade daoFacade;
 
-	private boolean check(PasswordLoginForm lf) {
+	private boolean check(LoginForm lf) {
 		if (this.provider.checkCredential(lf)) {
 			return true;
 		} else {
@@ -45,7 +45,7 @@ public class PasswordLoginController extends SimpleFormController {
 	@Override
 	protected void onBindAndValidate(HttpServletRequest request,
 			Object command, BindException errors) throws Exception {
-		PasswordLoginForm lf = (PasswordLoginForm) command;
+		LoginForm lf = (LoginForm) command;
 		if (!this.check(lf)) {
 			errors.rejectValue("username", "", "认证失败。");
 		}
@@ -64,7 +64,7 @@ public class PasswordLoginController extends SimpleFormController {
 	protected ModelAndView onSubmit(HttpServletRequest request,
 			HttpServletResponse response, Object command, BindException errors)
 			throws Exception {
-		PasswordLoginForm lf = (PasswordLoginForm) command;
+		LoginForm lf = (LoginForm) command;
 		HttpSession session = request.getSession();
 		session.setAttribute("cn.net.openid.identity", "http://"
 				+ lf.getUsername() + ".openid.org.cn/");
@@ -89,7 +89,7 @@ public class PasswordLoginController extends SimpleFormController {
 	@Override
 	protected Map referenceData(HttpServletRequest request, Object command,
 			Errors errors) throws Exception {
-		PasswordLoginForm lf = (PasswordLoginForm) command;
+		LoginForm lf = (LoginForm) command;
 
 		if (StringUtils.isEmpty(lf.getUsername())) {
 			lf.setUsername(request.getParameter("username"));

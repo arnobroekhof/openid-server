@@ -21,6 +21,7 @@
 					<input type="text" id="username" name="username" class="sexy" size="10" />
 					.openid.org.cn
 					<input type="submit" name="login" value="登录" class="button" />
+					<input type="submit" name="index.login" value="其它凭据登录" class="button" />
 					<input type="submit" name="register" value="注册" class="button" />
 				</div>
 			</form>

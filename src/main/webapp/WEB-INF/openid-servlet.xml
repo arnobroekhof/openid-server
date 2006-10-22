@@ -12,6 +12,14 @@
 		<property name="successView" value="register-success" />
 		<property name="daoFacade" ref="daoFacade" />
 	</bean>
+	<bean id="loginController"
+		class="cn.net.openid.web.LoginController">
+		<property name="commandClass"
+			value="cn.net.openid.web.LoginForm" />
+		<property name="formView" value="login" />
+		<property name="successView" value="login-success" />
+		<property name="provider" ref="provider" />
+	</bean>
 	<bean id="loginHandlersController"
 		class="cn.net.openid.web.LoginHandlersController">
 		<property name="commandClass"
@@ -19,14 +27,6 @@
 		<property name="formView" value="login-handlers" />
 		<property name="successView" value="login-handlers" />
 		<property name="daoFacade" ref="daoFacade" />
-		<property name="provider" ref="provider" />
-	</bean>
-	<bean id="passwordLoginController"
-		class="cn.net.openid.web.login.PasswordLoginController">
-		<property name="commandClass"
-			value="cn.net.openid.web.login.PasswordLoginForm" />
-		<property name="formView" value="login/password" />
-		<property name="successView" value="login-success" />
 		<property name="provider" ref="provider" />
 	</bean>
 	<bean id="secureHandlerMapping"
@@ -43,10 +43,10 @@
 					<ref local="registerController" />
 				</entry>
 				<entry key="/login">
-					<ref local="loginHandlersController" />
+					<ref local="loginController" />
 				</entry>
-				<entry key="/password.login">
-					<ref local="passwordLoginController" />
+				<entry key="/index.login">
+					<ref local="loginHandlersController" />
 				</entry>
 			</map>
 		</property>

@@ -64,10 +64,27 @@
 		</init-param>
 		<load-on-startup>30</load-on-startup>
 	</servlet>
-    <servlet>
-        <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>sample.authsub.src.LoginServlet</servlet-class>
-    </servlet>
+
+	<!-- Google Account Authentication Servlet -->
+	<servlet>
+		<servlet-name>GoogleAccount LoginServlet</servlet-name>
+		<servlet-class>
+			cn.net.openid.web.authentication.handlers.googleaccount.LoginServlet
+		</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>GoogleAccount HandleTokenServlet</servlet-name>
+		<servlet-class>
+			cn.net.openid.web.authentication.handlers.googleaccount.HandleTokenServlet
+		</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>GoogleAccount RetrieveFeedServlet</servlet-name>
+		<servlet-class>
+			cn.net.openid.web.authentication.handlers.googleaccount.RetrieveFeedServlet
+		</servlet-class>
+	</servlet>
+
 	<filter-mapping>
 		<filter-name>Set Character Encoding Filter</filter-name>
 		<url-pattern>/*</url-pattern>
@@ -104,8 +121,18 @@
 		<servlet-name>member</servlet-name>
 		<url-pattern>/member/*</url-pattern>
 	</servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>LoginServlet</servlet-name>
-        <url-pattern>/LoginServlet</url-pattern>
-    </servlet-mapping>
+
+	<!-- Google Account Authentication Servlet Mapping-->
+	<servlet-mapping>
+		<servlet-name>GoogleAccount LoginServlet</servlet-name>
+		<url-pattern>/google-account.login</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>GoogleAccount HandleTokenServlet</servlet-name>
+		<url-pattern>/HandleTokenServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>GoogleAccount RetrieveFeedServlet</servlet-name>
+		<url-pattern>/RetrieveFeedServlet</url-pattern>
+	</servlet-mapping>
 </web-app>

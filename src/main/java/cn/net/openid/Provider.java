@@ -8,21 +8,21 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
-import cn.net.openid.web.login.PasswordLoginForm;
+import cn.net.openid.web.LoginForm;
 
 /**
  * @author Shutra
  * 
  */
 public interface Provider {
-	boolean checkCredential(PasswordLoginForm lf);
+	boolean checkCredential(LoginForm lf);
 
 	/**
 	 * @param lf
 	 * @return
 	 * @deprecated
 	 */
-	boolean checkPassword(PasswordLoginForm lf);
+	boolean checkPassword(LoginForm lf);
 
 	String sign(Map<String, String> verificationStringValueMap, byte[] macKey);
 

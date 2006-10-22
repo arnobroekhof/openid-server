@@ -1,7 +1,7 @@
 /**
  * Created on 2006-10-7 上午12:29:03
  */
-package cn.net.openid.web.login;
+package cn.net.openid.web;
 
 import java.io.Serializable;
 
@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @author Shutra
  * 
  */
-public class PasswordLoginForm implements Serializable {
+public class LoginForm implements Serializable {
 	/**
 	 * 
 	 */

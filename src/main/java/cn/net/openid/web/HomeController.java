@@ -23,15 +23,20 @@ public class HomeController implements Controller {
 	 */
 	public ModelAndView handleRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		Object member = request.getParameter("username");
-		if (member != null) {
+		String username = request.getParameter("username");
+		if (username != null) {
+			String redirectPath;
 			if (request.getParameter("login") != null) {
-				response.sendRedirect("login?username=" + member);
+				redirectPath = "/login?username=" + username;
+			} else if (request.getParameter("index.login") != null) {
+				redirectPath = "/index.login?username=" + username;
 			} else {
-				response.sendRedirect("register?username=" + member);
+				redirectPath = ("/register?username=" + username);
 			}
+			response.sendRedirect(response.encodeRedirectURL(WebUtils
+					.getContextPath(request)
+					+ redirectPath));
 		}
 		return new ModelAndView("home");
 	}
-
 }

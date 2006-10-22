@@ -13,7 +13,7 @@
 	<body>
 	<div>
 		#parse("header.vm")
-		<form action="login" method="post">
+		<form action="index.login" method="post">
 			<table>
 				#springBind("command.username")
 				<tr>

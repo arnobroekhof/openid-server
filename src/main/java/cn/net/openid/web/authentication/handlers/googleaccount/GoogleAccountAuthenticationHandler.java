@@ -19,28 +19,11 @@ import cn.net.openid.web.authentication.AuthenticationHandler;
  */
 public class GoogleAccountAuthenticationHandler implements
 		AuthenticationHandler {
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see cn.net.openid.web.authentication.AuthenticationHandler#gatherInfo(javax.servlet.http.HttpServletRequest)
-	 */
-	public Credential gatherInfo(HttpServletRequest req) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see cn.net.openid.web.authentication.AuthenticationHandler#showForm(javax.servlet.http.HttpServletRequest,
-	 *      javax.servlet.http.HttpServletResponse)
-	 */
-	public void showForm(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-		resp.sendRedirect(resp.encodeRedirectURL(WebUtils.getContextPath(req)
-				+ "/google-account.login"));
-	}
+	public static String USERNAME_SESSION = GoogleAccountAuthenticationHandler.class
+			.getPackage().getName()
+			+ "."
+			+ GoogleAccountAuthenticationHandler.class.getName()
+			+ ".username";
 
 	/*
 	 * (non-Javadoc)
@@ -62,7 +45,9 @@ public class GoogleAccountAuthenticationHandler implements
 	 */
 	public void showForm(String username, HttpServletRequest req,
 			HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		req.getSession().setAttribute(USERNAME_SESSION, username);
+		resp.sendRedirect(resp.encodeRedirectURL(WebUtils.getContextPath(req)
+				+ "/google-account.login"));
 
 	}
 

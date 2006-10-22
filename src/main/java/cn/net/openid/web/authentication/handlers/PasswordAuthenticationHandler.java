@@ -40,7 +40,7 @@ public class PasswordAuthenticationHandler implements AuthenticationHandler {
 	public void showForm(String username, HttpServletRequest req,
 			HttpServletResponse resp) throws ServletException, IOException {
 		resp.sendRedirect(resp.encodeRedirectURL(WebUtils.getContextPath(req)
-				+ "/password.login?username=" + username));
+				+ "/login?username=" + username));
 	}
 
 }

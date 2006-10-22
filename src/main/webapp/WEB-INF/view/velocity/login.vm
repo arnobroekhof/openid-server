@@ -13,7 +13,7 @@
 	<body>
 	<div>
 		#parse("header.vm")
-		<form action="password.login" method="post">
+		<form action="login" method="post">
 			<table>
 				#springBind("command.username")
 				<tr>
@@ -37,7 +37,10 @@
 				</tr>
 				<tr>
 					<td>&nbsp;</td>
-					<td><input type="submit" value="登录" class="button" /></td>
+					<td>
+						<input type="submit" value="登录" class="button" />
+						<a href="index.login" title="其它凭据登录">其它凭据登录</a>
+					</td>
 				</tr>
 			</table>
 		</form>

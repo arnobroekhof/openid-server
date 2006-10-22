@@ -27,7 +27,7 @@ import cn.net.openid.User;
 import cn.net.openid.dao.DaoFacade;
 import cn.net.openid.utils.OpenIDNVFormat;
 import cn.net.openid.utils.OpenIDUtils;
-import cn.net.openid.web.login.PasswordLoginForm;
+import cn.net.openid.web.LoginForm;
 
 /**
  * @author Shutra
@@ -51,7 +51,7 @@ public class ProviderImpl implements Provider {
 	 * 
 	 * @see cn.net.openid.Provider#checkCredential(cn.net.openid.web.LoginForm)
 	 */
-	public boolean checkCredential(PasswordLoginForm lf) {
+	public boolean checkCredential(LoginForm lf) {
 		String username = lf.getUsername();
 		if (username == null) {
 			return false;
@@ -116,7 +116,7 @@ public class ProviderImpl implements Provider {
 	 * @see cn.net.openid.Provider#checkPassword(java.lang.String,
 	 *      java.lang.String)
 	 */
-	public boolean checkPassword(PasswordLoginForm lf) {
+	public boolean checkPassword(LoginForm lf) {
 		return false;
 		/*
 		 * Blogger blogger = null; try { blogger = new
