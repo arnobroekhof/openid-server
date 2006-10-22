@@ -1,6 +1,36 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
 		  "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 <beans>
+	<bean id="baseTransactionProxy"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		abstract="true">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="insert*">PROPAGATION_REQUIRED</prop>
+				<prop key="update*">PROPAGATION_REQUIRED</prop>
+				<prop key="*">PROPAGATION_REQUIRED,readOnly</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="daoFacade" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="cn.net.openid.dao.DaoFacadeImpl">
+				<property name="userDao" ref="userDao" />
+				<property name="credentialDao" ref="credentialDao" />
+				<property name="credentialHandlerDao"
+					ref="credentialHandlerDao" />
+			</bean>
+		</property>
+		<!-- Uncomment the following in order to enable mail sending aspect -->
+		<!-- 
+			<property name="postInterceptors">
+			<list>
+			<ref bean="emailAdvisor" />
+			</list>
+			</property>
+		-->
+	</bean>
 	<bean id="provider" class="cn.net.openid.impl.ProviderImpl">
 		<property name="daoFacade" ref="daoFacade"></property>
 	</bean>

@@ -17,9 +17,18 @@ public class Credential implements Serializable {
 
 	private String id;
 
+	private CredentialHandler handler;
+
 	private User user;
 
 	private byte[] info;
+
+	/**
+	 * @return the handler
+	 */
+	public CredentialHandler getHandler() {
+		return handler;
+	}
 
 	/**
 	 * @return the id
@@ -40,6 +49,14 @@ public class Credential implements Serializable {
 	 */
 	public User getUser() {
 		return user;
+	}
+
+	/**
+	 * @param handler
+	 *            the handler to set
+	 */
+	public void setHandler(CredentialHandler handler) {
+		this.handler = handler;
 	}
 
 	/**

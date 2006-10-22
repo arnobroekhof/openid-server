@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import cn.net.openid.Credential;
+import cn.net.openid.CredentialHandler;
 import cn.net.openid.User;
 import cn.net.openid.dao.DaoFacade;
 
@@ -73,11 +74,16 @@ public class RegisterController extends SimpleFormController {
 		RegisterForm form = (RegisterForm) command;
 		User user = new User();
 		user.setUsername(form.getUsername());
-		this.daoFacade.saveUser(user);
 		Credential credential = new Credential();
 		credential.setUser(user);
+		CredentialHandler credentialHandler = this.daoFacade
+				.getCredentialHandler("1");
+		if (credentialHandler == null) {
+			throw new RuntimeException("没有找到密码凭据类型。");
+		}
+		credential.setHandler(credentialHandler);
 		credential.setInfo(form.getPassword().getBytes());
-		this.daoFacade.saveCredential(credential);
+		this.daoFacade.insertUser(user, credential);
 		return super.onSubmit(command, errors);
 	}
 

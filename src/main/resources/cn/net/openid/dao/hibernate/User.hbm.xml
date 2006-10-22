@@ -19,7 +19,7 @@
 		<property name="country" column="user_country" />
 		<property name="language" column="user_language" />
 		<property name="timezone" column="user_timezone" />
-		<property name="registerTime" type="date"
+		<property name="registerTime" type="timestamp"
 			column="user_registertime" />
 	</class>
 </hibernate-mapping>

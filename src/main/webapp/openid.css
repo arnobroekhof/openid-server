@@ -67,9 +67,14 @@ pre {
 	background: #fff;
 }
 
+.credentialHandlerList {
+	list-style: none;
+}
+
 td.label {
 	width: 90px;
 	text-align: right;
+	vertical-align: top;
 }
 
 #header {

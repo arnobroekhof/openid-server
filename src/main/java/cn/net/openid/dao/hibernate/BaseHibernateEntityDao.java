@@ -5,6 +5,7 @@ package cn.net.openid.dao.hibernate;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
+import java.util.List;
 
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
@@ -19,6 +20,16 @@ public abstract class BaseHibernateEntityDao<T> extends HibernateDaoSupport {
 	public BaseHibernateEntityDao() {
 		entityClass = (Class<T>) ((ParameterizedType) getClass()
 				.getGenericSuperclass()).getActualTypeArguments()[0];
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<T> find(String queryString) {
+		return (List<T>) getHibernateTemplate().find(queryString);
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<T> find(String queryString, Object value) {
+		return (List<T>) getHibernateTemplate().find(queryString, value);
 	}
 
 	@SuppressWarnings("unchecked")

@@ -67,9 +67,12 @@
 		class="cn.net.openid.dao.hibernate.HibernateUserDao">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	<bean id="daoFacade" class="cn.net.openid.dao.DaoFacadeImpl">
-		<property name="userDao">
-			<ref local="userDao" />
-		</property>
+	<bean id="credentialDao"
+		class="cn.net.openid.dao.hibernate.HibernateCredentialDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="credentialHandlerDao"
+		class="cn.net.openid.dao.hibernate.HibernateCredentialHandlerDao">
+		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 </beans>

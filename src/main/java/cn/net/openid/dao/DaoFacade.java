@@ -6,20 +6,31 @@ package cn.net.openid.dao;
 import java.util.List;
 
 import cn.net.openid.Credential;
+import cn.net.openid.CredentialHandler;
 import cn.net.openid.User;
 
 /**
- * @author Shutra
+ * @author <a href="mailto:zhoushuqun@gmail.com">Shutra</a>
  * 
  */
 public interface DaoFacade {
+	CredentialHandler getCredentialHandler(String id);
+
+	List<CredentialHandler> getCredentialHandlers();
+
+	List<Credential> getCredentials(String userId);
+
 	User getUser(String id);
 
 	User getUserByUsername(String username);
 
-	List<Credential> getCredentials(String userId);
+	String insertCredential(Credential credential);
 
-	String saveUser(User user);
-
-	String saveCredential(Credential credential);
+	/**
+	 * 该方法的事务处理由Spring的事务处理保证。
+	 * 
+	 * @param user
+	 * @param credential
+	 */
+	void insertUser(User user, Credential credential);
 }

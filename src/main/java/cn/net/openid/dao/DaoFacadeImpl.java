@@ -6,6 +6,7 @@ package cn.net.openid.dao;
 import java.util.List;
 
 import cn.net.openid.Credential;
+import cn.net.openid.CredentialHandler;
 import cn.net.openid.User;
 
 /**
@@ -14,6 +15,37 @@ import cn.net.openid.User;
  */
 public class DaoFacadeImpl implements DaoFacade {
 	private UserDao userDao;
+
+	private CredentialDao credentialDao;
+
+	private CredentialHandlerDao credentialHandlerDao;
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.dao.DaoFacade#getCredentialHandler(java.lang.String)
+	 */
+	public CredentialHandler getCredentialHandler(String id) {
+		return this.credentialHandlerDao.getCredentialHandler(id);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.dao.DaoFacade#getCredentialHandlers()
+	 */
+	public List<CredentialHandler> getCredentialHandlers() {
+		return this.credentialHandlerDao.getCredentialHandlers();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.dao.DaoFacade#getCredentiasl(java.lang.String)
+	 */
+	public List<Credential> getCredentials(String userId) {
+		return this.credentialDao.getCredentials(userId);
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -36,10 +68,34 @@ public class DaoFacadeImpl implements DaoFacade {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.dao.DaoFacade#saveUser(cn.net.openid.User)
+	 * @see cn.net.openid.dao.DaoFacade#saveCredential(cn.net.openid.Credential)
 	 */
-	public String saveUser(User user) {
-		return this.userDao.saveUser(user);
+	public String insertCredential(Credential credential) {
+		return this.credentialDao.insertCredential(credential);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.dao.DaoFacade#insertUser(cn.net.openid.User,
+	 *      cn.net.openid.Credential)
+	 */
+	public void insertUser(User user, Credential credential) {
+		this.userDao.insertUser(user);
+		this.credentialDao.insertCredential(credential);
+	}
+
+	/**
+	 * @param credentialDao
+	 *            the credentialDao to set
+	 */
+	public void setCredentialDao(CredentialDao credentialDao) {
+		this.credentialDao = credentialDao;
+	}
+
+	public void setCredentialHandlerDao(
+			CredentialHandlerDao credentialHandlerDao) {
+		this.credentialHandlerDao = credentialHandlerDao;
 	}
 
 	/**
@@ -48,24 +104,6 @@ public class DaoFacadeImpl implements DaoFacade {
 	 */
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see cn.net.openid.dao.DaoFacade#saveCredential(cn.net.openid.Credential)
-	 */
-	public String saveCredential(Credential credential) {
-		return this.userDao.saveCredential(credential);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see cn.net.openid.dao.DaoFacade#getCredentiasl(java.lang.String)
-	 */
-	public List<Credential> getCredentials(String userId) {
-		return this.userDao.getCredentials(userId);
 	}
 
 }

@@ -3,9 +3,6 @@
  */
 package cn.net.openid.dao;
 
-import java.util.List;
-
-import cn.net.openid.Credential;
 import cn.net.openid.User;
 
 /**
@@ -17,9 +14,6 @@ public interface UserDao {
 
 	User getUserByUsername(String username);
 
-	List<Credential> getCredentials(String userId);
+	String insertUser(User user);
 
-	String saveUser(User user);
-
-	String saveCredential(Credential credential);
 }
