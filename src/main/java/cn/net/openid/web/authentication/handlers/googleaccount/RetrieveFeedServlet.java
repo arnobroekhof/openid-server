@@ -46,6 +46,7 @@ import cn.net.openid.Credential;
 import cn.net.openid.Provider;
 import cn.net.openid.User;
 import cn.net.openid.dao.DaoFacade;
+import cn.net.openid.web.UserSession;
 
 import com.google.gdata.client.http.AuthSubUtil;
 
@@ -208,6 +209,14 @@ public class RetrieveFeedServlet extends HttpServlet {
 						if (email.equalsIgnoreCase(info)) {
 							// OK!.
 							ok = true;
+							UserSession userSession = new UserSession();
+							userSession.setUserId(user.getId());
+							userSession.setUsername(user.getUsername());
+							userSession.setOpenidUrl("http://"
+									+ user.getUsername() + ".openid.org.cn/");
+							userSession.setLoggedIn(true);
+							session.setAttribute("cn.net.openid.username", user
+									.getUsername().toLowerCase());
 							session.setAttribute("cn.net.openid.identity",
 									"http://" + user.getUsername()
 											+ ".openid.org.cn/");

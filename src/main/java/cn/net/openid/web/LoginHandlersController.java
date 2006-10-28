@@ -100,9 +100,6 @@ public class LoginHandlersController extends SimpleFormController {
 			form.setUsername(request.getParameter("username"));
 		}
 
-		if (StringUtils.isEmpty(form.getUsername())) {
-			form.setUsername(request.getParameter("username"));
-		}
 		return super.referenceData(request, command, errors);
 	}
 

@@ -4,10 +4,14 @@
 package cn.net.openid.web.authentication.handlers.googleaccount;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import cn.net.openid.Credential;
 import cn.net.openid.web.WebUtils;
@@ -19,6 +23,10 @@ import cn.net.openid.web.authentication.AuthenticationHandler;
  */
 public class GoogleAccountAuthenticationHandler implements
 		AuthenticationHandler {
+	@SuppressWarnings("unused")
+	private static final Log log = LogFactory
+			.getLog(GoogleAccountAuthenticationHandler.class);
+
 	public static String USERNAME_SESSION = GoogleAccountAuthenticationHandler.class
 			.getPackage().getName()
 			+ "."
@@ -49,6 +57,19 @@ public class GoogleAccountAuthenticationHandler implements
 		resp.sendRedirect(resp.encodeRedirectURL(WebUtils.getContextPath(req)
 				+ "/google-account.login"));
 
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.web.authentication.AuthenticationHandler#describe(cn.net.openid.Credential)
+	 */
+	public String describe(Credential credential) {
+		try {
+			return new String(credential.getInfo(), "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 }

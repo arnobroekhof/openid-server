@@ -9,6 +9,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import cn.net.openid.Credential;
 import cn.net.openid.web.WebUtils;
 import cn.net.openid.web.authentication.AuthenticationHandler;
@@ -18,6 +21,9 @@ import cn.net.openid.web.authentication.AuthenticationHandler;
  * 
  */
 public class PasswordAuthenticationHandler implements AuthenticationHandler {
+	@SuppressWarnings("unused")
+	private static final Log log = LogFactory
+			.getLog(PasswordAuthenticationHandler.class);
 
 	/*
 	 * (non-Javadoc)
@@ -41,6 +47,15 @@ public class PasswordAuthenticationHandler implements AuthenticationHandler {
 			HttpServletResponse resp) throws ServletException, IOException {
 		resp.sendRedirect(resp.encodeRedirectURL(WebUtils.getContextPath(req)
 				+ "/login?username=" + username));
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.web.authentication.AuthenticationHandler#describe(cn.net.openid.Credential)
+	 */
+	public String describe(Credential credential) {
+		return "******";
 	}
 
 }

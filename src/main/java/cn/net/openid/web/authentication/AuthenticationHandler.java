@@ -20,4 +20,6 @@ public interface AuthenticationHandler {
 			HttpServletResponse resp) throws ServletException, IOException;
 
 	Credential gatherInfo(String username, HttpServletRequest req);
+
+	String describe(Credential credential);
 }

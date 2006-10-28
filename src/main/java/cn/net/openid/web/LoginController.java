@@ -16,7 +16,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import cn.net.openid.Provider;
+import cn.net.openid.User;
 import cn.net.openid.dao.DaoFacade;
+import cn.net.openid.utils.OpenIDUtils;
 
 /**
  * @author Shutra
@@ -28,12 +30,8 @@ public class LoginController extends SimpleFormController {
 	@SuppressWarnings("unused")
 	private DaoFacade daoFacade;
 
-	private boolean check(LoginForm lf) {
-		if (this.provider.checkCredential(lf)) {
-			return true;
-		} else {
-			return false;
-		}
+	private User check(LoginForm lf) {
+		return this.provider.checkCredential(lf);
 	}
 
 	/*
@@ -45,10 +43,6 @@ public class LoginController extends SimpleFormController {
 	@Override
 	protected void onBindAndValidate(HttpServletRequest request,
 			Object command, BindException errors) throws Exception {
-		LoginForm lf = (LoginForm) command;
-		if (!this.check(lf)) {
-			errors.rejectValue("username", "", "认证失败。");
-		}
 		super.onBindAndValidate(request, command, errors);
 	}
 
@@ -66,16 +60,32 @@ public class LoginController extends SimpleFormController {
 			throws Exception {
 		LoginForm lf = (LoginForm) command;
 		HttpSession session = request.getSession();
-		session.setAttribute("cn.net.openid.identity", "http://"
-				+ lf.getUsername() + ".openid.org.cn/");
-		Map<String, String[]> pm = (Map<String, String[]>) request.getSession()
-				.getAttribute("parameterMap");
-		if (pm != null) {
-			this.provider.checkIdSetupResponse(session.getAttribute(
-					"cn.net.openid.identity").toString(), pm, response);
-			return null;
-		} else {
+
+		User user = this.check(lf);
+		if (user == null) {
+			errors.rejectValue("username", "", "认证失败。");
 			return super.onSubmit(request, response, command, errors);
+		} else {
+			UserSession userSession = new UserSession(user);
+			userSession.setLoggedIn(true);
+			userSession.setOpenidUrl("http://" + lf.getUsername()
+					+ ".openid.org.cn/");
+			session.setAttribute("userSession", userSession);
+
+			session.setAttribute("cn.net.openid.username", lf.getUsername()
+					.toLowerCase());
+			session.setAttribute("cn.net.openid.identity", "http://"
+					+ lf.getUsername() + ".openid.org.cn/");
+
+			Map<String, String[]> pm = (Map<String, String[]>) request
+					.getSession().getAttribute("parameterMap");
+			if (pm != null) {
+				this.provider.checkIdSetupResponse(session.getAttribute(
+						"cn.net.openid.identity").toString(), pm, response);
+				return null;
+			} else {
+				return super.onSubmit(request, response, command, errors);
+			}
 		}
 	}
 
@@ -89,11 +99,26 @@ public class LoginController extends SimpleFormController {
 	@Override
 	protected Map referenceData(HttpServletRequest request, Object command,
 			Errors errors) throws Exception {
-		LoginForm lf = (LoginForm) command;
+		LoginForm form = (LoginForm) command;
 
-		if (StringUtils.isEmpty(lf.getUsername())) {
-			lf.setUsername(request.getParameter("username"));
+		if (StringUtils.isEmpty(form.getUsername())) {
+			form.setUsername(request.getParameter("username"));
 		}
+
+		HttpSession session = request.getSession();
+
+		Map<String, String[]> parameterMap = (Map<String, String[]>) session
+				.getAttribute("parameterMap");
+		if (parameterMap != null) {
+			form.setUsername(this.provider.getUsername(OpenIDUtils
+					.getFirstValue(parameterMap, "openid.identity")));
+		}
+
+		if (StringUtils.isEmpty(form.getUsername())) {
+			form.setUsername(this.provider.getUsername(request
+					.getParameter("openidUrl")));
+		}
+
 		return super.referenceData(request, command, errors);
 	}
 

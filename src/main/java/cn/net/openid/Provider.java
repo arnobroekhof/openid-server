@@ -15,7 +15,12 @@ import cn.net.openid.web.LoginForm;
  * 
  */
 public interface Provider {
-	boolean checkCredential(LoginForm lf);
+	/**
+	 * 
+	 * @param lf
+	 * @return If check failed return null.
+	 */
+	User checkCredential(LoginForm lf);
 
 	/**
 	 * @param lf

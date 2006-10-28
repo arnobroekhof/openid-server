@@ -5,6 +5,11 @@ package cn.net.openid;
 
 import java.io.Serializable;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import cn.net.openid.web.authentication.AuthenticationHandler;
+
 /**
  * @author Shutra
  * 
@@ -15,6 +20,10 @@ public class Credential implements Serializable {
 	 */
 	private static final long serialVersionUID = 5713456472659569041L;
 
+	private static final Log log = LogFactory.getLog(Credential.class);
+
+	private AuthenticationHandler authenticationHandler;
+
 	private String id;
 
 	private CredentialHandler handler;
@@ -22,6 +31,26 @@ public class Credential implements Serializable {
 	private User user;
 
 	private byte[] info;
+
+	private AuthenticationHandler getAuthenticationHandler() {
+		if (authenticationHandler == null) {
+			try {
+				authenticationHandler = (AuthenticationHandler) Class.forName(
+						this.handler.getClassName()).newInstance();
+			} catch (InstantiationException e) {
+				log.error(e);
+			} catch (IllegalAccessException e) {
+				log.error(e);
+			} catch (ClassNotFoundException e) {
+				log.error(e);
+			}
+		}
+		return authenticationHandler;
+	}
+
+	public String getDescription() {
+		return this.getAuthenticationHandler().describe(this);
+	}
 
 	/**
 	 * @return the handler

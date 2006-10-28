@@ -51,25 +51,25 @@ public class ProviderImpl implements Provider {
 	 * 
 	 * @see cn.net.openid.Provider#checkCredential(cn.net.openid.web.LoginForm)
 	 */
-	public boolean checkCredential(LoginForm lf) {
+	public User checkCredential(LoginForm lf) {
 		String username = lf.getUsername();
 		if (username == null) {
-			return false;
+			return null;
 		}
 		User user = this.daoFacade.getUserByUsername(username);
 		if (user == null) {
-			return false;
+			return null;
 		}
 		List<Credential> credentials = this.daoFacade.getCredentials(user
 				.getId());
 		if (credentials.size() == 0) {
-			return false;
+			return null;
 		}
 		Credential c = (Credential) credentials.get(0);
 		if (new String(c.getInfo()).equals(lf.getPassword())) {
-			return true;
+			return user;
 		}
-		return false;
+		return null;
 	}
 
 	/*

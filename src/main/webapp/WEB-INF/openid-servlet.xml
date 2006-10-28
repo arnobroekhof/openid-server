@@ -29,6 +29,22 @@
 		<property name="daoFacade" ref="daoFacade" />
 		<property name="provider" ref="provider" />
 	</bean>
+	<bean id="logoutController"
+		class="cn.net.openid.web.LogoutController">
+	</bean>
+	<!-- 
+		<bean id="profileController"
+		class="cn.net.openid.web.ProfileController" ">
+		</bean>
+	-->
+	<bean id="credentialsController"
+		class="cn.net.openid.web.CredentialsController">
+		<property name="daoFacade" ref="daoFacade" />
+	</bean>
+	<!-- 
+		<bean id="sitesController" class="cn.net.openid.web.SitesController">
+		</bean>
+	-->
 	<bean id="secureHandlerMapping"
 		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="urlMap">
@@ -48,6 +64,22 @@
 				<entry key="/index.login">
 					<ref local="loginHandlersController" />
 				</entry>
+				<entry key="/logout">
+					<ref local="logoutController" />
+				</entry>
+				<!-- 
+					<entry key="/profile">
+					<ref local="profileController" />
+					</entry>
+				-->
+				<entry key="/credentials">
+					<ref local="credentialsController" />
+				</entry>
+				<!-- 
+					<entry key="/sites">
+					<ref local="sitesController"/>
+					</entry>
+				-->
 			</map>
 		</property>
 	</bean>
