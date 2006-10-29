@@ -18,6 +18,26 @@ public class HibernateCredentialDao extends BaseHibernateEntityDao<Credential>
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see cn.net.openid.dao.CredentialDao#countCredentials(java.lang.String)
+	 */
+	public long countCredentials(String userId) {
+		List l = this.getHibernateTemplate().find(
+				"select count(*) from Credential where user.id = ?", userId);
+		return (Long) l.get(0);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.dao.CredentialDao#deleteCredential(cn.net.openid.Credential)
+	 */
+	public void deleteCredential(Credential credential) {
+		this.getHibernateTemplate().delete(credential);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see cn.net.openid.dao.CredentialDao#getCredential(java.lang.String)
 	 */
 	public Credential getCredential(String id) {

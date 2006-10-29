@@ -9,6 +9,7 @@ import java.io.UnsupportedEncodingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -66,14 +67,14 @@ public class GoogleAccountAuthenticationHandler implements
 	 */
 	public void showEditForm(HttpServletRequest req, HttpServletResponse resp,
 			String credentialId) throws ServletException, IOException {
-		String path;
-		if (credentialId == null) {
-			path = "/google-account.credential";
-		} else {
-			path = "/google-account.credential?id=" + credentialId;
+		HttpSession session = req.getSession();
+		session.setAttribute("action", "edit");
+
+		if (credentialId != null) {
+			session.setAttribute("id", credentialId);
 		}
 		resp.sendRedirect(resp.encodeRedirectURL(WebUtils.getContextPath(req)
-				+ path));
+				+ "/google-account.login"));
 	}
 
 	/*
@@ -85,7 +86,10 @@ public class GoogleAccountAuthenticationHandler implements
 	 */
 	public void showForm(HttpServletRequest req, HttpServletResponse resp,
 			String username) throws ServletException, IOException {
-		req.getSession().setAttribute(USERNAME_SESSION, username);
+		HttpSession session = req.getSession();
+		session.removeAttribute("action");
+		session.removeAttribute("id");
+		session.setAttribute(USERNAME_SESSION, username);
 		resp.sendRedirect(resp.encodeRedirectURL(WebUtils.getContextPath(req)
 				+ "/google-account.login"));
 	}

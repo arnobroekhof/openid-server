@@ -153,6 +153,6 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>GoogleAccount RetrieveFeedServlet</servlet-name>
-		<url-pattern>/RetrieveFeedServlet</url-pattern>
+		<url-pattern>/RetrieveFeedServlet/*</url-pattern>
 	</servlet-mapping>
 </web-app>

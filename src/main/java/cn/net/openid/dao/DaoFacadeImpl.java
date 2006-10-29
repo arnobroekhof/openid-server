@@ -6,6 +6,7 @@ package cn.net.openid.dao;
 import java.util.List;
 
 import cn.net.openid.Credential;
+import cn.net.openid.CredentialException;
 import cn.net.openid.CredentialHandler;
 import cn.net.openid.User;
 
@@ -19,6 +20,19 @@ public class DaoFacadeImpl implements DaoFacade {
 	private CredentialDao credentialDao;
 
 	private CredentialHandlerDao credentialHandlerDao;
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.dao.DaoFacade#deleteCredential(cn.net.openid.Credential)
+	 */
+	public void deleteCredential(Credential credential)
+			throws CredentialException {
+		if (this.credentialDao.countCredentials(credential.getUser().getId()) == 1) {
+			throw new CredentialException();
+		}
+		this.credentialDao.deleteCredential(credential);
+	}
 
 	/*
 	 * (non-Javadoc)

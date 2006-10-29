@@ -186,14 +186,40 @@ public class RetrieveFeedServlet extends HttpServlet {
 		}
 
 		// Handle success reply from remote server
+		String email;
 		try {
-			String email = this.parseEmail(connection.getInputStream());
-			boolean ok = false;
-			if (email != null) {
-				HttpSession session = req.getSession();
-				WebApplicationContext wac = WebApplicationContextUtils
-						.getWebApplicationContext(this.getServletContext());
-				DaoFacade daoFacade = (DaoFacade) wac.getBean("daoFacade");
+			email = this.parseEmail(connection.getInputStream());
+		} catch (ParserConfigurationException e) {
+			throw new RuntimeException(e);
+		} catch (SAXException e) {
+			throw new RuntimeException(e);
+		}
+		boolean ok = false;
+		if (email != null) {
+			WebApplicationContext wac = WebApplicationContextUtils
+					.getWebApplicationContext(this.getServletContext());
+			DaoFacade daoFacade = (DaoFacade) wac.getBean("daoFacade");
+
+			HttpSession session = req.getSession();
+			String action = (String) session.getAttribute("action");
+			String id = (String) session.getAttribute("id");
+			if (action != null && action.equals("edit")) {
+				if (id == null) {
+					UserSession userSession = (UserSession) session
+							.getAttribute("userSession");
+					String userId = userSession.getUserId();
+					User user = daoFacade.getUser(userId);
+					Credential credential = new Credential();
+					credential.setHandler(daoFacade.getCredentialHandler("2"));
+					credential.setInfo(email.getBytes("UTF-8"));
+					credential.setUser(user);
+					daoFacade.insertCredential(credential);
+				} else {
+					Credential credential = daoFacade.getCredential(id);
+					credential.setInfo(email.getBytes("UTF-8"));
+					daoFacade.updateCredential(credential);
+				}
+			} else {
 				String username = session.getAttribute(
 						GoogleAccountAuthenticationHandler.USERNAME_SESSION)
 						.toString();
@@ -215,6 +241,7 @@ public class RetrieveFeedServlet extends HttpServlet {
 							userSession.setOpenidUrl("http://"
 									+ user.getUsername() + ".openid.org.cn/");
 							userSession.setLoggedIn(true);
+							session.setAttribute("userSession", userSession);
 							session.setAttribute("cn.net.openid.username", user
 									.getUsername().toLowerCase());
 							session.setAttribute("cn.net.openid.identity",
@@ -231,15 +258,14 @@ public class RetrieveFeedServlet extends HttpServlet {
 							}
 						}
 					}
-
 				}
 			}
+		}
 
-			if (!ok) {
-				resp.sendRedirect("login");
-			}
-		} catch (Exception e) {
-			log.error(e);
+		if (!ok) {
+			resp.sendRedirect("login");
+		} else {
+			resp.sendRedirect("home");
 		}
 
 		// BufferedReader reader = new BufferedReader(new InputStreamReader(

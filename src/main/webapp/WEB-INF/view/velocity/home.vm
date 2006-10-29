@@ -18,11 +18,11 @@
 				<div>
 					<label for="username">OpenID: </label>
 					http://
-					<input type="text" id="username" name="username" class="sexy" size="10" />
+					<input type="text" id="username" name="username" class="sexy" size="10" accesskey="U" />
 					.openid.org.cn
-					<input type="submit" name="login" value="登录" class="button" />
-					<input type="submit" name="index.login" value="其它凭据登录" class="button" />
-					<input type="submit" name="register" value="注册" class="button" />
+					<input type="submit" name="login" value="登录" class="button" accesskey="L" />
+					<input type="submit" name="index.login" value="其它凭据登录" class="button" accesskey="A" />
+					<input type="submit" name="register" value="注册" class="button" accesskey="R" />
 				</div>
 			</form>
 			#parse("footer.vm")

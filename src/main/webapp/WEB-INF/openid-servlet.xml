@@ -57,12 +57,14 @@
 		<property name="successView" value="edit-password-success" />
 		<property name="daoFacade" ref="daoFacade" />
 	</bean>
-	<!-- 
-		<bean id="editGoogleAccountController"
-		class="cn.net.openid.web.authentication.handlers.googleaccount.EditGoogleAccountController">
-		<property name=""></property>
-		</bean>
-	-->
+	<bean id="deleteCredentialController"
+		class="cn.net.openid.web.DeleteCredentialController">
+		<property name="commandName" value="credential" />
+		<property name="commandClass" value="cn.net.openid.Credential" />
+		<property name="formView" value="delete-credential" />
+		<property name="successView" value="delete-credential-success" />
+		<property name="daoFacade" ref="daoFacade" />
+	</bean>
 	<!-- 
 		<bean id="sitesController" class="cn.net.openid.web.SitesController">
 		</bean>
@@ -101,11 +103,9 @@
 				<entry key="/password.credential">
 					<ref local="editPasswordController" />
 				</entry>
-				<!-- 
-					<entry key="/google-account.credential">
-					<ref local="editGoogleAccountController" />
-					</entry>
-				-->
+				<entry key="/delete.credential">
+					<ref local="deleteCredentialController" />
+				</entry>
 				<!-- 
 					<entry key="/sites">
 					<ref local="sitesController"/>

@@ -12,6 +12,10 @@ import cn.net.openid.Credential;
  * 
  */
 public interface CredentialDao {
+	long countCredentials(String userId);
+
+	void deleteCredential(Credential credential);
+
 	Credential getCredential(String id);
 
 	List<Credential> getCredentials(String userId);
