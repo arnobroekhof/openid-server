@@ -51,14 +51,14 @@ public class LoginController extends SimpleFormController {
 			HttpSession session = request.getSession();
 			UserSession userSession = new UserSession(user);
 			userSession.setLoggedIn(true);
-			userSession.setOpenidUrl("http://" + lf.getUsername()
-					+ ".openid.org.cn/");
+			userSession.setOpenidUrl(this.daoFacade.buildOpenidUrl(lf
+					.getUsername()));
 			session.setAttribute("userSession", userSession);
 
 			session.setAttribute("cn.net.openid.username", lf.getUsername()
 					.toLowerCase());
-			session.setAttribute("cn.net.openid.identity", "http://"
-					+ lf.getUsername() + ".openid.org.cn/");
+			session.setAttribute("cn.net.openid.identity", this.daoFacade
+					.buildOpenidUrl(lf.getUsername()));
 		}
 		super.onBindAndValidate(request, command, errors);
 	}

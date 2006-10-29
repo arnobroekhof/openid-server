@@ -245,15 +245,16 @@ public class RetrieveFeedServlet extends HttpServlet {
 							UserSession userSession = new UserSession();
 							userSession.setUserId(user.getId());
 							userSession.setUsername(user.getUsername());
-							userSession.setOpenidUrl("http://"
-									+ user.getUsername() + ".openid.org.cn/");
+							userSession.setOpenidUrl(daoFacade
+									.buildOpenidUrl(user.getUsername()));
 							userSession.setLoggedIn(true);
 							session.setAttribute("userSession", userSession);
 							session.setAttribute("cn.net.openid.username", user
 									.getUsername().toLowerCase());
-							session.setAttribute("cn.net.openid.identity",
-									"http://" + user.getUsername()
-											+ ".openid.org.cn/");
+							session
+									.setAttribute("cn.net.openid.identity",
+											daoFacade.buildOpenidUrl(user
+													.getUsername()));
 							Map<String, String[]> pm = (Map<String, String[]>) req
 									.getSession().getAttribute("parameterMap");
 							Provider provider = (Provider) wac
@@ -269,7 +270,13 @@ public class RetrieveFeedServlet extends HttpServlet {
 				if (!ok) {
 					resp.sendRedirect("login");
 				} else {
-					resp.sendRedirect("home");
+					// TODO. THIS CODE BLOCK IS VERY UGLY!.
+					Map<String, String[]> pm = (Map<String, String[]>) req
+							.getSession().getAttribute("parameterMap");
+
+					if (pm == null) {
+						resp.sendRedirect("home");
+					}
 				}
 			}
 		}

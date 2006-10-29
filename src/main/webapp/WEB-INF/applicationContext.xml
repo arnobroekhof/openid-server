@@ -1,6 +1,17 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
 		  "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 <beans>
+	<!-- 
+		<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+		<list>
+		<value>WEB-INF/openid.properties</value>
+		</list>
+		</property>
+		</bean>
+	-->
+
 	<bean id="baseTransactionProxy"
 		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
 		abstract="true">
@@ -17,6 +28,9 @@
 	<bean id="daoFacade" parent="baseTransactionProxy">
 		<property name="target">
 			<bean class="cn.net.openid.dao.DaoFacadeImpl">
+				<property name="openidUrlPattern"
+					value="http://localhost/openid-server/member/{username}">
+				</property>
 				<property name="userDao" ref="userDao" />
 				<property name="credentialDao" ref="credentialDao" />
 				<property name="credentialHandlerDao"

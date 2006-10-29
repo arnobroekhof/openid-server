@@ -15,6 +15,8 @@ import cn.net.openid.User;
  * 
  */
 public interface DaoFacade {
+	String buildOpenidUrl(String username);
+
 	void deleteCredential(Credential credential) throws CredentialException;
 
 	Credential getCredential(String id);

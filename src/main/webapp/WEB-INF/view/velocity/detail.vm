@@ -3,13 +3,13 @@
 	你的OpenID是:
 </p>
 <pre>
-http://$!{userSession.username}.openid.org.cn/
+$!{userSession.openidUrl}
 </pre>
 <p>
 	或者你可以使用自己的URL作为OpenID。只需要在你的URL对应网页的<code>&lt;head&gt;</code>部分加入下列两行内容
 <pre>
 &lt;link rel="openid.server" href="http://openid.org.cn/openid.server"&gt;
-&lt;link rel="openid.delegate" href="http://$!{userSession.username}.openid.org.cn/"&gt;
+&lt;link rel="openid.delegate" href="$!{userSession.openidUrl}"&gt;
 </pre>
 这样即可使用自己的URL作为OpenID。
 </p>
