@@ -23,6 +23,14 @@
 			value="${jdbc.validationQuery}" />
 		-->
 	</bean>
+
+	<!-- 
+		-<bean id="dataSource"
+		-	class="org.springframework.jndi.JndiObjectFactoryBean">
+		-	<property name="jndiName" value="java:comp/env/jdbc/openid" />
+		-</bean>
+	-->
+
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />

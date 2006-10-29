@@ -27,7 +27,6 @@ import cn.net.openid.utils.OpenIDUtils;
 public class LoginController extends SimpleFormController {
 	private Provider provider;
 
-	@SuppressWarnings("unused")
 	private DaoFacade daoFacade;
 
 	private User check(LoginForm lf) {
