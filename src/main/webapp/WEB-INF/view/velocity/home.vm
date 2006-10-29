@@ -14,6 +14,7 @@
 	<body>
 		<div>
 			#parse("header.vm")
+			#if(!${userSession.loggedIn})
 			<form action="home" method="post">
 				<div>
 					<label for="username">OpenID: </label>
@@ -25,6 +26,9 @@
 					<input type="submit" name="register" value="注册" class="button" accesskey="R" />
 				</div>
 			</form>
+			#else
+				#parse("detail.vm")
+			#end
 			#parse("footer.vm")
 		</div>
 	</body>

@@ -194,7 +194,6 @@ public class RetrieveFeedServlet extends HttpServlet {
 		} catch (SAXException e) {
 			throw new RuntimeException(e);
 		}
-		boolean ok = false;
 		if (email != null) {
 			WebApplicationContext wac = WebApplicationContextUtils
 					.getWebApplicationContext(this.getServletContext());
@@ -204,9 +203,14 @@ public class RetrieveFeedServlet extends HttpServlet {
 			String action = (String) session.getAttribute("action");
 			String id = (String) session.getAttribute("id");
 			if (action != null && action.equals("edit")) {
+				UserSession userSession = (UserSession) session
+						.getAttribute("userSession");
+				if (!userSession.isLoggedIn()) {
+					resp.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+					return;
+				}
+
 				if (id == null) {
-					UserSession userSession = (UserSession) session
-							.getAttribute("userSession");
 					String userId = userSession.getUserId();
 					User user = daoFacade.getUser(userId);
 					Credential credential = new Credential();
@@ -219,7 +223,10 @@ public class RetrieveFeedServlet extends HttpServlet {
 					credential.setInfo(email.getBytes("UTF-8"));
 					daoFacade.updateCredential(credential);
 				}
+				resp.sendRedirect("credentials");
 			} else {
+				boolean ok = false;
+
 				String username = session.getAttribute(
 						GoogleAccountAuthenticationHandler.USERNAME_SESSION)
 						.toString();
@@ -259,13 +266,12 @@ public class RetrieveFeedServlet extends HttpServlet {
 						}
 					}
 				}
+				if (!ok) {
+					resp.sendRedirect("login");
+				} else {
+					resp.sendRedirect("home");
+				}
 			}
-		}
-
-		if (!ok) {
-			resp.sendRedirect("login");
-		} else {
-			resp.sendRedirect("home");
 		}
 
 		// BufferedReader reader = new BufferedReader(new InputStreamReader(

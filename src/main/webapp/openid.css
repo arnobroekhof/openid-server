@@ -72,6 +72,12 @@ input.common {
 	border: 1px #A5ACB2 solid;
 }
 
+.warning {
+	color: red;
+	background: #fff;
+	font-weight: bold;
+}
+
 .error {
 	color: red;
 	background: #fff;
