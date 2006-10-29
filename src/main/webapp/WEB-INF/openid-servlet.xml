@@ -69,7 +69,7 @@
 		<bean id="sitesController" class="cn.net.openid.web.SitesController">
 		</bean>
 	-->
-	<bean id="secureHandlerMapping"
+	<bean id="handlerMapping"
 		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="urlMap">
 			<map>
@@ -88,6 +88,22 @@
 				<entry key="/index.login">
 					<ref local="loginHandlersController" />
 				</entry>
+			</map>
+		</property>
+	</bean>
+	<bean id="userLoggedInInterceptor"
+		class="cn.net.openid.web.UserLoggedInInterceptor">
+		<property name="loginPath" value="/login" />
+	</bean>
+	<bean id="secureHandlerMapping"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="interceptors">
+			<list>
+				<ref local="userLoggedInInterceptor" />
+			</list>
+		</property>
+		<property name="urlMap">
+			<map>
 				<entry key="/logout">
 					<ref local="logoutController" />
 				</entry>
