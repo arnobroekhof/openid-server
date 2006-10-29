@@ -18,6 +18,15 @@ public class HibernateCredentialDao extends BaseHibernateEntityDao<Credential>
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see cn.net.openid.dao.CredentialDao#getCredential(java.lang.String)
+	 */
+	public Credential getCredential(String id) {
+		return this.get(id);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see cn.net.openid.dao.CredentialDao#getCredentials(java.lang.String)
 	 */
 	public List<Credential> getCredentials(String userId) {
@@ -33,5 +42,14 @@ public class HibernateCredentialDao extends BaseHibernateEntityDao<Credential>
 	 */
 	public String insertCredential(Credential credential) {
 		return (String) this.getHibernateTemplate().save(credential);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.dao.CredentialDao#updateCredential(cn.net.openid.Credential)
+	 */
+	public void updateCredential(Credential credential) {
+		this.getHibernateTemplate().update(credential);
 	}
 }

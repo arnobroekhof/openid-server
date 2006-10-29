@@ -23,6 +23,15 @@ public class DaoFacadeImpl implements DaoFacade {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see cn.net.openid.dao.DaoFacade#getCredential(java.lang.String)
+	 */
+	public Credential getCredential(String id) {
+		return this.credentialDao.getCredential(id);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see cn.net.openid.dao.DaoFacade#getCredentialHandler(java.lang.String)
 	 */
 	public CredentialHandler getCredentialHandler(String id) {
@@ -104,6 +113,24 @@ public class DaoFacadeImpl implements DaoFacade {
 	 */
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.dao.DaoFacade#updateCredential(cn.net.openid.Credential)
+	 */
+	public void updateCredential(Credential credential) {
+		this.credentialDao.updateCredential(credential);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.dao.DaoFacade#updateUser(cn.net.openid.User)
+	 */
+	public void updateUser(User user) {
+		this.userDao.updateUser(user);
 	}
 
 }

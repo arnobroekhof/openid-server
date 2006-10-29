@@ -36,6 +36,19 @@ public class GoogleAccountAuthenticationHandler implements
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see cn.net.openid.web.authentication.AuthenticationHandler#describe(cn.net.openid.Credential)
+	 */
+	public String describe(Credential credential) {
+		try {
+			return new String(credential.getInfo(), "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see cn.net.openid.web.authentication.AuthenticationHandler#gatherInfo(java.lang.String,
 	 *      javax.servlet.http.HttpServletRequest)
 	 */
@@ -47,29 +60,34 @@ public class GoogleAccountAuthenticationHandler implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.web.authentication.AuthenticationHandler#showForm(java.lang.String,
+	 * @see cn.net.openid.web.authentication.AuthenticationHandler#showEditForm(java.lang.String,
 	 *      javax.servlet.http.HttpServletRequest,
 	 *      javax.servlet.http.HttpServletResponse)
 	 */
-	public void showForm(String username, HttpServletRequest req,
-			HttpServletResponse resp) throws ServletException, IOException {
-		req.getSession().setAttribute(USERNAME_SESSION, username);
+	public void showEditForm(HttpServletRequest req, HttpServletResponse resp,
+			String credentialId) throws ServletException, IOException {
+		String path;
+		if (credentialId == null) {
+			path = "/google-account.credential";
+		} else {
+			path = "/google-account.credential?id=" + credentialId;
+		}
 		resp.sendRedirect(resp.encodeRedirectURL(WebUtils.getContextPath(req)
-				+ "/google-account.login"));
-
+				+ path));
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.web.authentication.AuthenticationHandler#describe(cn.net.openid.Credential)
+	 * @see cn.net.openid.web.authentication.AuthenticationHandler#showForm(java.lang.String,
+	 *      javax.servlet.http.HttpServletRequest,
+	 *      javax.servlet.http.HttpServletResponse)
 	 */
-	public String describe(Credential credential) {
-		try {
-			return new String(credential.getInfo(), "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			throw new RuntimeException(e);
-		}
+	public void showForm(HttpServletRequest req, HttpServletResponse resp,
+			String username) throws ServletException, IOException {
+		req.getSession().setAttribute(USERNAME_SESSION, username);
+		resp.sendRedirect(resp.encodeRedirectURL(WebUtils.getContextPath(req)
+				+ "/google-account.login"));
 	}
 
 }

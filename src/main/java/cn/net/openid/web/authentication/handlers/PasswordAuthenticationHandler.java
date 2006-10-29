@@ -4,6 +4,7 @@
 package cn.net.openid.web.authentication.handlers;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +29,25 @@ public class PasswordAuthenticationHandler implements AuthenticationHandler {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see cn.net.openid.web.authentication.AuthenticationHandler#describe(cn.net.openid.Credential)
+	 */
+	public String describe(Credential credential) {
+		try {
+			String s = new String(credential.getInfo(), "UTF-8");
+			int len = s.length();
+			StringBuffer sb = new StringBuffer();
+			for (int i = 0; i < len; i++) {
+				sb.append("*");
+			}
+			return sb.toString();
+		} catch (UnsupportedEncodingException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see cn.net.openid.web.authentication.AuthenticationHandler#gatherInfo(java.lang.String,
 	 *      javax.servlet.http.HttpServletRequest)
 	 */
@@ -39,23 +59,32 @@ public class PasswordAuthenticationHandler implements AuthenticationHandler {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.web.authentication.AuthenticationHandler#showForm(java.lang.String,
-	 *      javax.servlet.http.HttpServletRequest,
-	 *      javax.servlet.http.HttpServletResponse)
+	 * @see cn.net.openid.web.authentication.AuthenticationHandler#showEditForm(javax.servlet.http.HttpServletRequest,
+	 *      javax.servlet.http.HttpServletResponse, java.lang.String)
 	 */
-	public void showForm(String username, HttpServletRequest req,
-			HttpServletResponse resp) throws ServletException, IOException {
-		resp.sendRedirect(resp.encodeRedirectURL(WebUtils.getContextPath(req)
-				+ "/login?username=" + username));
+	public void showEditForm(HttpServletRequest req, HttpServletResponse resp,
+			String credentialId) throws ServletException, IOException {
+		if (credentialId == null) {
+			resp.sendRedirect(resp.encodeRedirectURL(WebUtils
+					.getContextPath(req)
+					+ "/password.credential"));
+		} else {
+			resp.sendRedirect(resp.encodeRedirectURL(WebUtils
+					.getContextPath(req)
+					+ "/password.credential?id=" + credentialId));
+		}
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.web.authentication.AuthenticationHandler#describe(cn.net.openid.Credential)
+	 * @see cn.net.openid.web.authentication.AuthenticationHandler#showForm(java.lang.String,
+	 *      javax.servlet.http.HttpServletRequest,
+	 *      javax.servlet.http.HttpServletResponse)
 	 */
-	public String describe(Credential credential) {
-		return "******";
+	public void showForm(HttpServletRequest req, HttpServletResponse resp,
+			String username) throws ServletException, IOException {
+		resp.sendRedirect(resp.encodeRedirectURL(WebUtils.getContextPath(req)
+				+ "/login?username=" + username));
 	}
-
 }

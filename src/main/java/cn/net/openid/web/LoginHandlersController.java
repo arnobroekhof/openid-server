@@ -66,7 +66,7 @@ public class LoginHandlersController extends SimpleFormController {
 		AuthenticationHandler authenticationHandler = (AuthenticationHandler) Class
 				.forName(form.getCredentialHandler().getClassName())
 				.newInstance();
-		authenticationHandler.showForm(form.getUsername(), request, response);
+		authenticationHandler.showForm(request, response, form.getUsername());
 		return super.onSubmit(request, response, command, errors);
 	}
 

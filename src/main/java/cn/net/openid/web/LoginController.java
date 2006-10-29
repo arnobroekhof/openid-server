@@ -43,6 +43,23 @@ public class LoginController extends SimpleFormController {
 	@Override
 	protected void onBindAndValidate(HttpServletRequest request,
 			Object command, BindException errors) throws Exception {
+		LoginForm lf = (LoginForm) command;
+		User user = this.check(lf);
+		if (user == null) {
+			errors.rejectValue("username", "", "认证失败。");
+		} else {
+			HttpSession session = request.getSession();
+			UserSession userSession = new UserSession(user);
+			userSession.setLoggedIn(true);
+			userSession.setOpenidUrl("http://" + lf.getUsername()
+					+ ".openid.org.cn/");
+			session.setAttribute("userSession", userSession);
+
+			session.setAttribute("cn.net.openid.username", lf.getUsername()
+					.toLowerCase());
+			session.setAttribute("cn.net.openid.identity", "http://"
+					+ lf.getUsername() + ".openid.org.cn/");
+		}
 		super.onBindAndValidate(request, command, errors);
 	}
 
@@ -58,34 +75,16 @@ public class LoginController extends SimpleFormController {
 	protected ModelAndView onSubmit(HttpServletRequest request,
 			HttpServletResponse response, Object command, BindException errors)
 			throws Exception {
-		LoginForm lf = (LoginForm) command;
 		HttpSession session = request.getSession();
 
-		User user = this.check(lf);
-		if (user == null) {
-			errors.rejectValue("username", "", "认证失败。");
-			return super.onSubmit(request, response, command, errors);
+		Map<String, String[]> pm = (Map<String, String[]>) request.getSession()
+				.getAttribute("parameterMap");
+		if (pm != null) {
+			this.provider.checkIdSetupResponse(session.getAttribute(
+					"cn.net.openid.identity").toString(), pm, response);
+			return null;
 		} else {
-			UserSession userSession = new UserSession(user);
-			userSession.setLoggedIn(true);
-			userSession.setOpenidUrl("http://" + lf.getUsername()
-					+ ".openid.org.cn/");
-			session.setAttribute("userSession", userSession);
-
-			session.setAttribute("cn.net.openid.username", lf.getUsername()
-					.toLowerCase());
-			session.setAttribute("cn.net.openid.identity", "http://"
-					+ lf.getUsername() + ".openid.org.cn/");
-
-			Map<String, String[]> pm = (Map<String, String[]>) request
-					.getSession().getAttribute("parameterMap");
-			if (pm != null) {
-				this.provider.checkIdSetupResponse(session.getAttribute(
-						"cn.net.openid.identity").toString(), pm, response);
-				return null;
-			} else {
-				return super.onSubmit(request, response, command, errors);
-			}
+			return super.onSubmit(request, response, command, errors);
 		}
 	}
 

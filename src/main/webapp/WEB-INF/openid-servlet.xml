@@ -32,15 +32,37 @@
 	<bean id="logoutController"
 		class="cn.net.openid.web.LogoutController">
 	</bean>
-	<!-- 
-		<bean id="profileController"
-		class="cn.net.openid.web.ProfileController" ">
-		</bean>
-	-->
+	<bean id="profileController"
+		class="cn.net.openid.web.ProfileController">
+		<property name="commandName" value="user" />
+		<property name="commandClass" value="cn.net.openid.User" />
+		<property name="formView" value="profile" />
+		<property name="successView" value="profile-success" />
+		<property name="daoFacade" ref="daoFacade" />
+	</bean>
 	<bean id="credentialsController"
 		class="cn.net.openid.web.CredentialsController">
 		<property name="daoFacade" ref="daoFacade" />
 	</bean>
+	<bean id="editCredentialController"
+		class="cn.net.openid.web.EditCredentialController">
+		<property name="daoFacade" ref="daoFacade" />
+	</bean>
+	<bean id="editPasswordController"
+		class="cn.net.openid.web.EditPasswordController">
+		<property name="commandClass"
+			value="cn.net.openid.web.EditPasswordForm" />
+		<property name="commandName" value="editPasswordForm" />
+		<property name="formView" value="edit-password" />
+		<property name="successView" value="edit-password-success" />
+		<property name="daoFacade" ref="daoFacade" />
+	</bean>
+	<!-- 
+		<bean id="editGoogleAccountController"
+		class="cn.net.openid.web.authentication.handlers.googleaccount.EditGoogleAccountController">
+		<property name=""></property>
+		</bean>
+	-->
 	<!-- 
 		<bean id="sitesController" class="cn.net.openid.web.SitesController">
 		</bean>
@@ -67,14 +89,23 @@
 				<entry key="/logout">
 					<ref local="logoutController" />
 				</entry>
-				<!-- 
-					<entry key="/profile">
+				<entry key="/profile">
 					<ref local="profileController" />
-					</entry>
-				-->
+				</entry>
 				<entry key="/credentials">
 					<ref local="credentialsController" />
 				</entry>
+				<entry key="/edit.credential">
+					<ref local="editCredentialController" />
+				</entry>
+				<entry key="/password.credential">
+					<ref local="editPasswordController" />
+				</entry>
+				<!-- 
+					<entry key="/google-account.credential">
+					<ref local="editGoogleAccountController" />
+					</entry>
+				-->
 				<!-- 
 					<entry key="/sites">
 					<ref local="sitesController"/>

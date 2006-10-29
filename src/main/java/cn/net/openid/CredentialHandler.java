@@ -5,6 +5,8 @@ package cn.net.openid;
 
 import java.io.Serializable;
 
+import cn.net.openid.web.authentication.AuthenticationHandler;
+
 /**
  * @author Shutra
  * 
@@ -15,6 +17,8 @@ public class CredentialHandler implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 3816729341231244669L;
+
+	private AuthenticationHandler authenticationHandler;
 
 	private String id;
 
@@ -82,6 +86,22 @@ public class CredentialHandler implements Serializable {
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public AuthenticationHandler getAuthenticationHandler() {
+		if (authenticationHandler == null) {
+			try {
+				this.authenticationHandler = (AuthenticationHandler) Class
+						.forName(this.className).newInstance();
+			} catch (InstantiationException e) {
+				throw new RuntimeException(e);
+			} catch (IllegalAccessException e) {
+				throw new RuntimeException(e);
+			} catch (ClassNotFoundException e) {
+				throw new RuntimeException(e);
+			}
+		}
+		return this.authenticationHandler;
 	}
 
 }

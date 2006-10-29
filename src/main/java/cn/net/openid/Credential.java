@@ -32,7 +32,7 @@ public class Credential implements Serializable {
 
 	private byte[] info;
 
-	private AuthenticationHandler getAuthenticationHandler() {
+	public AuthenticationHandler getAuthenticationHandler() {
 		if (authenticationHandler == null) {
 			try {
 				authenticationHandler = (AuthenticationHandler) Class.forName(

@@ -1,3 +1,6 @@
+/******************************************************************************
+ * Global.
+ ******************************************************************************/
 * {
 	font-size: 14px;
 	font-family: Arial, verdana, sans-serif, Tahoma;
@@ -25,6 +28,24 @@ body {
 	color: #000;
 }
 
+p {
+	margin-top: 0;
+}
+
+pre {
+	color: #000;
+	background: #eee;
+	border: 1px solid #777;
+	padding: 7px;
+}
+
+fieldset {
+	border: 1px solid #ddd;
+}
+
+/******************************************************************************
+ * Defined class.
+ ******************************************************************************/
 input.sexy {
 	background: url(login-bg.gif) no-repeat;
 	background-color: #fff;
@@ -51,17 +72,6 @@ input.common {
 	border: 1px #A5ACB2 solid;
 }
 
-p {
-	margin-top: 0;
-}
-
-pre {
-	color: #000;
-	background: #eee;
-	border: 1px solid #777;
-	padding: 7px;
-}
-
 .error {
 	color: red;
 	background: #fff;
@@ -77,6 +87,21 @@ td.label {
 	vertical-align: top;
 }
 
+table.list {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+table.list th,table.list td {
+	border-bottom: 1px dashed #ddd;
+	padding-top: 6px;
+	padding-bottom: 0px;
+	text-align: center;
+}
+
+/******************************************************************************
+ * Id.
+ ******************************************************************************/
 #header {
 	
 }

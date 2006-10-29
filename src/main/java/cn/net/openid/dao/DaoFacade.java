@@ -14,6 +14,8 @@ import cn.net.openid.User;
  * 
  */
 public interface DaoFacade {
+	Credential getCredential(String id);
+
 	CredentialHandler getCredentialHandler(String id);
 
 	List<CredentialHandler> getCredentialHandlers();
@@ -33,4 +35,8 @@ public interface DaoFacade {
 	 * @param credential
 	 */
 	void insertUser(User user, Credential credential);
+
+	void updateCredential(Credential credential);
+
+	void updateUser(User user);
 }

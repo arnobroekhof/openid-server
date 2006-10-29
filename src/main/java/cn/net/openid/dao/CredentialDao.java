@@ -12,8 +12,11 @@ import cn.net.openid.Credential;
  * 
  */
 public interface CredentialDao {
+	Credential getCredential(String id);
+
 	List<Credential> getCredentials(String userId);
 
 	String insertCredential(Credential credential);
 
+	void updateCredential(Credential credential);
 }

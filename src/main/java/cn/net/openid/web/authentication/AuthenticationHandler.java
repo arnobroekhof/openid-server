@@ -16,10 +16,13 @@ import cn.net.openid.Credential;
  * 
  */
 public interface AuthenticationHandler {
-	void showForm(String username, HttpServletRequest req,
-			HttpServletResponse resp) throws ServletException, IOException;
+	String describe(Credential credential);
 
 	Credential gatherInfo(String username, HttpServletRequest req);
 
-	String describe(Credential credential);
+	void showEditForm(HttpServletRequest req, HttpServletResponse resp,
+			String credentialId) throws ServletException, IOException;
+
+	void showForm(HttpServletRequest req, HttpServletResponse resp,
+			String username) throws ServletException, IOException;
 }

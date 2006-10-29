@@ -131,6 +131,10 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>openid</servlet-name>
+		<url-pattern>*.credential</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>openid</servlet-name>
 		<url-pattern>/sites</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>

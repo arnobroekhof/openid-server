@@ -16,4 +16,5 @@ public interface UserDao {
 
 	String insertUser(User user);
 
+	void updateUser(User user);
 }

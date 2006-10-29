@@ -30,7 +30,7 @@ public class LogoutController implements Controller {
 		if (session != null) {
 			session.invalidate();
 		}
-		return null;
+		return new ModelAndView("logout");
 	}
 
 }
