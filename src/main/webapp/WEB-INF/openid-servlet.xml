@@ -18,6 +18,7 @@
 			value="cn.net.openid.web.LoginForm" />
 		<property name="formView" value="login" />
 		<property name="successView" value="login-success" />
+		<property name="daoFacade" ref="daoFacade" />
 		<property name="provider" ref="provider" />
 	</bean>
 	<bean id="loginHandlersController"
