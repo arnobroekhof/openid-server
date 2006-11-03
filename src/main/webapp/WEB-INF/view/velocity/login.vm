@@ -44,6 +44,16 @@
 				</tr>
 			</table>
 		</form>
+		<script type="text/javascript">
+			<!--
+			var objUsername = document.getElementById("username");
+			if (objUsername.value == "") {
+				objUsername.focus();
+			} else {
+				document.getElementById("password").focus();
+			}
+			//-->
+		</script>
 		#parse("footer.vm")
 	</div>
 </body>

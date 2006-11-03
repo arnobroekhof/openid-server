@@ -45,7 +45,6 @@ public class ProfileController extends SimpleFormController {
 	@Override
 	protected void onBindAndValidate(HttpServletRequest request,
 			Object command, BindException errors) throws Exception {
-		// TODO Auto-generated method stub
 		super.onBindAndValidate(request, command, errors);
 	}
 

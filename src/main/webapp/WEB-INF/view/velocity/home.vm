@@ -26,6 +26,11 @@
 					<input type="submit" name="register" value="注册" class="button" accesskey="R" />
 				</div>
 			</form>
+			<script type="text/javascript">
+				<!--
+				document.getElementById("username").focus();
+				//-->
+			</script>
 			#else
 				#parse("detail.vm")
 			#end

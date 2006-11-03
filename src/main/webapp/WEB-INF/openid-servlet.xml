@@ -1,9 +1,13 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
 		  "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 <beans>
+
+	<!-- The home page controller before and after logged in. -->
 	<bean id="homeController"
 		class="cn.net.openid.web.HomeController">
 	</bean>
+
+	<!-- Register a user page controller. -->
 	<bean id="registerController"
 		class="cn.net.openid.web.RegisterController">
 		<property name="commandClass"
@@ -12,6 +16,8 @@
 		<property name="successView" value="register-success" />
 		<property name="daoFacade" ref="daoFacade" />
 	</bean>
+
+	<!-- Simple login page controller. -->
 	<bean id="loginController"
 		class="cn.net.openid.web.LoginController">
 		<property name="commandClass"
@@ -21,6 +27,8 @@
 		<property name="daoFacade" ref="daoFacade" />
 		<property name="provider" ref="provider" />
 	</bean>
+
+	<!-- Login handlers list controller. -->
 	<bean id="loginHandlersController"
 		class="cn.net.openid.web.LoginHandlersController">
 		<property name="commandClass"
@@ -30,9 +38,13 @@
 		<property name="daoFacade" ref="daoFacade" />
 		<property name="provider" ref="provider" />
 	</bean>
+
+	<!-- Logout. -->
 	<bean id="logoutController"
 		class="cn.net.openid.web.LogoutController">
 	</bean>
+
+	<!-- Profile edit. -->
 	<bean id="profileController"
 		class="cn.net.openid.web.ProfileController">
 		<property name="commandName" value="user" />
@@ -41,14 +53,20 @@
 		<property name="successView" value="profile-success" />
 		<property name="daoFacade" ref="daoFacade" />
 	</bean>
+
+	<!-- Credentials list controller. -->
 	<bean id="credentialsController"
 		class="cn.net.openid.web.CredentialsController">
 		<property name="daoFacade" ref="daoFacade" />
 	</bean>
+
+	<!-- Edit credential. -->
 	<bean id="editCredentialController"
 		class="cn.net.openid.web.EditCredentialController">
 		<property name="daoFacade" ref="daoFacade" />
 	</bean>
+
+	<!-- Edit the simple credential: password. -->
 	<bean id="editPasswordController"
 		class="cn.net.openid.web.EditPasswordController">
 		<property name="commandClass"
@@ -58,6 +76,8 @@
 		<property name="successView" value="edit-password-success" />
 		<property name="daoFacade" ref="daoFacade" />
 	</bean>
+
+	<!-- Delete credential. -->
 	<bean id="deleteCredentialController"
 		class="cn.net.openid.web.DeleteCredentialController">
 		<property name="commandName" value="credential" />
@@ -70,6 +90,8 @@
 		<bean id="sitesController" class="cn.net.openid.web.SitesController">
 		</bean>
 	-->
+	
+	<!-- The url mappings that can be visited anonymously. -->
 	<bean id="handlerMapping"
 		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="urlMap">
@@ -92,6 +114,8 @@
 			</map>
 		</property>
 	</bean>
+	
+	<!-- The interceptor to check user session. -->
 	<bean id="userLoggedInInterceptor"
 		class="cn.net.openid.web.UserLoggedInInterceptor">
 		<property name="loginPath" value="/login" />
