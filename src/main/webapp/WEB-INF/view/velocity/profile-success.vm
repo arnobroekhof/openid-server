@@ -13,7 +13,7 @@
 	<body>
 	<div>
 		#parse("header.vm")
-		修改成功。
+		修改成功。<a href="profile">返回我的档案</a>
 		#parse("footer.vm")
 	</div>
 </body>

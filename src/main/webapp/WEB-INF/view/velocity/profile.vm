@@ -13,40 +13,99 @@
 	<body>
 	<div>
 		#parse("header.vm")
-		很抱歉，个人档案的修改功能尚未完成。
-		#*
 		<form action="profile" method="post">
 			<table>
-				#springBind("user.username")
 				<tr>
 					<td class="label">
-						<label for="username">OpenID：</label>
+						<label for="nickname">Nickname</label>
 					</td>
 					<td>
-						http://<input type="text" id="username" name="$!{status.expression}" class="sexy" size="10" value="$!{esc.html($!{status.value})}" />.openid.org.cn
-						<span class="error">$!{status.errorMessage}</span>
-					</td>
-				</tr>
-				#springBind("command.password")
-				<tr>
-					<td class="label">
-						<label for="password">密码：</label>
-					</td>
-					<td>
-						<input type="password" class="common" id="password" name="password" size="33" />
-						<span class="error">$!{status.errorMessage}</span>
+						#springFormInput("profile.nickname" "")
+						#springShowErrors("" "error")
 					</td>
 				</tr>
 				<tr>
-					<td>&nbsp;</td>
+					<td class="label">
+						<label for="email">Email address:</lable>
+					</td>
 					<td>
-						<input type="submit" value="登录" class="button" />
-						<a href="index.login" title="其它凭据登录">其它凭据登录</a>
+						#springFormInput("profile.email" "")
+						#springShowErrors("" "error")
+					</td>
+				</tr>
+				<tr>
+					<td class="label">
+						<label for="fullname">Full name:</label>
+					</td>
+					<td>
+						#springFormInput("profile.fullname" "")
+						#springShowErrors("" "error")
+					</td>
+				</tr>
+				<tr>
+					<td class="label">
+						<label for="dob">Birth date:</label>
+					</td>
+					<td>
+						#springFormInput("profile.dob" "")
+						#springShowErrors("" "error")
+					</td>
+				</tr>
+				#springBindEscaped("profile.gender" false)
+				<tr>
+					<td class="label">
+						<label for="gender">Gender:</label>
+					</td>
+					<td>
+						<input type="radio" id="gender_U" name="$!{status.expression}" value="U" #if($status.value == "U")checked="checked"#end /><label for="gender_U">Unknown</label>
+						<input type="radio" id="gender_M" name="$!{status.expression}" value="M" #if($status.value == "M")checked="checked"#end /><label for="gender_M">Male</label>
+						<input type="radio" id="gender_F" name="$!{status.expression}" value="F" #if($status.value == "F")checked="checked"#end /><label for="gender_F">Female</label>
+						#springShowErrors("" "error")
+					</td>
+				</tr>
+				<tr>
+					<td class="label">
+						<label for="postcode">Postcode:</label>
+					</td>
+					<td>
+						#springFormInput("profile.postcode" "")
+						#springShowErrors("" "error")
+					</td>
+				</tr>
+				<tr>
+					<td class="label">
+						<label for="country">Country/Region:</label>
+					</td>
+					<td>
+						#springFormSingleSelect("profile.country" $countries "id='country'")
+						#springShowErrors("" "error")
+					</td>
+				</tr>
+				<tr>
+					<td class="label">
+						<label for="language">Preferred language:</label>
+					</td>
+					<td>
+						#springFormSingleSelect("profile.language" $languages "id='language'")
+						#springShowErrors("" "error")
+					</td>
+				</tr>
+				<tr>
+					<td class="label">
+						<label for="timezone">Time zone:</label>
+					<td>
+						#springFormSingleSelect("profile.timezone" $timezones "id='timezone'")
+						#springShowErrors("" "error")
+					</td>
+				</tr>
+				<tr>
+					<td class="label">&nbsp;</td>
+					<td>
+						<input type="submit" class="button" value="Save Changes" />
 					</td>
 				</tr>
 			</table>
 		</form>
-		*#
 		#parse("footer.vm")
 	</div>
 </body>

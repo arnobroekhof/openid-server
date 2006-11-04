@@ -1,2 +1,2 @@
 <link rel="stylesheet" type="text/css" media="screen"
-	href="openid.css" />
+	href="#springUrl('/openid.css')" />
