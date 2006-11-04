@@ -12,6 +12,13 @@
 			/WEB-INF/dataAccessContext-hibernate.xml
 		</param-value>
 	</context-param>
+	<context-param>
+		<description>
+			设置默认的HTML转码行为。参看 spring_ref 2.0 的 14.4.5.2 章节。
+		</description>
+		<param-name>defaultHtmlEscape</param-name>
+		<param-value>true</param-value>
+	</context-param>
 	<listener>
 		<listener-class>
 			org.springframework.web.context.ContextLoaderListener
