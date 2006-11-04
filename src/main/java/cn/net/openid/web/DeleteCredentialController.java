@@ -53,7 +53,7 @@ public class DeleteCredentialController extends SimpleFormController {
 		try {
 			this.daoFacade.deleteCredential(credential);
 		} catch (CredentialException ce) {
-			errors.rejectValue("id", "error", "这是你最后一个凭据，不能删除。");
+			errors.rejectValue("id", "error.credential.lastOne");
 		}
 		super.onBindAndValidate(request, command, errors);
 	}

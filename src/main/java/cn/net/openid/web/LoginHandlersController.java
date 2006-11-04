@@ -44,7 +44,7 @@ public class LoginHandlersController extends SimpleFormController {
 		if (form.getCredentialHandler().getId() == null
 				|| (credentialHandler = daoFacade.getCredentialHandler(form
 						.getCredentialHandler().getId())) == null) {
-			errors.rejectValue("credentialHandler.id", "error", "请选择凭据类型。");
+			errors.rejectValue("credentialHandler.id", "error.credential.handler.empty");
 		} else {
 			form.setCredentialHandler(credentialHandler);
 		}

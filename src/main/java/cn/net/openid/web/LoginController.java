@@ -46,7 +46,7 @@ public class LoginController extends SimpleFormController {
 		LoginForm lf = (LoginForm) command;
 		User user = this.check(lf);
 		if (user == null) {
-			errors.rejectValue("username", "", "认证失败。");
+			errors.rejectValue("username", "error.login.failed");
 		} else {
 			HttpSession session = request.getSession();
 			UserSession userSession = new UserSession(user);

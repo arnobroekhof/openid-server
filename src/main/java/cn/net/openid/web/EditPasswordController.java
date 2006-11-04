@@ -48,11 +48,11 @@ public class EditPasswordController extends SimpleFormController {
 		super.onBindAndValidate(request, command, errors);
 		EditPasswordForm editPasswordForm = (EditPasswordForm) command;
 		if (StringUtils.isEmpty(editPasswordForm.getPassword())) {
-			errors.rejectValue("password", "error", "密码不能为空。");
+			errors.rejectValue("password", "error.password.empty");
 		}
 		if (!StringUtils.equals(editPasswordForm.getPassword(),
 				editPasswordForm.getRetypedPassword())) {
-			errors.rejectValue("retypedPassword", "error", "两次输入的密码不一致。");
+			errors.rejectValue("retypedPassword", "error.password.notEquals");
 		}
 	}
 

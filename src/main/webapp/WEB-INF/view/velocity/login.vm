@@ -28,7 +28,7 @@
 				#springBind("command.password")
 				<tr>
 					<td class="label">
-						<label for="password">密码：</label>
+						<label for="password">#springMessage("label.password")</label>
 					</td>
 					<td>
 						<input type="password" class="common" id="password" name="password" size="33" />
@@ -38,8 +38,8 @@
 				<tr>
 					<td>&nbsp;</td>
 					<td>
-						<input type="submit" value="登录" class="button" />
-						<a href="index.login" title="其它凭据登录">其它凭据登录</a>
+						<input type="submit" value="#springMessage('login')" class="button" />
+						<a href="index.login" title="#springMessage('login.other')">#springMessage("login.other")</a>
 					</td>
 				</tr>
 			</table>
