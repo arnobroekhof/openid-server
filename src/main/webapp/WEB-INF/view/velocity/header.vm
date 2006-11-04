@@ -3,21 +3,20 @@
 	<div id="navbar">
 		<ul>
 			#if(!${userSession.loggedIn})
-			<li><a href="./" title="返回到 OpenID 首页">首页</a></li>
-			<li><a href="login" title="登录">登录</a></li>
-			<li><a href="register" title="注册一个新的 OpenID">注册</a></li>
+			<li><a href="./" title="#springMessage("home.tip")">#springMessage("home")</a></li>
+			<li><a href="login" title="#springMessage("login")">#springMessage("login")</a></li>
+			<li><a href="register" title="#springMessage("register.tip")">#springMessage("register")</a></li>
 			#else
-			<li><a href="home" title="返回到 OpenID 首页">首页</a></li>
-			<li><a href="profile" title="修改我的个人资料">我的档案</a></li>
-			<li><a href="credentials" title="修改我的凭据，如密码等">我的凭据</a></li>
-			##<li><a href="sites" title="我授权访问我的 OpenID 的站点信息">站点管理</a></li>
-			<li><a href="logout" title="退出本次登录">退出</a></li>
+			<li><a href="home" title="#springMessage("home.tip")">#springMessage("home")</a></li>
+			<li><a href="profile" title="#springMessage("profile.tip")">#springMessage("profile")</a></li>
+			<li><a href="credentials" title="#springMessage("credentials.tip")">#springMessage("credentials")</a></li>
+			##<li><a href="sites" title="#springMessage("sites.tip")">#springMessage("sites")</a></li>
+			<li><a href="logout" title="#springMessage("logout.tip")">#springMessage("logout")</a></li>
 			#end
-			<li><a href="http://openid.net.cn" title="关于 OpenID">关于</a></li>
+			<li><a href="http://openid.net.cn" title="#springMessage("about.tip")">#springMessage("about")</a></li>
 		</ul>
 	</div>
 </div>
 <div id="description">
-	<p>Welcome! $!{userSession.username}</p>
-	<p>OpenID.org.cn 提供互联网新一代的简单、开放、分布和安全的统一认证体系，让你在互联网的各种网站之间穿梭自如，一劳永逸... </p>
+	#springMessage("description" $!{userSession.username})
 </div>

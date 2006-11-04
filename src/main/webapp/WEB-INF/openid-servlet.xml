@@ -52,6 +52,7 @@
 		<property name="formView" value="profile" />
 		<property name="successView" value="profile-success" />
 		<property name="daoFacade" ref="daoFacade" />
+		<property name="messageSource" ref="messageSource" />
 	</bean>
 
 	<!-- Credentials list controller. -->

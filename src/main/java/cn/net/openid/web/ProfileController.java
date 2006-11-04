@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.context.MessageSource;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.ModelAndView;
@@ -30,6 +31,29 @@ import cn.net.openid.dao.DaoFacade;
 public class ProfileController extends SimpleFormController {
 
 	private DaoFacade daoFacade;
+
+	private MessageSource messageSource;
+
+	private String formatOffset(int offset) {
+		int m = offset / (1000 * 60);
+		int h = m / 60;
+		StringBuffer sb = new StringBuffer();
+		if (offset > 0) {
+			sb.append('+');
+		} else {
+			sb.append('-');
+		}
+		if (Math.abs(h) < 10) {
+			sb.append('0');
+		}
+		sb.append(Math.abs(h)).append(":");
+		m = m - h * 60;
+		if (m < 10) {
+			sb.append('0');
+		}
+		sb.append(m);
+		return sb.toString();
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -122,35 +146,16 @@ public class ProfileController extends SimpleFormController {
 		String[] timezoneIds = TimeZone.getAvailableIDs();
 		for (String timeZoneId : timezoneIds) {
 			TimeZone timeZone = TimeZone.getTimeZone(timeZoneId);
-			String s = timeZone.getDisplayName(request.getLocale());
+			String longName = timeZone.getDisplayName(request.getLocale());
 			int offset = timeZone.getRawOffset();
-			timezones.put(timeZoneId, String.format("(GMT%1$s) %2$s",
-					formatOffset(offset), s));
+			timezones.put(timeZone.getID(), String.format(this.messageSource
+					.getMessage("timezone", new String[] {}, request
+							.getLocale()), this.formatOffset(offset), longName,
+					timeZone.getID()));
 		}
 
 		map.put("timezones", timezones);
 		return map;
-	}
-
-	private String formatOffset(int offset) {
-		int m = offset / (1000 * 60);
-		int h = m / 60;
-		StringBuffer sb = new StringBuffer();
-		if (offset > 0) {
-			sb.append('+');
-		} else {
-			sb.append('-');
-		}
-		if (Math.abs(h) < 10) {
-			sb.append('0');
-		}
-		sb.append(Math.abs(h)).append(":");
-		m = m - h * 60;
-		if (m < 10) {
-			sb.append('0');
-		}
-		sb.append(m);
-		return sb.toString();
 	}
 
 	/**
@@ -159,6 +164,14 @@ public class ProfileController extends SimpleFormController {
 	 */
 	public void setDaoFacade(DaoFacade daoFacade) {
 		this.daoFacade = daoFacade;
+	}
+
+	/**
+	 * @param messageSource
+	 *            the messageSource to set
+	 */
+	public void setMessageSource(MessageSource messageSource) {
+		this.messageSource = messageSource;
 	}
 
 }
