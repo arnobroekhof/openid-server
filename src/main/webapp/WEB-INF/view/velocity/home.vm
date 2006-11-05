@@ -21,9 +21,9 @@
 					http://
 					<input type="text" id="username" name="username" class="sexy" size="10" accesskey="U" />
 					.openid.org.cn
-					<input type="submit" name="login" value="登录" class="button" accesskey="L" />
-					<input type="submit" name="index.login" value="其它凭据登录" class="button" accesskey="A" />
-					<input type="submit" name="register" value="注册" class="button" accesskey="R" />
+					<input type="submit" name="login" value="#springMessage("login")" class="button" accesskey="L" />
+					<input type="submit" name="index.login" value="#springMessage("login.other")" class="button" accesskey="A" />
+					<input type="submit" name="register" value="#springMessage("register")" class="button" accesskey="R" />
 				</div>
 			</form>
 			<script type="text/javascript">

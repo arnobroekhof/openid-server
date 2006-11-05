@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN">
 	<head>
-		<title>OpenID Register</title>
+		<title>#springMessage("title.register")</title>
 		<meta http-equiv="Content-Type"	content="application/xhtml-xml; charset=UTF-8" />
 		<meta name="robots" content="all" />
 		<meta name="keywords" content="openid" />
@@ -40,7 +40,8 @@
 				#springBind("command.username")
 				<tr>
 					<td class="label">
-						<label for="username">OpenID：</label>				  </td>
+						<label for="username">#springMessage("label.openid")</label>
+					</td>
 					<td>
 						http://<input type="text" id="username" name="username" class="sexy" size="10" value="$!{esc.html($!{status.value})}" />.openid.org.cn
 						<span class="error">$!{status.errorMessage}</span>
@@ -50,22 +51,23 @@
 			<table>
 				<tr>
 					<td class="label">
-						<label for="password">密码：</label>					</td>
+						<label for="password">#springMessage("label.password")</label>
+					</td>
 					<td>
-						<input type="password" class="common" id="password" name="password" />
+						<input type="password" id="password" name="password" />
 					</td>
 				</tr>
 				<tr>
 					<td class="label">
-						<label for="retypePassword">密码确认：</label>
+						<label for="confirmingPassword">#springMessage("label.confirmingPassword")</label>
 				  </td>
 					<td>
-						<input type="password" class="common" id="retypePassword" name="retypePpassword" />
+						<input type="password" id="confirmingPassword" name="confirmingPpassword" />
 					</td>
 				</tr>
 				<tr>
 					<td class="label">&nbsp;</td>
-					<td><input name="submit" type="submit" class="button" value="注册" /></td>
+					<td><input name="submit" type="submit" class="button" value="#springMessage("register")" /></td>
 				</tr>
 		  </table>
 	  </form>

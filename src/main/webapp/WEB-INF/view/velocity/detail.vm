@@ -1,6 +1,6 @@
 <h3>Using Your Own OpenID URL</h3>
 <p>
-	你的OpenID是:
+	#springMessage("message.yourOpenid")
 </p>
 <pre>
 $!{userSession.openidUrl}

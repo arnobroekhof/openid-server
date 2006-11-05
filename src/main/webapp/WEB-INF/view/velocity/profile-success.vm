@@ -13,7 +13,8 @@
 	<body>
 	<div>
 		#parse("header.vm")
-		修改成功。<a href="profile">返回我的档案</a>
+		#springMessage("message.profile.modifySuccess")
+		<a href="profile">#springMessage("message.profile.backToProfile")</a>
 		#parse("footer.vm")
 	</div>
 </body>

@@ -17,6 +17,9 @@
 		</ul>
 	</div>
 </div>
+<div id="welcome">
+	 #springMessage("welcome") $!{userSession.username}
+</div>
 <div id="description">
-	#springMessage("description" $!{userSession.username})
+	#springMessage("description")
 </div>

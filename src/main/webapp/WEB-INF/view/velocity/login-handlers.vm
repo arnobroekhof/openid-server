@@ -28,7 +28,7 @@
 				#springBind("command.credentialHandler.id")
 				<tr>
 					<td class="label">
-						凭据类型：
+						#springMessage("label.credential.type")
 					</td>
 					<td>
 						<dl>
@@ -45,7 +45,7 @@
 				</tr>
 				<tr>
 					<td>&nbsp;</td>
-					<td><input type="submit" value="登录" class="button" /></td>
+					<td><input type="submit" value="#springMessage("login")" class="button" /></td>
 				</tr>
 			</table>
 		</form>
