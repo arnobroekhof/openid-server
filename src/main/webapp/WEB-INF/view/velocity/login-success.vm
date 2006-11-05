@@ -13,7 +13,7 @@
 	<body>
 	<div>
 		#parse("header.vm")
-		登录成功。
+		#springMessage("message.login.success");
 		#parse("detail.vm")
 		#parse("footer.vm")
 	</div>
