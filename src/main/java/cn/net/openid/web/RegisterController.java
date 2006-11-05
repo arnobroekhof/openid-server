@@ -4,8 +4,6 @@
 package cn.net.openid.web;
 
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -27,10 +25,7 @@ public class RegisterController extends SimpleFormController {
 
 	private DaoFacade daoFacade;
 
-	private Pattern pattern;
-
 	public RegisterController() {
-		pattern = Pattern.compile("[a-z]{1,16}");
 	}
 
 	/*
@@ -44,18 +39,12 @@ public class RegisterController extends SimpleFormController {
 			Object command, BindException errors) throws Exception {
 		RegisterForm form = (RegisterForm) command;
 		String username = form.getUsername();
-		if (username != null) {
-			Matcher m = this.pattern.matcher(username);
-			if (!m.matches()) {
-				errors.rejectValue("username", "error", "错误的格式。");
-			}
-		}
 
 		if (!errors.hasErrors()) {
 			User user = this.daoFacade.getUserByUsername(username);
 			if (user != null) {
-				errors.rejectValue("username", "error",
-						"该 OpenID 已经被其他人申请了，你只能换一个了。");
+				errors.rejectValue("username",
+						"error.register.usernameAlreadyExists");
 			}
 		}
 

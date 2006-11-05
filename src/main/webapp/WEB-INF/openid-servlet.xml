@@ -14,6 +14,7 @@
 			value="cn.net.openid.web.RegisterForm" />
 		<property name="formView" value="register" />
 		<property name="successView" value="register-success" />
+		<property name="validator" ref="registerFormValidator" />
 		<property name="daoFacade" ref="daoFacade" />
 	</bean>
 
@@ -51,6 +52,7 @@
 		<property name="commandClass" value="cn.net.openid.User" />
 		<property name="formView" value="profile" />
 		<property name="successView" value="profile-success" />
+		<property name="validator" ref="userValidator" />
 		<property name="daoFacade" ref="daoFacade" />
 		<property name="messageSource" ref="messageSource" />
 	</bean>

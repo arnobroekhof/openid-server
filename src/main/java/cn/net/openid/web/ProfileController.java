@@ -48,10 +48,7 @@ public class ProfileController extends SimpleFormController {
 		}
 		sb.append(Math.abs(h)).append(":");
 		m = m - h * 60;
-		if (m < 10) {
-			sb.append('0');
-		}
-		sb.append(m);
+		sb.append(Math.abs(m));
 		return sb.toString();
 	}
 
@@ -122,21 +119,17 @@ public class ProfileController extends SimpleFormController {
 			map = new HashMap<Object, Object>();
 		}
 
-		final Map<String, String> genders = new LinkedHashMap<String, String>();
 		final Map<String, String> timezones = new LinkedHashMap<String, String>();
 		final Map<String, String> countries = new LinkedHashMap<String, String>();
 		final Map<String, String> languages = new LinkedHashMap<String, String>();
 
-		genders.put("U", "Unknown");
-		genders.put("M", "Male");
-		genders.put("F", "Female");
-		map.put("genders", genders);
-
 		Locale[] locales = Locale.getAvailableLocales();
+		countries.put("", "--");
+		languages.put("", "--");
 		for (Locale locale : locales) {
-			countries.put(locale.getISO3Country(), locale
-					.getDisplayName(request.getLocale()));
-			languages.put(locale.getISO3Language(), locale
+			countries.put(locale.getCountry(), locale.getDisplayName(request
+					.getLocale()));
+			languages.put(locale.getCountry(), locale
 					.getDisplayLanguage(request.getLocale()));
 		}
 
@@ -144,6 +137,7 @@ public class ProfileController extends SimpleFormController {
 		map.put("languages", languages);
 
 		String[] timezoneIds = TimeZone.getAvailableIDs();
+		timezones.put("", "--");
 		for (String timeZoneId : timezoneIds) {
 			TimeZone timeZone = TimeZone.getTimeZone(timeZoneId);
 			String longName = timeZone.getDisplayName(request.getLocale());

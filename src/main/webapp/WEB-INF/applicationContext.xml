@@ -78,4 +78,13 @@
 			</map>
 		</property>
 	</bean>
+
+	<bean id="userValidator"
+		class="cn.net.openid.validation.UserValidator">
+		<property name="usernamePattern" value="[a-z]{1,16}" />
+	</bean>
+	<bean id="registerFormValidator"
+		class="cn.net.openid.validation.RegisterFormValidator">
+		<property name="usernamePattern" value="[a-z]{1,16}" />
+	</bean>
 </beans>
