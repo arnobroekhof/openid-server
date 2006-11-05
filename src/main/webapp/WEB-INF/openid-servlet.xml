@@ -167,6 +167,7 @@
 		<property name="basenames">
 			<list>
 				<value>cn.net.openid.web.messages</value>
+				<value>cn.net.openid.web.credentialHandler</value>
 			</list>
 		</property>
 	</bean>

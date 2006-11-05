@@ -2,19 +2,23 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN">
 	<head>
-		<title>#springMessage("openid") - #springMessage("logout")</title>
-		<meta http-equiv="Content-Type"	content="application/xhtml-xml; charset=UTF-8" />
+		<title>OpenID</title>
+		<meta http-equiv="Content-Type"
+			content="application/xhtml-xml; charset=UTF-8" />
 		<meta name="robots" content="all" />
 		<meta name="keywords" content="openid" />
 		<meta name="description" content="OpenID Provider" />
-		#parse("css.vm")
-		#parse("scripts.vm")
 	</head>
 	<body>
-	<div>
-		#parse("header.vm")
-		#springMessage("message.logout.success")
-		#parse("footer.vm")
-	</div>
-</body>
+		<div>
+			<h2>
+				OpenID is Unavailable
+			</h2>
+
+			<p>
+				A general exception occurred while trying to access OpenID. Please
+				notify your system administrator.
+			</p>
+		</div>
+	</body>
 </html>

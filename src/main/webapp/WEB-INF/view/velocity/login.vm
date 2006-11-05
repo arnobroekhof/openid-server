@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN">
 	<head>
-		<title>OpenID Login</title>
+		<title>#springMessage("openid") - #springMessage("login")</title>
 		<meta http-equiv="Content-Type"	content="application/xhtml-xml; charset=UTF-8" />
 		<meta name="robots" content="all" />
 		<meta name="keywords" content="openid" />
@@ -13,47 +13,50 @@
 	<body>
 	<div>
 		#parse("header.vm")
-		<form action="login" method="post">
-			<table>
-				#springBind("command.username")
-				<tr>
-					<td class="label">
-						<label for="username">OpenID：</label>
-					</td>
-					<td>
-						http://<input type="text" id="username" name="$!{status.expression}" class="sexy" size="10" value="$!{esc.html($!{status.value})}" />.openid.org.cn
-						<span class="error">$!{status.errorMessage}</span>
-					</td>
-				</tr>
-				#springBind("command.password")
-				<tr>
-					<td class="label">
-						<label for="password">#springMessage("label.password")</label>
-					</td>
-					<td>
-						<input type="password" class="common" id="password" name="password" size="33" />
-						<span class="error">$!{status.errorMessage}</span>
-					</td>
-				</tr>
-				<tr>
-					<td>&nbsp;</td>
-					<td>
-						<input type="submit" value="#springMessage('login')" class="button" />
-						<a href="index.login" title="#springMessage('login.other')">#springMessage("login.other")</a>
-					</td>
-				</tr>
-			</table>
-		</form>
-		<script type="text/javascript">
-			<!--
-			var objUsername = document.getElementById("username");
-			if (objUsername.value == "") {
-				objUsername.focus();
-			} else {
-				document.getElementById("password").focus();
-			}
-			//-->
-		</script>
+		<fieldset>
+			<legend>#springMessage("login")</legend>
+			<form action="login" method="post">
+				<table>
+					#springBind("command.username")
+					<tr>
+						<td class="label">
+							<label for="username">OpenID：</label>
+						</td>
+						<td>
+							http://<input type="text" id="username" name="$!{status.expression}" class="sexy" size="10" value="$!{esc.html($!{status.value})}" />.openid.org.cn
+							<span class="error">$!{status.errorMessage}</span>
+						</td>
+					</tr>
+					#springBind("command.password")
+					<tr>
+						<td class="label">
+							<label for="password">#springMessage("label.password")</label>
+						</td>
+						<td>
+							<input type="password" class="common" id="password" name="password" size="33" />
+							<span class="error">$!{status.errorMessage}</span>
+						</td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td>
+							<input type="submit" value="#springMessage('login')" class="button" />
+							<a href="index.login" title="#springMessage('login.other')">#springMessage("login.other")</a>
+						</td>
+					</tr>
+				</table>
+			</form>
+			<script type="text/javascript">
+				<!--
+				var objUsername = document.getElementById("username");
+				if (objUsername.value == "") {
+					objUsername.focus();
+				} else {
+					document.getElementById("password").focus();
+				}
+				//-->
+			</script>
+		</fieldset>
 		#parse("footer.vm")
 	</div>
 </body>
