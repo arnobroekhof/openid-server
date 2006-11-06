@@ -10,7 +10,6 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import cn.net.openid.User;
 import cn.net.openid.web.RegisterForm;
 
 /**
@@ -45,7 +44,7 @@ public class RegisterFormValidator implements Validator {
 	 *      org.springframework.validation.Errors)
 	 */
 	public void validate(Object target, Errors errors) {
-		User user = (User) target;
+		RegisterForm user = (RegisterForm) target;
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username",
 				"required", "Field is required.");
 		if (user.getUsername() != null) {
