@@ -14,6 +14,7 @@ import java.util.TimeZone;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.context.MessageSource;
 import org.springframework.validation.BindException;
@@ -132,8 +133,14 @@ public class ProfileController extends SimpleFormController {
 		countries.put("", "--");
 		languages.put("", "--");
 		for (Locale l : locales) {
-			countries.put(l.getCountry(), l.getDisplayName(locale));
-			languages.put(l.getCountry(), l.getDisplayLanguage(locale));
+			if (!StringUtils.isEmpty(l.getCountry())
+					&& !countries.containsKey(l.getCountry())) {
+				countries.put(l.getCountry(), l.getDisplayCountry(locale));
+			}
+			if (!StringUtils.isEmpty(l.getLanguage())
+					&& !languages.containsKey(l.getLanguage())) {
+				languages.put(l.getLanguage(), l.getDisplayLanguage(locale));
+			}
 		}
 
 		map.put("countries", countries);
