@@ -82,7 +82,7 @@ public class UserValidator implements Validator {
 						"Username format not allowed.");
 			}
 		}
-		if (user.getCountry() != null) {
+		if (!StringUtils.isEmpty(user.getCountry())) {
 			if (!isoCountries.contains(user.getCountry())) {
 				errors.rejectValue("country", "required", "Field is required.");
 			}
