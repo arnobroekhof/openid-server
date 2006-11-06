@@ -1,16 +1,15 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
 		  "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 <beans>
-	<!-- 
-		<bean id="propertyConfigurer"
+	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
-		<list>
-		<value>WEB-INF/openid.properties</value>
-		</list>
+			<list>
+				<value>WEB-INF/jdbc.properties</value>
+				<value>WEB-INF/openid.xml</value>
+			</list>
 		</property>
-		</bean>
-	-->
+	</bean>
 
 	<bean id="baseTransactionProxy"
 		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
@@ -29,8 +28,7 @@
 		<property name="target">
 			<bean class="cn.net.openid.dao.DaoFacadeImpl">
 				<property name="openidUrlPattern"
-					value="http://localhost/openid-server/member/{username}">
-				</property>
+					value="${openid.urlPattern}" />
 				<property name="userDao" ref="userDao" />
 				<property name="credentialDao" ref="credentialDao" />
 				<property name="credentialHandlerDao"
@@ -47,7 +45,7 @@
 		-->
 	</bean>
 	<bean id="provider" class="cn.net.openid.impl.ProviderImpl">
-		<property name="daoFacade" ref="daoFacade"></property>
+		<property name="daoFacade" ref="daoFacade" />
 	</bean>
 
 	<bean id="associateService"
@@ -81,10 +79,12 @@
 
 	<bean id="userValidator"
 		class="cn.net.openid.validation.UserValidator">
-		<property name="usernamePattern" value="[a-z]{1,16}" />
+		<property name="usernamePattern"
+			value="${openid.usernamePattern}" />
 	</bean>
 	<bean id="registerFormValidator"
 		class="cn.net.openid.validation.RegisterFormValidator">
-		<property name="usernamePattern" value="[a-z]{1,16}" />
+		<property name="usernamePattern"
+			value="${openid.usernamePattern}" />
 	</bean>
 </beans>

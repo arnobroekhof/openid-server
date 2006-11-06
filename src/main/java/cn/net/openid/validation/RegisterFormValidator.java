@@ -6,6 +6,8 @@ package cn.net.openid.validation;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -17,6 +19,8 @@ import cn.net.openid.web.RegisterForm;
  * 
  */
 public class RegisterFormValidator implements Validator {
+	private static final Log log = LogFactory
+			.getLog(RegisterFormValidator.class);
 
 	private Pattern usernamePattern;
 
@@ -25,6 +29,7 @@ public class RegisterFormValidator implements Validator {
 	 *            the usernamePattern to set
 	 */
 	public void setUsernamePattern(String usernamePattern) {
+		log.debug("usernamePattern: " + usernamePattern);
 		this.usernamePattern = Pattern.compile(usernamePattern);
 	}
 
