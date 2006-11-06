@@ -16,6 +16,13 @@
 			<li><a href="http://openid.net.cn" title="#springMessage("about.tip")">#springMessage("about")</a></li>
 		</ul>
 	</div>
+	<div id="hl">
+		<ul>
+			<li><a href="?hl=en_US">en_US</a></li>
+			<li><a href="?hl=zh_CN">zh_CN</a></li>
+			<li class="last-child"><a href="hl">»</a></li>
+		</ul>
+	</div>
 </div>
 <div id="welcome">
 	 #springMessage("welcome") $!{userSession.username}

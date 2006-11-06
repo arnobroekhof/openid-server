@@ -18,6 +18,7 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.context.MessageSource;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
@@ -33,6 +34,8 @@ public class ProfileController extends SimpleFormController {
 	private DaoFacade daoFacade;
 
 	private MessageSource messageSource;
+
+	private LocaleResolver localeResolver;
 
 	private String formatOffset(int offset) {
 		int m = offset / (1000 * 60);
@@ -119,6 +122,8 @@ public class ProfileController extends SimpleFormController {
 			map = new HashMap<Object, Object>();
 		}
 
+		Locale locale = this.localeResolver.resolveLocale(request);
+
 		final Map<String, String> timezones = new LinkedHashMap<String, String>();
 		final Map<String, String> countries = new LinkedHashMap<String, String>();
 		final Map<String, String> languages = new LinkedHashMap<String, String>();
@@ -126,11 +131,9 @@ public class ProfileController extends SimpleFormController {
 		Locale[] locales = Locale.getAvailableLocales();
 		countries.put("", "--");
 		languages.put("", "--");
-		for (Locale locale : locales) {
-			countries.put(locale.getCountry(), locale.getDisplayName(request
-					.getLocale()));
-			languages.put(locale.getCountry(), locale
-					.getDisplayLanguage(request.getLocale()));
+		for (Locale l : locales) {
+			countries.put(l.getCountry(), l.getDisplayName(locale));
+			languages.put(l.getCountry(), l.getDisplayLanguage(locale));
 		}
 
 		map.put("countries", countries);
@@ -140,12 +143,11 @@ public class ProfileController extends SimpleFormController {
 		timezones.put("", "--");
 		for (String timeZoneId : timezoneIds) {
 			TimeZone timeZone = TimeZone.getTimeZone(timeZoneId);
-			String longName = timeZone.getDisplayName(request.getLocale());
+			String longName = timeZone.getDisplayName(locale);
 			int offset = timeZone.getRawOffset();
 			timezones.put(timeZone.getID(), String.format(this.messageSource
-					.getMessage("timezone", new String[] {}, request
-							.getLocale()), this.formatOffset(offset), longName,
-					timeZone.getID()));
+					.getMessage("timezone", new String[] {}, locale), this
+					.formatOffset(offset), longName, timeZone.getID()));
 		}
 
 		map.put("timezones", timezones);
@@ -158,6 +160,14 @@ public class ProfileController extends SimpleFormController {
 	 */
 	public void setDaoFacade(DaoFacade daoFacade) {
 		this.daoFacade = daoFacade;
+	}
+
+	/**
+	 * @param localeResolver
+	 *            the localeResolver to set
+	 */
+	public void setLocaleResolver(LocaleResolver localeResolver) {
+		this.localeResolver = localeResolver;
 	}
 
 	/**

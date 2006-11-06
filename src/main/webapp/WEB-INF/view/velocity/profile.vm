@@ -59,11 +59,11 @@
 							<label for="gender">#springMessage("label.gender")</label>
 						</td>
 						<td>
-							<input type="radio" id="gender_U" name="$!{status.expression}" value="U" #if($status.value == "U")checked="checked"#end /><label for="gender_U">#springMessage("gender.unknown")</label>
-							<input type="radio" id="gender_M" name="$!{status.expression}" value="M" #if($status.value == "M")checked="checked"#end /><label for="gender_M">#springMessage("gender.male")</label>
-							<input type="radio" id="gender_F" name="$!{status.expression}" value="F" #if($status.value == "F")checked="checked"#end /><label for="gender_F">#springMessage("gender.female")</label>
-							<input type="radio" id="gender_A" name="$!{status.expression}" value="A" #if($status.value == "A")checked="checked"#end /><label for="gender_A">#springMessage("gender.artificialMale")</label>
-							<input type="radio" id="gender_E" name="$!{status.expression}" value="E" #if($status.value == "E")checked="checked"#end /><label for="gender_E">#springMessage("gender.artificialFemale")</label>
+							<input type="radio" id="gender_U" name="$!{status.expression}" value="U" #if("$!status.value" == "U")checked="checked"#end /><label for="gender_U">#springMessage("gender.unknown")</label>
+							<input type="radio" id="gender_M" name="$!{status.expression}" value="M" #if("$!status.value" == "M")checked="checked"#end /><label for="gender_M">#springMessage("gender.male")</label>
+							<input type="radio" id="gender_F" name="$!{status.expression}" value="F" #if("$!status.value" == "F")checked="checked"#end /><label for="gender_F">#springMessage("gender.female")</label>
+							<input type="radio" id="gender_A" name="$!{status.expression}" value="A" #if("$!status.value" == "A")checked="checked"#end /><label for="gender_A">#springMessage("gender.artificialMale")</label>
+							<input type="radio" id="gender_E" name="$!{status.expression}" value="E" #if("$!status.value" == "E")checked="checked"#end /><label for="gender_E">#springMessage("gender.artificialFemale")</label>
 							#springShowErrors("" "error")
 						</td>
 					</tr>

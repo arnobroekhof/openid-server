@@ -109,7 +109,6 @@ table.list th,table.list td {
  * Id.
  ******************************************************************************/
 #header {
-	
 }
 
 #logo {
@@ -148,6 +147,35 @@ table.list th,table.list td {
 	background-color: yellow;
 	padding-top: 5px;
 	border-top: 3px #006699 solid;
+}
+/* Human language */
+#hl {
+	text-align: right;
+	color: #666;
+	font-size: 0.9em;
+	margin: 0;
+	right: 0;
+	padding:0;
+}
+
+.hl ul, #hl ul{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.hl ul, #hl li{
+	padding: 0 0.5em 0 0.2em;
+	display: inline;
+	border-right: 1px solid #B6B6B6;
+}
+
+#hl li.last-child {
+	padding: 0 0em 0 0.2em;
+	border-right: 0;
+}
+
+.hl a, #hl a {
+	color: #900;
 }
 
 #description {

@@ -55,6 +55,7 @@
 		<property name="validator" ref="userValidator" />
 		<property name="daoFacade" ref="daoFacade" />
 		<property name="messageSource" ref="messageSource" />
+		<property name="localeResolver" ref="localeResolver" />
 	</bean>
 
 	<!-- Credentials list controller. -->
@@ -89,10 +90,17 @@
 		<property name="successView" value="delete-credential-success" />
 		<property name="daoFacade" ref="daoFacade" />
 	</bean>
+
 	<!-- 
 		<bean id="sitesController" class="cn.net.openid.web.SitesController">
 		</bean>
 	-->
+
+	<bean id="humanLanguageSelectionController"
+		class="cn.net.openid.web.HumanLanguageSelectionController">
+		<property name="formView" value="human-language-selection" />
+		<property name="localeResolver" ref="localeResolver" />
+	</bean>
 
 	<!-- The url mappings that can be visited anonymously. -->
 	<bean id="handlerMapping"
@@ -118,6 +126,9 @@
 				</entry>
 				<entry key="/index.login">
 					<ref local="loginHandlersController" />
+				</entry>
+				<entry key="/hl">
+					<ref local="humanLanguageSelectionController" />
 				</entry>
 			</map>
 		</property>
