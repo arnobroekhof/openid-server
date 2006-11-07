@@ -24,6 +24,11 @@
 			org.springframework.web.context.ContextLoaderListener
 		</listener-class>
 	</listener>
+	<listener>
+		<listener-class>
+			cn.net.openid.web.OpenidServletContextListener
+		</listener-class>
+	</listener>
 	<filter>
 		<display-name>Set Character Encoding Filter</display-name>
 		<filter-name>Set Character Encoding Filter</filter-name>

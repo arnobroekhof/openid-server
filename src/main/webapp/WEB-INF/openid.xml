@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties version="1.0">
-	<entry key="openid.urlPattern">http://localhost/openid-server/member/{username}</entry>
-	<entry key="openid.usernamePattern">[a-z]{1,16}</entry>
+	<comment>This is the configuration for OpenID Server.</comment>
+
+	<!-- 
+		The regular expression of username pattern. 
+		The pattern is for registering checking. 
+	-->
+	<entry key="openid.member.usernamePattern">[a-z]{1,16}</entry>
+
+	<!-- 
+		For building the openid_url with field username, 
+		openid_url is the url that return to the OpenID Consumer after logged in. 
+		The openid_url will be: 
+		${openid.member.openidUrlPrefix}${username}${openid.member.openidUrlSuffix}.
+		e.g.
+		${openid.member.openidUrlPrefix} = http://
+		${openid.member.openidUrlSuffix} = .openid.org.cn/
+		openid_url = http://USERNAME.openid.org.cn
+	-->
+	<entry key="openid.member.openidUrlPrefix">http://localhost/openid-server/member/</entry>
+	<entry key="openid.member.openidUrlSuffix"></entry>
 </properties>

@@ -11,6 +11,16 @@
 		</property>
 	</bean>
 
+	<bean id="openidConfiguration"
+		class="cn.net.openid.OpenidConfiguration">
+		<property name="memberUsernamePattern"
+			value="${openid.member.usernamePattern}" />
+		<property name="openidUrlPrefix"
+			value="${openid.member.openidUrlPrefix}" />
+		<property name="openidUrlSuffix"
+			value="${openid.member.openidUrlSuffix}" />
+	</bean>
+
 	<bean id="baseTransactionProxy"
 		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
 		abstract="true">
@@ -27,8 +37,9 @@
 	<bean id="daoFacade" parent="baseTransactionProxy">
 		<property name="target">
 			<bean class="cn.net.openid.dao.DaoFacadeImpl">
-				<property name="openidUrlPattern"
-					value="${openid.urlPattern}" />
+				<property name="openidConfiguration">
+					<ref local="openidConfiguration" />
+				</property>
 				<property name="userDao" ref="userDao" />
 				<property name="credentialDao" ref="credentialDao" />
 				<property name="credentialHandlerDao"
@@ -80,11 +91,11 @@
 	<bean id="userValidator"
 		class="cn.net.openid.validation.UserValidator">
 		<property name="usernamePattern"
-			value="${openid.usernamePattern}" />
+			value="${openid.member.usernamePattern}" />
 	</bean>
 	<bean id="registerFormValidator"
 		class="cn.net.openid.validation.RegisterFormValidator">
 		<property name="usernamePattern"
-			value="${openid.usernamePattern}" />
+			value="${openid.member.usernamePattern}" />
 	</bean>
 </beans>

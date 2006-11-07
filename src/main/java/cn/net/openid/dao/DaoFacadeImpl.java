@@ -5,11 +5,10 @@ package cn.net.openid.dao;
 
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
-
 import cn.net.openid.Credential;
 import cn.net.openid.CredentialException;
 import cn.net.openid.CredentialHandler;
+import cn.net.openid.OpenidConfiguration;
 import cn.net.openid.User;
 
 /**
@@ -17,7 +16,7 @@ import cn.net.openid.User;
  * 
  */
 public class DaoFacadeImpl implements DaoFacade {
-	private String openidUrlPattern;
+	private OpenidConfiguration openidConfiguration;
 
 	private UserDao userDao;
 
@@ -25,14 +24,23 @@ public class DaoFacadeImpl implements DaoFacade {
 
 	private CredentialHandlerDao credentialHandlerDao;
 
+	/**
+	 * @param openidConfiguration
+	 *            the openidConfiguration to set
+	 */
+	public void setOpenidConfiguration(OpenidConfiguration openidConfiguration) {
+		this.openidConfiguration = openidConfiguration;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see cn.net.openid.dao.DaoFacade#buildOpenidUrl(java.lang.String)
 	 */
 	public String buildOpenidUrl(String username) {
-		return StringUtils.replace(new String(this.openidUrlPattern),
-				"{username}", username);
+		return String.format("%1$s%2$s%3$s", this.openidConfiguration
+				.getOpenidUrlPrefix(), username, this.openidConfiguration
+				.getOpenidUrlSuffix());
 	}
 
 	/*
@@ -133,14 +141,6 @@ public class DaoFacadeImpl implements DaoFacade {
 	public void setCredentialHandlerDao(
 			CredentialHandlerDao credentialHandlerDao) {
 		this.credentialHandlerDao = credentialHandlerDao;
-	}
-
-	/**
-	 * @param openidUrlPattern
-	 *            the openidUrlPattern to set
-	 */
-	public void setOpenidUrlPattern(String openidUrlPattern) {
-		this.openidUrlPattern = openidUrlPattern;
 	}
 
 	/**
