@@ -5,6 +5,8 @@
 	http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 	<display-name>OpenID Server</display-name>
 	<description>OpenID Server.</description>
+
+	<!-- Spring. -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
@@ -19,16 +21,36 @@
 		<param-name>defaultHtmlEscape</param-name>
 		<param-value>true</param-value>
 	</context-param>
+
+	<!-- OpenID. -->
+	<context-param>
+		<description>
+			For cn.net.openid.web.OpenidServletContextListener.
+		</description>
+		<param-name>openid.configurationAttributeName</param-name>
+		<param-value>openidConfiguration</param-value>
+	</context-param>
+	<context-param>
+		<description>The bean name of openidConfiguration.</description>
+		<param-name>openid.configurationBeanName</param-name>
+		<param-value>openidConfiguration</param-value>
+	</context-param>
+
+	<!-- Spring. -->
 	<listener>
 		<listener-class>
 			org.springframework.web.context.ContextLoaderListener
 		</listener-class>
 	</listener>
+
+	<!-- OpenID. -->
 	<listener>
 		<listener-class>
 			cn.net.openid.web.OpenidServletContextListener
 		</listener-class>
 	</listener>
+
+	<!-- Character Encoding. -->
 	<filter>
 		<display-name>Set Character Encoding Filter</display-name>
 		<filter-name>Set Character Encoding Filter</filter-name>
@@ -40,23 +62,23 @@
 			<param-value>UTF-8</param-value>
 		</init-param>
 	</filter>
+
+	<!-- OpenID member URL. -->
 	<filter>
 		<display-name>Member Filter</display-name>
 		<filter-name>Member Filter</filter-name>
 		<filter-class>cn.net.openid.web.MemberFilter</filter-class>
-		<init-param>
-			<param-name>fromPattern</param-name>
-			<param-value>
-				<![CDATA[^[0-9a-zA-Z]+://([0-9a-zA-Z]+).openid.org.cn]]>
-			</param-value>
-		</init-param>
 	</filter>
+
+	<!-- OpenID Server. -->
 	<servlet>
 		<display-name>Open ID Provider</display-name>
 		<servlet-name>server</servlet-name>
 		<servlet-class>cn.net.openid.web.ServerServlet</servlet-class>
 		<load-on-startup>10</load-on-startup>
 	</servlet>
+
+	<!-- OpenID in spring. -->
 	<servlet>
 		<servlet-name>openid</servlet-name>
 		<servlet-class>
@@ -64,16 +86,12 @@
 		</servlet-class>
 		<load-on-startup>20</load-on-startup>
 	</servlet>
+
+	<!-- OpenID member page. -->
 	<servlet>
 		<display-name>Open ID Member</display-name>
 		<servlet-name>member</servlet-name>
 		<servlet-class>cn.net.openid.web.MemberServlet</servlet-class>
-		<init-param>
-			<param-name>openIdServer</param-name>
-			<param-value>
-				http://localhost/openid-server/openid.server
-			</param-value>
-		</init-param>
 		<load-on-startup>30</load-on-startup>
 	</servlet>
 

@@ -3,6 +3,7 @@
  */
 package cn.net.openid.web;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
@@ -29,10 +30,15 @@ public class OpenidServletContextListener implements ServletContextListener {
 	 * @see javax.servlet.ServletContextListener#contextInitialized(javax.servlet.ServletContextEvent)
 	 */
 	public void contextInitialized(ServletContextEvent sce) {
+		ServletContext sc = sce.getServletContext();
+		String openidConfigurationBeanName = sc
+				.getInitParameter(OpenidConfiguration.CONFIGURATION_BEAN_NAME);
+		String openidConfigurationAttributeName = sc
+				.getInitParameter(OpenidConfiguration.CONFIGURATION_ATTRIBUTE_NAME);
 		OpenidConfiguration openidConfiguration = (OpenidConfiguration) org.springframework.web.context.support.WebApplicationContextUtils
-				.getWebApplicationContext(sce.getServletContext()).getBean(
-						"openidConfiguration");
-		sce.getServletContext().setAttribute("openidConfiguration",
+				.getWebApplicationContext(sc).getBean(
+						openidConfigurationBeanName);
+		sce.getServletContext().setAttribute(openidConfigurationAttributeName,
 				openidConfiguration);
 	}
 }

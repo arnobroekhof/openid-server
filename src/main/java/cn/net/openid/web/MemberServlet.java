@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+
+import cn.net.openid.OpenidConfiguration;
 
 /**
  * @author Shutra
@@ -41,7 +44,12 @@ public class MemberServlet extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		this.context = config.getServletContext();
-		this.openIdServer = config.getInitParameter("openIdServer");
+		String openidConfigurationBeanName = this.context
+				.getInitParameter(OpenidConfiguration.CONFIGURATION_BEAN_NAME);
+		OpenidConfiguration openidConfiguration = (OpenidConfiguration) WebApplicationContextUtils
+				.getWebApplicationContext(this.context).getBean(
+						openidConfigurationBeanName);
+		this.openIdServer = openidConfiguration.getOpenidServer();
 	}
 
 	/*

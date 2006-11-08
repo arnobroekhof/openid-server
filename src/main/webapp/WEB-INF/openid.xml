@@ -2,6 +2,9 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties version="1.0">
 	<comment>This is the configuration for OpenID Server.</comment>
+	
+	<!-- OpenID Server URL -->
+	<entry key="openid.server">http://localhost/openid-server/openid.server</entry>
 
 	<!-- 
 		The regular expression of username pattern. 
@@ -21,4 +24,9 @@
 	-->
 	<entry key="openid.member.openidUrlPrefix">http://localhost/openid-server/member/</entry>
 	<entry key="openid.member.openidUrlSuffix"></entry>
+	
+	<!--
+		For Member Filter.
+	-->
+	<entry key="openid.member.filter.fromPattern">^[0-9a-zA-Z]+://([0-9a-zA-Z]+).openid.org.cn</entry>
 </properties>

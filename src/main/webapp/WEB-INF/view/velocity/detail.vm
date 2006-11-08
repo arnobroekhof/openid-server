@@ -6,9 +6,9 @@
 $!{userSession.openidUrl}
 </pre>
 <p>
-	#springMessage("message.yourOpenid.1")
+#springMessage("message.yourOpenid.1")
 <pre>
-&lt;link rel="openid.server" href="http://openid.org.cn/openid.server"&gt;
+&lt;link rel="openid.server" href="${openidConfiguration.openidServer}"&gt;
 &lt;link rel="openid.delegate" href="$!{userSession.openidUrl}"&gt;
 </pre>
 #springMessage("message.yourOpenid.2")

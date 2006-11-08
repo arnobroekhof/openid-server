@@ -14,9 +14,13 @@
 	<div>
 		#parse("header.vm")
 		#springBind("command.username")
-		OpenID：<a href="http://$!{status.value}.openid.org.cn/">http://$!{status.value}.openid.org.cn/</a> #springMessage("message.register.success")
-		#set($url="http://$!{status.value}.openid.org.cn/")
-		<a href="login?openidUrl=${link.encodeURL($!{url})}">#springMessage("login")</a>
+		#set($openidUrl="${openidConfiguration.openidUrlPrefix}$!{status.value}${openidConfiguration.openidUrlSuffix}")
+		OpenID：
+		<a href="${openidUrl}">
+			${openidUrl}
+		</a>
+		#springMessage("message.register.success")
+		<a href="login?username=${link.encodeURL($!{status.value})}">#springMessage("login")</a>
 		#parse("footer.vm")
 	</div>
 </body>

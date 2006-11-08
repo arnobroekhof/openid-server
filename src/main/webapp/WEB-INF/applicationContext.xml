@@ -13,12 +13,15 @@
 
 	<bean id="openidConfiguration"
 		class="cn.net.openid.OpenidConfiguration">
+		<property name="openidServer" value="${openid.server}" />
 		<property name="memberUsernamePattern"
 			value="${openid.member.usernamePattern}" />
 		<property name="openidUrlPrefix"
 			value="${openid.member.openidUrlPrefix}" />
 		<property name="openidUrlSuffix"
 			value="${openid.member.openidUrlSuffix}" />
+		<property name="memberFilterFromPattern"
+			value="${openid.member.filter.fromPattern}" />
 	</bean>
 
 	<bean id="baseTransactionProxy"
