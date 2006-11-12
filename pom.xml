@@ -96,11 +96,13 @@
       <artifactId>hsqldb</artifactId>
       <version>1.8.0.7</version>
     </dependency>
+    <!--
     <dependency>
       <groupId>com.redv.bloggerapi.client</groupId>
       <artifactId>blogger-api-client</artifactId>
       <version>1.0</version>
     </dependency>
+    -->
     <!-- 
         com.google.gdata:gdata-client:jar:1.0
         Try downloading the file manually from the project website:
