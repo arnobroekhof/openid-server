@@ -8,7 +8,11 @@
 		<meta name="keywords" content="openid" />
 		<meta name="description" content="OpenID Provider" />
 		#parse("css.vm")
+		<link rel="stylesheet" type="text/css" media="all" href="#springUrl('/jscalendar/skins/aqua/theme.css')" title="Aqua" />
 		#parse("scripts.vm")
+		<script type="text/javascript" src="#springUrl('/jscalendar/calendar_stripped.js')"></script>
+		<script type="text/javascript" src="#springUrl('/jscalendar/calendar-setup_stripped.js')"></script>
+		<script type="text/javascript" src="#springUrl('/jscalendar/lang/calendar-en.js')"></script>
 	</head>
 	<body>
 	<div>
@@ -50,6 +54,17 @@
 						</td>
 						<td>
 							#springFormInput("profile.dob" "")
+							<img src="jscalendar/img.gif" id="f_trigger_c" style="border: 1px solid red; cursor: pointer;" title="Date selector" onmouseover="this.style.background='red';" onmouseout="this.style.background=''" />
+<script type="text/javascript">
+    Calendar.setup({
+        inputField     :    "dob",     // id of the input field
+        //ifFormat       :    "%B %e, %Y",      // format of the input field
+        ifFormat       :    "%Y-%m-%d",
+        button         :    "f_trigger_c",  // trigger for the calendar (button ID)
+        align          :    "Tl",           // alignment (defaults to "Bl")
+        singleClick    :    true
+    });
+</script>
 							#springShowErrors("" "error")
 						</td>
 					</tr>
