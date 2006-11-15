@@ -107,7 +107,7 @@
 		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="interceptors">
 			<list>
-				<ref local="localChangeInterceptor" />
+				<ref local="localeChangeInterceptor" />
 			</list>
 		</property>
 		<property name="urlMap">
@@ -203,7 +203,7 @@
 			<value>/WEB-INF/toolbox.xml</value>
 		</property>
 	</bean>
-	<bean id="localChangeInterceptor"
+	<bean id="localeChangeInterceptor"
 		class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
 		<property name="paramName" value="hl" />
 	</bean>
