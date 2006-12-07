@@ -134,6 +134,22 @@
       <artifactId>gdata-calendar</artifactId>
       <version>1.0</version>
     </dependency>
+    
+    <!--
+     http://code.sxip.com/openid4java
+     http://code.google.com/p/openid4java
+     
+     Try downloading the file manually from the project website.
+
+     Then, install it using the command:
+         mvn install:install-file -DgroupId=net.openid -DartifactId=java-openid-sxip\
+             -Dversion=0.9.1 -Dpackaging=jar -Dfile=/path/to/file
+     -->
+    <dependency>
+      <groupId>net.openid</groupId>
+      <artifactId>java-openid-sxip</artifactId>
+      <version>0.9.1</version>
+    </dependency>
   </dependencies>
   <reporting>
     <plugins>
