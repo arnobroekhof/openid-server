@@ -10,11 +10,11 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.openid.message.DirectError;
-import net.openid.message.Message;
-import net.openid.message.ParameterList;
-import net.openid.server.ServerException;
-import net.openid.server.ServerManager;
+import org.openid4java.message.DirectError;
+import org.openid4java.message.Message;
+import org.openid4java.message.ParameterList;
+import org.openid4java.server.ServerException;
+import org.openid4java.server.ServerManager;
 
 /**
  * @author <a href="mailto:zhoushuqun@gmail.com">Sutra Zhou</a>
