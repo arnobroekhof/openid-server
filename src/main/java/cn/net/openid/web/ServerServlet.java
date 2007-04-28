@@ -15,10 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import cn.net.openid.Modes;
+import cn.net.openid.OpenidConfiguration;
 
 /**
  * @author Shutra
@@ -33,7 +32,7 @@ public class ServerServlet extends HttpServlet {
 
 	private static final Log log = LogFactory.getLog(ServerServlet.class);
 
-	private Modes modes;
+	private SampleServer server;
 
 	/*
 	 * (non-Javadoc)
@@ -43,9 +42,13 @@ public class ServerServlet extends HttpServlet {
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-		WebApplicationContext wac = WebApplicationContextUtils
-				.getWebApplicationContext(config.getServletContext());
-		this.modes = ((Modes) wac.getBean("modes"));
+		String openidConfigurationBeanName = config.getServletContext()
+				.getInitParameter(OpenidConfiguration.CONFIGURATION_BEAN_NAME);
+		OpenidConfiguration openidConfiguration = (OpenidConfiguration) WebApplicationContextUtils
+				.getWebApplicationContext(config.getServletContext()).getBean(
+						openidConfigurationBeanName);
+
+		server = new SampleServer(openidConfiguration.getOpenidServer());
 	}
 
 	/*
@@ -67,32 +70,12 @@ public class ServerServlet extends HttpServlet {
 				log.debug(key + "=" + parameterMap.get(key)[0]);
 			}
 		}
-		super.service(req, resp);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest,
-	 *      javax.servlet.http.HttpServletResponse)
-	 */
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-		this.modes.getGetModes().get(req.getParameter("openid.mode")).service(
-				req, resp);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest,
-	 *      javax.servlet.http.HttpServletResponse)
-	 */
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-		this.modes.getPostModes().get(req.getParameter("openid.mode")).service(
-				req, resp);
+		try {
+			String responseText = server.processRequest(req, resp);
+			log.debug("responseText: " + responseText);
+			resp.sendRedirect(responseText);
+		} catch (Exception e) {
+			throw new ServletException(e);
+		}
 	}
 }

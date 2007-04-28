@@ -26,6 +26,10 @@
           <useFullNames>false</useFullNames>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.mortbay.jetty</groupId>
+        <artifactId>maven-jetty-plugin</artifactId>
+      </plugin>
     </plugins>
   </build>
   <dependencies>

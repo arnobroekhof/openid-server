@@ -8,7 +8,7 @@
 		e.g.
 		http://openid.org.cn/openid.server
 	-->
-	<entry key="openid.server">http://localhost/openid-server/openid.server</entry>
+	<entry key="openid.server">http://localhost:8080/openid-server/openid.server</entry>
 
 	<!-- 
 		The regular expression of username pattern. 
@@ -26,7 +26,7 @@
 		${openid.member.openidUrlSuffix} = .openid.org.cn/
 		openid_url = http://USERNAME.openid.org.cn
 	-->
-	<entry key="openid.member.openidUrlPrefix">http://localhost/openid-server/member/</entry>
+	<entry key="openid.member.openidUrlPrefix">http://localhost:8080/openid-server/member/</entry>
 	<entry key="openid.member.openidUrlSuffix"></entry>
 
 	<!--
@@ -38,5 +38,5 @@
 		
 		([0-9a-zA-Z]) must same as or contains the value of `openid.member.usernamePattern'.
 	-->
-	<entry key="openid.member.filter.fromPattern">^http://localhost/openid-server/test/([0-9a-zA-Z]+)</entry>
+	<entry key="openid.member.filter.fromPattern">^http://localhost:8080/openid-server/test/([0-9a-zA-Z]+)</entry>
 </properties>

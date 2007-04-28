@@ -4,6 +4,7 @@
 package cn.net.openid.web;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletOutputStream;
@@ -90,7 +91,24 @@ public class SampleServer {
 	}
 
 	private List userInteraction(ParameterList request) throws ServerException {
-		throw new ServerException("User-interaction not implemented.");
+		List ret = new ArrayList();
+		String userSelectedId = (String) session
+				.getAttribute("openid.claimed_id");
+		// String userSelectedClaimedId = (String) session
+		// .getAttribute("openid.identity");
+		// Boolean authenticatedAndApproved = (Boolean) session
+		// .getAttribute("authenticatedAndApproved");
+		String userSelectedClaimedId = "http://localhost:8080/openid-server/member/test/";
+		Boolean authenticatedAndApproved = Boolean.TRUE;
+		// Remove the parameterlist so this provider can accept requests from
+		// elsewhere
+		// session.removeAttribute("parameterlist");
+		// session.setAttribute("authenticatedAndApproved", false); // Makes you
+		// authorize each and every time
+		ret.add(userSelectedId);
+		ret.add(userSelectedClaimedId);
+		ret.add(authenticatedAndApproved);
+		return ret;
 	}
 
 	private String directResponse(HttpServletResponse httpResp, String response)
