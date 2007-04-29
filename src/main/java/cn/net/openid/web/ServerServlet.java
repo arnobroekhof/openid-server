@@ -4,8 +4,6 @@
 package cn.net.openid.web;
 
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.Map;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -57,24 +55,13 @@ public class ServerServlet extends HttpServlet {
 	 * @see javax.servlet.http.HttpServlet#service(javax.servlet.http.HttpServletRequest,
 	 *      javax.servlet.http.HttpServletResponse)
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		if (log.isDebugEnabled()) {
-			log.debug("A " + req.getMethod() + " called: ");
-			Map<String, String[]> parameterMap = req.getParameterMap();
-			for (Iterator<String> iter = parameterMap.keySet().iterator(); iter
-					.hasNext();) {
-				String key = iter.next();
-				log.debug(key + "=" + parameterMap.get(key)[0]);
-			}
-		}
 		try {
-			String responseText = server.processRequest(req, resp);
-			log.debug("responseText: " + responseText);
-			resp.sendRedirect(responseText);
+			server.processRequest(req, resp);
 		} catch (Exception e) {
+			log.error("error.", e);
 			throw new ServletException(e);
 		}
 	}

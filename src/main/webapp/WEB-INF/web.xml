@@ -129,6 +129,10 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>openid</servlet-name>
+		<url-pattern>/provider-authorization</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>openid</servlet-name>
 		<url-pattern>/index.html</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>

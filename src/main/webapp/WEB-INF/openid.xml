@@ -27,7 +27,7 @@
 		openid_url = http://USERNAME.openid.org.cn
 	-->
 	<entry key="openid.member.openidUrlPrefix">http://localhost:8080/openid-server/member/</entry>
-	<entry key="openid.member.openidUrlSuffix"></entry>
+	<entry key="openid.member.openidUrlSuffix">/</entry>
 
 	<!--
 		For Member Filter.

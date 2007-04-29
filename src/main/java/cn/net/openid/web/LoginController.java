@@ -84,7 +84,12 @@ public class LoginController extends SimpleFormController {
 					"cn.net.openid.identity").toString(), pm, response);
 			return null;
 		} else {
-			return super.onSubmit(request, response, command, errors);
+			if (session.getAttribute("parameterlist") == null) {
+				return super.onSubmit(request, response, command, errors);
+			} else {
+				response.sendRedirect("provider-authorization");
+				return null;
+			}
 		}
 	}
 

@@ -2,6 +2,9 @@
 		  "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 <beans>
 
+	<bean id="providerAuthorizationController"
+		class="cn.net.openid.web.ProviderAuthorizationController">
+	</bean>
 	<!-- The home page controller before and after logged in. -->
 	<bean id="homeController"
 		class="cn.net.openid.web.HomeController">
@@ -144,11 +147,13 @@
 		<property name="interceptors">
 			<list>
 				<ref local="userLoggedInInterceptor" />
-				<ref local="localChangeInterceptor" />
+				<ref local="localeChangeInterceptor" />
 			</list>
 		</property>
 		<property name="urlMap">
 			<map>
+				<entry key="/provider-authorization"
+					value-ref="providerAuthorizationController" />
 				<entry key="/logout">
 					<ref local="logoutController" />
 				</entry>

@@ -4,17 +4,15 @@
 package cn.net.openid.web;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.openid4java.message.DirectError;
 import org.openid4java.message.Message;
 import org.openid4java.message.ParameterList;
-import org.openid4java.server.ServerException;
 import org.openid4java.server.ServerManager;
 
 /**
@@ -29,16 +27,24 @@ public class SampleServer {
 		manager.setOPEndpointUrl(OPEndpointUrl);
 	}
 
-	public String processRequest(HttpServletRequest httpReq,
+	public void processRequest(HttpServletRequest httpReq,
 			HttpServletResponse httpResp) throws Exception {
-		// extract the parameters from the request
-		ParameterList request = new ParameterList(httpReq.getParameterMap());
+		HttpSession session = httpReq.getSession();
+		ParameterList request;
+		// Completing the authz and authn process by redirecting here
+		if ("complete".equals(httpReq.getParameter("_action"))) {
+			// On a redirect from the OP authn & authz sequence
+			request = (ParameterList) session.getAttribute("parameterlist");
+		} else {
+			// extract the parameters from the request
+			request = new ParameterList(httpReq.getParameterMap());
+		}
 
 		String mode = request.hasParameter("openid.mode") ? request
 				.getParameterValue("openid.mode") : null;
 
 		Message response;
-		String responseText;
+		String responseText = null;
 
 		if ("associate".equals(mode)) {
 			// --- process an association request ---
@@ -47,11 +53,31 @@ public class SampleServer {
 		} else if ("checkid_setup".equals(mode)
 				|| "checkid_immediate".equals(mode)) {
 			// interact with the user and obtain data needed to continue
-			List userData = userInteraction(request);
+			// List userData = userInteraction(request);
 
-			String userSelectedId = (String) userData.get(0);
-			String userSelectedClaimedId = (String) userData.get(1);
-			Boolean authenticatedAndApproved = (Boolean) userData.get(2);
+			String userSelectedId = null;
+			String userSelectedClaimedId = null;
+			Boolean authenticatedAndApproved = null;
+
+			if ((session.getAttribute("authenticatedAndApproved") == null)
+					|| (!((Boolean) session
+							.getAttribute("authenticatedAndApproved")))) {
+				session.setAttribute("parameterlist", request);
+				httpResp.sendRedirect("provider-authorization");
+				return;
+			} else {
+				userSelectedId = (String) session
+						.getAttribute("openid.claimed_id");
+				userSelectedClaimedId = (String) session
+						.getAttribute("openid.identity");
+				authenticatedAndApproved = (Boolean) session
+						.getAttribute("authenticatedAndApproved");
+				// Remove the parameterlist so this provider can accept requests
+				// from elsewhere
+				session.removeAttribute("parameterlist");
+				// Makes you authorize each and every time
+				session.setAttribute("authenticatedAndApproved", false);
+			}
 
 			// --- process an authentication request ---
 			response = manager.authResponse(request, userSelectedId,
@@ -59,12 +85,14 @@ public class SampleServer {
 							.booleanValue());
 
 			if (response instanceof DirectError)
-				return directResponse(httpResp, response.keyValueFormEncoding());
+				directResponse(httpResp, response.keyValueFormEncoding());
 			else {
 				// caller will need to decide which of the following to use:
 
 				// option1: GET HTTP-redirect to the return_to URL
-				return response.getDestinationUrl(true);
+				// return response.getDestinationUrl(true);
+				httpResp.sendRedirect(response.getDestinationUrl(true));
+				return;
 
 				// option2: HTML FORM Redirection
 				// RequestDispatcher dispatcher =
@@ -87,28 +115,7 @@ public class SampleServer {
 		}
 
 		// return the result to the user
-		return responseText;
-	}
-
-	private List userInteraction(ParameterList request) throws ServerException {
-		List ret = new ArrayList();
-		String userSelectedId = (String) session
-				.getAttribute("openid.claimed_id");
-		// String userSelectedClaimedId = (String) session
-		// .getAttribute("openid.identity");
-		// Boolean authenticatedAndApproved = (Boolean) session
-		// .getAttribute("authenticatedAndApproved");
-		String userSelectedClaimedId = "http://localhost:8080/openid-server/member/test/";
-		Boolean authenticatedAndApproved = Boolean.TRUE;
-		// Remove the parameterlist so this provider can accept requests from
-		// elsewhere
-		// session.removeAttribute("parameterlist");
-		// session.setAttribute("authenticatedAndApproved", false); // Makes you
-		// authorize each and every time
-		ret.add(userSelectedId);
-		ret.add(userSelectedClaimedId);
-		ret.add(authenticatedAndApproved);
-		return ret;
+		httpResp.getWriter().write(responseText);
 	}
 
 	private String directResponse(HttpServletResponse httpResp, String response)
