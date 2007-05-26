@@ -15,23 +15,19 @@ import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
-import cn.net.openid.Provider;
 import cn.net.openid.User;
 import cn.net.openid.dao.DaoFacade;
-import cn.net.openid.utils.OpenIDUtils;
 
 /**
  * @author Shutra
  * 
  */
 public class LoginController extends SimpleFormController {
-	private Provider provider;
-
 	@SuppressWarnings("unused")
 	private DaoFacade daoFacade;
 
 	private User check(LoginForm lf) {
-		return this.provider.checkCredential(lf);
+		return null;
 	}
 
 	/*
@@ -80,8 +76,6 @@ public class LoginController extends SimpleFormController {
 		Map<String, String[]> pm = (Map<String, String[]>) request.getSession()
 				.getAttribute("parameterMap");
 		if (pm != null) {
-			this.provider.checkIdSetupResponse(session.getAttribute(
-					"cn.net.openid.identity").toString(), pm, response);
 			return null;
 		} else {
 			if (session.getAttribute("parameterlist") == null) {
@@ -114,13 +108,9 @@ public class LoginController extends SimpleFormController {
 		Map<String, String[]> parameterMap = (Map<String, String[]>) session
 				.getAttribute("parameterMap");
 		if (parameterMap != null) {
-			form.setUsername(this.provider.getUsername(OpenIDUtils
-					.getFirstValue(parameterMap, "openid.identity")));
 		}
 
 		if (StringUtils.isEmpty(form.getUsername())) {
-			form.setUsername(this.provider.getUsername(request
-					.getParameter("openidUrl")));
 		}
 
 		return super.referenceData(request, command, errors);
@@ -133,9 +123,4 @@ public class LoginController extends SimpleFormController {
 	public void setDaoFacade(DaoFacade daoFacade) {
 		this.daoFacade = daoFacade;
 	}
-
-	public void setProvider(Provider provider) {
-		this.provider = provider;
-	}
-
 }

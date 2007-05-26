@@ -16,9 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import cn.net.openid.CredentialHandler;
-import cn.net.openid.Provider;
 import cn.net.openid.dao.DaoFacade;
-import cn.net.openid.utils.OpenIDUtils;
 import cn.net.openid.web.authentication.AuthenticationHandler;
 
 /**
@@ -27,8 +25,6 @@ import cn.net.openid.web.authentication.AuthenticationHandler;
  */
 public class LoginHandlersController extends SimpleFormController {
 	private DaoFacade daoFacade;
-
-	private Provider provider;
 
 	/*
 	 * (non-Javadoc)
@@ -44,7 +40,8 @@ public class LoginHandlersController extends SimpleFormController {
 		if (form.getCredentialHandler().getId() == null
 				|| (credentialHandler = daoFacade.getCredentialHandler(form
 						.getCredentialHandler().getId())) == null) {
-			errors.rejectValue("credentialHandler.id", "error.credential.handler.empty");
+			errors.rejectValue("credentialHandler.id",
+					"error.credential.handler.empty");
 		} else {
 			form.setCredentialHandler(credentialHandler);
 		}
@@ -87,13 +84,9 @@ public class LoginHandlersController extends SimpleFormController {
 		Map<String, String[]> parameterMap = (Map<String, String[]>) session
 				.getAttribute("parameterMap");
 		if (parameterMap != null) {
-			form.setUsername(this.provider.getUsername(OpenIDUtils
-					.getFirstValue(parameterMap, "openid.identity")));
 		}
 
 		if (StringUtils.isEmpty(form.getUsername())) {
-			form.setUsername(this.provider.getUsername(request
-					.getParameter("openidUrl")));
 		}
 
 		if (StringUtils.isEmpty(form.getUsername())) {
@@ -109,13 +102,5 @@ public class LoginHandlersController extends SimpleFormController {
 	 */
 	public void setDaoFacade(DaoFacade daoFacade) {
 		this.daoFacade = daoFacade;
-	}
-
-	/**
-	 * @param provider
-	 *            the provider to set
-	 */
-	public void setProvider(Provider provider) {
-		this.provider = provider;
 	}
 }
