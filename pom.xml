@@ -115,45 +115,6 @@
       <artifactId>openid4java</artifactId>
       <version>0.9.2</version>
     </dependency>
-
-    <!--
-    <dependency>
-      <groupId>com.redv.bloggerapi.client</groupId>
-      <artifactId>blogger-api-client</artifactId>
-      <version>1.0</version>
-    </dependency>
-    -->
-    <!-- 
-        com.google.gdata:gdata-client:jar:1.0
-        Try downloading the file manually from the project website:
-        http://code.google.com/apis/gdata/download/gdata.java.zip
-        (http://code.google.com/apis/gdata/authsub.html).
-        Then, install it using the command: 
-            mvn install:install-file -DgroupId=com.google.gdata -DartifactId=gdata-client \
-                -Dversion=1.0 -Dpackaging=jar -Dfile=/path/to/file
-            (filename is gdata-client-1.0.jar in downloaded file.)
-    -->
-    <dependency>
-      <groupId>com.google.gdata</groupId>
-      <artifactId>gdata-client</artifactId>
-      <version>1.0</version>
-    </dependency>
-
-    <!-- 
-        com.google.gdata:gdata-calendar:jar:1.0
-        Try downloading the file manually from the project website:
-        http://code.google.com/apis/gdata/download/gdata.java.zip
-        (http://code.google.com/apis/gdata/authsub.html).
-        Then, install it using the command:
-            mvn install:install-file -DgroupId=com.google.gdata -DartifactId=gdata-calendar \
-                -Dversion=1.0 -Dpackaging=jar -Dfile=/path/to/file
-            (filename is gdata-calendar-1.0.jar in downloaded file.)
-    -->
-    <dependency>
-      <groupId>com.google.gdata</groupId>
-      <artifactId>gdata-calendar</artifactId>
-      <version>1.0</version>
-    </dependency>
   </dependencies>
   <reporting>
     <plugins>
