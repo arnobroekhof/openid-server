@@ -3,6 +3,7 @@
  */
 package cn.net.openid.web;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,23 +11,35 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
+import cn.net.openid.Credential;
 import cn.net.openid.User;
 import cn.net.openid.dao.DaoFacade;
 
 /**
- * @author Shutra
+ * @author Sutra Zhou
  * 
  */
 public class LoginController extends SimpleFormController {
-	@SuppressWarnings("unused")
+	private static final Log log = LogFactory.getLog(LoginController.class);
+
 	private DaoFacade daoFacade;
 
 	private User check(LoginForm lf) {
+		User user = daoFacade.getUserByUsername(lf.getUsername());
+		List<Credential> credentials = daoFacade.getCredentials(user.getId());
+		for (Credential c : credentials) {
+			log.debug("Password: " + new String(c.getInfo()));
+			if (new String(c.getInfo()).equals(new String(lf.getPassword().getBytes()))) {
+				return user;
+			}
+		}
 		return null;
 	}
 
