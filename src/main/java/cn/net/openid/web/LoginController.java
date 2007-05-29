@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openid4java.message.ParameterList;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
@@ -36,7 +37,8 @@ public class LoginController extends SimpleFormController {
 		List<Credential> credentials = daoFacade.getCredentials(user.getId());
 		for (Credential c : credentials) {
 			log.debug("Password: " + new String(c.getInfo()));
-			if (new String(c.getInfo()).equals(new String(lf.getPassword().getBytes()))) {
+			if (new String(c.getInfo()).equals(new String(lf.getPassword()
+					.getBytes()))) {
 				return user;
 			}
 		}
@@ -86,17 +88,13 @@ public class LoginController extends SimpleFormController {
 			throws Exception {
 		HttpSession session = request.getSession();
 
-		Map<String, String[]> pm = (Map<String, String[]>) request.getSession()
-				.getAttribute("parameterMap");
-		if (pm != null) {
-			return null;
+		ParameterList pl = (ParameterList) session
+				.getAttribute("parameterlist");
+		if (pl == null) {
+			return super.onSubmit(request, response, command, errors);
 		} else {
-			if (session.getAttribute("parameterlist") == null) {
-				return super.onSubmit(request, response, command, errors);
-			} else {
-				response.sendRedirect("provider-authorization");
-				return null;
-			}
+			response.sendRedirect("provider-authorization");
+			return null;
 		}
 	}
 
@@ -114,16 +112,6 @@ public class LoginController extends SimpleFormController {
 
 		if (StringUtils.isEmpty(form.getUsername())) {
 			form.setUsername(request.getParameter("username"));
-		}
-
-		HttpSession session = request.getSession();
-
-		Map<String, String[]> parameterMap = (Map<String, String[]>) session
-				.getAttribute("parameterMap");
-		if (parameterMap != null) {
-		}
-
-		if (StringUtils.isEmpty(form.getUsername())) {
 		}
 
 		return super.referenceData(request, command, errors);
