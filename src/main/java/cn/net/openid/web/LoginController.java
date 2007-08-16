@@ -34,6 +34,10 @@ public class LoginController extends SimpleFormController {
 
 	private User check(LoginForm lf) {
 		User user = daoFacade.getUserByUsername(lf.getUsername());
+		if (user == null) {
+			return null;
+		}
+
 		List<Credential> credentials = daoFacade.getCredentials(user.getId());
 		for (Credential c : credentials) {
 			log.debug("Password: " + new String(c.getInfo()));
