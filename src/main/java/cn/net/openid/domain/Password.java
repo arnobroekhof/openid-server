@@ -21,6 +21,8 @@ public class Password implements Serializable {
 
 	private String password;
 
+	private String passwordShaHex;
+
 	/**
 	 * @return id
 	 */
@@ -64,6 +66,21 @@ public class Password implements Serializable {
 	 */
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	/**
+	 * @return passwordShaHex
+	 */
+	public String getPasswordShaHex() {
+		return passwordShaHex;
+	}
+
+	/**
+	 * @param passwordShaHex
+	 *            要设置的 passwordShaHex
+	 */
+	public void setPasswordShaHex(String passwordShaHex) {
+		this.passwordShaHex = passwordShaHex;
 	}
 
 }

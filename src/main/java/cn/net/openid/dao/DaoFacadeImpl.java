@@ -3,12 +3,14 @@
  */
 package cn.net.openid.dao;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import cn.net.openid.Credential;
 import cn.net.openid.CredentialException;
 import cn.net.openid.CredentialHandler;
 import cn.net.openid.OpenIdConfiguration;
+import cn.net.openid.domain.Password;
 import cn.net.openid.domain.User;
 
 /**
@@ -125,10 +127,25 @@ public class DaoFacadeImpl implements DaoFacade {
 	 * (non-Javadoc)
 	 * 
 	 * @see cn.net.openid.dao.DaoFacade#insertUser(cn.net.openid.User,
-	 *      cn.net.openid.Credential)
+	 *      cn.net.openid.domain.Password)
 	 */
-	public void insertUser(User user, Credential credential) {
+	public void insertUser(User user, Password password) {
 		this.userDao.insertUser(user);
+		this.passwordDao.insertPassword(password);
+
+		Credential credential = new Credential();
+		credential.setUser(user);
+		CredentialHandler credentialHandler = this.getCredentialHandler("1");
+		if (credentialHandler == null) {
+			throw new RuntimeException("没有找到密码凭据类型。");
+		}
+		credential.setHandler(credentialHandler);
+		try {
+			credential.setInfo(password.getPassword().getBytes("UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			throw new RuntimeException(e);
+		}
+
 		this.credentialDao.insertCredential(credential);
 	}
 

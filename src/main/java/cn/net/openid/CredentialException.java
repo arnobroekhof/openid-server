@@ -5,7 +5,6 @@ package cn.net.openid;
 
 /**
  * @author Shutra
- * @deprecated Support password only now.
  */
 public class CredentialException extends Exception {
 

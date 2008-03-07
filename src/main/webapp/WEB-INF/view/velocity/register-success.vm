@@ -14,7 +14,7 @@
 	<div>
 		#parse("header.vm")
 		#springBind("command.username")
-		#set($openidUrl="${openidConfiguration.openidUrlPrefix}$!{status.value}${openidConfiguration.openidUrlSuffix}")
+		#set($openidUrl="${openIdConfiguration.openIdUrlPrefix}$!{status.value}${openIdConfiguration.openIdUrlSuffix}")
 		OpenID：
 		<a href="${openidUrl}">
 			${openidUrl}

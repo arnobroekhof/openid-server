@@ -66,10 +66,19 @@ public class HibernatePasswordDao extends BaseHibernateEntityDao<Password>
 	/*
 	 * （非 Javadoc）
 	 * 
-	 * @see org.bestid.dao.PasswordDao#savePassword(org.bestid.domain.Password)
+	 * @see cn.net.openid.dao.PasswordDao#insertPassword(cn.net.openid.domain.Password)
 	 */
-	public void savePassword(Password password) {
+	public void insertPassword(Password password) {
 		this.getHibernateTemplate().save(password);
+	}
+
+	/*
+	 * （非 Javadoc）
+	 * 
+	 * @see cn.net.openid.dao.PasswordDao#updatePassword(cn.net.openid.domain.Password)
+	 */
+	public void updatePassword(Password password) {
+		this.getHibernateTemplate().update(password);
 	}
 
 }

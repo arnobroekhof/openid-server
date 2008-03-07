@@ -7,14 +7,14 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
-import cn.net.openid.Credential;
-import cn.net.openid.CredentialHandler;
 import cn.net.openid.dao.DaoFacade;
+import cn.net.openid.domain.Password;
 import cn.net.openid.domain.User;
 
 /**
@@ -62,17 +62,13 @@ public class RegisterController extends SimpleFormController {
 			throws Exception {
 		RegisterForm form = (RegisterForm) command;
 		User user = new User();
+		Password password = new Password();
 		user.setUsername(form.getUsername());
-		Credential credential = new Credential();
-		credential.setUser(user);
-		CredentialHandler credentialHandler = this.daoFacade
-				.getCredentialHandler("1");
-		if (credentialHandler == null) {
-			throw new RuntimeException("没有找到密码凭据类型。");
-		}
-		credential.setHandler(credentialHandler);
-		credential.setInfo(form.getPassword().getBytes());
-		this.daoFacade.insertUser(user, credential);
+		password.setUser(user);
+		String passwordShaHex = DigestUtils.shaHex(form.getPassword());
+		password.setPassword(form.getPassword());
+		password.setPasswordShaHex(passwordShaHex);
+		this.daoFacade.insertUser(user, password);
 		return super.onSubmit(command, errors);
 	}
 

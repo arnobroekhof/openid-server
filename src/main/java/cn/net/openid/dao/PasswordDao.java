@@ -16,7 +16,9 @@ public interface PasswordDao {
 
 	Password getPasswordByUsername(String username);
 
-	void savePassword(Password password);
+	void insertPassword(Password password);
+
+	void updatePassword(Password password);
 
 	void deletePassword(String id);
 }

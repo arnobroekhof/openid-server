@@ -8,6 +8,7 @@ import java.util.List;
 import cn.net.openid.Credential;
 import cn.net.openid.CredentialException;
 import cn.net.openid.CredentialHandler;
+import cn.net.openid.domain.Password;
 import cn.net.openid.domain.User;
 
 /**
@@ -37,9 +38,9 @@ public interface DaoFacade {
 	 * 该方法的事务处理由Spring的事务处理保证。
 	 * 
 	 * @param user
-	 * @param credential
+	 * @param password
 	 */
-	void insertUser(User user, Credential credential);
+	void insertUser(User user, Password password);
 
 	void updateCredential(Credential credential);
 
