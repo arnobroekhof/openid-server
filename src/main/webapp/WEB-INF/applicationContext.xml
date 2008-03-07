@@ -44,6 +44,7 @@
 					<ref local="openIdConfiguration" />
 				</property>
 				<property name="userDao" ref="userDao" />
+				<property name="passwordDao" ref="passwordDao" />
 				<property name="credentialDao" ref="credentialDao" />
 				<property name="credentialHandlerDao"
 					ref="credentialHandlerDao" />

@@ -58,6 +58,10 @@
 		class="cn.net.openid.dao.hibernate.HibernateUserDao">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
+	<bean id="passwordDao"
+		class="cn.net.openid.dao.hibernate.HibernatePasswordDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
 	<bean id="credentialDao"
 		class="cn.net.openid.dao.hibernate.HibernateCredentialDao">
 		<property name="sessionFactory" ref="sessionFactory" />

@@ -20,6 +20,8 @@ public class DaoFacadeImpl implements DaoFacade {
 
 	private UserDao userDao;
 
+	private PasswordDao passwordDao;
+
 	private CredentialDao credentialDao;
 
 	private CredentialHandlerDao credentialHandlerDao;
@@ -149,6 +151,14 @@ public class DaoFacadeImpl implements DaoFacade {
 	 */
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
+	}
+
+	/**
+	 * @param passwordDao
+	 *            the passwordDao to set
+	 */
+	public void setPasswordDao(PasswordDao passwordDao) {
+		this.passwordDao = passwordDao;
 	}
 
 	/*
