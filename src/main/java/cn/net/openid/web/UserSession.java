@@ -5,7 +5,7 @@ package cn.net.openid.web;
 
 import java.io.Serializable;
 
-import cn.net.openid.User;
+import cn.net.openid.domain.User;
 
 /**
  * The user session, stored the data of user who are logging or logged in.

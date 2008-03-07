@@ -5,8 +5,8 @@ package cn.net.openid.dao.hibernate;
 
 import java.util.List;
 
-import cn.net.openid.User;
 import cn.net.openid.dao.UserDao;
+import cn.net.openid.domain.User;
 
 /**
  * @author Shutra

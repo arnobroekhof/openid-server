@@ -3,7 +3,7 @@
  */
 package cn.net.openid.dao;
 
-import cn.net.openid.User;
+import cn.net.openid.domain.User;
 
 /**
  * @author Shutra

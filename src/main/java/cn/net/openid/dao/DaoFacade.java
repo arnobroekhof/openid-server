@@ -8,7 +8,7 @@ import java.util.List;
 import cn.net.openid.Credential;
 import cn.net.openid.CredentialException;
 import cn.net.openid.CredentialHandler;
-import cn.net.openid.User;
+import cn.net.openid.domain.User;
 
 /**
  * @author <a href="mailto:zhoushuqun@gmail.com">Shutra</a>

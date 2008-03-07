@@ -14,8 +14,8 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import cn.net.openid.Credential;
 import cn.net.openid.CredentialHandler;
-import cn.net.openid.User;
 import cn.net.openid.dao.DaoFacade;
+import cn.net.openid.domain.User;
 
 /**
  * @author Shutra

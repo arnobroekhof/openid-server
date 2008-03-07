@@ -16,7 +16,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import cn.net.openid.User;
+import cn.net.openid.domain.User;
 
 /**
  * @author Shutra

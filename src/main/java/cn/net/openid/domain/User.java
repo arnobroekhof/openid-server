@@ -1,7 +1,7 @@
 /**
  * Created on 2006-10-15 下午05:11:24
  */
-package cn.net.openid;
+package cn.net.openid.domain;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -78,6 +78,7 @@ public class User implements Serializable {
 
 	/**
 	 * @return the country
+	 * @deprecated {@link Persona}
 	 */
 	public String getCountry() {
 		return country;
@@ -85,6 +86,7 @@ public class User implements Serializable {
 
 	/**
 	 * @return the dob
+	 * @deprecated {@link Persona}
 	 */
 	public Date getDob() {
 		return dob;
@@ -92,6 +94,7 @@ public class User implements Serializable {
 
 	/**
 	 * @return the email
+	 * @deprecated {@link Persona}
 	 */
 	public String getEmail() {
 		return email;
@@ -99,6 +102,7 @@ public class User implements Serializable {
 
 	/**
 	 * @return the fullname
+	 * @deprecated {@link Persona}
 	 */
 	public String getFullname() {
 		return fullname;
@@ -106,6 +110,7 @@ public class User implements Serializable {
 
 	/**
 	 * @return the gender
+	 * @deprecated {@link Persona}
 	 */
 	public String getGender() {
 		return gender;
@@ -120,6 +125,7 @@ public class User implements Serializable {
 
 	/**
 	 * @return the language
+	 * @deprecated {@link Persona}
 	 */
 	public String getLanguage() {
 		return language;
@@ -127,6 +133,7 @@ public class User implements Serializable {
 
 	/**
 	 * @return the nickname
+	 * @deprecated {@link Persona}
 	 */
 	public String getNickname() {
 		return nickname;
@@ -134,6 +141,7 @@ public class User implements Serializable {
 
 	/**
 	 * @return the postcode
+	 * @deprecated {@link Persona}
 	 */
 	public String getPostcode() {
 		return postcode;
@@ -141,6 +149,7 @@ public class User implements Serializable {
 
 	/**
 	 * @return the registerTime
+	 * @deprecated {@link Persona}
 	 */
 	public Date getRegisterTime() {
 		return registerTime;
@@ -148,6 +157,7 @@ public class User implements Serializable {
 
 	/**
 	 * @return the timezone
+	 * @deprecated {@link Persona}
 	 */
 	public String getTimezone() {
 		return timezone;
@@ -163,6 +173,7 @@ public class User implements Serializable {
 	/**
 	 * @param country
 	 *            the country to set
+	 * @deprecated {@link Persona}
 	 */
 	public void setCountry(String country) {
 		this.country = country;
@@ -171,6 +182,7 @@ public class User implements Serializable {
 	/**
 	 * @param dob
 	 *            the dob to set
+	 * @deprecated {@link Persona}
 	 */
 	public void setDob(Date dob) {
 		this.dob = dob;
@@ -179,6 +191,7 @@ public class User implements Serializable {
 	/**
 	 * @param email
 	 *            the email to set
+	 * @deprecated {@link Persona}
 	 */
 	public void setEmail(String email) {
 		this.email = email;
@@ -187,6 +200,7 @@ public class User implements Serializable {
 	/**
 	 * @param fullname
 	 *            the fullname to set
+	 * @deprecated {@link Persona}
 	 */
 	public void setFullname(String fullname) {
 		this.fullname = fullname;
@@ -195,6 +209,7 @@ public class User implements Serializable {
 	/**
 	 * @param gender
 	 *            the gender to set
+	 * @deprecated {@link Persona}
 	 */
 	public void setGender(String gender) {
 		this.gender = gender;
@@ -211,6 +226,7 @@ public class User implements Serializable {
 	/**
 	 * @param language
 	 *            the language to set
+	 * @deprecated {@link Persona}
 	 */
 	public void setLanguage(String language) {
 		this.language = language;
@@ -219,6 +235,7 @@ public class User implements Serializable {
 	/**
 	 * @param nickname
 	 *            the nickname to set
+	 * @deprecated {@link Persona}
 	 */
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
@@ -227,6 +244,7 @@ public class User implements Serializable {
 	/**
 	 * @param postcode
 	 *            the postcode to set
+	 * @deprecated {@link Persona}
 	 */
 	public void setPostcode(String postcode) {
 		this.postcode = postcode;
@@ -235,6 +253,7 @@ public class User implements Serializable {
 	/**
 	 * @param registerTime
 	 *            the registerTime to set
+	 * @deprecated {@link Persona}
 	 */
 	public void setRegisterTime(Date registerTime) {
 		this.registerTime = registerTime;
@@ -243,6 +262,7 @@ public class User implements Serializable {
 	/**
 	 * @param timezone
 	 *            the timezone to set
+	 * @deprecated {@link Persona}
 	 */
 	public void setTimezone(String timezone) {
 		this.timezone = timezone;

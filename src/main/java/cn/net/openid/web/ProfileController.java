@@ -23,8 +23,8 @@ import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
-import cn.net.openid.User;
 import cn.net.openid.dao.DaoFacade;
+import cn.net.openid.domain.User;
 
 /**
  * @author Shutra
