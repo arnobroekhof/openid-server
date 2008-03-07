@@ -23,9 +23,9 @@
 							<label for="username">OpenID：</label>
 						</td>
 						<td>
-							${openidConfiguration.openidUrlPrefix}
+							${openIdConfiguration.openIdUrlPrefix}
 							<input type="text" id="username" name="$!{status.expression}" class="sexy" size="10" value="$!{esc.html($!{status.value})}" />
-							${openidConfiguration.openidUrlSuffix}
+							${openIdConfiguration.openIdUrlSuffix}
 							<span class="error">$!{status.errorMessage}</span>
 						</td>
 					</tr>
