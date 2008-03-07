@@ -9,7 +9,7 @@ import cn.net.openid.web.authentication.AuthenticationHandler;
 
 /**
  * @author Shutra
- * 
+ * @deprecated Support password only now.
  */
 public class CredentialHandler implements Serializable {
 

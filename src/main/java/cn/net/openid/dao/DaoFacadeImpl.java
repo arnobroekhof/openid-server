@@ -16,7 +16,7 @@ import cn.net.openid.domain.User;
  * 
  */
 public class DaoFacadeImpl implements DaoFacade {
-	private OpenIdConfiguration openidConfiguration;
+	private OpenIdConfiguration openIdConfiguration;
 
 	private UserDao userDao;
 
@@ -25,11 +25,11 @@ public class DaoFacadeImpl implements DaoFacade {
 	private CredentialHandlerDao credentialHandlerDao;
 
 	/**
-	 * @param openidConfiguration
-	 *            the openidConfiguration to set
+	 * @param openIdConfiguration
+	 *            the openIdConfiguration to set
 	 */
-	public void setOpenidConfiguration(OpenIdConfiguration openidConfiguration) {
-		this.openidConfiguration = openidConfiguration;
+	public void setOpenIdConfiguration(OpenIdConfiguration openIdConfiguration) {
+		this.openIdConfiguration = openIdConfiguration;
 	}
 
 	/*
@@ -38,9 +38,9 @@ public class DaoFacadeImpl implements DaoFacade {
 	 * @see cn.net.openid.dao.DaoFacade#buildOpenidUrl(java.lang.String)
 	 */
 	public String buildOpenidUrl(String username) {
-		return String.format("%1$s%2$s%3$s", this.openidConfiguration
-				.getOpenidUrlPrefix(), username, this.openidConfiguration
-				.getOpenidUrlSuffix());
+		return String.format("%1$s%2$s%3$s", this.openIdConfiguration
+				.getOpenIdUrlPrefix(), username, this.openIdConfiguration
+				.getOpenIdUrlSuffix());
 	}
 
 	/*

@@ -24,9 +24,9 @@ public class OpenIdConfiguration implements Serializable {
 
 	private String memberUsernamePattern;
 
-	private String openidUrlPrefix;
+	private String openIdUrlPrefix;
 
-	private String openidUrlSuffix;
+	private String openIdUrlSuffix;
 
 	private String memberFilterFromPattern;
 
@@ -52,17 +52,17 @@ public class OpenIdConfiguration implements Serializable {
 	}
 
 	/**
-	 * @return the openidUrlPrefix
+	 * @return the openIdUrlPrefix
 	 */
-	public String getOpenidUrlPrefix() {
-		return openidUrlPrefix;
+	public String getOpenIdUrlPrefix() {
+		return openIdUrlPrefix;
 	}
 
 	/**
-	 * @return the openidUrlSuffix
+	 * @return the openIdUrlSuffix
 	 */
-	public String getOpenidUrlSuffix() {
-		return openidUrlSuffix;
+	public String getOpenIdUrlSuffix() {
+		return openIdUrlSuffix;
 	}
 
 	/**
@@ -90,19 +90,19 @@ public class OpenIdConfiguration implements Serializable {
 	}
 
 	/**
-	 * @param openidUrlPrefix
-	 *            the openidUrlPrefix to set
+	 * @param openIdUrlPrefix
+	 *            the openIdUrlPrefix to set
 	 */
-	public void setOpenidUrlPrefix(String openidUrlPrefix) {
-		this.openidUrlPrefix = openidUrlPrefix;
+	public void setOpenIdUrlPrefix(String openidUrlPrefix) {
+		this.openIdUrlPrefix = openidUrlPrefix;
 	}
 
 	/**
-	 * @param openidUrlSuffix
-	 *            the openidUrlSuffix to set
+	 * @param openIdUrlSuffix
+	 *            the openIdUrlSuffix to set
 	 */
-	public void setOpenidUrlSuffix(String openidUrlSuffix) {
-		this.openidUrlSuffix = openidUrlSuffix;
+	public void setOpenIdUrlSuffix(String openidUrlSuffix) {
+		this.openIdUrlSuffix = openidUrlSuffix;
 	}
 
 }

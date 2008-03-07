@@ -11,14 +11,14 @@
 		</property>
 	</bean>
 
-	<bean id="openidConfiguration"
-		class="cn.net.openid.OpenidConfiguration">
-		<property name="openidServer" value="${openid.server}" />
+	<bean id="openIdConfiguration"
+		class="cn.net.openid.OpenIdConfiguration">
+		<property name="openIdServer" value="${openid.server}" />
 		<property name="memberUsernamePattern"
 			value="${openid.member.usernamePattern}" />
-		<property name="openidUrlPrefix"
+		<property name="openIdUrlPrefix"
 			value="${openid.member.openidUrlPrefix}" />
-		<property name="openidUrlSuffix"
+		<property name="openIdUrlSuffix"
 			value="${openid.member.openidUrlSuffix}" />
 		<property name="memberFilterFromPattern"
 			value="${openid.member.filter.fromPattern}" />
@@ -40,8 +40,8 @@
 	<bean id="daoFacade" parent="baseTransactionProxy">
 		<property name="target">
 			<bean class="cn.net.openid.dao.DaoFacadeImpl">
-				<property name="openidConfiguration">
-					<ref local="openidConfiguration" />
+				<property name="openIdConfiguration">
+					<ref local="openIdConfiguration" />
 				</property>
 				<property name="userDao" ref="userDao" />
 				<property name="credentialDao" ref="credentialDao" />
