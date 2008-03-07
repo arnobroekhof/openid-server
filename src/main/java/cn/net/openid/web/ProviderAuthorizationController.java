@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.openid4java.message.ParameterList;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
@@ -16,6 +18,9 @@ import org.springframework.web.servlet.mvc.Controller;
  * 
  */
 public class ProviderAuthorizationController implements Controller {
+	private static final Log log = LogFactory
+			.getLog(ProviderAuthorizationController.class);
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -42,6 +47,7 @@ public class ProviderAuthorizationController implements Controller {
 		String openidclaimedid = requestp.hasParameter("openid.claimed_id") ? requestp
 				.getParameterValue("openid.claimed_id")
 				: null;
+		log.debug("openidclaimedid: " + openidclaimedid);
 		String openididentity = requestp.hasParameter("openid.identity") ? requestp
 				.getParameterValue("openid.identity")
 				: null;
@@ -51,6 +57,7 @@ public class ProviderAuthorizationController implements Controller {
 		if (userSession.getOpenidUrl().equals(openididentity)) {
 			String site = (String) (openidrealm == null ? openidreturnto
 					: openidrealm);
+			log.debug("site: " + site);
 			// No need to change openid.* session vars
 			session.setAttribute("authenticatedAndApproved", true);
 			response.sendRedirect("openid.server?_action=complete");

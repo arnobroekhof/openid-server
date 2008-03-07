@@ -50,7 +50,7 @@
 	<bean id="profileController"
 		class="cn.net.openid.web.ProfileController">
 		<property name="commandName" value="profile" />
-		<property name="commandClass" value="cn.net.openid.User" />
+		<property name="commandClass" value="cn.net.openid.domain.User" />
 		<property name="formView" value="profile" />
 		<property name="successView" value="profile-success" />
 		<property name="validator" ref="userValidator" />
