@@ -3,13 +3,13 @@
 	#springMessage("message.yourOpenid")
 </p>
 <pre>
-$!{userSession.openidUrl}
+$!{userSession.openIdUrl}
 </pre>
 <p>
 #springMessage("message.yourOpenid.1")
 <pre>
-&lt;link rel="openid.server" href="${openidConfiguration.openidServer}"&gt;
-&lt;link rel="openid.delegate" href="$!{userSession.openidUrl}"&gt;
+&lt;link rel="openid.server" href="${openIdConfiguration.openIdServer}"&gt;
+&lt;link rel="openid.delegate" href="$!{userSession.openIdUrl}"&gt;
 </pre>
 #springMessage("message.yourOpenid.2")
 </p>

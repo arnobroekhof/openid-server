@@ -24,7 +24,7 @@ public class UserSession implements Serializable {
 
 	private String username;
 
-	private String openidUrl;
+	private String openIdUrl;
 
 	private boolean loggedIn;
 
@@ -38,10 +38,10 @@ public class UserSession implements Serializable {
 	}
 
 	/**
-	 * @return the openidUrl
+	 * @return the openIdUrl
 	 */
-	public String getOpenidUrl() {
-		return openidUrl;
+	public String getOpenIdUrl() {
+		return openIdUrl;
 	}
 
 	/**
@@ -74,11 +74,11 @@ public class UserSession implements Serializable {
 	}
 
 	/**
-	 * @param openidUrl
-	 *            the openidUrl to set
+	 * @param openIdUrl
+	 *            the openIdUrl to set
 	 */
-	public void setOpenidUrl(String openidUrl) {
-		this.openidUrl = openidUrl;
+	public void setOpenIdUrl(String openidUrl) {
+		this.openIdUrl = openidUrl;
 	}
 
 	/**

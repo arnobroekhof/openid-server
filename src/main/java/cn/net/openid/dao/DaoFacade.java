@@ -32,6 +32,8 @@ public interface DaoFacade {
 
 	User getUserByUsername(String username);
 
+	Password getPasswordByUserId(String userId);
+
 	String insertCredential(Credential credential);
 
 	/**

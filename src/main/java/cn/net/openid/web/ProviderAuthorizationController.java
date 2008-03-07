@@ -54,7 +54,7 @@ public class ProviderAuthorizationController implements Controller {
 		UserSession userSession = (UserSession) session
 				.getAttribute("userSession");
 
-		if (userSession.getOpenidUrl().equals(openididentity)) {
+		if (userSession.getOpenIdUrl().equals(openididentity)) {
 			String site = (String) (openidrealm == null ? openidreturnto
 					: openidrealm);
 			log.debug("site: " + site);

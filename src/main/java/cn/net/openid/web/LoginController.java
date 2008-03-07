@@ -3,13 +3,13 @@
  */
 package cn.net.openid.web;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -19,8 +19,8 @@ import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
-import cn.net.openid.Credential;
 import cn.net.openid.dao.DaoFacade;
+import cn.net.openid.domain.Password;
 import cn.net.openid.domain.User;
 
 /**
@@ -28,6 +28,7 @@ import cn.net.openid.domain.User;
  * 
  */
 public class LoginController extends SimpleFormController {
+	@SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog(LoginController.class);
 
 	private DaoFacade daoFacade;
@@ -38,15 +39,26 @@ public class LoginController extends SimpleFormController {
 			return null;
 		}
 
-		List<Credential> credentials = daoFacade.getCredentials(user.getId());
-		for (Credential c : credentials) {
-			log.debug("Password: " + new String(c.getInfo()));
-			if (new String(c.getInfo()).equals(new String(lf.getPassword()
-					.getBytes()))) {
-				return user;
-			}
+		// List<Credential> credentials =
+		// daoFacade.getCredentials(user.getId());
+		// for (Credential c : credentials) {
+		// log.debug("Password: " + new String(c.getInfo()));
+		// try {
+		// if (new String(c.getInfo(), "UTF-8").equals(new String(lf
+		// .getPassword().getBytes("UTF-8")))) {
+		// return user;
+		// }
+		// } catch (UnsupportedEncodingException e) {
+		// throw new RuntimeException(e);
+		// }
+		// }
+		Password password = this.daoFacade.getPasswordByUserId(user.getId());
+		if (password.getPasswordShaHex().equalsIgnoreCase(
+				DigestUtils.shaHex(lf.getPassword()))) {
+			return user;
+		} else {
+			return null;
 		}
-		return null;
 	}
 
 	/*
@@ -66,7 +78,7 @@ public class LoginController extends SimpleFormController {
 			HttpSession session = request.getSession();
 			UserSession userSession = new UserSession(user);
 			userSession.setLoggedIn(true);
-			userSession.setOpenidUrl(this.daoFacade.buildOpenidUrl(lf
+			userSession.setOpenIdUrl(this.daoFacade.buildOpenidUrl(lf
 					.getUsername()));
 			session.setAttribute("userSession", userSession);
 

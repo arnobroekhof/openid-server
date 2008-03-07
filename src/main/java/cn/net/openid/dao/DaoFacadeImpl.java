@@ -3,7 +3,6 @@
  */
 package cn.net.openid.dao;
 
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import cn.net.openid.Credential;
@@ -133,20 +132,20 @@ public class DaoFacadeImpl implements DaoFacade {
 		this.userDao.insertUser(user);
 		this.passwordDao.insertPassword(password);
 
-		Credential credential = new Credential();
-		credential.setUser(user);
-		CredentialHandler credentialHandler = this.getCredentialHandler("1");
-		if (credentialHandler == null) {
-			throw new RuntimeException("没有找到密码凭据类型。");
-		}
-		credential.setHandler(credentialHandler);
-		try {
-			credential.setInfo(password.getPassword().getBytes("UTF-8"));
-		} catch (UnsupportedEncodingException e) {
-			throw new RuntimeException(e);
-		}
-
-		this.credentialDao.insertCredential(credential);
+		// Credential credential = new Credential();
+		// credential.setUser(user);
+		// CredentialHandler credentialHandler = this.getCredentialHandler("1");
+		// if (credentialHandler == null) {
+		// throw new RuntimeException("没有找到密码凭据类型。");
+		// }
+		// credential.setHandler(credentialHandler);
+		// try {
+		// credential.setInfo(password.getPassword().getBytes("UTF-8"));
+		// } catch (UnsupportedEncodingException e) {
+		// throw new RuntimeException(e);
+		// }
+		//
+		// this.credentialDao.insertCredential(credential);
 	}
 
 	/**
@@ -194,6 +193,15 @@ public class DaoFacadeImpl implements DaoFacade {
 	 */
 	public void updateUser(User user) {
 		this.userDao.updateUser(user);
+	}
+
+	/*
+	 * （非 Javadoc）
+	 * 
+	 * @see cn.net.openid.dao.DaoFacade#getPasswordByUserId(java.lang.String)
+	 */
+	public Password getPasswordByUserId(String userId) {
+		return this.passwordDao.getPasswordByUserId(userId);
 	}
 
 }
