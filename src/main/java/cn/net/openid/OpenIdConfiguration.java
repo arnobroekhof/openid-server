@@ -9,18 +9,18 @@ import java.io.Serializable;
  * @author Shutra
  * 
  */
-public class OpenidConfiguration implements Serializable {
+public class OpenIdConfiguration implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 5457863007358751006L;
 
-	public static final String CONFIGURATION_BEAN_NAME = "openid.configurationBeanName";
+	public static final String CONFIGURATION_BEAN_NAME = "openId.configurationBeanName";
 
-	public static final String CONFIGURATION_ATTRIBUTE_NAME = "openid.configurationAttributeName";
+	public static final String CONFIGURATION_ATTRIBUTE_NAME = "openId.configurationAttributeName";
 
-	private String openidServer;
+	private String openIdServer;
 
 	private String memberUsernamePattern;
 
@@ -45,10 +45,10 @@ public class OpenidConfiguration implements Serializable {
 	}
 
 	/**
-	 * @return the openidServer
+	 * @return the openIdServer
 	 */
-	public String getOpenidServer() {
-		return openidServer;
+	public String getOpenIdServer() {
+		return openIdServer;
 	}
 
 	/**
@@ -82,11 +82,11 @@ public class OpenidConfiguration implements Serializable {
 	}
 
 	/**
-	 * @param openidServer
-	 *            the openidServer to set
+	 * @param openIdServer
+	 *            the openIdServer to set
 	 */
-	public void setOpenidServer(String openidServer) {
-		this.openidServer = openidServer;
+	public void setOpenIdServer(String openidServer) {
+		this.openIdServer = openidServer;
 	}
 
 	/**

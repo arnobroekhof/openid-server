@@ -8,7 +8,7 @@ import java.util.List;
 import cn.net.openid.Credential;
 import cn.net.openid.CredentialException;
 import cn.net.openid.CredentialHandler;
-import cn.net.openid.OpenidConfiguration;
+import cn.net.openid.OpenIdConfiguration;
 import cn.net.openid.domain.User;
 
 /**
@@ -16,7 +16,7 @@ import cn.net.openid.domain.User;
  * 
  */
 public class DaoFacadeImpl implements DaoFacade {
-	private OpenidConfiguration openidConfiguration;
+	private OpenIdConfiguration openidConfiguration;
 
 	private UserDao userDao;
 
@@ -28,7 +28,7 @@ public class DaoFacadeImpl implements DaoFacade {
 	 * @param openidConfiguration
 	 *            the openidConfiguration to set
 	 */
-	public void setOpenidConfiguration(OpenidConfiguration openidConfiguration) {
+	public void setOpenidConfiguration(OpenIdConfiguration openidConfiguration) {
 		this.openidConfiguration = openidConfiguration;
 	}
 

@@ -25,15 +25,15 @@
 	<!-- OpenID. -->
 	<context-param>
 		<description>
-			For cn.net.openid.web.OpenidServletContextListener.
+			For cn.net.openid.web.OpenIdServletContextListener.
 		</description>
-		<param-name>openid.configurationAttributeName</param-name>
-		<param-value>openidConfiguration</param-value>
+		<param-name>openId.configurationAttributeName</param-name>
+		<param-value>openIdConfiguration</param-value>
 	</context-param>
 	<context-param>
-		<description>The bean name of openidConfiguration.</description>
-		<param-name>openid.configurationBeanName</param-name>
-		<param-value>openidConfiguration</param-value>
+		<description>The bean name of openIdConfiguration.</description>
+		<param-name>openId.configurationBeanName</param-name>
+		<param-value>openIdConfiguration</param-value>
 	</context-param>
 
 	<!-- Spring. -->
@@ -46,7 +46,7 @@
 	<!-- OpenID. -->
 	<listener>
 		<listener-class>
-			cn.net.openid.web.OpenidServletContextListener
+			cn.net.openid.web.OpenIdServletContextListener
 		</listener-class>
 	</listener>
 
