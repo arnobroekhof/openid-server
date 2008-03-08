@@ -60,7 +60,7 @@ public class ProviderAuthorizationController implements Controller {
 			log.debug("site: " + site);
 			// No need to change openid.* session vars
 			session.setAttribute("authenticatedAndApproved", true);
-			response.sendRedirect("openid.server?_action=complete");
+			response.sendRedirect("server?_action=complete");
 		} else {
 			response.getWriter().write("Openid hacking.");
 		}

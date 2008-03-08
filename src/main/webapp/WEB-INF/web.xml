@@ -105,7 +105,7 @@
 	</filter-mapping>
 	<servlet-mapping>
 		<servlet-name>server</servlet-name>
-		<url-pattern>/openid.server</url-pattern>
+		<url-pattern>/server</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>openid</servlet-name>

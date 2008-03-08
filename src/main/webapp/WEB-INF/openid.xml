@@ -6,9 +6,9 @@
 	<!--
 		OpenID Server URL.
 		e.g.
-		http://openid.org.cn/openid.server
+		http://openid.org.cn/server
 	-->
-	<entry key="openid.server">http://localhost:8080/openid-server/openid.server</entry>
+	<entry key="openid.server">http://localhost:8080/openid-server/server</entry>
 
 	<!-- 
 		The regular expression of username pattern. 
