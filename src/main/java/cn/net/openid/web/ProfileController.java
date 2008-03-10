@@ -52,7 +52,11 @@ public class ProfileController extends SimpleFormController {
 		}
 		sb.append(Math.abs(h)).append(":");
 		m = m - h * 60;
-		sb.append(Math.abs(m));
+		if (m == 0) {
+			sb.append("00");
+		} else {
+			sb.append(Math.abs(m));
+		}
 		return sb.toString();
 	}
 
