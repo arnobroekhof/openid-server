@@ -46,6 +46,17 @@
 		class="cn.net.openid.web.LogoutController">
 	</bean>
 
+	<!-- Email. -->
+	<bean id="emailController"
+		class="cn.net.openid.web.EmailController">
+		<property name="commandName" value="email" />
+		<property name="commandClass"
+			value="cn.net.openid.domain.Email" />
+		<property name="formView" value="email" />
+		<property name="successView" value="email-success" />
+		<property name="daoFacade" ref="daoFacade" />
+	</bean>
+
 	<!-- Profile edit. -->
 	<bean id="profileController"
 		class="cn.net.openid.web.ProfileController">
@@ -154,6 +165,9 @@
 					value-ref="providerAuthorizationController" />
 				<entry key="/logout">
 					<ref local="logoutController" />
+				</entry>
+				<entry key="/email">
+					<ref local="emailController" />
 				</entry>
 				<entry key="/profile">
 					<ref local="profileController" />

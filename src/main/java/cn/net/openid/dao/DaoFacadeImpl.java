@@ -3,12 +3,14 @@
  */
 package cn.net.openid.dao;
 
+import java.util.Collection;
 import java.util.List;
 
 import cn.net.openid.Credential;
 import cn.net.openid.CredentialException;
 import cn.net.openid.CredentialHandler;
 import cn.net.openid.OpenIdConfiguration;
+import cn.net.openid.domain.Email;
 import cn.net.openid.domain.Password;
 import cn.net.openid.domain.User;
 
@@ -22,6 +24,8 @@ public class DaoFacadeImpl implements DaoFacade {
 	private UserDao userDao;
 
 	private PasswordDao passwordDao;
+
+	private EmailDao emailDao;
 
 	private CredentialDao credentialDao;
 
@@ -177,6 +181,14 @@ public class DaoFacadeImpl implements DaoFacade {
 		this.passwordDao = passwordDao;
 	}
 
+	/**
+	 * @param emailDao
+	 *            要设置的 emailDao
+	 */
+	public void setEmailDao(EmailDao emailDao) {
+		this.emailDao = emailDao;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -202,6 +214,42 @@ public class DaoFacadeImpl implements DaoFacade {
 	 */
 	public Password getPasswordByUserId(String userId) {
 		return this.passwordDao.getPasswordByUserId(userId);
+	}
+
+	/*
+	 * （非 Javadoc）
+	 * 
+	 * @see cn.net.openid.dao.DaoFacade#deleteEmail(java.lang.String)
+	 */
+	public void deleteEmail(String id) {
+		this.emailDao.deleteEmail(id);
+	}
+
+	/*
+	 * （非 Javadoc）
+	 * 
+	 * @see cn.net.openid.dao.DaoFacade#getEmail(java.lang.String)
+	 */
+	public Email getEmail(String id) {
+		return this.emailDao.getEmail(id);
+	}
+
+	/*
+	 * （非 Javadoc）
+	 * 
+	 * @see cn.net.openid.dao.DaoFacade#getEmailsByUserId(java.lang.String)
+	 */
+	public Collection<Email> getEmailsByUserId(String userId) {
+		return this.emailDao.getEmailsByUserId(userId);
+	}
+
+	/*
+	 * （非 Javadoc）
+	 * 
+	 * @see cn.net.openid.dao.DaoFacade#insertEmail(cn.net.openid.domain.Email)
+	 */
+	public void insertEmail(Email email) {
+		this.emailDao.insertEmail(email);
 	}
 
 }

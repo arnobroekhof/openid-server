@@ -3,11 +3,13 @@
  */
 package cn.net.openid.dao;
 
+import java.util.Collection;
 import java.util.List;
 
 import cn.net.openid.Credential;
 import cn.net.openid.CredentialException;
 import cn.net.openid.CredentialHandler;
+import cn.net.openid.domain.Email;
 import cn.net.openid.domain.Password;
 import cn.net.openid.domain.User;
 
@@ -47,4 +49,12 @@ public interface DaoFacade {
 	void updateCredential(Credential credential);
 
 	void updateUser(User user);
+
+	Email getEmail(String id);
+
+	Collection<Email> getEmailsByUserId(String userId);
+
+	void insertEmail(Email email);
+
+	void deleteEmail(String id);
 }
