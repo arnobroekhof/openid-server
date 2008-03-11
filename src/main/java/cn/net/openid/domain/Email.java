@@ -21,6 +21,10 @@ public class Email implements Serializable {
 
 	private String address;
 
+	private boolean primary;
+
+	private boolean confirmed;
+
 	/**
 	 * @return user
 	 */
@@ -64,6 +68,36 @@ public class Email implements Serializable {
 	 */
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	/**
+	 * @return confirmed
+	 */
+	public boolean isConfirmed() {
+		return confirmed;
+	}
+
+	/**
+	 * @param confirmed
+	 *            要设置的 confirmed
+	 */
+	public void setConfirmed(boolean confirmed) {
+		this.confirmed = confirmed;
+	}
+
+	/**
+	 * @return primary
+	 */
+	public boolean isPrimary() {
+		return primary;
+	}
+
+	/**
+	 * @param primary
+	 *            要设置的 primary
+	 */
+	public void setPrimary(boolean primary) {
+		this.primary = primary;
 	}
 
 }

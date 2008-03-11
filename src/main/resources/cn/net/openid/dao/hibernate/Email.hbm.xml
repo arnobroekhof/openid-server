@@ -8,12 +8,10 @@
 			<generator class="uuid" />
 		</id>
 		<many-to-one name="user" not-null="true" column="email_userid" />
-		<property name="address" length="255" column="email_address" />
-		<joined-subclass name="UnconfirmedEmail"
-			table="openid_unconfirmed_email" extends="Email">
-			<key column="email_id" />
-			<property name="confirmCode" length="40"
-				column="confirm_code" />
-		</joined-subclass>
+		<property name="address" length="255" not-null="true"
+			column="email_address" />
+		<property name="primary" not-null="true" column="email_primary" />
+		<property name="confirmed" not-null="true"
+			column="email_confirmed" />
 	</class>
 </hibernate-mapping>
