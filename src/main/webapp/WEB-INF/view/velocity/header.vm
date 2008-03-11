@@ -8,6 +8,7 @@
 			<li><a href="register" title="#springMessage("register.tip")">#springMessage("register")</a></li>
 			#else
 			<li><a href="home" title="#springMessage("home.tip")">#springMessage("home")</a></li>
+			<li><a href="email" title="#springMessage("email.tip")">#springMessage("email")</a></li>
 			<li><a href="profile" title="#springMessage("profile.tip")">#springMessage("profile")</a></li>
 			<li><a href="credentials" title="#springMessage("credentials.tip")">#springMessage("credentials")</a></li>
 			##<li><a href="sites" title="#springMessage("sites.tip")">#springMessage("sites")</a></li>
