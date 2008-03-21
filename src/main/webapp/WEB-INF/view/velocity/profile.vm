@@ -1,15 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN">
+<html>
 	<head>
 		<title>#springMessage("openid") - #springMessage("profile")</title>
-		<meta http-equiv="Content-Type"	content="application/xhtml-xml; charset=UTF-8" />
-		<meta name="robots" content="all" />
-		<meta name="keywords" content="openid" />
-		<meta name="description" content="OpenID Provider" />
-		#parse("css.vm")
 		<link rel="stylesheet" type="text/css" media="all" href="#springUrl('/jscalendar/skins/aqua/theme.css')" title="Aqua" />
-		#parse("scripts.vm")
 		<script type="text/javascript" src="#springUrl('/jscalendar/calendar_stripped.js')"></script>
 		<script type="text/javascript" src="#springUrl('/jscalendar/calendar-setup_stripped.js')"></script>
 		<script type="text/javascript" src="#springUrl('/jscalendar/lang/calendar-en.js')"></script>
