@@ -9,6 +9,8 @@ import java.util.List;
 import cn.net.openid.Credential;
 import cn.net.openid.CredentialException;
 import cn.net.openid.CredentialHandler;
+import cn.net.openid.domain.Attribute;
+import cn.net.openid.domain.AttributeValue;
 import cn.net.openid.domain.Email;
 import cn.net.openid.domain.Password;
 import cn.net.openid.domain.User;
@@ -57,4 +59,10 @@ public interface DaoFacade {
 	void insertEmail(Email email);
 
 	void deleteEmail(String id);
+
+	Attribute getAttribute(String id);
+
+	void saveAttribute(Attribute attribute);
+
+	List<AttributeValue> getUserAttributeValues(String userId);
 }

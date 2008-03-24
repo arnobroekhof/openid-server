@@ -10,6 +10,8 @@ import cn.net.openid.Credential;
 import cn.net.openid.CredentialException;
 import cn.net.openid.CredentialHandler;
 import cn.net.openid.OpenIdConfiguration;
+import cn.net.openid.domain.Attribute;
+import cn.net.openid.domain.AttributeValue;
 import cn.net.openid.domain.Email;
 import cn.net.openid.domain.Password;
 import cn.net.openid.domain.User;
@@ -20,16 +22,66 @@ import cn.net.openid.domain.User;
  */
 public class DaoFacadeImpl implements DaoFacade {
 	private OpenIdConfiguration openIdConfiguration;
-
 	private UserDao userDao;
-
 	private PasswordDao passwordDao;
-
 	private EmailDao emailDao;
-
 	private CredentialDao credentialDao;
-
 	private CredentialHandlerDao credentialHandlerDao;
+	private AttributeDao attributeDao;
+	private AttributeValueDao attributeValueDao;
+
+	/**
+	 * @param credentialDao
+	 *            the credentialDao to set
+	 */
+	public void setCredentialDao(CredentialDao credentialDao) {
+		this.credentialDao = credentialDao;
+	}
+
+	public void setCredentialHandlerDao(
+			CredentialHandlerDao credentialHandlerDao) {
+		this.credentialHandlerDao = credentialHandlerDao;
+	}
+
+	/**
+	 * @param userDao
+	 *            the userDao to set
+	 */
+	public void setUserDao(UserDao userDao) {
+		this.userDao = userDao;
+	}
+
+	/**
+	 * @param passwordDao
+	 *            the passwordDao to set
+	 */
+	public void setPasswordDao(PasswordDao passwordDao) {
+		this.passwordDao = passwordDao;
+	}
+
+	/**
+	 * @param emailDao
+	 *            要设置的 emailDao
+	 */
+	public void setEmailDao(EmailDao emailDao) {
+		this.emailDao = emailDao;
+	}
+
+	/**
+	 * @param attributeDao
+	 *            the attributeDao to set
+	 */
+	public void setAttributeDao(AttributeDao attributeDao) {
+		this.attributeDao = attributeDao;
+	}
+
+	/**
+	 * @param attributeValueDao
+	 *            the attributeValueDao to set
+	 */
+	public void setAttributeValueDao(AttributeValueDao attributeValueDao) {
+		this.attributeValueDao = attributeValueDao;
+	}
 
 	/**
 	 * @param openIdConfiguration
@@ -152,43 +204,6 @@ public class DaoFacadeImpl implements DaoFacade {
 		// this.credentialDao.insertCredential(credential);
 	}
 
-	/**
-	 * @param credentialDao
-	 *            the credentialDao to set
-	 */
-	public void setCredentialDao(CredentialDao credentialDao) {
-		this.credentialDao = credentialDao;
-	}
-
-	public void setCredentialHandlerDao(
-			CredentialHandlerDao credentialHandlerDao) {
-		this.credentialHandlerDao = credentialHandlerDao;
-	}
-
-	/**
-	 * @param userDao
-	 *            the userDao to set
-	 */
-	public void setUserDao(UserDao userDao) {
-		this.userDao = userDao;
-	}
-
-	/**
-	 * @param passwordDao
-	 *            the passwordDao to set
-	 */
-	public void setPasswordDao(PasswordDao passwordDao) {
-		this.passwordDao = passwordDao;
-	}
-
-	/**
-	 * @param emailDao
-	 *            要设置的 emailDao
-	 */
-	public void setEmailDao(EmailDao emailDao) {
-		this.emailDao = emailDao;
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -250,6 +265,33 @@ public class DaoFacadeImpl implements DaoFacade {
 	 */
 	public void insertEmail(Email email) {
 		this.emailDao.insertEmail(email);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.dao.DaoFacade#getAttribute(java.lang.String)
+	 */
+	public Attribute getAttribute(String id) {
+		return this.attributeDao.getAttribute(id);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.dao.DaoFacade#saveAttribute(cn.net.openid.domain.Attribute)
+	 */
+	public void saveAttribute(Attribute attribute) {
+		this.attributeDao.saveAttribute(attribute);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.dao.DaoFacade#getUserAttributeValues(java.lang.String)
+	 */
+	public List<AttributeValue> getUserAttributeValues(String userId) {
+		return this.attributeValueDao.getUserAttributeValues(userId);
 	}
 
 }

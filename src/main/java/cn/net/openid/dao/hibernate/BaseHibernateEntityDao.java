@@ -17,6 +17,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 public abstract class BaseHibernateEntityDao<T> extends HibernateDaoSupport {
 	private Class<T> entityClass;
 
+	@SuppressWarnings("unchecked")
 	public BaseHibernateEntityDao() {
 		entityClass = (Class<T>) ((ParameterizedType) getClass()
 				.getGenericSuperclass()).getActualTypeArguments()[0];
@@ -30,6 +31,11 @@ public abstract class BaseHibernateEntityDao<T> extends HibernateDaoSupport {
 	@SuppressWarnings("unchecked")
 	public List<T> find(String queryString, Object value) {
 		return (List<T>) getHibernateTemplate().find(queryString, value);
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<T> find(String queryString, Object[] values) {
+		return (List<T>) getHibernateTemplate().find(queryString, values);
 	}
 
 	@SuppressWarnings("unchecked")
