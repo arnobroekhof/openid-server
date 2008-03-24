@@ -5,8 +5,8 @@
 	<body>
 	<div>
 		#parse("header.vm")
-		#springMessage("message.profile.modifySuccess")
-		<a href="profile">#springMessage("message.profile.backToProfile")</a>
+		#springMessage("message.email.modifySuccess")
+		<a href="email">#springMessage("message.email.backToEmail")</a>
 		#parse("footer.vm")
 	</div>
 </body>

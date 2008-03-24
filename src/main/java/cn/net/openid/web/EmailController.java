@@ -3,6 +3,9 @@
  */
 package cn.net.openid.web;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -41,6 +44,21 @@ public class EmailController extends SimpleFormController {
 				.getAttribute("userSession");
 		String userId = userSession.getUserId();
 		User user = this.daoFacade.getUser(userId);
+
+		Collection<Email> emails = this.daoFacade.getEmailsByUserId(userId);
+		Collection<Email> confirmedEmails = new ArrayList<Email>(emails.size());
+		Collection<Email> unconfirmedEmails = new ArrayList<Email>(emails
+				.size());
+		for (Email email : emails) {
+			if (email.isConfirmed()) {
+				confirmedEmails.add(email);
+			} else {
+				unconfirmedEmails.add(email);
+			}
+		}
+		request.setAttribute("confirmedEmails", confirmedEmails);
+		request.setAttribute("unconfirmedEmails", unconfirmedEmails);
+
 		Email email = (Email) super.formBackingObject(request);
 		email.setUser(user);
 		return email;

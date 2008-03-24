@@ -164,6 +164,10 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>openid</servlet-name>
+		<url-pattern>/email-remove</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>openid</servlet-name>
 		<url-pattern>/profile</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>

@@ -1,32 +1,51 @@
 <html>
 	<head>
-		<title>#springMessage("openid") - #springMessage("profile")</title>
+		<title>#springMessage("openid") - #springMessage("email")</title>
+		<script type="text/javascript">
+			function checkAll(checkbox) {
+				$("input[type='checkbox'][name='id']").attr("checked", checkbox.checked ? "checked" : "");
+			}
+		</script>
 	</head>
 	<body>
 	<div>
 		#parse("header.vm")
-		<fieldset>
-		<legend>#springMessage("profile")</legend>
-			<form action="email" method="post">
-				<table>
-					<tr>
-						<td class="label">
-							<label for="address">#springMessage("label.nickname")</label>
-						</td>
-						<td>
-							#springFormInput("email.address" "")
-							#springShowErrors("" "error")
-						</td>
-					</tr>
-					<tr>
-						<td class="label">&nbsp;</td>
-						<td>
-							<input type="submit" class="button" value="#springMessage('saveChanges')" />
-						</td>
-					</tr>
-				</table>
-			</form>
-		</fieldset>
+		#if ($unconfirmedEmails.size() > 0)
+		<p>We are currently awaiting confirmatioon for the address listed below:</p>
+		<ul>
+			#foreach($email in $unconfirmedEmails)
+			<li>${email.address} (<a href="email-remove?id=${email.id}">#springMessage("remove")</a>)</li>
+			#end
+		</ul>
+		<p>
+		If that address is incorrect, or you do not have the message containing
+		the confirmation instructions, enter your correct e-mail address in the
+		form below. We will send you a new message containing the confirmation
+		instructions.
+		</p>
+		#end
+
+		#if ($confirmedEmails.size() > 0)
+		<p>You have confirmed the following email addresses:</p>
+		<ul>
+			#foreach($email in $confirmedEmails)
+			<li>$email.address * (<a href="email-remove?id=${email.id}">#springMessage("remove")</a>)
+			(<a href="email-set-primary?id=${email.id}">#springMessage("message.email.makePrimary")</a>)</li>
+			#end
+		</ul>
+		<p>
+			Your primary address is marked with an asterisk(*) above. This is
+			the address we will use whenever we need to contact you.
+		</p>
+		#end
+		<p>To add a new e-mail address, enter it in the form below. We will
+		send you a message with further instructions.</p>
+		<form action="email" method="post">
+			<label for="address">#springMessage("label.email")</label>
+			#springFormInput("email.address" "")
+			#springShowErrors("" "error")
+			<input type="submit" class="button" value="#springMessage('message.email.sendInstructions')" />
+		</form>
 		#parse("footer.vm")
 	</div>
 </body>

@@ -56,6 +56,10 @@
 		<property name="successView" value="email-success" />
 		<property name="daoFacade" ref="daoFacade" />
 	</bean>
+	<bean id="deleteEmailController"
+		class="cn.net.openid.web.DeleteEmailController">
+		<property name="daoFacade" ref="daoFacade" />
+	</bean>
 
 	<!-- Profile edit. -->
 	<bean id="profileController"
@@ -168,6 +172,9 @@
 				</entry>
 				<entry key="/email">
 					<ref local="emailController" />
+				</entry>
+				<entry key="/email-remove">
+					<ref local="deleteEmailController" />
 				</entry>
 				<entry key="/profile">
 					<ref local="profileController" />
