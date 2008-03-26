@@ -42,4 +42,6 @@ public interface AttributeValueDao {
 	 * @return return the attribute value of the user.
 	 */
 	List<AttributeValue> getUserAttributeValues(String userId);
+
+	void saveAttributeValue(AttributeValue attributeValue);
 }

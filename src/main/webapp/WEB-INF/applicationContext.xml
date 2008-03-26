@@ -32,6 +32,7 @@
 			<props>
 				<prop key="insert*">PROPAGATION_REQUIRED</prop>
 				<prop key="update*">PROPAGATION_REQUIRED</prop>
+				<prop key="save*">PROPAGATION_REQUIRED</prop>
 				<prop key="delete*">PROPAGATION_REQUIRED</prop>
 				<prop key="*">PROPAGATION_REQUIRED,readOnly</prop>
 			</props>
@@ -49,6 +50,8 @@
 				<property name="credentialDao" ref="credentialDao" />
 				<property name="credentialHandlerDao"
 					ref="credentialHandlerDao" />
+				<property name="attributeDao" ref="attributeDao" />
+				<property name="attributeValueDao" ref="attributeValueDao" />
 			</bean>
 		</property>
 		<!-- Uncomment the following in order to enable mail sending aspect -->

@@ -1,0 +1,21 @@
+<html>
+	<head>
+		<title>附加属性</title>
+	</head>
+	<body>
+		#parse("header.vm")
+		<form action="attribute-value" method="post">
+		<ul>
+		#foreach($attributeValue in $command)
+			<li>$attributeValue.attribute.alias :
+				<input type="text" id="$attributeValue.attribute.id"
+					name="$attributeValue.attribute.id"
+					value="$!attributeValue.value" />
+			</li>
+		#end
+		</ul>
+		<input type="submit" value="Save" class="button" />
+		</form>
+		#parse("footer.vm")
+	</body>
+</html>

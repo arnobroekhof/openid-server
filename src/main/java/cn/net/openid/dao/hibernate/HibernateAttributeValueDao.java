@@ -63,8 +63,16 @@ public class HibernateAttributeValueDao extends
 	 * @see cn.net.openid.dao.AttributeValueDao#getUserAttributeValues(java.lang.String)
 	 */
 	public List<AttributeValue> getUserAttributeValues(String userId) {
-		String q = "from AttributeValue where user.id = ? and attribute.id = ? order by index";
+		String q = "from AttributeValue where user.id = ? order by index";
 		return this.find(q, userId);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.dao.AttributeValueDao#saveAttributeValue(cn.net.openid.domain.AttributeValue)
+	 */
+	public void saveAttributeValue(AttributeValue attributeValue) {
+		this.getHibernateTemplate().saveOrUpdate(attributeValue);
+	}
 }

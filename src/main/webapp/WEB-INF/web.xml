@@ -184,6 +184,18 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>openid</servlet-name>
+		<url-pattern>/attributes</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>openid</servlet-name>
+		<url-pattern>/edit-attribute</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>openid</servlet-name>
+		<url-pattern>/attribute-value</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>openid</servlet-name>
 		<url-pattern>/hl</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>

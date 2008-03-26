@@ -3,6 +3,8 @@
  */
 package cn.net.openid.dao.hibernate;
 
+import java.util.Collection;
+
 import cn.net.openid.dao.AttributeDao;
 import cn.net.openid.domain.Attribute;
 
@@ -20,6 +22,15 @@ public class HibernateAttributeDao extends BaseHibernateEntityDao<Attribute>
 	 */
 	public Attribute getAttribute(String id) {
 		return get(id);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.dao.AttributeDao#getAttributes()
+	 */
+	public Collection<Attribute> getAttributes() {
+		return this.find("from Attribute");
 	}
 
 	/*

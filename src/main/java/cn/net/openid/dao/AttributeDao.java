@@ -3,6 +3,8 @@
  */
 package cn.net.openid.dao;
 
+import java.util.Collection;
+
 import cn.net.openid.domain.Attribute;
 
 /**
@@ -11,6 +13,8 @@ import cn.net.openid.domain.Attribute;
  */
 public interface AttributeDao {
 	Attribute getAttribute(String id);
+
+	Collection<Attribute> getAttributes();
 
 	void saveAttribute(Attribute attribute);
 }

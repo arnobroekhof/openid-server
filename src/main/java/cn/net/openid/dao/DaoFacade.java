@@ -62,7 +62,11 @@ public interface DaoFacade {
 
 	Attribute getAttribute(String id);
 
+	Collection<Attribute> getAttributes();
+
 	void saveAttribute(Attribute attribute);
 
 	List<AttributeValue> getUserAttributeValues(String userId);
+
+	void saveAttributeValues(Collection<AttributeValue> attributeValues);
 }

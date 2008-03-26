@@ -279,6 +279,15 @@ public class DaoFacadeImpl implements DaoFacade {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see cn.net.openid.dao.DaoFacade#getAttributes()
+	 */
+	public Collection<Attribute> getAttributes() {
+		return this.attributeDao.getAttributes();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see cn.net.openid.dao.DaoFacade#saveAttribute(cn.net.openid.domain.Attribute)
 	 */
 	public void saveAttribute(Attribute attribute) {
@@ -294,4 +303,14 @@ public class DaoFacadeImpl implements DaoFacade {
 		return this.attributeValueDao.getUserAttributeValues(userId);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.dao.DaoFacade#saveAttributeValues(java.util.Collection)
+	 */
+	public void saveAttributeValues(Collection<AttributeValue> attributeValues) {
+		for (AttributeValue attributeValue : attributeValues) {
+			this.attributeValueDao.saveAttributeValue(attributeValue);
+		}
+	}
 }

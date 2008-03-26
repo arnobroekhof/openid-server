@@ -107,6 +107,28 @@
 		<property name="daoFacade" ref="daoFacade" />
 	</bean>
 
+	<!-- Attribute -->
+	<bean id="attributesController"
+		class="cn.net.openid.web.AttributesController">
+		<property name="daoFacade" ref="daoFacade" />
+	</bean>
+
+	<bean id="editAttributeController"
+		class="cn.net.openid.web.EditAttributeController">
+		<property name="commandName" value="attribute" />
+		<property name="commandClass" value="cn.net.openid.domain.Attribute" />
+		<property name="formView" value="edit-attribute" />
+		<property name="successView" value="edit-attribute-success" />
+		<property name="daoFacade" ref="daoFacade" />
+	</bean>
+
+	<bean id="attributeValueController"
+		class="cn.net.openid.web.AttributeValueController">
+		<property name="formView" value="attribute-value" />
+		<property name="successView" value="attribute-value-success" />
+		<property name="daoFacade" ref="daoFacade" />
+	</bean>
+
 	<!-- 
 		<bean id="sitesController" class="cn.net.openid.web.SitesController">
 		</bean>
@@ -190,6 +212,15 @@
 				</entry>
 				<entry key="/delete.credential">
 					<ref local="deleteCredentialController" />
+				</entry>
+				<entry key="/attributes">
+					<ref local="attributesController" />
+				</entry>
+				<entry key="/edit-attribute">
+					<ref local="editAttributeController" />
+				</entry>
+				<entry key="/attribute-value">
+					<ref local="attributeValueController" />
 				</entry>
 				<!-- 
 					<entry key="/sites">
