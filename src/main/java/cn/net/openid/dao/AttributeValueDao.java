@@ -8,6 +8,8 @@ import java.util.List;
 import cn.net.openid.domain.AttributeValue;
 
 /**
+ * Data access object for {@link AttributeValue}.
+ * 
  * @author sutra
  * 
  */
@@ -29,8 +31,7 @@ public interface AttributeValueDao {
 	 * @param userId
 	 * @param attributeId
 	 * @return return the values of the user with the specified
-	 *         <code>attributeId</code>, sorted by the
-	 *         {@link cn.net.openid.domain.AttributeValue#getIndex()}.
+	 *         <code>attributeId</code>, sorted by the index({@link AttributeValue#getIndex()}).
 	 */
 	List<String> getAttributeValues(String userId, String attributeId);
 
