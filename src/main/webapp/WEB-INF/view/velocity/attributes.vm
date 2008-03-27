@@ -8,7 +8,12 @@
 		#foreach($attribute in $attributes)
 			<tr>
 				<td>
-					<a href="edit-attribute?id=$attribute.id">$attribute.alias</a>
+					$attribute.alias
+				</td>
+				<td>
+					<a href="edit-attribute?id=$attribute.id">#springMessage("edit")</a>
+					|
+					<a href="remove-attribute?id=$attribute.id">#springMessage("remove")</a>
 				</td>
 			</tr>
 		#end

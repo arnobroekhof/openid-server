@@ -122,6 +122,11 @@
 		<property name="daoFacade" ref="daoFacade" />
 	</bean>
 
+	<bean id="removeAttributeController"
+		class="cn.net.openid.web.RemoveAttributeController">
+		<property name="daoFacade" ref="daoFacade" />
+	</bean>
+
 	<bean id="attributeValueController"
 		class="cn.net.openid.web.AttributeValueController">
 		<property name="formView" value="attribute-value" />
@@ -218,6 +223,9 @@
 				</entry>
 				<entry key="/edit-attribute">
 					<ref local="editAttributeController" />
+				</entry>
+				<entry key="/remove-attribute">
+					<ref local="removeAttributeController" />
 				</entry>
 				<entry key="/attribute-value">
 					<ref local="attributeValueController" />

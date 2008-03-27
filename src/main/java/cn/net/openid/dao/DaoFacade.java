@@ -66,6 +66,8 @@ public interface DaoFacade {
 
 	void saveAttribute(Attribute attribute);
 
+	void deleteAttribute(String id);
+
 	List<AttributeValue> getUserAttributeValues(String userId);
 
 	void saveAttributeValues(Collection<AttributeValue> attributeValues);

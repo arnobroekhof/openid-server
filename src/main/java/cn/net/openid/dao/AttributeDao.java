@@ -17,4 +17,6 @@ public interface AttributeDao {
 	Collection<Attribute> getAttributes();
 
 	void saveAttribute(Attribute attribute);
+
+	void deleteAttribute(String id);
 }

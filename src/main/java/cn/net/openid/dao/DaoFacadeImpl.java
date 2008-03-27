@@ -294,6 +294,10 @@ public class DaoFacadeImpl implements DaoFacade {
 		this.attributeDao.saveAttribute(attribute);
 	}
 
+	public void deleteAttribute(String id) {
+		this.attributeDao.deleteAttribute(id);
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 

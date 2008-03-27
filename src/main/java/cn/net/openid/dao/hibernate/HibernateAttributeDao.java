@@ -42,4 +42,14 @@ public class HibernateAttributeDao extends BaseHibernateEntityDao<Attribute>
 		this.getHibernateTemplate().saveOrUpdate(attribute);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.dao.AttributeDao#deleteAttribute(java.lang.String)
+	 */
+	public void deleteAttribute(String id) {
+		this.getHibernateTemplate().bulkUpdate(
+				"delete from AttributeValue where attribute.id = ?", id);
+		this.getHibernateTemplate().delete(this.get(id));
+	}
 }

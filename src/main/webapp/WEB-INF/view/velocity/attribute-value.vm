@@ -5,15 +5,16 @@
 	<body>
 		#parse("header.vm")
 		<form action="attribute-value" method="post">
-		<ul>
+		<table>
 		#foreach($attributeValue in $command)
-			<li>$attributeValue.attribute.alias :
-				<input type="text" id="$attributeValue.attribute.id"
+			<tr>
+				<td>$attributeValue.attribute.alias :</td>
+				<td><input type="text" id="$attributeValue.attribute.id"
 					name="$attributeValue.attribute.id"
-					value="$!attributeValue.value" />
-			</li>
+					value="$!attributeValue.value" /></td>
+			</tr>
 		#end
-		</ul>
+		</table>
 		<input type="submit" value="Save" class="button" />
 		</form>
 		#parse("footer.vm")

@@ -192,6 +192,10 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>openid</servlet-name>
+		<url-pattern>/remove-attribute</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>openid</servlet-name>
 		<url-pattern>/attribute-value</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
