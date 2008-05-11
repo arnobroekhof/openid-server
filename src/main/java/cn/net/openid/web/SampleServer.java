@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.BooleanUtils;
 import org.openid4java.message.DirectError;
 import org.openid4java.message.Message;
 import org.openid4java.message.ParameterList;
@@ -54,6 +55,12 @@ public class SampleServer {
 				|| "checkid_immediate".equals(mode)) {
 			// interact with the user and obtain data needed to continue
 			// List userData = userInteraction(request);
+			Boolean approved = (Boolean) session.getAttribute("approved");
+			if (approved == null) {
+				session.setAttribute("parameterlist", request);
+				httpResp.sendRedirect("approving");
+				return;
+			}
 
 			String userSelectedId = null;
 			String userSelectedClaimedId = null;
@@ -71,12 +78,13 @@ public class SampleServer {
 				userSelectedClaimedId = (String) session
 						.getAttribute("openid.identity");
 				authenticatedAndApproved = (Boolean) session
-						.getAttribute("authenticatedAndApproved");
+						.getAttribute("approved");
 				// Remove the parameterlist so this provider can accept requests
 				// from elsewhere
 				session.removeAttribute("parameterlist");
 				// Makes you authorize each and every time
-				session.setAttribute("authenticatedAndApproved", false);
+				session.removeAttribute("authenticatedAndApproved");
+				session.removeAttribute("approved");
 			}
 
 			// --- process an authentication request ---

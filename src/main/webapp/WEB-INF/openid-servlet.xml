@@ -5,6 +5,12 @@
 	<bean id="providerAuthorizationController"
 		class="cn.net.openid.web.ProviderAuthorizationController">
 	</bean>
+	<bean id="approvingController"
+		class="cn.net.openid.web.ApprovingController">
+		<property name="commandClass"
+			value="cn.net.openid.web.LoginForm" />
+		<property name="daoFacade" ref="daoFacade" />
+	</bean>
 	<!-- The home page controller before and after logged in. -->
 	<bean id="homeController"
 		class="cn.net.openid.web.HomeController">
@@ -116,7 +122,8 @@
 	<bean id="editAttributeController"
 		class="cn.net.openid.web.EditAttributeController">
 		<property name="commandName" value="attribute" />
-		<property name="commandClass" value="cn.net.openid.domain.Attribute" />
+		<property name="commandClass"
+			value="cn.net.openid.domain.Attribute" />
 		<property name="formView" value="edit-attribute" />
 		<property name="successView" value="edit-attribute-success" />
 		<property name="daoFacade" ref="daoFacade" />
@@ -194,6 +201,7 @@
 			<map>
 				<entry key="/provider-authorization"
 					value-ref="providerAuthorizationController" />
+				<entry key="/approving" value-ref="approvingController" />
 				<entry key="/logout">
 					<ref local="logoutController" />
 				</entry>

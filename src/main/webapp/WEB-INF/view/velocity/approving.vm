@@ -1,0 +1,19 @@
+<html>
+	<head>
+		<title>#springMessage("openid") - #springMessage("login")</title>
+	</head>
+	<body>
+	<div>
+		#parse("header.vm")
+		<fieldset>
+			<legend>#springMessage("login")</legend>
+			<form action="approving" method="post">
+				<input type="submit" name="allow_forever" value="Allow Forever" />
+				<input type="submit" name="allow_once" value="Allow Once" />
+				<input type="submit" name="deny" value="Deny" />
+			</form>
+		</fieldset>
+		#parse("footer.vm")
+	</div>
+</body>
+</html>
