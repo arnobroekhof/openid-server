@@ -11,7 +11,6 @@
 			<li><a href="email" title="#springMessage("email.tip")">#springMessage("email")</a></li>
 			<li><a href="profile" title="#springMessage("profile.tip")">#springMessage("profile")</a></li>
 			<li><a href="attribute-value" title="Attribute">附加属性</a></li>
-			<li><a href="credentials" title="#springMessage("credentials.tip")">#springMessage("credentials")</a></li>
 			##<li><a href="sites" title="#springMessage("sites.tip")">#springMessage("sites")</a></li>
 			<li><a href="logout" title="#springMessage("logout.tip")">#springMessage("logout")</a></li>
 			#end

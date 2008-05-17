@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties version="1.0">
-	<comment>This is the configuration for OpenID Server.</comment>
+	<comment>Configuration for Java OpenID Server.</comment>
 
 	<!--
 		OpenID Server URL.
 		e.g.
 		http://openid.org.cn/server
 	-->
-	<entry key="openID.server">http://localhost:8080/openid-server/server</entry>
+	<entry key="jos.openid.server.url">http://localhost:8080/jos-webapp/server</entry>
 
 	<!-- 
 		The regular expression of username pattern. 
 		The pattern is for registering checking. 
 	-->
-	<entry key="openID.member.usernamePattern">[a-z]{1,16}</entry>
+	<entry key="jos.member.username.pattern">[a-z]{1,16}</entry>
 
 	<!-- 
 		For building the openid_url with field username, 
 		openid_url is the url that return to the OpenID Consumer after logged in. 
 		The openid_url will be: 
-		${openid.member.openidUrlPrefix}${username}${openid.member.openidUrlSuffix}.
+		${jos.member.identifier.prefix}${username}${jos.member.identifier.suffix}.
 		e.g.
-		${openid.member.openidUrlPrefix} = http://
-		${openid.member.openidUrlSuffix} = .openid.org.cn/
+		${jos.member.identifier.prefix} = http://
+		${jos.member.identifier.suffix} = .openid.org.cn/
 		openid_url = http://USERNAME.openid.org.cn
 	-->
-	<entry key="openID.member.openIDUrlPrefix">http://localhost:8080/openid-server/member/</entry>
-	<entry key="openID.member.openIDUrlSuffix">/</entry>
+	<entry key="jos.member.identifier.prefix">http://localhost:8080/jos-webapp/member/</entry>
+	<entry key="jos.member.identifier.suffix">/</entry>
 
 	<!--
 		For Member Filter.
@@ -36,7 +36,7 @@
 		^http://([0-9a-zA-Z]+).openid.org.cn
 		^https://([0-9a-zA-Z]+).openid.org.cn
 		
-		([0-9a-zA-Z]) must same as or contains the value of `openid.member.usernamePattern'.
+		([0-9a-zA-Z]) must same as or contains the value of `jos.member.username.pattern'.
 	-->
-	<entry key="openID.member.filter.fromPattern">^http://localhost:8080/openid-server/test/([0-9a-zA-Z]+)</entry>
+	<entry key="jos.member.filter.from.pattern">^http://localhost:8080/jos-webapp/test/([0-9a-zA-Z]+)</entry>
 </properties>

@@ -10,14 +10,14 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 
-import cn.net.openid.web.AbstractSimpleFormController;
+import cn.net.openid.web.AbstractJosSimpleFormController;
 import cn.net.openid.web.form.EditPasswordForm;
 
 /**
  * @author Sutra Zhou
  * 
  */
-public class EditPasswordController extends AbstractSimpleFormController {
+public class EditPasswordController extends AbstractJosSimpleFormController {
 	/*
 	 * (non-Javadoc)
 	 * 

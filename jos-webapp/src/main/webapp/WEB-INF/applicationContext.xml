@@ -11,9 +11,22 @@
 		</property>
 	</bean>
 
+	<bean id="josConfiguration"
+		class="cn.net.openid.domain.JosConfiguration">
+		<property name="openidServerUrl"
+			value="${jos.openid.server.url}" />
+		<property name="usernamePattern"
+			value="${jos.member.username.pattern}" />
+		<property name="identifierPrefix"
+			value="${jos.member.identifier.prefix}" />
+		<property name="identifierSuffix"
+			value="${jos.member.identifier.suffix}" />
+		<property name="memberFilterFromPattern"
+			value="${jos.member.filter.from.pattern}" />
+	</bean>
 	<bean id="serverManager"
 		class="org.openid4java.server.ServerManager">
-		<property name="OPEndpointUrl" value="${openID.server}" />
+		<property name="OPEndpointUrl" value="${jos.openid.server.url}" />
 	</bean>
 
 	<bean id="baseTransactionProxy"
@@ -33,15 +46,8 @@
 	<bean id="daoFacade" parent="baseTransactionProxy">
 		<property name="target">
 			<bean class="cn.net.openid.dao.DaoFacadeImpl">
-				<property name="openIDServer" value="${openID.server}" />
-				<property name="openIDUrlPrefix"
-					value="${openID.member.openIDUrlPrefix}" />
-				<property name="openIDUrlSuffix"
-					value="${openID.member.openIDUrlSuffix}" />
-				<property name="usernamePattern"
-					value="${openID.member.usernamePattern}" />
-				<property name="fromPattern"
-					value="${openID.member.filter.fromPattern}" />
+				<property name="josConfiguration"
+					ref="josConfiguration" />
 				<property name="userDao" ref="userDao" />
 				<property name="passwordDao" ref="passwordDao" />
 				<property name="emailDao" ref="emailDao" />
@@ -63,11 +69,11 @@
 	<bean id="userValidator"
 		class="cn.net.openid.web.validation.UserValidator">
 		<property name="usernamePattern"
-			value="${openID.member.usernamePattern}" />
+			value="${jos.member.username.pattern}" />
 	</bean>
 	<bean id="registerFormValidator"
 		class="cn.net.openid.web.validation.RegisterFormValidator">
 		<property name="usernamePattern"
-			value="${openID.member.usernamePattern}" />
+			value="${jos.member.username.pattern}" />
 	</bean>
 </beans>

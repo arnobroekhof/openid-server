@@ -8,13 +8,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
 
-import cn.net.openid.web.AbstractController;
+import cn.net.openid.web.AbstractJosController;
 
 /**
  * @author Sutra Zhou
  * 
  */
-public class RemoveAttributeController extends AbstractController {
+public class RemoveAttributeController extends AbstractJosController {
 	/*
 	 * (non-Javadoc)
 	 * 

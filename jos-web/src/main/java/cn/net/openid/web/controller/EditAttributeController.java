@@ -8,13 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang.StringUtils;
 
 import cn.net.openid.domain.Attribute;
-import cn.net.openid.web.AbstractSimpleFormController;
+import cn.net.openid.web.AbstractJosSimpleFormController;
 
 /**
  * @author Sutra Zhou
  * 
  */
-public class EditAttributeController extends AbstractSimpleFormController {
+public class EditAttributeController extends AbstractJosSimpleFormController {
 	/*
 	 * (non-Javadoc)
 	 * 

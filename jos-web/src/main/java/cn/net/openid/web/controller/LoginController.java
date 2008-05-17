@@ -20,7 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import cn.net.openid.domain.Password;
 import cn.net.openid.domain.User;
-import cn.net.openid.web.AbstractSimpleFormController;
+import cn.net.openid.web.AbstractJosSimpleFormController;
 import cn.net.openid.web.UserSession;
 import cn.net.openid.web.form.LoginForm;
 
@@ -28,7 +28,7 @@ import cn.net.openid.web.form.LoginForm;
  * @author Sutra Zhou
  * 
  */
-public class LoginController extends AbstractSimpleFormController {
+public class LoginController extends AbstractJosSimpleFormController {
 	@SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog(LoginController.class);
 
@@ -119,16 +119,15 @@ public class LoginController extends AbstractSimpleFormController {
 	 * @see org.springframework.web.servlet.mvc.SimpleFormController#referenceData(javax.servlet.http.HttpServletRequest,
 	 *      java.lang.Object, org.springframework.validation.Errors)
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
-	protected Map referenceData(HttpServletRequest request, Object command,
-			Errors errors) throws Exception {
+	protected Map<Object, Object> referenceData(HttpServletRequest request,
+			Object command, Errors errors) throws Exception {
 		LoginForm form = (LoginForm) command;
 
 		if (StringUtils.isEmpty(form.getUsername())) {
 			form.setUsername(request.getParameter("username"));
 		}
 
-		return super.referenceData(request, command, errors);
+		return null;
 	}
 }

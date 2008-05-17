@@ -9,6 +9,7 @@ import java.util.List;
 import cn.net.openid.domain.Attribute;
 import cn.net.openid.domain.AttributeValue;
 import cn.net.openid.domain.Email;
+import cn.net.openid.domain.JosConfiguration;
 import cn.net.openid.domain.Password;
 import cn.net.openid.domain.User;
 
@@ -17,15 +18,7 @@ import cn.net.openid.domain.User;
  * 
  */
 public interface DaoFacade {
-	String getOpenIDServer();
-
-	String getUsernamePattern();
-
-	String getOpenIDUrlPrefix();
-
-	String getOpenIDUrlSuffix();
-
-	String getFromPattern();
+	JosConfiguration getJosConfiguration();
 
 	String buildOpenidUrl(String username);
 

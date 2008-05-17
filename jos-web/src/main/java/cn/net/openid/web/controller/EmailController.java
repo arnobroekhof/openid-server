@@ -13,14 +13,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import cn.net.openid.domain.Email;
 import cn.net.openid.domain.User;
-import cn.net.openid.web.AbstractSimpleFormController;
+import cn.net.openid.web.AbstractJosSimpleFormController;
 import cn.net.openid.web.UserSession;
 
 /**
  * @author Sutra Zhou
  * 
  */
-public class EmailController extends AbstractSimpleFormController {
+public class EmailController extends AbstractJosSimpleFormController {
 	/*
 	 * （非 Javadoc）
 	 * 

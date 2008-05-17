@@ -14,14 +14,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import cn.net.openid.domain.Password;
 import cn.net.openid.domain.User;
-import cn.net.openid.web.AbstractSimpleFormController;
+import cn.net.openid.web.AbstractJosSimpleFormController;
 import cn.net.openid.web.form.RegisterForm;
 
 /**
  * @author Sutra Zhou
  * 
  */
-public class RegisterController extends AbstractSimpleFormController {
+public class RegisterController extends AbstractJosSimpleFormController {
 	/*
 	 * (non-Javadoc)
 	 * 

@@ -75,9 +75,10 @@ public class MemberFilter implements Filter {
 		this.context = filterConfig.getServletContext();
 		DaoFacade daoFacade = (DaoFacade) WebApplicationContextUtils
 				.getWebApplicationContext(this.context).getBean("daoFacade");
-		log.debug("fromPattern: " + daoFacade.getFromPattern());
-		this.fromPattern = Pattern.compile(daoFacade.getFromPattern(),
-				Pattern.CASE_INSENSITIVE);
+		log.debug("fromPattern: "
+				+ daoFacade.getJosConfiguration().getMemberFilterFromPattern());
+		this.fromPattern = Pattern.compile(daoFacade.getJosConfiguration()
+				.getMemberFilterFromPattern(), Pattern.CASE_INSENSITIVE);
 	}
 
 }

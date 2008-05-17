@@ -23,14 +23,14 @@ import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.net.openid.domain.User;
-import cn.net.openid.web.AbstractSimpleFormController;
+import cn.net.openid.web.AbstractJosSimpleFormController;
 import cn.net.openid.web.UserSession;
 
 /**
  * @author Sutra Zhou
  * 
  */
-public class ProfileController extends AbstractSimpleFormController {
+public class ProfileController extends AbstractJosSimpleFormController {
 	private MessageSource messageSource;
 	private LocaleResolver localeResolver;
 

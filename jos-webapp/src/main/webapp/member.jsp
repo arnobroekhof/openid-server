@@ -1,8 +1,8 @@
 <html>
 	<head>
-		<link rel="openid.server" href="${openIdServer}" />
-		<link rel="openid2.provider" href="${openIdServer}" />
-		<title>Identity Endpoint For ${openIdUsername}</title>
+		<link rel="openid.server" href="${josConfiguration.openidServerUrl}" />
+		<link rel="openid2.provider" href="${josConfiguration.openidServerUrl}" />
+		<title>Identity Endpoint For ${username}</title>
 	</head>
 	<body>
 		<h3>
@@ -10,7 +10,7 @@
 		</h3>
 		<p>
 			This is the identity page for the user
-			<strong>${openIdUsername}</strong>.
+			<strong>${username}</strong>.
 		</p>
 		<p>
 			For more information, please visit <a href="http://www.openid.net.cn">http://www.openid.net.cn</a>

@@ -1,0 +1,1 @@
+<%this.getServletContext().getRequestDispatcher("/home").forward(request, response);%>

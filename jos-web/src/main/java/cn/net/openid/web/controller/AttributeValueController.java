@@ -17,14 +17,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import cn.net.openid.domain.Attribute;
 import cn.net.openid.domain.AttributeValue;
-import cn.net.openid.web.AbstractSimpleFormController;
+import cn.net.openid.web.AbstractJosSimpleFormController;
 import cn.net.openid.web.UserSession;
 
 /**
  * @author Sutra Zhou
  * 
  */
-public class AttributeValueController extends AbstractSimpleFormController {
+public class AttributeValueController extends AbstractJosSimpleFormController {
 	private Map<String, String> buildMap(List<AttributeValue> attributeValues) {
 		Map<String, String> ret = new HashMap<String, String>();
 		for (AttributeValue attributeValue : attributeValues) {

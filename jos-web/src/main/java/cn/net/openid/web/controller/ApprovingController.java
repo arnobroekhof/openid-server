@@ -30,14 +30,14 @@ import org.openid4java.server.ServerManager;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 
-import cn.net.openid.web.AbstractSimpleFormController;
+import cn.net.openid.web.AbstractJosSimpleFormController;
 import cn.net.openid.web.UserSession;
 
 /**
  * @author Sutra Zhou
  * 
  */
-public class ApprovingController extends AbstractSimpleFormController {
+public class ApprovingController extends AbstractJosSimpleFormController {
 
 	/*
 	 * (non-Javadoc)

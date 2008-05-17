@@ -17,7 +17,7 @@ import org.openid4java.message.ParameterList;
 import org.openid4java.server.ServerManager;
 import org.springframework.web.servlet.ModelAndView;
 
-import cn.net.openid.web.AbstractController;
+import cn.net.openid.web.AbstractJosController;
 import cn.net.openid.web.UserSession;
 import cn.net.openid.web.WebUtils;
 
@@ -25,7 +25,7 @@ import cn.net.openid.web.WebUtils;
  * @author Sutra Zhou
  * 
  */
-public class ServerController extends AbstractController {
+public class ServerController extends AbstractJosController {
 
 	/**
 	 * 

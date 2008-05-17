@@ -14,9 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.web.context.support.WebApplicationContextUtils;
-
-import cn.net.openid.dao.DaoFacade;
 
 /**
  * @author Sutra Zhou
@@ -33,8 +30,6 @@ public class MemberServlet extends HttpServlet {
 
 	private ServletContext context;
 
-	private String openIDServer;
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -44,9 +39,6 @@ public class MemberServlet extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		this.context = config.getServletContext();
-		DaoFacade daoFacade = (DaoFacade) WebApplicationContextUtils
-				.getWebApplicationContext(this.context).getBean("daoFacade");
-		this.openIDServer = daoFacade.getOpenIDServer();
 	}
 
 	/*
@@ -58,9 +50,7 @@ public class MemberServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		req.setAttribute("openIdServer", this.openIDServer);
-		// req.setAttribute("openIdDelegate", req.getRequestURL());
-		req.setAttribute("openIdUsername", req.getPathInfo().substring(1));
+		req.setAttribute("username", req.getPathInfo().substring(1));
 		this.context.getRequestDispatcher("/member.jsp").forward(req, resp);
 	}
 

@@ -9,14 +9,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.net.openid.domain.Email;
-import cn.net.openid.web.AbstractController;
+import cn.net.openid.web.AbstractJosController;
 import cn.net.openid.web.UserSession;
 
 /**
  * @author Sutra Zhou
  * 
  */
-public class DeleteEmailController extends AbstractController {
+public class DeleteEmailController extends AbstractJosController {
 	public ModelAndView handleRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		UserSession userSession = (UserSession) request.getSession()

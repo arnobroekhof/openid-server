@@ -29,6 +29,13 @@
 		</listener-class>
 	</listener>
 
+	<!-- Java OpenID Server -->
+	<listener>
+		<listener-class>
+			cn.net.openid.web.JosServletContextListener
+		</listener-class>
+	</listener>
+
 	<!-- Character Encoding. -->
 	<filter>
 		<display-name>Set Character Encoding Filter</display-name>
@@ -87,6 +94,10 @@
 	<filter-mapping>
 		<filter-name>Member Filter</filter-name>
 		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>sitemesh</filter-name>
+		<url-pattern>/</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>sitemesh</filter-name>
