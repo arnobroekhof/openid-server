@@ -79,6 +79,10 @@
 			<artifactId>velocity-tools-view</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>commons-digester</groupId>
+			<artifactId>commons-digester</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>${groupId}</groupId>
 			<artifactId>jos-web</artifactId>
 			<version>${version}</version>

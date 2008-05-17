@@ -47,9 +47,9 @@
 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="hibernateProperties" ref="hibernateProperties" />
-		<property name="mappingDirectoryLocations">
+		<property name="mappingLocations">
 			<list>
-				<value>classpath:jos-hibernate*.jar</value>
+				<value>classpath*:/cn/net/openid/dao/hibernate/*.xml</value>
 			</list>
 		</property>
 	</bean>

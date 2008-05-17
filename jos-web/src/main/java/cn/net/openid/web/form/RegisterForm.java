@@ -6,7 +6,7 @@ package cn.net.openid.web.form;
 import java.io.Serializable;
 
 /**
- * @author Shutra
+ * @author Sutra Zhou
  * 
  */
 public class RegisterForm implements Serializable {
