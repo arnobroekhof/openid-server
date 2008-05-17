@@ -10,7 +10,7 @@ import cn.net.openid.domain.User;
 /**
  * The user session, stored the data of user who are logging or logged in.
  * 
- * @author Shutra
+ * @author Sutra Zhou
  * 
  */
 public class UserSession implements Serializable {

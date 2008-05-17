@@ -14,7 +14,7 @@ import cn.net.openid.dao.DaoFacade;
  * @author Sutra Zhou
  * 
  */
-public abstract class AbstractDaoFacadeController implements Controller {
+public abstract class AbstractController implements Controller {
 	protected final Log log = LogFactory.getLog(getClass());
 
 	protected DaoFacade daoFacade;

@@ -9,10 +9,10 @@ import javax.servlet.ServletContextListener;
 
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import cn.net.openid.OpenIdConfiguration;
+import cn.net.openid.JosConfiguration;
 
 /**
- * @author Shutra
+ * @author Sutra Zhou
  * 
  */
 public class OpenIdServletContextListener implements ServletContextListener {
@@ -34,10 +34,10 @@ public class OpenIdServletContextListener implements ServletContextListener {
 	public void contextInitialized(ServletContextEvent sce) {
 		ServletContext sc = sce.getServletContext();
 		String openIdConfigurationBeanName = sc
-				.getInitParameter(OpenIdConfiguration.CONFIGURATION_BEAN_NAME);
+				.getInitParameter(JosConfiguration.CONFIGURATION_BEAN_NAME);
 		String openIdConfigurationAttributeName = sc
-				.getInitParameter(OpenIdConfiguration.CONFIGURATION_ATTRIBUTE_NAME);
-		OpenIdConfiguration openIdConfiguration = (OpenIdConfiguration) WebApplicationContextUtils
+				.getInitParameter(JosConfiguration.CONFIGURATION_ATTRIBUTE_NAME);
+		JosConfiguration openIdConfiguration = (JosConfiguration) WebApplicationContextUtils
 				.getWebApplicationContext(sc).getBean(
 						openIdConfigurationBeanName);
 		sce.getServletContext().setAttribute(openIdConfigurationAttributeName,

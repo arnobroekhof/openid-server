@@ -1,7 +1,7 @@
 /**
  * Created on 2008-5-12 00:55:46
  */
-package cn.net.openid.web;
+package cn.net.openid.web.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -30,8 +30,11 @@ import org.openid4java.server.ServerManager;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.net.openid.web.AbstractSimpleFormController;
+import cn.net.openid.web.UserSession;
+
 /**
- * @author sutra
+ * @author Sutra Zhou
  * 
  */
 public class ApprovingController extends AbstractSimpleFormController {

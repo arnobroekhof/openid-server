@@ -21,10 +21,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import cn.net.openid.OpenIdConfiguration;
+import cn.net.openid.JosConfiguration;
 
 /**
- * @author Shutra
+ * @author Sutra Zhou
  * 
  */
 public class MemberFilter implements Filter {
@@ -74,8 +74,8 @@ public class MemberFilter implements Filter {
 	public void init(FilterConfig filterConfig) throws ServletException {
 		this.context = filterConfig.getServletContext();
 		String openidConfigurationBeanName = this.context
-				.getInitParameter(OpenIdConfiguration.CONFIGURATION_BEAN_NAME);
-		OpenIdConfiguration openidConfiguration = (OpenIdConfiguration) WebApplicationContextUtils
+				.getInitParameter(JosConfiguration.CONFIGURATION_BEAN_NAME);
+		JosConfiguration openidConfiguration = (JosConfiguration) WebApplicationContextUtils
 				.getWebApplicationContext(filterConfig.getServletContext())
 				.getBean(openidConfigurationBeanName);
 		log.debug("fromPattern: "

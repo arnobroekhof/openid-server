@@ -1,32 +1,22 @@
 /**
  * 
  */
-package cn.net.openid.web;
+package cn.net.openid.web.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.Controller;
 
-import cn.net.openid.dao.DaoFacade;
 import cn.net.openid.domain.Email;
+import cn.net.openid.web.AbstractController;
+import cn.net.openid.web.UserSession;
 
 /**
- * @author sutra
+ * @author Sutra Zhou
  * 
  */
-public class DeleteEmailController implements Controller {
-	private DaoFacade daoFacade;
-
-	/**
-	 * @param daoFacade
-	 *            the daoFacade to set
-	 */
-	public void setDaoFacade(DaoFacade daoFacade) {
-		this.daoFacade = daoFacade;
-	}
-
+public class DeleteEmailController extends AbstractController {
 	public ModelAndView handleRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		UserSession userSession = (UserSession) request.getSession()

@@ -22,7 +22,7 @@
 		<param-value>true</param-value>
 	</context-param>
 
-	<!-- OpenID. -->
+	<!-- Java OpenID Server. -->
 	<context-param>
 		<description>
 			For cn.net.openid.web.OpenIdServletContextListener.
@@ -43,7 +43,7 @@
 		</listener-class>
 	</listener>
 
-	<!-- OpenID. -->
+	<!-- Java OpenID Server. -->
 	<listener>
 		<listener-class>
 			cn.net.openid.web.OpenIdServletContextListener
@@ -63,7 +63,7 @@
 		</init-param>
 	</filter>
 
-	<!-- OpenID member URL. -->
+	<!-- Java OpenID Server Member URL. -->
 	<filter>
 		<display-name>Member Filter</display-name>
 		<filter-name>Member Filter</filter-name>
@@ -77,26 +77,15 @@
 		</filter-class>
 	</filter>
 
-	<!-- OpenID Server. -->
-	<!--
 	<servlet>
-		<display-name>Open ID Provider</display-name>
-		<servlet-name>server</servlet-name>
-		<servlet-class>cn.net.openid.web.ServerServlet</servlet-class>
-		<load-on-startup>10</load-on-startup>
-	</servlet>
-	-->
-
-	<!-- OpenID in spring. -->
-	<servlet>
-		<servlet-name>openid</servlet-name>
+		<servlet-name>jos</servlet-name>
 		<servlet-class>
 			org.springframework.web.servlet.DispatcherServlet
 		</servlet-class>
 		<load-on-startup>20</load-on-startup>
 	</servlet>
 
-	<!-- OpenID member page. -->
+	<!-- Java OpenID Server Member page. -->
 	<servlet>
 		<display-name>Open ID Member</display-name>
 		<servlet-name>member</servlet-name>
@@ -122,90 +111,78 @@
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>sitemesh</filter-name>
-		<servlet-name>openid</servlet-name>
+		<servlet-name>jos</servlet-name>
 	</filter-mapping>
 	<servlet-mapping>
 		<servlet-name>sitemesh-velocity</servlet-name>
 		<url-pattern>*.vm</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>openid</servlet-name>
+		<servlet-name>jos</servlet-name>
 		<url-pattern>/server</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>openid</servlet-name>
+		<servlet-name>jos</servlet-name>
 		<url-pattern>/provider-authorization</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>openid</servlet-name>
+		<servlet-name>jos</servlet-name>
 		<url-pattern>/approving</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>openid</servlet-name>
+		<servlet-name>jos</servlet-name>
 		<url-pattern>/index.html</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>openid</servlet-name>
+		<servlet-name>jos</servlet-name>
 		<url-pattern>/home</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>openid</servlet-name>
+		<servlet-name>jos</servlet-name>
 		<url-pattern>/register</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>openid</servlet-name>
+		<servlet-name>jos</servlet-name>
 		<url-pattern>/login</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>openid</servlet-name>
-		<url-pattern>*.login</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>openid</servlet-name>
+		<servlet-name>jos</servlet-name>
 		<url-pattern>/logout</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>openid</servlet-name>
+		<servlet-name>jos</servlet-name>
 		<url-pattern>/email</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>openid</servlet-name>
+		<servlet-name>jos</servlet-name>
 		<url-pattern>/email-remove</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>openid</servlet-name>
+		<servlet-name>jos</servlet-name>
 		<url-pattern>/profile</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>openid</servlet-name>
-		<url-pattern>/credentials</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>openid</servlet-name>
-		<url-pattern>*.credential</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>openid</servlet-name>
+		<servlet-name>jos</servlet-name>
 		<url-pattern>/sites</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>openid</servlet-name>
+		<servlet-name>jos</servlet-name>
 		<url-pattern>/attributes</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>openid</servlet-name>
+		<servlet-name>jos</servlet-name>
 		<url-pattern>/edit-attribute</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>openid</servlet-name>
+		<servlet-name>jos</servlet-name>
 		<url-pattern>/remove-attribute</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>openid</servlet-name>
+		<servlet-name>jos</servlet-name>
 		<url-pattern>/attribute-value</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>openid</servlet-name>
+		<servlet-name>jos</servlet-name>
 		<url-pattern>/hl</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>

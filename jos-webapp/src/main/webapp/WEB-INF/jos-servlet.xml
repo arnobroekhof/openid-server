@@ -1,9 +1,8 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
 		  "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 <beans>
-	<bean id="abstractDaoFacadeController"
-		class="cn.net.openid.web.AbstractDaoFacadeController"
-		abstract="true">
+	<bean id="abstractController"
+		class="cn.net.openid.web.AbstractController" abstract="true">
 		<property name="daoFacade" ref="daoFacade" />
 		<property name="serverManager" ref="serverManager" />
 	</bean>
@@ -35,33 +34,32 @@
 
 	<!-- Register a user page controller. -->
 	<bean id="registerController"
-		class="cn.net.openid.web.RegisterController">
+		class="cn.net.openid.web.RegisterController"
+		parent="abstractSimpleFormController">
 		<property name="commandClass"
 			value="cn.net.openid.web.RegisterForm" />
 		<property name="formView" value="register" />
 		<property name="successView" value="register-success" />
 		<property name="validator" ref="registerFormValidator" />
-		<property name="daoFacade" ref="daoFacade" />
 	</bean>
 
 	<!-- Simple login page controller. -->
-	<bean id="loginController"
-		class="cn.net.openid.web.LoginController">
+	<bean id="loginController" class="cn.net.openid.web.LoginController"
+		parent="abstractSimpleFormController">
 		<property name="commandClass"
 			value="cn.net.openid.web.LoginForm" />
 		<property name="formView" value="login" />
 		<property name="successView" value="login-success" />
-		<property name="daoFacade" ref="daoFacade" />
 	</bean>
 
 	<!-- Login handlers list controller. -->
 	<bean id="loginHandlersController"
-		class="cn.net.openid.web.LoginHandlersController">
+		class="cn.net.openid.web.LoginHandlersController"
+		parent="abstractSimpleFormController">
 		<property name="commandClass"
 			value="cn.net.openid.web.LoginHandlersForm" />
 		<property name="formView" value="login-handlers" />
 		<property name="successView" value="login-handlers" />
-		<property name="daoFacade" ref="daoFacade" />
 	</bean>
 
 	<!-- Logout. -->
@@ -70,64 +68,41 @@
 	</bean>
 
 	<!-- Email. -->
-	<bean id="emailController"
-		class="cn.net.openid.web.EmailController">
+	<bean id="emailController" class="cn.net.openid.web.EmailController"
+		parent="abstractSimpleFormController">
 		<property name="commandName" value="email" />
 		<property name="commandClass"
 			value="cn.net.openid.domain.Email" />
 		<property name="formView" value="email" />
 		<property name="successView" value="email-success" />
-		<property name="daoFacade" ref="daoFacade" />
 	</bean>
 	<bean id="deleteEmailController"
-		class="cn.net.openid.web.DeleteEmailController">
-		<property name="daoFacade" ref="daoFacade" />
+		class="cn.net.openid.web.DeleteEmailController"
+		parent="abstractSimpleFormController">
 	</bean>
 
 	<!-- Profile edit. -->
 	<bean id="profileController"
-		class="cn.net.openid.web.ProfileController">
+		class="cn.net.openid.web.ProfileController"
+		parent="abstractSimpleFormController">
 		<property name="commandName" value="profile" />
 		<property name="commandClass" value="cn.net.openid.domain.User" />
 		<property name="formView" value="profile" />
 		<property name="successView" value="profile-success" />
 		<property name="validator" ref="userValidator" />
-		<property name="daoFacade" ref="daoFacade" />
 		<property name="messageSource" ref="messageSource" />
 		<property name="localeResolver" ref="localeResolver" />
 	</bean>
 
-	<!-- Credentials list controller. -->
-	<bean id="credentialsController"
-		class="cn.net.openid.web.CredentialsController">
-		<property name="daoFacade" ref="daoFacade" />
-	</bean>
-
-	<!-- Edit credential. -->
-	<bean id="editCredentialController"
-		class="cn.net.openid.web.EditCredentialController">
-		<property name="daoFacade" ref="daoFacade" />
-	</bean>
-
-	<!-- Edit the simple credential: password. -->
+	<!-- Edit the password. -->
 	<bean id="editPasswordController"
-		class="cn.net.openid.web.EditPasswordController">
+		class="cn.net.openid.web.EditPasswordController"
+		parent="abstractSimpleFormController">
 		<property name="commandClass"
 			value="cn.net.openid.web.EditPasswordForm" />
 		<property name="commandName" value="editPasswordForm" />
 		<property name="formView" value="edit-password" />
 		<property name="successView" value="edit-password-success" />
-		<property name="daoFacade" ref="daoFacade" />
-	</bean>
-
-	<!-- Delete credential. -->
-	<bean id="deleteCredentialController"
-		class="cn.net.openid.web.DeleteCredentialController">
-		<property name="commandName" value="credential" />
-		<property name="commandClass" value="cn.net.openid.Credential" />
-		<property name="formView" value="delete-credential" />
-		<property name="successView" value="delete-credential-success" />
-		<property name="daoFacade" ref="daoFacade" />
 	</bean>
 
 	<!-- Attribute -->
@@ -137,25 +112,25 @@
 	</bean>
 
 	<bean id="editAttributeController"
-		class="cn.net.openid.web.EditAttributeController">
+		class="cn.net.openid.web.EditAttributeController"
+		parent="abstractSimpleFormController">
 		<property name="commandName" value="attribute" />
 		<property name="commandClass"
 			value="cn.net.openid.domain.Attribute" />
 		<property name="formView" value="edit-attribute" />
 		<property name="successView" value="edit-attribute-success" />
-		<property name="daoFacade" ref="daoFacade" />
 	</bean>
 
 	<bean id="removeAttributeController"
-		class="cn.net.openid.web.RemoveAttributeController">
-		<property name="daoFacade" ref="daoFacade" />
+		class="cn.net.openid.web.RemoveAttributeController"
+		parent="abstractController">
 	</bean>
 
 	<bean id="attributeValueController"
-		class="cn.net.openid.web.AttributeValueController">
+		class="cn.net.openid.web.AttributeValueController"
+		parent="abstractSimpleFormController">
 		<property name="formView" value="attribute-value" />
 		<property name="successView" value="attribute-value-success" />
-		<property name="daoFacade" ref="daoFacade" />
 	</bean>
 
 	<!-- 
@@ -179,25 +154,13 @@
 		</property>
 		<property name="urlMap">
 			<map>
-				<entry key="/index.html">
-					<ref local="homeController" />
-				</entry>
+				<entry key="/index.html" value-ref="homeController" />
+				<entry key="/home" value-ref="homeController" />
+				<entry key="/register" value-ref="registerController" />
+				<entry key="/login" value-ref="loginController" />
+				<entry key="/hl"
+					value-ref="humanLanguageSelectionController" />
 				<entry key="/server" value-ref="serverController" />
-				<entry key="/home">
-					<ref local="homeController" />
-				</entry>
-				<entry key="/register">
-					<ref local="registerController" />
-				</entry>
-				<entry key="/login">
-					<ref local="loginController" />
-				</entry>
-				<entry key="/index.login">
-					<ref local="loginHandlersController" />
-				</entry>
-				<entry key="/hl">
-					<ref local="humanLanguageSelectionController" />
-				</entry>
 			</map>
 		</property>
 	</bean>
@@ -220,42 +183,21 @@
 				<entry key="/provider-authorization"
 					value-ref="providerAuthorizationController" />
 				<entry key="/approving" value-ref="approvingController" />
-				<entry key="/logout">
-					<ref local="logoutController" />
-				</entry>
-				<entry key="/email">
-					<ref local="emailController" />
-				</entry>
-				<entry key="/email-remove">
-					<ref local="deleteEmailController" />
-				</entry>
-				<entry key="/profile">
-					<ref local="profileController" />
-				</entry>
-				<entry key="/credentials">
-					<ref local="credentialsController" />
-				</entry>
-				<entry key="/edit.credential">
-					<ref local="editCredentialController" />
-				</entry>
-				<entry key="/password.credential">
-					<ref local="editPasswordController" />
-				</entry>
-				<entry key="/delete.credential">
-					<ref local="deleteCredentialController" />
-				</entry>
-				<entry key="/attributes">
-					<ref local="attributesController" />
-				</entry>
-				<entry key="/edit-attribute">
-					<ref local="editAttributeController" />
-				</entry>
-				<entry key="/remove-attribute">
-					<ref local="removeAttributeController" />
-				</entry>
-				<entry key="/attribute-value">
-					<ref local="attributeValueController" />
-				</entry>
+				<entry key="/logout" value-ref="logoutController" />
+				<entry key="/email" value-ref="emailController" />
+				<entry key="/email-remove"
+					value-ref="deleteEmailController" />
+				<entry key="/profile" value-ref="profileController" />
+				<entry key="/password"
+					value-ref="editPasswordController" />
+				<entry key="/attributes"
+					value-ref="attributesController" />
+				<entry key="/edit-attribute"
+					value-ref="editAttributeController" />
+				<entry key="/remove-attribute"
+					value-ref="removeAttributeController" />
+				<entry key="/attribute-value"
+					value-ref="attributeValueController" />
 				<!-- 
 					<entry key="/sites">
 					<ref local="sitesController"/>
@@ -269,7 +211,6 @@
 		<property name="basenames">
 			<list>
 				<value>cn.net.openid.web.messages</value>
-				<value>cn.net.openid.web.credentialHandler</value>
 			</list>
 		</property>
 	</bean>

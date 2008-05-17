@@ -1,7 +1,7 @@
 /**
  * Created on 2007-3-26 23:18:11
  */
-package cn.net.openid.web;
+package cn.net.openid.web.controller;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,27 +14,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.SimpleFormController;
 
-import cn.net.openid.dao.DaoFacade;
 import cn.net.openid.domain.Attribute;
 import cn.net.openid.domain.AttributeValue;
+import cn.net.openid.web.AbstractSimpleFormController;
+import cn.net.openid.web.UserSession;
 
 /**
- * @author sutra
+ * @author Sutra Zhou
  * 
  */
-public class AttributeValueController extends SimpleFormController {
-	private DaoFacade daoFacade;
-
-	/**
-	 * @param daoFacade
-	 *            the daoFacade to set
-	 */
-	public void setDaoFacade(DaoFacade daoFacade) {
-		this.daoFacade = daoFacade;
-	}
-
+public class AttributeValueController extends AbstractSimpleFormController {
 	private Map<String, String> buildMap(List<AttributeValue> attributeValues) {
 		Map<String, String> ret = new HashMap<String, String>();
 		for (AttributeValue attributeValue : attributeValues) {
@@ -75,6 +65,7 @@ public class AttributeValueController extends SimpleFormController {
 	 *      javax.servlet.http.HttpServletResponse, java.lang.Object,
 	 *      org.springframework.validation.BindException)
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	protected ModelAndView onSubmit(HttpServletRequest request,
 			HttpServletResponse response, Object command, BindException errors)

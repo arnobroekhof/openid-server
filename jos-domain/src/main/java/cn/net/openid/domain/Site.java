@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @author sutra
+ * @author Sutra Zhou
  * 
  */
 public class Site implements Serializable {

@@ -9,7 +9,7 @@ import cn.net.openid.dao.PasswordDao;
 import cn.net.openid.domain.Password;
 
 /**
- * @author sutra
+ * @author Sutra Zhou
  * 
  */
 public class HibernatePasswordDao extends BaseHibernateEntityDao<Password>

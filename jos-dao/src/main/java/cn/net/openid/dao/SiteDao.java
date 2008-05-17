@@ -8,7 +8,7 @@ import java.util.Map;
 import cn.net.openid.domain.Site;
 
 /**
- * @author sutra
+ * @author Sutra Zhou
  * 
  */
 public interface SiteDao {

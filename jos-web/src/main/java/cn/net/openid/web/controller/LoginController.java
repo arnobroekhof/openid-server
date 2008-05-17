@@ -1,7 +1,7 @@
 /**
  * Created on 2006-10-7 上午12:05:13
  */
-package cn.net.openid.web;
+package cn.net.openid.web.controller;
 
 import java.util.Map;
 
@@ -17,21 +17,20 @@ import org.openid4java.message.ParameterList;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.SimpleFormController;
 
-import cn.net.openid.dao.DaoFacade;
 import cn.net.openid.domain.Password;
 import cn.net.openid.domain.User;
+import cn.net.openid.web.AbstractSimpleFormController;
+import cn.net.openid.web.UserSession;
+import cn.net.openid.web.form.LoginForm;
 
 /**
  * @author Sutra Zhou
  * 
  */
-public class LoginController extends SimpleFormController {
+public class LoginController extends AbstractSimpleFormController {
 	@SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog(LoginController.class);
-
-	private DaoFacade daoFacade;
 
 	private User check(LoginForm lf) {
 		User user = daoFacade.getUserByUsername(lf.getUsername());
@@ -131,13 +130,5 @@ public class LoginController extends SimpleFormController {
 		}
 
 		return super.referenceData(request, command, errors);
-	}
-
-	/**
-	 * @param daoFacade
-	 *            the daoFacade to set
-	 */
-	public void setDaoFacade(DaoFacade daoFacade) {
-		this.daoFacade = daoFacade;
 	}
 }

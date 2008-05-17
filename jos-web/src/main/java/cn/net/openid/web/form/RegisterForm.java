@@ -1,7 +1,7 @@
 /**
- * Created on 2006-10-7 上午12:29:03
+ * Created on 2006-10-16 上午12:43:06
  */
-package cn.net.openid.web;
+package cn.net.openid.web.form;
 
 import java.io.Serializable;
 
@@ -9,11 +9,12 @@ import java.io.Serializable;
  * @author Shutra
  * 
  */
-public class LoginForm implements Serializable {
+public class RegisterForm implements Serializable {
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -5037879147649703902L;
+	private static final long serialVersionUID = 8100263157196112732L;
 
 	private String username;
 

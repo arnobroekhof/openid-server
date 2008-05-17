@@ -13,7 +13,7 @@ import cn.net.openid.domain.Password;
 import cn.net.openid.domain.User;
 
 /**
- * @author <a href="mailto:zhoushuqun@gmail.com">Shutra</a>
+ * @author Sutra Zhou
  * 
  */
 public interface DaoFacade {

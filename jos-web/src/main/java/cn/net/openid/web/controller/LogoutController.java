@@ -1,18 +1,23 @@
 /**
- * 
+ * Created on 2006-10-28 下午09:28:11
  */
-package cn.net.openid.web;
+package cn.net.openid.web.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.Controller;
 
 /**
- * @author sutra
+ * Clean up the session of current session.
+ * 
+ * @author Sutra Zhou
  * 
  */
-public class RemoveAttributeController extends AbstractDaoFacadeController {
+public class LogoutController implements Controller {
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -21,10 +26,11 @@ public class RemoveAttributeController extends AbstractDaoFacadeController {
 	 */
 	public ModelAndView handleRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		String id = request.getParameter("id");
-		if (id != null) {
-			this.daoFacade.deleteAttribute(id);
+		HttpSession session = request.getSession(false);
+		if (session != null) {
+			session.invalidate();
 		}
-		return new ModelAndView("remove-attribute-success");
+		return new ModelAndView("logout");
 	}
+
 }

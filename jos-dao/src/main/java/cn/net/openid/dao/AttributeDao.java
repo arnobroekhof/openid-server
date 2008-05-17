@@ -8,7 +8,7 @@ import java.util.Collection;
 import cn.net.openid.domain.Attribute;
 
 /**
- * @author sutra
+ * @author Sutra Zhou
  * 
  */
 public interface AttributeDao {

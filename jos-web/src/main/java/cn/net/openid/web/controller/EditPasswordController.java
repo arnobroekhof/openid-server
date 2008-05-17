@@ -1,26 +1,23 @@
 /**
  * Created on 2006-10-29 上午02:58:32
  */
-package cn.net.openid.web;
+package cn.net.openid.web.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.SimpleFormController;
 
-import cn.net.openid.dao.DaoFacade;
+import cn.net.openid.web.AbstractSimpleFormController;
+import cn.net.openid.web.form.EditPasswordForm;
 
 /**
- * @author Shutra
+ * @author Sutra Zhou
  * 
  */
-public class EditPasswordController extends SimpleFormController {
-	private DaoFacade daoFacade;
-
+public class EditPasswordController extends AbstractSimpleFormController {
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -69,13 +66,4 @@ public class EditPasswordController extends SimpleFormController {
 		EditPasswordForm editPasswordForm = (EditPasswordForm) command;
 		return super.onSubmit(request, response, command, errors);
 	}
-
-	/**
-	 * @param daoFacade
-	 *            the daoFacade to set
-	 */
-	public void setDaoFacade(DaoFacade daoFacade) {
-		this.daoFacade = daoFacade;
-	}
-
 }

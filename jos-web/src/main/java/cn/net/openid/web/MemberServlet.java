@@ -16,10 +16,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import cn.net.openid.OpenIdConfiguration;
+import cn.net.openid.JosConfiguration;
 
 /**
- * @author Shutra
+ * @author Sutra Zhou
  * 
  */
 public class MemberServlet extends HttpServlet {
@@ -45,8 +45,8 @@ public class MemberServlet extends HttpServlet {
 		super.init(config);
 		this.context = config.getServletContext();
 		String openidConfigurationBeanName = this.context
-				.getInitParameter(OpenIdConfiguration.CONFIGURATION_BEAN_NAME);
-		OpenIdConfiguration openidConfiguration = (OpenIdConfiguration) WebApplicationContextUtils
+				.getInitParameter(JosConfiguration.CONFIGURATION_BEAN_NAME);
+		JosConfiguration openidConfiguration = (JosConfiguration) WebApplicationContextUtils
 				.getWebApplicationContext(this.context).getBean(
 						openidConfigurationBeanName);
 		this.openIdServer = openidConfiguration.getOpenIdServer();

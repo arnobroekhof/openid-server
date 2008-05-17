@@ -10,7 +10,7 @@ import java.util.List;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
- * @author Shutra
+ * @author Sutra Zhou
  * @see <a
  *      href="http://www.blogjava.net/calvin/archive/2006/04/28/43830.html">Java5泛型的用法，T.class的获取和为擦拭法站台</a>
  */

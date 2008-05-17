@@ -1,7 +1,7 @@
 /**
  * Created on 2006-10-29 下午01:43:33
  */
-package cn.net.openid.web;
+package cn.net.openid.web.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -21,21 +21,17 @@ import org.springframework.validation.BindException;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.SimpleFormController;
 
-import cn.net.openid.dao.DaoFacade;
 import cn.net.openid.domain.User;
+import cn.net.openid.web.AbstractSimpleFormController;
+import cn.net.openid.web.UserSession;
 
 /**
- * @author Shutra
+ * @author Sutra Zhou
  * 
  */
-public class ProfileController extends SimpleFormController {
-
-	private DaoFacade daoFacade;
-
+public class ProfileController extends AbstractSimpleFormController {
 	private MessageSource messageSource;
-
 	private LocaleResolver localeResolver;
 
 	private String formatOffset(int offset) {
@@ -163,14 +159,6 @@ public class ProfileController extends SimpleFormController {
 
 		map.put("timezones", timezones);
 		return map;
-	}
-
-	/**
-	 * @param daoFacade
-	 *            the daoFacade to set
-	 */
-	public void setDaoFacade(DaoFacade daoFacade) {
-		this.daoFacade = daoFacade;
 	}
 
 	/**

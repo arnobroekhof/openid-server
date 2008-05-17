@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @author Shutra
  * 
  */
-public class OpenIdConfiguration implements Serializable {
+public class JosConfiguration implements Serializable {
 
 	/**
 	 * 

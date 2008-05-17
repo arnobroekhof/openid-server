@@ -10,7 +10,7 @@ import cn.net.openid.dao.PersonaDao;
 import cn.net.openid.domain.Persona;
 
 /**
- * @author sutra
+ * @author Sutra Zhou
  * 
  */
 public class HibernatePersonaDao extends BaseHibernateEntityDao<Persona>

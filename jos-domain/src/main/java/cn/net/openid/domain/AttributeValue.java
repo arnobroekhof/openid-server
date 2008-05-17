@@ -6,7 +6,7 @@ package cn.net.openid.domain;
 import java.io.Serializable;
 
 /**
- * @author sutra
+ * @author Sutra Zhou
  * 
  */
 public class AttributeValue implements Serializable {

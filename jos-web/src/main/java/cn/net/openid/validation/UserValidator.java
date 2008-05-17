@@ -19,7 +19,7 @@ import org.springframework.validation.Validator;
 import cn.net.openid.domain.User;
 
 /**
- * @author Shutra
+ * @author Sutra Zhou
  * 
  */
 public class UserValidator implements Validator {
@@ -61,6 +61,7 @@ public class UserValidator implements Validator {
 	 * 
 	 * @see org.springframework.validation.Validator#supports(java.lang.Class)
 	 */
+	@SuppressWarnings("unchecked")
 	public boolean supports(Class clazz) {
 		return User.class.isAssignableFrom(clazz);
 	}

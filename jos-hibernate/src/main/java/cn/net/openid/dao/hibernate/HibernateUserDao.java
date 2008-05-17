@@ -9,7 +9,7 @@ import cn.net.openid.dao.UserDao;
 import cn.net.openid.domain.User;
 
 /**
- * @author Shutra
+ * @author Sutra Zhou
  * 
  */
 public class HibernateUserDao extends BaseHibernateEntityDao<User> implements

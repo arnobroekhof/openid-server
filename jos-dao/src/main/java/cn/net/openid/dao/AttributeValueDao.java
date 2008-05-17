@@ -10,7 +10,7 @@ import cn.net.openid.domain.AttributeValue;
 /**
  * Data access object for {@link AttributeValue}.
  * 
- * @author sutra
+ * @author Sutra Zhou
  * 
  */
 public interface AttributeValueDao {

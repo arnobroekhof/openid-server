@@ -6,7 +6,7 @@ package cn.net.openid.dao;
 import java.util.Collection;
 import java.util.List;
 
-import cn.net.openid.OpenIdConfiguration;
+import cn.net.openid.JosConfiguration;
 import cn.net.openid.domain.Attribute;
 import cn.net.openid.domain.AttributeValue;
 import cn.net.openid.domain.Email;
@@ -14,11 +14,11 @@ import cn.net.openid.domain.Password;
 import cn.net.openid.domain.User;
 
 /**
- * @author Shutra
+ * @author Sutra Zhou
  * 
  */
 public class DaoFacadeImpl implements DaoFacade {
-	private OpenIdConfiguration openIdConfiguration;
+	private JosConfiguration openIdConfiguration;
 	private UserDao userDao;
 	private PasswordDao passwordDao;
 	private EmailDao emailDao;
@@ -69,7 +69,7 @@ public class DaoFacadeImpl implements DaoFacade {
 	 * @param openIdConfiguration
 	 *            the openIdConfiguration to set
 	 */
-	public void setOpenIdConfiguration(OpenIdConfiguration openIdConfiguration) {
+	public void setOpenIdConfiguration(JosConfiguration openIdConfiguration) {
 		this.openIdConfiguration = openIdConfiguration;
 	}
 

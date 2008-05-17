@@ -11,7 +11,7 @@ import cn.net.openid.dao.AttributeValueDao;
 import cn.net.openid.domain.AttributeValue;
 
 /**
- * @author sutra
+ * @author Sutra Zhou
  * 
  */
 public class HibernateAttributeValueDao extends

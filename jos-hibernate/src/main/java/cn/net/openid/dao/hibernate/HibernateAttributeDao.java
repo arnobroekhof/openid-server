@@ -9,7 +9,7 @@ import cn.net.openid.dao.AttributeDao;
 import cn.net.openid.domain.Attribute;
 
 /**
- * @author sutra
+ * @author Sutra Zhou
  * 
  */
 public class HibernateAttributeDao extends BaseHibernateEntityDao<Attribute>

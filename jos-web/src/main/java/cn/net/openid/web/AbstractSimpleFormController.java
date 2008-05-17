@@ -11,7 +11,7 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 import cn.net.openid.dao.DaoFacade;
 
 /**
- * @author sutra
+ * @author Sutra Zhou
  * 
  */
 public abstract class AbstractSimpleFormController extends SimpleFormController {

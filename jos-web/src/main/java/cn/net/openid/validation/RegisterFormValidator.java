@@ -12,10 +12,10 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import cn.net.openid.web.RegisterForm;
+import cn.net.openid.web.form.RegisterForm;
 
 /**
- * @author Shutra
+ * @author Sutra Zhou
  * 
  */
 public class RegisterFormValidator implements Validator {
@@ -38,6 +38,7 @@ public class RegisterFormValidator implements Validator {
 	 * 
 	 * @see org.springframework.validation.Validator#supports(java.lang.Class)
 	 */
+	@SuppressWarnings("unchecked")
 	public boolean supports(Class clazz) {
 		return RegisterForm.class.isAssignableFrom(clazz);
 	}

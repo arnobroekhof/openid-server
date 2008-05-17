@@ -6,13 +6,13 @@
 		<property name="locations">
 			<list>
 				<value>WEB-INF/jdbc.properties</value>
-				<value>WEB-INF/openid.xml</value>
+				<value>WEB-INF/jos.xml</value>
 			</list>
 		</property>
 	</bean>
 
-	<bean id="openIdConfiguration"
-		class="cn.net.openid.OpenIdConfiguration">
+	<bean id="josConfiguration"
+		class="cn.net.openid.JosConfiguration">
 		<property name="openIdServer" value="${openid.server}" />
 		<property name="memberUsernamePattern"
 			value="${openid.member.usernamePattern}" />
@@ -46,15 +46,12 @@
 	<bean id="daoFacade" parent="baseTransactionProxy">
 		<property name="target">
 			<bean class="cn.net.openid.dao.DaoFacadeImpl">
-				<property name="openIdConfiguration">
-					<ref local="openIdConfiguration" />
+				<property name="josConfiguration">
+					<ref local="josConfiguration" />
 				</property>
 				<property name="userDao" ref="userDao" />
 				<property name="passwordDao" ref="passwordDao" />
 				<property name="emailDao" ref="emailDao" />
-				<property name="credentialDao" ref="credentialDao" />
-				<property name="credentialHandlerDao"
-					ref="credentialHandlerDao" />
 				<property name="attributeDao" ref="attributeDao" />
 				<property name="attributeValueDao"
 					ref="attributeValueDao" />

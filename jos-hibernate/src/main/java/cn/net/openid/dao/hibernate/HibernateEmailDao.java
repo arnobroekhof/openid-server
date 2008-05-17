@@ -10,7 +10,7 @@ import cn.net.openid.dao.EmailDao;
 import cn.net.openid.domain.Email;
 
 /**
- * @author sutra
+ * @author Sutra Zhou
  * 
  */
 public class HibernateEmailDao extends BaseHibernateEntityDao<Email> implements

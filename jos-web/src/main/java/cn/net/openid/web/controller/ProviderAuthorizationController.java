@@ -1,7 +1,7 @@
 /**
  * Created on 2007-4-30 上午12:28:23
  */
-package cn.net.openid.web;
+package cn.net.openid.web.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +12,8 @@ import org.apache.commons.logging.LogFactory;
 import org.openid4java.message.ParameterList;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
+
+import cn.net.openid.web.UserSession;
 
 /**
  * @author Sutra Zhou

@@ -1,31 +1,20 @@
 /**
  * Created on 2007-3-26 23:47:40
  */
-package cn.net.openid.web;
+package cn.net.openid.web.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
-import org.springframework.web.servlet.mvc.SimpleFormController;
 
-import cn.net.openid.dao.DaoFacade;
 import cn.net.openid.domain.Attribute;
+import cn.net.openid.web.AbstractSimpleFormController;
 
 /**
- * @author sutra
+ * @author Sutra Zhou
  * 
  */
-public class EditAttributeController extends SimpleFormController {
-	private DaoFacade daoFacade;
-
-	/**
-	 * @param daoFacade
-	 *            the daoFacade to set
-	 */
-	public void setDaoFacade(DaoFacade daoFacade) {
-		this.daoFacade = daoFacade;
-	}
-
+public class EditAttributeController extends AbstractSimpleFormController {
 	/*
 	 * (non-Javadoc)
 	 * 

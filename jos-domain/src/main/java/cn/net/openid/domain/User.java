@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @author Shutra
+ * @author Sutra Zhou
  * 
  */
 public class User implements Serializable {

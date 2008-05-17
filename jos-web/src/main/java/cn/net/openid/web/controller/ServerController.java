@@ -1,7 +1,7 @@
 /**
  * Created on 2006-10-5 下午05:58:31
  */
-package cn.net.openid.web;
+package cn.net.openid.web.controller;
 
 import java.io.IOException;
 
@@ -17,11 +17,15 @@ import org.openid4java.message.ParameterList;
 import org.openid4java.server.ServerManager;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.net.openid.web.AbstractController;
+import cn.net.openid.web.UserSession;
+import cn.net.openid.web.WebUtils;
+
 /**
  * @author Sutra Zhou
  * 
  */
-public class ServerController extends AbstractDaoFacadeController {
+public class ServerController extends AbstractController {
 
 	/**
 	 * 

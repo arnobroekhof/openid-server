@@ -1,7 +1,7 @@
 /**
  * Created on 2006-11-6 下午09:14:44
  */
-package cn.net.openid.web;
+package cn.net.openid.web.controller;
 
 import java.util.Locale;
 
@@ -15,7 +15,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
 /**
  * Human language selection controller.
  * 
- * @author Shutra
+ * @author Sutra Zhou
  * 
  */
 public class HumanLanguageSelectionController extends AbstractController {

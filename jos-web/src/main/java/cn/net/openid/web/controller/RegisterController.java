@@ -1,7 +1,7 @@
 /**
  * Created on 2006-10-15 下午09:20:29
  */
-package cn.net.openid.web;
+package cn.net.openid.web.controller;
 
 import java.util.Map;
 
@@ -11,23 +11,17 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.SimpleFormController;
 
-import cn.net.openid.dao.DaoFacade;
 import cn.net.openid.domain.Password;
 import cn.net.openid.domain.User;
+import cn.net.openid.web.AbstractSimpleFormController;
+import cn.net.openid.web.form.RegisterForm;
 
 /**
- * @author Shutra
+ * @author Sutra Zhou
  * 
  */
-public class RegisterController extends SimpleFormController {
-
-	private DaoFacade daoFacade;
-
-	public RegisterController() {
-	}
-
+public class RegisterController extends AbstractSimpleFormController {
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -79,19 +73,10 @@ public class RegisterController extends SimpleFormController {
 	 *      java.lang.Object, org.springframework.validation.Errors)
 	 */
 	@Override
-	protected Map referenceData(HttpServletRequest request, Object command,
-			Errors errors) throws Exception {
+	protected Map<Object, Object> referenceData(HttpServletRequest request,
+			Object command, Errors errors) throws Exception {
 		RegisterForm form = (RegisterForm) command;
 		form.setUsername(request.getParameter("username"));
-		return super.referenceData(request, command, errors);
+		return null;
 	}
-
-	/**
-	 * @param daoFacade
-	 *            the daoFacade to set
-	 */
-	public void setDaoFacade(DaoFacade daoFacade) {
-		this.daoFacade = daoFacade;
-	}
-
 }

@@ -1,10 +1,10 @@
 /**
  * Created on 2006-10-29 上午02:58:18
  */
-package cn.net.openid.web;
+package cn.net.openid.web.form;
 
 /**
- * @author Shutra
+ * @author Sutra Zhou
  * 
  */
 public class EditPasswordForm {

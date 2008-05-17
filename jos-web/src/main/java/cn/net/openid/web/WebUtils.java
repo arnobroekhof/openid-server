@@ -6,8 +6,6 @@ package cn.net.openid.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.openid4java.server.ServerManager;
-
 /**
  * The utilities for web.
  * 
@@ -16,21 +14,6 @@ import org.openid4java.server.ServerManager;
  */
 public class WebUtils {
 	private static final String USER_SESSION = "userSession";
-
-	/**
-	 * 
-	 * @param req
-	 * @return
-	 * @deprecated use HttpServletRequest.getContextPath() instead.
-	 */
-	public static String getContextPath(HttpServletRequest req) {
-		String ret = req.getContextPath();
-		if (ret.equals("/")) {
-			return "";
-		} else {
-			return ret;
-		}
-	}
 
 	/**
 	 * Store the logged in user info to HTTP session.

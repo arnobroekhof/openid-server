@@ -11,7 +11,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * @author Shutra
+ * @author Sutra Zhou
  * 
  */
 public class UserLoggedInInterceptor implements HandlerInterceptor {
@@ -71,8 +71,8 @@ public class UserLoggedInInterceptor implements HandlerInterceptor {
 			}
 		}
 		if (ret == false) {
-			response.sendRedirect(response.encodeRedirectURL(WebUtils
-					.getContextPath(request)
+			response.sendRedirect(response.encodeRedirectURL(request
+					.getContextPath()
 					+ this.loginPath));
 		}
 		return ret;

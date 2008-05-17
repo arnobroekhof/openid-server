@@ -1,7 +1,7 @@
 /**
  * Created on 2007-3-26 23:47:30
  */
-package cn.net.openid.web;
+package cn.net.openid.web.controller;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -11,26 +11,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.Controller;
 
-import cn.net.openid.dao.DaoFacade;
 import cn.net.openid.domain.Attribute;
+import cn.net.openid.web.AbstractController;
 
 /**
- * @author sutra
+ * @author Sutra Zhou
  * 
  */
-public class AttributesController implements Controller {
-	private DaoFacade daoFacade;
-
-	/**
-	 * @param daoFacade
-	 *            the daoFacade to set
-	 */
-	public void setDaoFacade(DaoFacade daoFacade) {
-		this.daoFacade = daoFacade;
-	}
-
+public class AttributesController extends AbstractController {
 	/*
 	 * (non-Javadoc)
 	 * 

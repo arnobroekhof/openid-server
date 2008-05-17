@@ -66,14 +66,6 @@
 		class="cn.net.openid.dao.hibernate.HibernateEmailDao">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	<bean id="credentialDao"
-		class="cn.net.openid.dao.hibernate.HibernateCredentialDao">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
-	<bean id="credentialHandlerDao"
-		class="cn.net.openid.dao.hibernate.HibernateCredentialHandlerDao">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
 	<bean id="attributeDao"
 		class="cn.net.openid.dao.hibernate.HibernateAttributeDao">
 		<property name="sessionFactory" ref="sessionFactory" />

@@ -9,7 +9,7 @@ import cn.net.openid.dao.SiteDao;
 import cn.net.openid.domain.Site;
 
 /**
- * @author sutra
+ * @author Sutra Zhou
  * 
  */
 public class HibernateSiteDao extends BaseHibernateEntityDao<Site> implements

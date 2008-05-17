@@ -6,7 +6,7 @@ package cn.net.openid.dao;
 import cn.net.openid.domain.User;
 
 /**
- * @author Shutra
+ * @author Sutra Zhou
  * 
  */
 public interface UserDao {

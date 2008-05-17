@@ -1,7 +1,7 @@
 /**
  * Created on 2008-3-10 下午11:04:50
  */
-package cn.net.openid.web;
+package cn.net.openid.web.controller;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,27 +10,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.SimpleFormController;
 
-import cn.net.openid.dao.DaoFacade;
 import cn.net.openid.domain.Email;
 import cn.net.openid.domain.User;
+import cn.net.openid.web.AbstractSimpleFormController;
+import cn.net.openid.web.UserSession;
 
 /**
- * @author sutra
+ * @author Sutra Zhou
  * 
  */
-public class EmailController extends SimpleFormController {
-	private DaoFacade daoFacade;
-
-	/**
-	 * @param daoFacade
-	 *            要设置的 daoFacade
-	 */
-	public void setDaoFacade(DaoFacade daoFacade) {
-		this.daoFacade = daoFacade;
-	}
-
+public class EmailController extends AbstractSimpleFormController {
 	/*
 	 * （非 Javadoc）
 	 * 
