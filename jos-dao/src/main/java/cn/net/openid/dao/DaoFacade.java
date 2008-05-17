@@ -6,9 +6,6 @@ package cn.net.openid.dao;
 import java.util.Collection;
 import java.util.List;
 
-import cn.net.openid.Credential;
-import cn.net.openid.CredentialException;
-import cn.net.openid.CredentialHandler;
 import cn.net.openid.domain.Attribute;
 import cn.net.openid.domain.AttributeValue;
 import cn.net.openid.domain.Email;
@@ -22,23 +19,11 @@ import cn.net.openid.domain.User;
 public interface DaoFacade {
 	String buildOpenidUrl(String username);
 
-	void deleteCredential(Credential credential) throws CredentialException;
-
-	Credential getCredential(String id);
-
-	CredentialHandler getCredentialHandler(String id);
-
-	List<CredentialHandler> getCredentialHandlers();
-
-	List<Credential> getCredentials(String userId);
-
 	User getUser(String id);
 
 	User getUserByUsername(String username);
 
 	Password getPasswordByUserId(String userId);
-
-	String insertCredential(Credential credential);
 
 	/**
 	 * 该方法的事务处理由Spring的事务处理保证。
@@ -47,8 +32,6 @@ public interface DaoFacade {
 	 * @param password
 	 */
 	void insertUser(User user, Password password);
-
-	void updateCredential(Credential credential);
 
 	void updateUser(User user);
 

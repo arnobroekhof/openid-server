@@ -12,7 +12,6 @@ import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
-import cn.net.openid.Credential;
 import cn.net.openid.dao.DaoFacade;
 
 /**
@@ -68,23 +67,6 @@ public class EditPasswordController extends SimpleFormController {
 			HttpServletResponse response, Object command, BindException errors)
 			throws Exception {
 		EditPasswordForm editPasswordForm = (EditPasswordForm) command;
-		Credential credential = this.daoFacade.getCredential(editPasswordForm
-				.getCredentialId());
-		if (credential == null) {
-			HttpSession session = request.getSession();
-			UserSession userSession = (UserSession) session
-					.getAttribute("userSession");
-			credential = new Credential();
-			credential.setUser(daoFacade.getUser(userSession.getUserId()));
-			credential.setHandler(this.daoFacade.getCredentialHandler("1"));
-			credential
-					.setInfo(editPasswordForm.getPassword().getBytes("UTF-8"));
-			this.daoFacade.insertCredential(credential);
-		} else {
-			credential
-					.setInfo(editPasswordForm.getPassword().getBytes("UTF-8"));
-			this.daoFacade.updateCredential(credential);
-		}
 		return super.onSubmit(request, response, command, errors);
 	}
 

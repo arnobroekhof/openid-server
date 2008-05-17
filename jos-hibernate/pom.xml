@@ -11,5 +11,23 @@
 	</parent>
 	<artifactId>jos-hibernate</artifactId>
 	<packaging>jar</packaging>
-	<name>Java OpenID Server - Data Access Objects Hibernate Implementation</name>
+	<name>
+		Java OpenID Server - Data Access Objects Hibernate
+		Implementation
+	</name>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>${groupId}</groupId>
+			<artifactId>jos-dao</artifactId>
+			<version>${version}</version>
+		</dependency>
+	</dependencies>
 </project>
