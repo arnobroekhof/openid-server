@@ -49,7 +49,7 @@
 		<property name="hibernateProperties" ref="hibernateProperties" />
 		<property name="mappingDirectoryLocations">
 			<list>
-				<value>classpath:cn/net/openid/dao/hibernate</value>
+				<value>classpath:jos-hibernate*.jar</value>
 			</list>
 		</property>
 	</bean>
