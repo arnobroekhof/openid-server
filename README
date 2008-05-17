@@ -1,0 +1,9 @@
+Java OpenID Server (jos)
+
+jos-domain/	: Domain objects.
+jos-dao/	: Data Access Objects.
+jos-hibernate/	: DAO implementation with hibernate3.
+jos-service/	: Service layer.
+jos-web/	: Web classes.
+jos-webapp/	: Web resources, such as jsp, js, images.
+doc/		: Documents.
