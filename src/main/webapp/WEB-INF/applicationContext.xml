@@ -24,6 +24,11 @@
 			value="${openid.member.filter.fromPattern}" />
 	</bean>
 
+	<bean id="serverManager"
+		class="org.openid4java.server.ServerManager">
+		<property name="OPEndpointUrl" value="${openid.server}" />
+	</bean>
+
 	<bean id="baseTransactionProxy"
 		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
 		abstract="true">
@@ -51,7 +56,8 @@
 				<property name="credentialHandlerDao"
 					ref="credentialHandlerDao" />
 				<property name="attributeDao" ref="attributeDao" />
-				<property name="attributeValueDao" ref="attributeValueDao" />
+				<property name="attributeValueDao"
+					ref="attributeValueDao" />
 			</bean>
 		</property>
 		<!-- Uncomment the following in order to enable mail sending aspect -->

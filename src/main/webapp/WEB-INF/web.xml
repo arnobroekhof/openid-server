@@ -78,12 +78,14 @@
 	</filter>
 
 	<!-- OpenID Server. -->
+	<!--
 	<servlet>
 		<display-name>Open ID Provider</display-name>
 		<servlet-name>server</servlet-name>
 		<servlet-class>cn.net.openid.web.ServerServlet</servlet-class>
 		<load-on-startup>10</load-on-startup>
 	</servlet>
+	-->
 
 	<!-- OpenID in spring. -->
 	<servlet>
@@ -127,7 +129,7 @@
 		<url-pattern>*.vm</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>server</servlet-name>
+		<servlet-name>openid</servlet-name>
 		<url-pattern>/server</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>

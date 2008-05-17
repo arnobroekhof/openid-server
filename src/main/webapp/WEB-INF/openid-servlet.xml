@@ -1,15 +1,32 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
 		  "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 <beans>
+	<bean id="abstractDaoFacadeController"
+		class="cn.net.openid.web.AbstractDaoFacadeController"
+		abstract="true">
+		<property name="daoFacade" ref="daoFacade" />
+		<property name="serverManager" ref="serverManager" />
+	</bean>
 
+	<bean id="abstractSimpleFormController"
+		class="cn.net.openid.web.AbstractSimpleFormController"
+		abstract="true">
+		<property name="daoFacade" ref="daoFacade" />
+		<property name="serverManager" ref="serverManager" />
+	</bean>
+
+	<bean id="serverController"
+		class="cn.net.openid.web.ServerController"
+		parent="abstractDaoFacadeController">
+	</bean>
 	<bean id="providerAuthorizationController"
 		class="cn.net.openid.web.ProviderAuthorizationController">
 	</bean>
 	<bean id="approvingController"
-		class="cn.net.openid.web.ApprovingController">
+		class="cn.net.openid.web.ApprovingController"
+		parent="abstractSimpleFormController">
 		<property name="commandClass"
 			value="cn.net.openid.web.LoginForm" />
-		<property name="daoFacade" ref="daoFacade" />
 	</bean>
 	<!-- The home page controller before and after logged in. -->
 	<bean id="homeController"
@@ -165,6 +182,7 @@
 				<entry key="/index.html">
 					<ref local="homeController" />
 				</entry>
+				<entry key="/server" value-ref="serverController" />
 				<entry key="/home">
 					<ref local="homeController" />
 				</entry>
