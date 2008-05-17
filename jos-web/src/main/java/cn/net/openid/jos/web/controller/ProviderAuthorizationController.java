@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
 import cn.net.openid.jos.web.UserSession;
+import cn.net.openid.jos.web.WebUtils;
 
 /**
  * @author Sutra Zhou
@@ -53,8 +54,7 @@ public class ProviderAuthorizationController implements Controller {
 		String openididentity = requestp.hasParameter("openid.identity") ? requestp
 				.getParameterValue("openid.identity")
 				: null;
-		UserSession userSession = (UserSession) session
-				.getAttribute("userSession");
+		UserSession userSession = WebUtils.getUserSession(request);
 
 		if (userSession.getOpenIdUrl().equals(openididentity)) {
 			String site = (String) (openidrealm == null ? openidreturnto

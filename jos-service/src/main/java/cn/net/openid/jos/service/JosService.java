@@ -1,7 +1,7 @@
 /**
  * Created on 2006-10-16 上午12:31:39
  */
-package cn.net.openid.jos.dao;
+package cn.net.openid.jos.service;
 
 import java.util.Collection;
 import java.util.List;
@@ -17,7 +17,7 @@ import cn.net.openid.jos.domain.User;
  * @author Sutra Zhou
  * 
  */
-public interface DaoFacade {
+public interface JosService {
 	JosConfiguration getJosConfiguration();
 
 	String buildOpenidUrl(String username);

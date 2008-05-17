@@ -32,6 +32,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import cn.net.openid.jos.web.AbstractJosSimpleFormController;
 import cn.net.openid.jos.web.UserSession;
+import cn.net.openid.jos.web.WebUtils;
 
 /**
  * @author Sutra Zhou
@@ -93,8 +94,7 @@ public class ApprovingController extends AbstractJosSimpleFormController {
 			approved = Boolean.TRUE;
 		} else if (request.getParameter("allow_forever") != null) {
 			approved = Boolean.TRUE;
-			UserSession us = (UserSession) request.getSession().getAttribute(
-					"userSession");
+			UserSession us = WebUtils.getUserSession(request);
 			// TODO: this.daoFacade.allowForever(us.getUserId(), );
 		} else if (request.getParameter("deny") != null) {
 			approved = Boolean.FALSE;

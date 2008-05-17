@@ -43,9 +43,9 @@
 			</props>
 		</property>
 	</bean>
-	<bean id="daoFacade" parent="baseTransactionProxy">
+	<bean id="josService" parent="baseTransactionProxy">
 		<property name="target">
-			<bean class="cn.net.openid.jos.dao.DaoFacadeImpl">
+			<bean class="cn.net.openid.jos.service.JosServiceImpl">
 				<property name="josConfiguration"
 					ref="josConfiguration" />
 				<property name="userDao" ref="userDao" />

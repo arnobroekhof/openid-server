@@ -15,6 +15,7 @@ import cn.net.openid.jos.domain.Email;
 import cn.net.openid.jos.domain.User;
 import cn.net.openid.jos.web.AbstractJosSimpleFormController;
 import cn.net.openid.jos.web.UserSession;
+import cn.net.openid.jos.web.WebUtils;
 
 /**
  * @author Sutra Zhou
@@ -29,13 +30,11 @@ public class EmailController extends AbstractJosSimpleFormController {
 	@Override
 	protected Object formBackingObject(HttpServletRequest request)
 			throws Exception {
-		HttpSession session = request.getSession();
-		UserSession userSession = (UserSession) session
-				.getAttribute("userSession");
+		UserSession userSession = WebUtils.getUserSession(request);
 		String userId = userSession.getUserId();
-		User user = this.daoFacade.getUser(userId);
+		User user = this.josService.getUser(userId);
 
-		Collection<Email> emails = this.daoFacade.getEmailsByUserId(userId);
+		Collection<Email> emails = this.josService.getEmailsByUserId(userId);
 		Collection<Email> confirmedEmails = new ArrayList<Email>(emails.size());
 		Collection<Email> unconfirmedEmails = new ArrayList<Email>(emails
 				.size());
@@ -62,7 +61,7 @@ public class EmailController extends AbstractJosSimpleFormController {
 	@Override
 	protected ModelAndView onSubmit(Object command) throws Exception {
 		Email email = (Email) command;
-		this.daoFacade.insertEmail(email);
+		this.josService.insertEmail(email);
 		return super.onSubmit(command);
 	}
 

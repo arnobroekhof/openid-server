@@ -25,7 +25,7 @@ public class RemoveAttributeController extends AbstractJosController {
 			HttpServletResponse response) throws Exception {
 		String id = request.getParameter("id");
 		if (id != null) {
-			this.daoFacade.deleteAttribute(id);
+			this.josService.deleteAttribute(id);
 		}
 		return new ModelAndView("remove-attribute-success");
 	}

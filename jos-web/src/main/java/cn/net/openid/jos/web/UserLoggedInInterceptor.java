@@ -62,8 +62,7 @@ public class UserLoggedInInterceptor implements HandlerInterceptor {
 		boolean ret = false;
 		HttpSession session = request.getSession(false);
 		if (session != null) {
-			UserSession userSession = (UserSession) session
-					.getAttribute("userSession");
+			UserSession userSession = WebUtils.getUserSession(request);
 			if (userSession != null) {
 				if (userSession.isLoggedIn()) {
 					ret = true;

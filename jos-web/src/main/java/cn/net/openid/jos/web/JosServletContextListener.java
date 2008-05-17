@@ -6,9 +6,7 @@ package cn.net.openid.jos.web;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import org.springframework.web.context.support.WebApplicationContextUtils;
-
-import cn.net.openid.jos.dao.DaoFacade;
+import cn.net.openid.jos.service.JosService;
 
 /**
  * @author sutra
@@ -32,10 +30,8 @@ public class JosServletContextListener implements ServletContextListener {
 	 * @see javax.servlet.ServletContextListener#contextInitialized(javax.servlet.ServletContextEvent)
 	 */
 	public void contextInitialized(ServletContextEvent sce) {
-		DaoFacade daoFacade = (DaoFacade) WebApplicationContextUtils
-				.getWebApplicationContext(sce.getServletContext()).getBean(
-						"daoFacade");
+		JosService josService = WebUtils.getJosService(sce.getServletContext());
 		sce.getServletContext().setAttribute("josConfiguration",
-				daoFacade.getJosConfiguration());
+				josService.getJosConfiguration());
 	}
 }

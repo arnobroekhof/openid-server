@@ -1,11 +1,16 @@
 /**
  * Created on 2006-10-16 上午12:39:17
  */
-package cn.net.openid.jos.dao;
+package cn.net.openid.jos.service;
 
 import java.util.Collection;
 import java.util.List;
 
+import cn.net.openid.jos.dao.AttributeDao;
+import cn.net.openid.jos.dao.AttributeValueDao;
+import cn.net.openid.jos.dao.EmailDao;
+import cn.net.openid.jos.dao.PasswordDao;
+import cn.net.openid.jos.dao.UserDao;
 import cn.net.openid.jos.domain.Attribute;
 import cn.net.openid.jos.domain.AttributeValue;
 import cn.net.openid.jos.domain.Email;
@@ -17,7 +22,7 @@ import cn.net.openid.jos.domain.User;
  * @author Sutra Zhou
  * 
  */
-public class DaoFacadeImpl implements DaoFacade {
+public class JosServiceImpl implements JosService {
 	private JosConfiguration josConfiguration;
 
 	private UserDao userDao;

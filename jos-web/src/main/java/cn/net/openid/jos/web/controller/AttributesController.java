@@ -29,7 +29,7 @@ public class AttributesController extends AbstractJosController {
 	public ModelAndView handleRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		Map<String, Collection<Attribute>> model = new HashMap<String, Collection<Attribute>>();
-		model.put("attributes", this.daoFacade.getAttributes());
+		model.put("attributes", this.josService.getAttributes());
 		return new ModelAndView("attributes", model);
 	}
 }

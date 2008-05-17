@@ -19,9 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import cn.net.openid.jos.dao.DaoFacade;
+import cn.net.openid.jos.service.JosService;
 
 /**
  * @author Sutra Zhou
@@ -73,11 +72,12 @@ public class MemberFilter implements Filter {
 	 */
 	public void init(FilterConfig filterConfig) throws ServletException {
 		this.context = filterConfig.getServletContext();
-		DaoFacade daoFacade = (DaoFacade) WebApplicationContextUtils
-				.getWebApplicationContext(this.context).getBean("daoFacade");
-		log.debug("fromPattern: "
-				+ daoFacade.getJosConfiguration().getMemberFilterFromPattern());
-		this.fromPattern = Pattern.compile(daoFacade.getJosConfiguration()
+		JosService josService = WebUtils.getJosService(this.context);
+		log
+				.debug("fromPattern: "
+						+ josService.getJosConfiguration()
+								.getMemberFilterFromPattern());
+		this.fromPattern = Pattern.compile(josService.getJosConfiguration()
 				.getMemberFilterFromPattern(), Pattern.CASE_INSENSITIVE);
 	}
 

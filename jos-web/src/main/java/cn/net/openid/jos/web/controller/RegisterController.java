@@ -35,7 +35,7 @@ public class RegisterController extends AbstractJosSimpleFormController {
 		String username = form.getUsername();
 
 		if (!errors.hasErrors()) {
-			User user = this.daoFacade.getUserByUsername(username);
+			User user = this.josService.getUserByUsername(username);
 			if (user != null) {
 				errors.rejectValue("username",
 						"error.register.usernameAlreadyExists");
@@ -62,7 +62,7 @@ public class RegisterController extends AbstractJosSimpleFormController {
 		String passwordShaHex = DigestUtils.shaHex(form.getPassword());
 		password.setPassword(form.getPassword());
 		password.setPasswordShaHex(passwordShaHex);
-		this.daoFacade.insertUser(user, password);
+		this.josService.insertUser(user, password);
 		return super.onSubmit(command, errors);
 	}
 

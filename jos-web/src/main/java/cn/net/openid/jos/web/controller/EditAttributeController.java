@@ -25,7 +25,7 @@ public class EditAttributeController extends AbstractJosSimpleFormController {
 			throws Exception {
 		String id = request.getParameter("id");
 		if (StringUtils.isNotEmpty(id)) {
-			return this.daoFacade.getAttribute(id);
+			return this.josService.getAttribute(id);
 		} else {
 			return super.formBackingObject(request);
 		}
@@ -42,7 +42,7 @@ public class EditAttributeController extends AbstractJosSimpleFormController {
 		if (StringUtils.isEmpty(attribute.getId())) {
 			attribute.setId(null);
 		}
-		this.daoFacade.saveAttribute(attribute);
+		this.josService.saveAttribute(attribute);
 	}
 
 }

@@ -22,6 +22,7 @@ import cn.net.openid.jos.domain.Password;
 import cn.net.openid.jos.domain.User;
 import cn.net.openid.jos.web.AbstractJosSimpleFormController;
 import cn.net.openid.jos.web.UserSession;
+import cn.net.openid.jos.web.WebUtils;
 import cn.net.openid.jos.web.form.LoginForm;
 
 /**
@@ -33,7 +34,7 @@ public class LoginController extends AbstractJosSimpleFormController {
 	private static final Log log = LogFactory.getLog(LoginController.class);
 
 	private User check(LoginForm lf) {
-		User user = daoFacade.getUserByUsername(lf.getUsername());
+		User user = josService.getUserByUsername(lf.getUsername());
 		if (user == null) {
 			return null;
 		}
@@ -51,7 +52,7 @@ public class LoginController extends AbstractJosSimpleFormController {
 		// throw new RuntimeException(e);
 		// }
 		// }
-		Password password = this.daoFacade.getPasswordByUserId(user.getId());
+		Password password = this.josService.getPasswordByUserId(user.getId());
 		if (password.getPasswordShaHex().equalsIgnoreCase(
 				DigestUtils.shaHex(lf.getPassword()))) {
 			return user;
@@ -77,13 +78,13 @@ public class LoginController extends AbstractJosSimpleFormController {
 			HttpSession session = request.getSession();
 			UserSession userSession = new UserSession(user);
 			userSession.setLoggedIn(true);
-			userSession.setOpenIdUrl(this.daoFacade.buildOpenidUrl(lf
+			userSession.setOpenIdUrl(this.josService.buildOpenidUrl(lf
 					.getUsername()));
-			session.setAttribute("userSession", userSession);
+			WebUtils.setUserSession(request, userSession);
 
 			session.setAttribute("cn.net.openid.username", lf.getUsername()
 					.toLowerCase());
-			session.setAttribute("cn.net.openid.identity", this.daoFacade
+			session.setAttribute("cn.net.openid.identity", this.josService
 					.buildOpenidUrl(lf.getUsername()));
 		}
 		super.onBindAndValidate(request, command, errors);

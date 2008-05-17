@@ -19,6 +19,7 @@ import cn.net.openid.jos.domain.Attribute;
 import cn.net.openid.jos.domain.AttributeValue;
 import cn.net.openid.jos.web.AbstractJosSimpleFormController;
 import cn.net.openid.jos.web.UserSession;
+import cn.net.openid.jos.web.WebUtils;
 
 /**
  * @author Sutra Zhou
@@ -42,11 +43,10 @@ public class AttributeValueController extends AbstractJosSimpleFormController {
 	@Override
 	protected Object formBackingObject(HttpServletRequest request)
 			throws Exception {
-		UserSession userSession = (UserSession) request.getSession()
-				.getAttribute("userSession");
+		UserSession userSession = WebUtils.getUserSession(request);
 		List<AttributeValue> attributeValues = new ArrayList<AttributeValue>();
-		Collection<Attribute> attributes = this.daoFacade.getAttributes();
-		Map<String, String> userAttributeValues = this.buildMap(this.daoFacade
+		Collection<Attribute> attributes = this.josService.getAttributes();
+		Map<String, String> userAttributeValues = this.buildMap(this.josService
 				.getUserAttributeValues(userSession.getUserId()));
 		for (Attribute attribute : attributes) {
 			AttributeValue attributeValue = new AttributeValue();
@@ -70,17 +70,16 @@ public class AttributeValueController extends AbstractJosSimpleFormController {
 	protected ModelAndView onSubmit(HttpServletRequest request,
 			HttpServletResponse response, Object command, BindException errors)
 			throws Exception {
-		UserSession userSession = (UserSession) request.getSession()
-				.getAttribute("userSession");
+		UserSession userSession = WebUtils.getUserSession(request);
 		List<AttributeValue> attributeValues = (List<AttributeValue>) command;
 		for (AttributeValue attributeValue : attributeValues) {
-			attributeValue.setUser(this.daoFacade.getUser(userSession
+			attributeValue.setUser(this.josService.getUser(userSession
 					.getUserId()));
 			String value = request.getParameter(attributeValue.getAttribute()
 					.getId());
 			attributeValue.setValue(value);
 		}
-		this.daoFacade.saveAttributeValues(attributeValues);
+		this.josService.saveAttributeValues(attributeValues);
 		return super.onSubmit(request, response, command, errors);
 	}
 

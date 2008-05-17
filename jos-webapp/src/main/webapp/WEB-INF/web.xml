@@ -22,6 +22,12 @@
 		<param-value>true</param-value>
 	</context-param>
 
+	<!-- Java OpenID Server. -->
+	<context-param>
+		<param-name>josServiceBeanName</param-name>
+		<param-value>josService</param-value>
+	</context-param>
+
 	<!-- Spring. -->
 	<listener>
 		<listener-class>
@@ -29,7 +35,7 @@
 		</listener-class>
 	</listener>
 
-	<!-- Java OpenID Server -->
+	<!-- Java OpenID Server. -->
 	<listener>
 		<listener-class>
 			cn.net.openid.jos.web.JosServletContextListener
@@ -75,7 +81,9 @@
 	<servlet>
 		<display-name>Open ID Member</display-name>
 		<servlet-name>member</servlet-name>
-		<servlet-class>cn.net.openid.jos.web.MemberServlet</servlet-class>
+		<servlet-class>
+			cn.net.openid.jos.web.MemberServlet
+		</servlet-class>
 		<load-on-startup>30</load-on-startup>
 	</servlet>
 

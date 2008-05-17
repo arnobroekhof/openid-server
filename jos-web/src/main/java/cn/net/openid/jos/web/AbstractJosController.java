@@ -8,7 +8,7 @@ import org.apache.commons.logging.LogFactory;
 import org.openid4java.server.ServerManager;
 import org.springframework.web.servlet.mvc.Controller;
 
-import cn.net.openid.jos.dao.DaoFacade;
+import cn.net.openid.jos.service.JosService;
 
 /**
  * @author Sutra Zhou
@@ -17,15 +17,15 @@ import cn.net.openid.jos.dao.DaoFacade;
 public abstract class AbstractJosController implements Controller {
 	protected final Log log = LogFactory.getLog(getClass());
 
-	protected DaoFacade daoFacade;
+	protected JosService josService;
 	protected ServerManager serverManager;
 
 	/**
-	 * @param daoFacade
-	 *            the daoFacade to set
+	 * @param josService
+	 *            the josService to set
 	 */
-	public void setDaoFacade(DaoFacade daoFacade) {
-		this.daoFacade = daoFacade;
+	public void setJosService(JosService josService) {
+		this.josService = josService;
 	}
 
 	/**
