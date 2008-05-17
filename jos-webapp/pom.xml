@@ -59,6 +59,26 @@
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>opensymphony</groupId>
+			<artifactId>sitemesh</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>velocity</groupId>
+			<artifactId>velocity</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>velocity-tools</groupId>
+			<artifactId>velocity-tools</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>velocity-tools</groupId>
+			<artifactId>velocity-tools-generic</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>velocity-tools</groupId>
+			<artifactId>velocity-tools-view</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>${groupId}</groupId>
 			<artifactId>jos-web</artifactId>
 			<version>${version}</version>

@@ -17,6 +17,16 @@ import cn.net.openid.domain.User;
  * 
  */
 public interface DaoFacade {
+	String getOpenIDServer();
+
+	String getUsernamePattern();
+
+	String getOpenIDUrlPrefix();
+
+	String getOpenIDUrlSuffix();
+
+	String getFromPattern();
+
 	String buildOpenidUrl(String username);
 
 	User getUser(String id);

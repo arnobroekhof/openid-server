@@ -22,31 +22,10 @@
 		<param-value>true</param-value>
 	</context-param>
 
-	<!-- Java OpenID Server. -->
-	<context-param>
-		<description>
-			For cn.net.openid.web.OpenIdServletContextListener.
-		</description>
-		<param-name>openId.configurationAttributeName</param-name>
-		<param-value>openIdConfiguration</param-value>
-	</context-param>
-	<context-param>
-		<description>The bean name of openIdConfiguration.</description>
-		<param-name>openId.configurationBeanName</param-name>
-		<param-value>openIdConfiguration</param-value>
-	</context-param>
-
 	<!-- Spring. -->
 	<listener>
 		<listener-class>
 			org.springframework.web.context.ContextLoaderListener
-		</listener-class>
-	</listener>
-
-	<!-- Java OpenID Server. -->
-	<listener>
-		<listener-class>
-			cn.net.openid.web.OpenIdServletContextListener
 		</listener-class>
 	</listener>
 

@@ -1,7 +1,7 @@
 /**
  * Created on 2006-11-5 下午10:29:59
  */
-package cn.net.openid.validation;
+package cn.net.openid.web.validation;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

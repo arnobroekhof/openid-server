@@ -8,13 +8,13 @@
 		e.g.
 		http://openid.org.cn/server
 	-->
-	<entry key="openid.server">http://localhost:8080/openid-server/server</entry>
+	<entry key="openID.server">http://localhost:8080/openid-server/server</entry>
 
 	<!-- 
 		The regular expression of username pattern. 
 		The pattern is for registering checking. 
 	-->
-	<entry key="openid.member.usernamePattern">[a-z]{1,16}</entry>
+	<entry key="openID.member.usernamePattern">[a-z]{1,16}</entry>
 
 	<!-- 
 		For building the openid_url with field username, 
@@ -26,8 +26,8 @@
 		${openid.member.openidUrlSuffix} = .openid.org.cn/
 		openid_url = http://USERNAME.openid.org.cn
 	-->
-	<entry key="openid.member.openidUrlPrefix">http://localhost:8080/openid-server/member/</entry>
-	<entry key="openid.member.openidUrlSuffix">/</entry>
+	<entry key="openID.member.openIDUrlPrefix">http://localhost:8080/openid-server/member/</entry>
+	<entry key="openID.member.openIDUrlSuffix">/</entry>
 
 	<!--
 		For Member Filter.
@@ -38,5 +38,5 @@
 		
 		([0-9a-zA-Z]) must same as or contains the value of `openid.member.usernamePattern'.
 	-->
-	<entry key="openid.member.filter.fromPattern">^http://localhost:8080/openid-server/test/([0-9a-zA-Z]+)</entry>
+	<entry key="openID.member.filter.fromPattern">^http://localhost:8080/openid-server/test/([0-9a-zA-Z]+)</entry>
 </properties>

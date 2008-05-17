@@ -15,60 +15,52 @@
 	</bean>
 
 	<bean id="serverController"
-		class="cn.net.openid.web.ServerController"
-		parent="abstractDaoFacadeController">
+		class="cn.net.openid.web.controller.ServerController"
+		parent="abstractController">
 	</bean>
 	<bean id="providerAuthorizationController"
-		class="cn.net.openid.web.ProviderAuthorizationController">
+		class="cn.net.openid.web.controller.ProviderAuthorizationController">
 	</bean>
 	<bean id="approvingController"
-		class="cn.net.openid.web.ApprovingController"
+		class="cn.net.openid.web.controller.ApprovingController"
 		parent="abstractSimpleFormController">
 		<property name="commandClass"
-			value="cn.net.openid.web.LoginForm" />
+			value="cn.net.openid.web.form.LoginForm" />
 	</bean>
 	<!-- The home page controller before and after logged in. -->
 	<bean id="homeController"
-		class="cn.net.openid.web.HomeController">
+		class="cn.net.openid.web.controller.HomeController">
 	</bean>
 
 	<!-- Register a user page controller. -->
 	<bean id="registerController"
-		class="cn.net.openid.web.RegisterController"
+		class="cn.net.openid.web.controller.RegisterController"
 		parent="abstractSimpleFormController">
 		<property name="commandClass"
-			value="cn.net.openid.web.RegisterForm" />
+			value="cn.net.openid.web.form.RegisterForm" />
 		<property name="formView" value="register" />
 		<property name="successView" value="register-success" />
 		<property name="validator" ref="registerFormValidator" />
 	</bean>
 
 	<!-- Simple login page controller. -->
-	<bean id="loginController" class="cn.net.openid.web.LoginController"
+	<bean id="loginController"
+		class="cn.net.openid.web.controller.LoginController"
 		parent="abstractSimpleFormController">
 		<property name="commandClass"
-			value="cn.net.openid.web.LoginForm" />
+			value="cn.net.openid.web.form.LoginForm" />
 		<property name="formView" value="login" />
 		<property name="successView" value="login-success" />
 	</bean>
 
-	<!-- Login handlers list controller. -->
-	<bean id="loginHandlersController"
-		class="cn.net.openid.web.LoginHandlersController"
-		parent="abstractSimpleFormController">
-		<property name="commandClass"
-			value="cn.net.openid.web.LoginHandlersForm" />
-		<property name="formView" value="login-handlers" />
-		<property name="successView" value="login-handlers" />
-	</bean>
-
 	<!-- Logout. -->
 	<bean id="logoutController"
-		class="cn.net.openid.web.LogoutController">
+		class="cn.net.openid.web.controller.LogoutController">
 	</bean>
 
 	<!-- Email. -->
-	<bean id="emailController" class="cn.net.openid.web.EmailController"
+	<bean id="emailController"
+		class="cn.net.openid.web.controller.EmailController"
 		parent="abstractSimpleFormController">
 		<property name="commandName" value="email" />
 		<property name="commandClass"
@@ -77,13 +69,13 @@
 		<property name="successView" value="email-success" />
 	</bean>
 	<bean id="deleteEmailController"
-		class="cn.net.openid.web.DeleteEmailController"
+		class="cn.net.openid.web.controller.DeleteEmailController"
 		parent="abstractSimpleFormController">
 	</bean>
 
 	<!-- Profile edit. -->
 	<bean id="profileController"
-		class="cn.net.openid.web.ProfileController"
+		class="cn.net.openid.web.controller.ProfileController"
 		parent="abstractSimpleFormController">
 		<property name="commandName" value="profile" />
 		<property name="commandClass" value="cn.net.openid.domain.User" />
@@ -96,10 +88,10 @@
 
 	<!-- Edit the password. -->
 	<bean id="editPasswordController"
-		class="cn.net.openid.web.EditPasswordController"
+		class="cn.net.openid.web.controller.EditPasswordController"
 		parent="abstractSimpleFormController">
 		<property name="commandClass"
-			value="cn.net.openid.web.EditPasswordForm" />
+			value="cn.net.openid.web.form.EditPasswordForm" />
 		<property name="commandName" value="editPasswordForm" />
 		<property name="formView" value="edit-password" />
 		<property name="successView" value="edit-password-success" />
@@ -107,12 +99,12 @@
 
 	<!-- Attribute -->
 	<bean id="attributesController"
-		class="cn.net.openid.web.AttributesController">
+		class="cn.net.openid.web.controller.AttributesController">
 		<property name="daoFacade" ref="daoFacade" />
 	</bean>
 
 	<bean id="editAttributeController"
-		class="cn.net.openid.web.EditAttributeController"
+		class="cn.net.openid.web.controller.EditAttributeController"
 		parent="abstractSimpleFormController">
 		<property name="commandName" value="attribute" />
 		<property name="commandClass"
@@ -122,12 +114,12 @@
 	</bean>
 
 	<bean id="removeAttributeController"
-		class="cn.net.openid.web.RemoveAttributeController"
+		class="cn.net.openid.web.controller.RemoveAttributeController"
 		parent="abstractController">
 	</bean>
 
 	<bean id="attributeValueController"
-		class="cn.net.openid.web.AttributeValueController"
+		class="cn.net.openid.web.controller.AttributeValueController"
 		parent="abstractSimpleFormController">
 		<property name="formView" value="attribute-value" />
 		<property name="successView" value="attribute-value-success" />
@@ -139,7 +131,7 @@
 	-->
 
 	<bean id="humanLanguageSelectionController"
-		class="cn.net.openid.web.HumanLanguageSelectionController">
+		class="cn.net.openid.web.controller.HumanLanguageSelectionController">
 		<property name="formView" value="human-language-selection" />
 		<property name="localeResolver" ref="localeResolver" />
 	</bean>

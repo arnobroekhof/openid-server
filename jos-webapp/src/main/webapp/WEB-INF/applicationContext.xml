@@ -11,22 +11,9 @@
 		</property>
 	</bean>
 
-	<bean id="josConfiguration"
-		class="cn.net.openid.JosConfiguration">
-		<property name="openIdServer" value="${openid.server}" />
-		<property name="memberUsernamePattern"
-			value="${openid.member.usernamePattern}" />
-		<property name="openIdUrlPrefix"
-			value="${openid.member.openidUrlPrefix}" />
-		<property name="openIdUrlSuffix"
-			value="${openid.member.openidUrlSuffix}" />
-		<property name="memberFilterFromPattern"
-			value="${openid.member.filter.fromPattern}" />
-	</bean>
-
 	<bean id="serverManager"
 		class="org.openid4java.server.ServerManager">
-		<property name="OPEndpointUrl" value="${openid.server}" />
+		<property name="OPEndpointUrl" value="${openID.server}" />
 	</bean>
 
 	<bean id="baseTransactionProxy"
@@ -46,9 +33,15 @@
 	<bean id="daoFacade" parent="baseTransactionProxy">
 		<property name="target">
 			<bean class="cn.net.openid.dao.DaoFacadeImpl">
-				<property name="josConfiguration">
-					<ref local="josConfiguration" />
-				</property>
+				<property name="openIDServer" value="${openID.server}" />
+				<property name="openIDUrlPrefix"
+					value="${openID.member.openIDUrlPrefix}" />
+				<property name="openIDUrlSuffix"
+					value="${openID.member.openIDUrlSuffix}" />
+				<property name="usernamePattern"
+					value="${openID.member.usernamePattern}" />
+				<property name="fromPattern"
+					value="${openID.member.filter.fromPattern}" />
 				<property name="userDao" ref="userDao" />
 				<property name="passwordDao" ref="passwordDao" />
 				<property name="emailDao" ref="emailDao" />
@@ -68,13 +61,13 @@
 	</bean>
 
 	<bean id="userValidator"
-		class="cn.net.openid.validation.UserValidator">
+		class="cn.net.openid.web.validation.UserValidator">
 		<property name="usernamePattern"
-			value="${openid.member.usernamePattern}" />
+			value="${openID.member.usernamePattern}" />
 	</bean>
 	<bean id="registerFormValidator"
-		class="cn.net.openid.validation.RegisterFormValidator">
+		class="cn.net.openid.web.validation.RegisterFormValidator">
 		<property name="usernamePattern"
-			value="${openid.member.usernamePattern}" />
+			value="${openID.member.usernamePattern}" />
 	</bean>
 </beans>

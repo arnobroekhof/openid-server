@@ -6,7 +6,6 @@ package cn.net.openid.dao;
 import java.util.Collection;
 import java.util.List;
 
-import cn.net.openid.JosConfiguration;
 import cn.net.openid.domain.Attribute;
 import cn.net.openid.domain.AttributeValue;
 import cn.net.openid.domain.Email;
@@ -18,12 +17,57 @@ import cn.net.openid.domain.User;
  * 
  */
 public class DaoFacadeImpl implements DaoFacade {
-	private JosConfiguration josConfiguration;
+	private String openIDServer;
+	private String openIDUrlPrefix;
+	private String openIDUrlSuffix;
+	private String usernamePattern;
+	private String fromPattern;
+
 	private UserDao userDao;
 	private PasswordDao passwordDao;
 	private EmailDao emailDao;
 	private AttributeDao attributeDao;
 	private AttributeValueDao attributeValueDao;
+
+	/**
+	 * @param openIDServer
+	 *            the openIDServer to set
+	 */
+	public void setOpenIDServer(String openIDServer) {
+		this.openIDServer = openIDServer;
+	}
+
+	/**
+	 * @param usernamePattern
+	 *            the usernamePattern to set
+	 */
+	public void setUsernamePattern(String usernamePattern) {
+		this.usernamePattern = usernamePattern;
+	}
+
+	/**
+	 * @param fromPattern
+	 *            the fromPattern to set
+	 */
+	public void setFromPattern(String fromPattern) {
+		this.fromPattern = fromPattern;
+	}
+
+	/**
+	 * @param openIDUrlPrefix
+	 *            the openIDUrlPrefix to set
+	 */
+	public void setOpenIDUrlPrefix(String openIDUrlPrefix) {
+		this.openIDUrlPrefix = openIDUrlPrefix;
+	}
+
+	/**
+	 * @param openIDUrlSuffix
+	 *            the openIDUrlSuffix to set
+	 */
+	public void setOpenIDUrlSuffix(String openIDUrlSuffix) {
+		this.openIDUrlSuffix = openIDUrlSuffix;
+	}
 
 	/**
 	 * @param userDao
@@ -65,23 +109,14 @@ public class DaoFacadeImpl implements DaoFacade {
 		this.attributeValueDao = attributeValueDao;
 	}
 
-	/**
-	 * @param josConfiguration
-	 *            the josConfiguration to set
-	 */
-	public void setJosConfiguration(JosConfiguration josConfiguration) {
-		this.josConfiguration = josConfiguration;
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see cn.net.openid.dao.DaoFacade#buildOpenidUrl(java.lang.String)
 	 */
 	public String buildOpenidUrl(String username) {
-		return String.format("%1$s%2$s%3$s", this.josConfiguration
-				.getOpenIdUrlPrefix(), username, this.josConfiguration
-				.getOpenIdUrlSuffix());
+		return String.format("%1$s%2$s%3$s", openIDUrlPrefix, username,
+				openIDUrlSuffix);
 	}
 
 	/*
@@ -231,5 +266,50 @@ public class DaoFacadeImpl implements DaoFacade {
 		for (AttributeValue attributeValue : attributeValues) {
 			this.attributeValueDao.saveAttributeValue(attributeValue);
 		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.dao.DaoFacade#getFromPattern()
+	 */
+	public String getFromPattern() {
+		return this.fromPattern;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.dao.DaoFacade#getOpenIDServer()
+	 */
+	public String getOpenIDServer() {
+		return this.openIDServer;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.dao.DaoFacade#getOpenIDUrlPrefix()
+	 */
+	public String getOpenIDUrlPrefix() {
+		return this.openIDUrlPrefix;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.dao.DaoFacade#getOpenIDUrlSuffix()
+	 */
+	public String getOpenIDUrlSuffix() {
+		return this.openIDUrlSuffix;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.dao.DaoFacade#getUsernamePattern()
+	 */
+	public String getUsernamePattern() {
+		return this.usernamePattern;
 	}
 }

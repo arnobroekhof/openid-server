@@ -21,7 +21,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import cn.net.openid.JosConfiguration;
+import cn.net.openid.dao.DaoFacade;
 
 /**
  * @author Sutra Zhou
@@ -73,15 +73,11 @@ public class MemberFilter implements Filter {
 	 */
 	public void init(FilterConfig filterConfig) throws ServletException {
 		this.context = filterConfig.getServletContext();
-		String openidConfigurationBeanName = this.context
-				.getInitParameter(JosConfiguration.CONFIGURATION_BEAN_NAME);
-		JosConfiguration openidConfiguration = (JosConfiguration) WebApplicationContextUtils
-				.getWebApplicationContext(filterConfig.getServletContext())
-				.getBean(openidConfigurationBeanName);
-		log.debug("fromPattern: "
-				+ openidConfiguration.getMemberFilterFromPattern());
-		this.fromPattern = Pattern.compile(openidConfiguration
-				.getMemberFilterFromPattern(), Pattern.CASE_INSENSITIVE);
+		DaoFacade daoFacade = (DaoFacade) WebApplicationContextUtils
+				.getWebApplicationContext(this.context).getBean("daoFacade");
+		log.debug("fromPattern: " + daoFacade.getFromPattern());
+		this.fromPattern = Pattern.compile(daoFacade.getFromPattern(),
+				Pattern.CASE_INSENSITIVE);
 	}
 
 }
