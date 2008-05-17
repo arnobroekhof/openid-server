@@ -1,0 +1,20 @@
+/**
+ * Created on 2006-10-16 上午12:16:09
+ */
+package cn.net.openid.jos.dao;
+
+import cn.net.openid.jos.domain.User;
+
+/**
+ * @author Sutra Zhou
+ * 
+ */
+public interface UserDao {
+	User getUser(String id);
+
+	User getUserByUsername(String username);
+
+	String insertUser(User user);
+
+	void updateUser(User user);
+}

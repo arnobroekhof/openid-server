@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="cn.net.openid.jos.domain">
+	<class name="User" table="openid_user">
+		<id name="id" unsaved-value="null" type="java.lang.String"
+			length="32" column="user_id">
+			<generator class="uuid" />
+		</id>
+		<property name="username" length="255" unique="true"
+			column="user_username" update="false" />
+		<property name="nickname" length="255" column="user_nickname" />
+		<property name="email" length="255" column="user_email" />
+		<property name="fullname" length="255" column="user_fullname" />
+		<property name="dob" type="date" column="user_dob" />
+		<property name="gender" type="java.lang.String"
+			column="user_gender" length="1" />
+		<property name="postcode" column="user_postcode" />
+		<property name="country" column="user_country" />
+		<property name="language" column="user_language" />
+		<property name="timezone" column="user_timezone" />
+		<property name="registerTime" type="timestamp"
+			column="user_registertime" update="false" />
+	</class>
+</hibernate-mapping>

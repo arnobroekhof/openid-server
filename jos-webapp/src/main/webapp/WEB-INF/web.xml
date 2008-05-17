@@ -32,7 +32,7 @@
 	<!-- Java OpenID Server -->
 	<listener>
 		<listener-class>
-			cn.net.openid.web.JosServletContextListener
+			cn.net.openid.jos.web.JosServletContextListener
 		</listener-class>
 	</listener>
 
@@ -53,7 +53,7 @@
 	<filter>
 		<display-name>Member Filter</display-name>
 		<filter-name>Member Filter</filter-name>
-		<filter-class>cn.net.openid.web.MemberFilter</filter-class>
+		<filter-class>cn.net.openid.jos.web.MemberFilter</filter-class>
 	</filter>
 
 	<filter>
@@ -75,7 +75,7 @@
 	<servlet>
 		<display-name>Open ID Member</display-name>
 		<servlet-name>member</servlet-name>
-		<servlet-class>cn.net.openid.web.MemberServlet</servlet-class>
+		<servlet-class>cn.net.openid.jos.web.MemberServlet</servlet-class>
 		<load-on-startup>30</load-on-startup>
 	</servlet>
 

@@ -12,7 +12,7 @@
 	</bean>
 
 	<bean id="josConfiguration"
-		class="cn.net.openid.domain.JosConfiguration">
+		class="cn.net.openid.jos.domain.JosConfiguration">
 		<property name="openidServerUrl"
 			value="${jos.openid.server.url}" />
 		<property name="usernamePattern"
@@ -45,7 +45,7 @@
 	</bean>
 	<bean id="daoFacade" parent="baseTransactionProxy">
 		<property name="target">
-			<bean class="cn.net.openid.dao.DaoFacadeImpl">
+			<bean class="cn.net.openid.jos.dao.DaoFacadeImpl">
 				<property name="josConfiguration"
 					ref="josConfiguration" />
 				<property name="userDao" ref="userDao" />
@@ -67,12 +67,12 @@
 	</bean>
 
 	<bean id="userValidator"
-		class="cn.net.openid.web.validation.UserValidator">
+		class="cn.net.openid.jos.web.validation.UserValidator">
 		<property name="usernamePattern"
 			value="${jos.member.username.pattern}" />
 	</bean>
 	<bean id="registerFormValidator"
-		class="cn.net.openid.web.validation.RegisterFormValidator">
+		class="cn.net.openid.jos.web.validation.RegisterFormValidator">
 		<property name="usernamePattern"
 			value="${jos.member.username.pattern}" />
 	</bean>

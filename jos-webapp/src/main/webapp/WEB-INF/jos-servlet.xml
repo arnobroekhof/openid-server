@@ -2,43 +2,43 @@
 		  "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 <beans>
 	<bean id="abstractJosController"
-		class="cn.net.openid.web.AbstractJosController" abstract="true">
+		class="cn.net.openid.jos.web.AbstractJosController" abstract="true">
 		<property name="daoFacade" ref="daoFacade" />
 		<property name="serverManager" ref="serverManager" />
 	</bean>
 
 	<bean id="abstractJosSimpleFormController"
-		class="cn.net.openid.web.AbstractJosSimpleFormController"
+		class="cn.net.openid.jos.web.AbstractJosSimpleFormController"
 		abstract="true">
 		<property name="daoFacade" ref="daoFacade" />
 		<property name="serverManager" ref="serverManager" />
 	</bean>
 
 	<bean id="serverController"
-		class="cn.net.openid.web.controller.ServerController"
+		class="cn.net.openid.jos.web.controller.ServerController"
 		parent="abstractJosController">
 	</bean>
 	<bean id="providerAuthorizationController"
-		class="cn.net.openid.web.controller.ProviderAuthorizationController">
+		class="cn.net.openid.jos.web.controller.ProviderAuthorizationController">
 	</bean>
 	<bean id="approvingController"
-		class="cn.net.openid.web.controller.ApprovingController"
+		class="cn.net.openid.jos.web.controller.ApprovingController"
 		parent="abstractJosSimpleFormController">
 		<property name="commandClass"
-			value="cn.net.openid.web.form.LoginForm" />
+			value="cn.net.openid.jos.web.form.LoginForm" />
 	</bean>
 	<!-- The home page controller before and after logged in. -->
 	<bean id="homeController"
-		class="cn.net.openid.web.controller.HomeController"
+		class="cn.net.openid.jos.web.controller.HomeController"
 		parent="abstractJosController">
 	</bean>
 
 	<!-- Register a user page controller. -->
 	<bean id="registerController"
-		class="cn.net.openid.web.controller.RegisterController"
+		class="cn.net.openid.jos.web.controller.RegisterController"
 		parent="abstractJosSimpleFormController">
 		<property name="commandClass"
-			value="cn.net.openid.web.form.RegisterForm" />
+			value="cn.net.openid.jos.web.form.RegisterForm" />
 		<property name="formView" value="register" />
 		<property name="successView" value="register-success" />
 		<property name="validator" ref="registerFormValidator" />
@@ -46,40 +46,40 @@
 
 	<!-- Simple login page controller. -->
 	<bean id="loginController"
-		class="cn.net.openid.web.controller.LoginController"
+		class="cn.net.openid.jos.web.controller.LoginController"
 		parent="abstractJosSimpleFormController">
 		<property name="commandClass"
-			value="cn.net.openid.web.form.LoginForm" />
+			value="cn.net.openid.jos.web.form.LoginForm" />
 		<property name="formView" value="login" />
 		<property name="successView" value="login-success" />
 	</bean>
 
 	<!-- Logout. -->
 	<bean id="logoutController"
-		class="cn.net.openid.web.controller.LogoutController">
+		class="cn.net.openid.jos.web.controller.LogoutController">
 	</bean>
 
 	<!-- Email. -->
 	<bean id="emailController"
-		class="cn.net.openid.web.controller.EmailController"
+		class="cn.net.openid.jos.web.controller.EmailController"
 		parent="abstractJosSimpleFormController">
 		<property name="commandName" value="email" />
 		<property name="commandClass"
-			value="cn.net.openid.domain.Email" />
+			value="cn.net.openid.jos.domain.Email" />
 		<property name="formView" value="email" />
 		<property name="successView" value="email-success" />
 	</bean>
 	<bean id="deleteEmailController"
-		class="cn.net.openid.web.controller.DeleteEmailController"
+		class="cn.net.openid.jos.web.controller.DeleteEmailController"
 		parent="abstractJosSimpleFormController">
 	</bean>
 
 	<!-- Profile edit. -->
 	<bean id="profileController"
-		class="cn.net.openid.web.controller.ProfileController"
+		class="cn.net.openid.jos.web.controller.ProfileController"
 		parent="abstractJosSimpleFormController">
 		<property name="commandName" value="profile" />
-		<property name="commandClass" value="cn.net.openid.domain.User" />
+		<property name="commandClass" value="cn.net.openid.jos.domain.User" />
 		<property name="formView" value="profile" />
 		<property name="successView" value="profile-success" />
 		<property name="validator" ref="userValidator" />
@@ -89,10 +89,10 @@
 
 	<!-- Edit the password. -->
 	<bean id="editPasswordController"
-		class="cn.net.openid.web.controller.EditPasswordController"
+		class="cn.net.openid.jos.web.controller.EditPasswordController"
 		parent="abstractJosSimpleFormController">
 		<property name="commandClass"
-			value="cn.net.openid.web.form.EditPasswordForm" />
+			value="cn.net.openid.jos.web.form.EditPasswordForm" />
 		<property name="commandName" value="editPasswordForm" />
 		<property name="formView" value="edit-password" />
 		<property name="successView" value="edit-password-success" />
@@ -100,39 +100,39 @@
 
 	<!-- Attribute -->
 	<bean id="attributesController"
-		class="cn.net.openid.web.controller.AttributesController"
+		class="cn.net.openid.jos.web.controller.AttributesController"
 		parent="abstractJosController">
 	</bean>
 
 	<bean id="editAttributeController"
-		class="cn.net.openid.web.controller.EditAttributeController"
+		class="cn.net.openid.jos.web.controller.EditAttributeController"
 		parent="abstractJosSimpleFormController">
 		<property name="commandName" value="attribute" />
 		<property name="commandClass"
-			value="cn.net.openid.domain.Attribute" />
+			value="cn.net.openid.jos.domain.Attribute" />
 		<property name="formView" value="edit-attribute" />
 		<property name="successView" value="edit-attribute-success" />
 	</bean>
 
 	<bean id="removeAttributeController"
-		class="cn.net.openid.web.controller.RemoveAttributeController"
+		class="cn.net.openid.jos.web.controller.RemoveAttributeController"
 		parent="abstractJosController">
 	</bean>
 
 	<bean id="attributeValueController"
-		class="cn.net.openid.web.controller.AttributeValueController"
+		class="cn.net.openid.jos.web.controller.AttributeValueController"
 		parent="abstractJosSimpleFormController">
 		<property name="formView" value="attribute-value" />
 		<property name="successView" value="attribute-value-success" />
 	</bean>
 
 	<!-- 
-		<bean id="sitesController" class="cn.net.openid.web.SitesController">
+		<bean id="sitesController" class="cn.net.openid.jos.web.SitesController">
 		</bean>
 	-->
 
 	<bean id="humanLanguageSelectionController"
-		class="cn.net.openid.web.controller.HumanLanguageSelectionController">
+		class="cn.net.openid.jos.web.controller.HumanLanguageSelectionController">
 		<property name="formView" value="human-language-selection" />
 		<property name="localeResolver" ref="localeResolver" />
 	</bean>
@@ -160,7 +160,7 @@
 
 	<!-- The interceptor to check user session. -->
 	<bean id="userLoggedInInterceptor"
-		class="cn.net.openid.web.UserLoggedInInterceptor">
+		class="cn.net.openid.jos.web.UserLoggedInInterceptor">
 		<property name="loginPath" value="/login" />
 	</bean>
 	<bean id="secureHandlerMapping"
@@ -203,7 +203,7 @@
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basenames">
 			<list>
-				<value>cn.net.openid.web.messages</value>
+				<value>cn.net.openid.jos.web.messages</value>
 			</list>
 		</property>
 	</bean>

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="cn.net.openid.jos.domain">
+	<class name="Email" table="openid_email">
+		<id name="id" unsaved-value="null" type="java.lang.String"
+			length="32" column="email_id">
+			<generator class="uuid" />
+		</id>
+		<many-to-one name="user" not-null="true" column="email_userid" />
+		<property name="address" length="255" not-null="true"
+			column="email_address" />
+		<property name="primary" not-null="true" column="email_primary" />
+		<property name="confirmed" not-null="true"
+			column="email_confirmed" />
+	</class>
+</hibernate-mapping>
