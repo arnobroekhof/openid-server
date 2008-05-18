@@ -13,7 +13,6 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openid4java.message.ParameterList;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
@@ -76,16 +75,11 @@ public class LoginController extends AbstractJosSimpleFormController {
 			errors.rejectValue("username", "error.login.failed");
 		} else {
 			HttpSession session = request.getSession();
-			UserSession userSession = new UserSession(user);
+			UserSession userSession = WebUtils.getOrCreateUserSession(session);
+			userSession.setUser(user);
 			userSession.setLoggedIn(true);
-			userSession.setOpenIdUrl(this.josService.buildOpenidUrl(lf
+			userSession.setIdentifier(this.josService.buildOpenidUrl(lf
 					.getUsername()));
-			WebUtils.setUserSession(request, userSession);
-
-			session.setAttribute("cn.net.openid.username", lf.getUsername()
-					.toLowerCase());
-			session.setAttribute("cn.net.openid.identity", this.josService
-					.buildOpenidUrl(lf.getUsername()));
 		}
 		super.onBindAndValidate(request, command, errors);
 	}
@@ -102,16 +96,13 @@ public class LoginController extends AbstractJosSimpleFormController {
 	protected ModelAndView onSubmit(HttpServletRequest request,
 			HttpServletResponse response, Object command, BindException errors)
 			throws Exception {
-		HttpSession session = request.getSession();
-
-		ParameterList pl = (ParameterList) session
-				.getAttribute("parameterlist");
-		if (pl == null) {
-			return super.onSubmit(request, response, command, errors);
-		} else {
-			response.sendRedirect("provider-authorization");
-			return null;
+		LoginForm form = (LoginForm) command;
+		String token = form.getToken();
+		if (WebUtils.getOrCreateUserSession(request.getSession()).hasRequest(
+				token)) {
+			response.sendRedirect("approving?token=" + token);
 		}
+		return super.onSubmit(request, response, command, errors);
 	}
 
 	/*
@@ -129,6 +120,7 @@ public class LoginController extends AbstractJosSimpleFormController {
 			form.setUsername(request.getParameter("username"));
 		}
 
+		form.setToken(request.getParameter("token"));
 		return null;
 	}
 }

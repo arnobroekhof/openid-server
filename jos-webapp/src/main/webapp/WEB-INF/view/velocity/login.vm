@@ -8,6 +8,8 @@
 		<fieldset>
 			<legend>#springMessage("login")</legend>
 			<form action="login" method="post">
+				#springBind("command.token")
+				<input type="hidden" id="token" name="$!{status.expression}" value="$!{esc.html($!{status.value})}" />
 				<table>
 					#springBind("command.username")
 					<tr>

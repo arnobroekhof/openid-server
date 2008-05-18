@@ -10,6 +10,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.openid4java.message.AuthRequest;
 import org.openid4java.message.DirectError;
 import org.openid4java.message.Message;
 import org.openid4java.message.MessageException;
@@ -44,9 +45,9 @@ public class ServerController extends AbstractJosController {
 
 	public static void redirectToReturnToPage(ServerManager manager,
 			HttpServletRequest httpReq, HttpServletResponse httpResp,
-			ParameterList request, boolean approved) throws MessageException,
+			AuthRequest authReq, boolean approved) throws MessageException,
 			IOException {
-		ApprovingController.response(manager, httpReq, httpResp, request,
+		ApprovingController.response(manager, httpReq, httpResp, authReq,
 				approved);
 	}
 
@@ -88,7 +89,9 @@ public class ServerController extends AbstractJosController {
 			responseText = response.keyValueFormEncoding();
 		} else if ("checkid_setup".equals(mode)
 				|| "checkid_immediate".equals(mode)) {
-			this.checkId(httpReq, httpResp, request);
+			AuthRequest authReq = AuthRequest.createAuthRequest(request,
+					this.serverManager.getRealmVerifier());
+			this.checkId(httpReq, httpResp, authReq);
 			responseText = null;
 		} else if ("check_authentication".equals(mode)) {
 			// --- processing a verification request ---
@@ -105,27 +108,30 @@ public class ServerController extends AbstractJosController {
 	}
 
 	private void checkId(HttpServletRequest httpReq,
-			HttpServletResponse httpResp, ParameterList request)
+			HttpServletResponse httpResp, AuthRequest authReq)
 			throws IOException {
-		UserSession userSession = WebUtils.getUserSession(httpReq);
-		if (userSession == null) {
+		UserSession userSession = WebUtils.getOrCreateUserSession(httpReq
+				.getSession());
+
+		if (!userSession.isLoggedIn()) {
 			// redirect to login page.
-			httpResp.sendRedirect("login");
+			httpResp.sendRedirect("login?token="
+					+ userSession.addRequest(authReq));
 		} else if (this.josService.isAlwaysApprove(userSession.getUserId(),
-				request.getParameterValue("realm"))) {
-			this.josService.updateApproval(userSession.getUserId(), request
-					.getParameterValue("realm"));
+				authReq.getRealm())) {
+			this.josService.updateApproval(userSession.getUserId(), authReq
+					.getRealm());
 			// return to `return_to' page.
 			try {
 				redirectToReturnToPage(this.serverManager, httpReq, httpResp,
-						request, true);
+						authReq, true);
 			} catch (MessageException e) {
 				log.error("", e);
 			}
 		} else {
 			// redirect to approving page.
-			httpReq.getSession().setAttribute("request", request);
-			httpResp.sendRedirect("approving");
+			httpResp.sendRedirect("approving?token="
+					+ userSession.addRequest(authReq));
 		}
 	}
 }

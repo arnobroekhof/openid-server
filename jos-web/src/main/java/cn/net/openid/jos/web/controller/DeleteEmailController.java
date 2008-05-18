@@ -20,7 +20,8 @@ import cn.net.openid.jos.web.WebUtils;
 public class DeleteEmailController extends AbstractJosController {
 	public ModelAndView handleRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		UserSession userSession = WebUtils.getUserSession(request);
+		UserSession userSession = WebUtils.getOrCreateUserSession(request
+				.getSession());
 		String id = request.getParameter("id");
 		Email email = this.josService.getEmail(id);
 		if (email.getUser().getId().equals(userSession.getUserId())) {

@@ -15,9 +15,24 @@ public class LoginForm implements Serializable {
 	 */
 	private static final long serialVersionUID = -5037879147649703902L;
 
+	private String token;
 	private String username;
-
 	private String password;
+
+	/**
+	 * @return the token
+	 */
+	public String getToken() {
+		return token;
+	}
+
+	/**
+	 * @param token
+	 *            the token to set
+	 */
+	public void setToken(String token) {
+		this.token = token;
+	}
 
 	/**
 	 * @return the password

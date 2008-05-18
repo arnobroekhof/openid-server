@@ -12,7 +12,6 @@ import java.util.Map;
 import java.util.TimeZone;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -65,7 +64,8 @@ public class ProfileController extends AbstractJosSimpleFormController {
 	@Override
 	protected Object formBackingObject(HttpServletRequest request)
 			throws Exception {
-		UserSession userSession = WebUtils.getUserSession(request);
+		UserSession userSession = WebUtils.getOrCreateUserSession(request
+				.getSession());
 		String userId = userSession.getUserId();
 		User user = this.josService.getUser(userId);
 		return user;

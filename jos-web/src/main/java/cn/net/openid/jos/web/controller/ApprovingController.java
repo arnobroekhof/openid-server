@@ -18,7 +18,6 @@ import org.openid4java.message.DirectError;
 import org.openid4java.message.Message;
 import org.openid4java.message.MessageException;
 import org.openid4java.message.MessageExtension;
-import org.openid4java.message.ParameterList;
 import org.openid4java.message.ax.AxMessage;
 import org.openid4java.message.ax.FetchRequest;
 import org.openid4java.message.ax.FetchResponse;
@@ -28,11 +27,13 @@ import org.openid4java.message.sreg.SRegResponse;
 import org.openid4java.server.ServerException;
 import org.openid4java.server.ServerManager;
 import org.springframework.validation.BindException;
+import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.net.openid.jos.web.AbstractJosSimpleFormController;
 import cn.net.openid.jos.web.UserSession;
 import cn.net.openid.jos.web.WebUtils;
+import cn.net.openid.jos.web.form.ApprovingForm;
 
 /**
  * @author Sutra Zhou
@@ -55,27 +56,29 @@ public class ApprovingController extends AbstractJosSimpleFormController {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.springframework.web.servlet.mvc.SimpleFormController#referenceData(javax.servlet.http.HttpServletRequest)
+	 * @see org.springframework.web.servlet.mvc.SimpleFormController#referenceData(javax.servlet.http.HttpServletRequest,
+	 *      java.lang.Object, org.springframework.validation.Errors)
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
-	protected Map<String, List<String>> referenceData(HttpServletRequest request)
-			throws Exception {
-		Map<String, List<String>> referenceData = new HashMap<String, List<String>>(
-				2);
-		ParameterList openidRequest = (ParameterList) request.getSession()
-				.getAttribute("request");
-		AuthRequest authReq = AuthRequest.createAuthRequest(openidRequest,
-				this.serverManager.getRealmVerifier());
+	protected Map<String, Object> referenceData(HttpServletRequest request,
+			Object command, Errors errors) throws Exception {
+		ApprovingForm form = (ApprovingForm) command;
+		String token = request.getParameter("token");
+		form.setToken(token);
+
+		AuthRequest authReq = WebUtils.getOrCreateUserSession(
+				request.getSession()).getRequest(token);
 		if (authReq.hasExtension(SRegMessage.OPENID_NS_SREG)) {
 			MessageExtension ext = authReq
 					.getExtension(SRegMessage.OPENID_NS_SREG);
 			if (ext instanceof SRegRequest) {
 				SRegRequest sregReq = (SRegRequest) ext;
-				referenceData.put("required", sregReq.getAttributes(true));
-				referenceData.put("optional", sregReq.getAttributes(false));
+				form.setRequired(sregReq.getAttributes(true));
+				form.setOptional(sregReq.getAttributes(false));
 			}
 		}
-		return referenceData;
+		return super.referenceData(request, command, errors);
 	}
 
 	/*
@@ -90,29 +93,32 @@ public class ApprovingController extends AbstractJosSimpleFormController {
 			HttpServletResponse response, Object command, BindException errors)
 			throws Exception {
 		Boolean approved;
-		UserSession userSession = WebUtils.getUserSession(request);
-		String realm = request.getParameter("realm");
+		UserSession userSession = WebUtils.getOrCreateUserSession(request
+				.getSession());
+		AuthRequest authReq = userSession.removeRequest(request
+				.getParameter("token"));
 
 		if (request.getParameter("allow_once") != null) {
 			approved = Boolean.TRUE;
-			this.josService.allow(userSession.getUserId(), realm, false);
+			this.josService.allow(userSession.getUserId(), authReq.getRealm(),
+					false);
 		} else if (request.getParameter("allow_forever") != null) {
 			approved = Boolean.TRUE;
-			this.josService.allow(userSession.getUserId(), realm, true);
+			this.josService.allow(userSession.getUserId(), authReq.getRealm(),
+					true);
 		} else if (request.getParameter("deny") != null) {
 			approved = Boolean.FALSE;
 		} else {
 			approved = Boolean.FALSE;
 		}
 
-		response(this.serverManager, request, response, (ParameterList) request
-				.getSession().getAttribute("request"), approved);
+		response(this.serverManager, request, response, authReq, approved);
 		return null;
 	}
 
 	public static void response(ServerManager manager,
 			HttpServletRequest httpReq, HttpServletResponse httpResp,
-			ParameterList request, Boolean approved) throws MessageException,
+			AuthRequest authReq, Boolean approved) throws MessageException,
 			IOException {
 		Message response;
 		// interact with the user and obtain data needed to continue
@@ -120,10 +126,6 @@ public class ApprovingController extends AbstractJosSimpleFormController {
 		String userSelectedClaimedId = null;
 		Boolean authenticatedAndApproved = approved;
 		String email = "user@example.org";
-
-		// --- process an authentication request ---
-		AuthRequest authReq = AuthRequest.createAuthRequest(request, manager
-				.getRealmVerifier());
 
 		String opLocalId = null;
 		// if the user chose a different claimed_id than the one in request
@@ -133,7 +135,7 @@ public class ApprovingController extends AbstractJosSimpleFormController {
 		}
 
 		boolean signNow = false;
-		response = manager.authResponse(request, opLocalId,
+		response = manager.authResponse(authReq, opLocalId,
 				userSelectedClaimedId, authenticatedAndApproved.booleanValue(),
 				signNow);
 

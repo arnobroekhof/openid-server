@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.ModelAndView;
 
@@ -30,7 +29,8 @@ public class EmailController extends AbstractJosSimpleFormController {
 	@Override
 	protected Object formBackingObject(HttpServletRequest request)
 			throws Exception {
-		UserSession userSession = WebUtils.getUserSession(request);
+		UserSession userSession = WebUtils.getOrCreateUserSession(request
+				.getSession());
 		String userId = userSession.getUserId();
 		User user = this.josService.getUser(userId);
 

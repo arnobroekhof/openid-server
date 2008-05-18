@@ -11,6 +11,7 @@ import cn.net.openid.jos.domain.AttributeValue;
 import cn.net.openid.jos.domain.Email;
 import cn.net.openid.jos.domain.JosConfiguration;
 import cn.net.openid.jos.domain.Password;
+import cn.net.openid.jos.domain.Site;
 import cn.net.openid.jos.domain.User;
 
 /**
@@ -62,5 +63,10 @@ public interface JosService {
 
 	void updateApproval(String userId, String realm);
 
+	void updateAlwaysApprove(String userId, String realmId,
+			boolean alwaysApprove);
+
 	void allow(String userId, String realm, boolean forever);
+
+	List<Site> getSites(String userId);
 }

@@ -306,24 +306,52 @@ public class JosServiceImpl implements JosService {
 	 * @see cn.net.openid.jos.service.JosService#allow(java.lang.String,
 	 *      java.lang.String, boolean)
 	 */
-	public void allow(String userId, String realm, boolean forever) {
-		Site site = this.siteDao.getSite(userId, realm);
+	public void allow(String userId, String realmUrl, boolean forever) {
+		if (log.isDebugEnabled()) {
+			log.debug("userId: " + userId);
+			log.debug("realmUrl: " + realmUrl);
+		}
+		Site site = this.siteDao.getSite(userId, realmUrl);
 		if (site == null) {
+			Realm realm = this.realmDao.getRealmByUrl(realmUrl);
+			if (realm == null) {
+				realm = new Realm();
+				realm.setUrl(realmUrl);
+				this.realmDao.insertRealm(realm);
+			}
 			site = new Site();
 			site.setUser(this.userDao.getUser(userId));
-			Realm aRealm = new Realm();
-			aRealm.setUrl(realm);
-			site.setRealm(aRealm);
+			site.setRealm(realm);
 			site.setLastAttempt(new Date());
 			site.setApprovals(1);
 			site.setAlwaysApprove(forever);
 			// TODO: site.setPersona(persona)
-			this.realmDao.insertRealm(aRealm);
+
 			this.siteDao.insertSite(site);
 		} else {
 			site.setAlwaysApprove(forever);
 			site.setApprovals(site.getApprovals() + 1);
 			this.siteDao.updateSite(site);
 		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.jos.service.JosService#getSites(java.lang.String)
+	 */
+	public List<Site> getSites(String userId) {
+		return this.siteDao.getSites(userId);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.jos.service.JosService#updateAlwaysApprove(java.lang.String,
+	 *      java.lang.String, boolean)
+	 */
+	public void updateAlwaysApprove(String userId, String realmId,
+			boolean alwaysApprove) {
+		this.siteDao.updateAlwaysApprove(userId, realmId, alwaysApprove);
 	}
 }

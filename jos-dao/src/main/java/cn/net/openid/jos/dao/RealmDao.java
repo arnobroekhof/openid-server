@@ -10,5 +10,7 @@ import cn.net.openid.jos.domain.Realm;
  * 
  */
 public interface RealmDao {
+	Realm getRealmByUrl(String url);
+
 	void insertRealm(Realm realm);
 }

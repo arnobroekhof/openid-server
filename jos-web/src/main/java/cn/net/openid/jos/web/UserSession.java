@@ -4,6 +4,12 @@
 package cn.net.openid.jos.web;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openid4java.message.AuthRequest;
 
 import cn.net.openid.jos.domain.User;
 
@@ -20,28 +26,33 @@ public class UserSession implements Serializable {
 	 */
 	private static final long serialVersionUID = -8227402637586478669L;
 
+	private static final Log log = LogFactory.getLog(UserSession.class);
+
 	private String userId;
-
 	private String username;
-
-	private String openIdUrl;
-
+	private String identifier;
 	private boolean loggedIn;
+	private Map<String, AuthRequest> approvingRequest;
 
 	public UserSession() {
-
+		this.approvingRequest = new HashMap<String, AuthRequest>();
+		this.loggedIn = false;
 	}
 
-	public UserSession(User user) {
+	/**
+	 * @param user
+	 *            the user to set
+	 */
+	public void setUser(User user) {
 		this.userId = user.getId();
 		this.username = user.getUsername();
 	}
 
 	/**
-	 * @return the openIdUrl
+	 * @return the identifier
 	 */
-	public String getOpenIdUrl() {
-		return openIdUrl;
+	public String getIdentifier() {
+		return identifier;
 	}
 
 	/**
@@ -74,11 +85,11 @@ public class UserSession implements Serializable {
 	}
 
 	/**
-	 * @param openIdUrl
-	 *            the openIdUrl to set
+	 * @param identifier
+	 *            the identifier to set
 	 */
-	public void setOpenIdUrl(String openidUrl) {
-		this.openIdUrl = openidUrl;
+	public void setIdentifier(String identifier) {
+		this.identifier = identifier;
 	}
 
 	/**
@@ -97,4 +108,33 @@ public class UserSession implements Serializable {
 		this.username = username;
 	}
 
+	public String addRequest(AuthRequest request) {
+		String token = WebUtils.generateToken();
+		this.approvingRequest.put(token, request);
+		if (log.isDebugEnabled()) {
+			log.debug("Add request: " + token);
+		}
+		return token;
+	}
+
+	public boolean hasRequest(String token) {
+		if (log.isDebugEnabled()) {
+			log.debug("has request: " + token);
+		}
+		return this.approvingRequest.containsKey(token);
+	}
+
+	public AuthRequest getRequest(String token) {
+		if (log.isDebugEnabled()) {
+			log.debug("get request: " + token);
+		}
+		return this.approvingRequest.get(token);
+	}
+
+	public AuthRequest removeRequest(String token) {
+		if (log.isDebugEnabled()) {
+			log.debug("Remove request: " + token);
+		}
+		return this.approvingRequest.remove(token);
+	}
 }

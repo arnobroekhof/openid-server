@@ -4,7 +4,6 @@
 package cn.net.openid.jos.dao.hibernate;
 
 import java.util.List;
-import java.util.Map;
 
 import cn.net.openid.jos.dao.SiteDao;
 import cn.net.openid.jos.domain.Site;
@@ -20,8 +19,8 @@ public class HibernateSiteDao extends BaseHibernateEntityDao<Site> implements
 	 * 
 	 * @see org.bestid.dao.SiteDao#getSites(java.lang.String)
 	 */
-	public Map<String, Site> getSites(String userId) {
-		return null;
+	public List<Site> getSites(String userId) {
+		return this.find("from Site where user.id = ?", userId);
 	}
 
 	/*
@@ -59,6 +58,24 @@ public class HibernateSiteDao extends BaseHibernateEntityDao<Site> implements
 	 */
 	public void updateSite(Site site) {
 		this.getHibernateTemplate().update(site);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.jos.dao.SiteDao#updateAlwaysApprove(java.lang.String,
+	 *      java.lang.String, boolean)
+	 */
+	public void updateAlwaysApprove(String userId, String realmId,
+			boolean alwaysApprove) {
+		List<Site> sites = this.find(
+				"from Site where user.id = ? and realm.id = ?", new String[] {
+						userId, realmId });
+		if (!sites.isEmpty()) {
+			Site site = sites.get(0);
+			site.setAlwaysApprove(alwaysApprove);
+			this.getHibernateTemplate().update(site);
+		}
 	}
 
 }

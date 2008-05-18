@@ -3,15 +3,20 @@
  */
 package cn.net.openid.jos.web.form;
 
+import java.io.Serializable;
+
 /**
  * @author Sutra Zhou
  * 
  */
-public class EditPasswordForm {
+public class EditPasswordForm implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5154439238450014108L;
+
 	private String credentialId;
-
 	private String password;
-
 	private String retypedPassword;
 
 	/**
