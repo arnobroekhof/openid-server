@@ -17,18 +17,11 @@ public class Site implements Serializable {
 	 */
 	private static final long serialVersionUID = 4706047050803190505L;
 
-	private String id;
-
 	private User user;
-
-	private String realm;
-
+	private Realm realm;
 	private boolean alwaysApprove;
-
 	private Persona persona;
-
 	private Date lastAttempt;
-
 	private int approvals;
 
 	/**
@@ -59,21 +52,6 @@ public class Site implements Serializable {
 	 */
 	public void setApprovals(int approvals) {
 		this.approvals = approvals;
-	}
-
-	/**
-	 * @return id
-	 */
-	public String getId() {
-		return id;
-	}
-
-	/**
-	 * @param id
-	 *            要设置的 id
-	 */
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	/**
@@ -109,7 +87,7 @@ public class Site implements Serializable {
 	/**
 	 * @return realm
 	 */
-	public String getRealm() {
+	public Realm getRealm() {
 		return realm;
 	}
 
@@ -117,7 +95,7 @@ public class Site implements Serializable {
 	 * @param realm
 	 *            要设置的 realm
 	 */
-	public void setRealm(String realm) {
+	public void setRealm(Realm realm) {
 		this.realm = realm;
 	}
 

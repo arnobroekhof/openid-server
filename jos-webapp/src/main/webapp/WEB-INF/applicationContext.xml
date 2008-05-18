@@ -39,6 +39,7 @@
 				<prop key="update*">PROPAGATION_REQUIRED</prop>
 				<prop key="save*">PROPAGATION_REQUIRED</prop>
 				<prop key="delete*">PROPAGATION_REQUIRED</prop>
+				<prop key="allow">PROPAGATION_REQUIRED</prop>
 				<prop key="*">PROPAGATION_REQUIRED,readOnly</prop>
 			</props>
 		</property>
@@ -54,6 +55,8 @@
 				<property name="attributeDao" ref="attributeDao" />
 				<property name="attributeValueDao"
 					ref="attributeValueDao" />
+				<property name="realmDao" ref="realmDao" />
+				<property name="siteDao" ref="siteDao" />
 			</bean>
 		</property>
 		<!-- Uncomment the following in order to enable mail sending aspect -->

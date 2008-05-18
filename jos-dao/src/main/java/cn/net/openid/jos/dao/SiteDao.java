@@ -12,7 +12,11 @@ import cn.net.openid.jos.domain.Site;
  * 
  */
 public interface SiteDao {
-	Site getSite(String id);
+	Site getSite(String userId, String realmUrl);
 
 	Map<String, Site> getSites(String userId);
+
+	void insertSite(Site site);
+
+	void updateSite(Site site);
 }

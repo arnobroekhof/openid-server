@@ -4,18 +4,26 @@
 package cn.net.openid.jos.service;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import cn.net.openid.jos.dao.AttributeDao;
 import cn.net.openid.jos.dao.AttributeValueDao;
 import cn.net.openid.jos.dao.EmailDao;
 import cn.net.openid.jos.dao.PasswordDao;
+import cn.net.openid.jos.dao.RealmDao;
+import cn.net.openid.jos.dao.SiteDao;
 import cn.net.openid.jos.dao.UserDao;
 import cn.net.openid.jos.domain.Attribute;
 import cn.net.openid.jos.domain.AttributeValue;
 import cn.net.openid.jos.domain.Email;
 import cn.net.openid.jos.domain.JosConfiguration;
 import cn.net.openid.jos.domain.Password;
+import cn.net.openid.jos.domain.Realm;
+import cn.net.openid.jos.domain.Site;
 import cn.net.openid.jos.domain.User;
 
 /**
@@ -23,6 +31,8 @@ import cn.net.openid.jos.domain.User;
  * 
  */
 public class JosServiceImpl implements JosService {
+	private static final Log log = LogFactory.getLog(JosServiceImpl.class);
+
 	private JosConfiguration josConfiguration;
 
 	private UserDao userDao;
@@ -30,6 +40,8 @@ public class JosServiceImpl implements JosService {
 	private EmailDao emailDao;
 	private AttributeDao attributeDao;
 	private AttributeValueDao attributeValueDao;
+	private RealmDao realmDao;
+	private SiteDao siteDao;
 
 	/**
 	 * @param josConfiguration
@@ -77,6 +89,22 @@ public class JosServiceImpl implements JosService {
 	 */
 	public void setAttributeValueDao(AttributeValueDao attributeValueDao) {
 		this.attributeValueDao = attributeValueDao;
+	}
+
+	/**
+	 * @param realmDao
+	 *            the realmDao to set
+	 */
+	public void setRealmDao(RealmDao realmDao) {
+		this.realmDao = realmDao;
+	}
+
+	/**
+	 * @param siteDao
+	 *            the siteDao to set
+	 */
+	public void setSiteDao(SiteDao siteDao) {
+		this.siteDao = siteDao;
 	}
 
 	/*
@@ -246,5 +274,56 @@ public class JosServiceImpl implements JosService {
 	 */
 	public JosConfiguration getJosConfiguration() {
 		return this.josConfiguration;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.jos.service.JosService#isAlwaysApprove(java.lang.String,
+	 *      java.lang.String)
+	 */
+	public boolean isAlwaysApprove(String userId, String realm) {
+		log.debug(userId);
+		log.debug(realm);
+		Site site = this.siteDao.getSite(userId, realm);
+		return site == null ? false : site.isAlwaysApprove();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.jos.service.JosService#updateApproval(java.lang.String,
+	 *      java.lang.String)
+	 */
+	public void updateApproval(String userId, String realm) {
+		// TODO Auto-generated method stub
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.jos.service.JosService#allow(java.lang.String,
+	 *      java.lang.String, boolean)
+	 */
+	public void allow(String userId, String realm, boolean forever) {
+		Site site = this.siteDao.getSite(userId, realm);
+		if (site == null) {
+			site = new Site();
+			site.setUser(this.userDao.getUser(userId));
+			Realm aRealm = new Realm();
+			aRealm.setUrl(realm);
+			site.setRealm(aRealm);
+			site.setLastAttempt(new Date());
+			site.setApprovals(1);
+			site.setAlwaysApprove(forever);
+			// TODO: site.setPersona(persona)
+			this.realmDao.insertRealm(aRealm);
+			this.siteDao.insertSite(site);
+		} else {
+			site.setAlwaysApprove(forever);
+			site.setApprovals(site.getApprovals() + 1);
+			this.siteDao.updateSite(site);
+		}
 	}
 }

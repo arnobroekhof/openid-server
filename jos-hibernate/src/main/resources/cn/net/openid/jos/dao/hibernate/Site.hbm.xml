@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="cn.net.openid.jos.domain">
+	<class name="Site" table="openid_site">
+		<composite-id>
+			<key-many-to-one name="user" column="user_id" />
+			<key-many-to-one name="realm" column="realm_id" />
+		</composite-id>
+		<property name="alwaysApprove" column="site_always_approve" />
+		<property name="lastAttempt" column="site_last_attempt" />
+		<property name="approvals" column="site_approvals" />
+		<many-to-one name="persona" column="site_persona" />
+	</class>
+</hibernate-mapping>

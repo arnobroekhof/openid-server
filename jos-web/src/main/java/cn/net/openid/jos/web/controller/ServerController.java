@@ -111,23 +111,21 @@ public class ServerController extends AbstractJosController {
 		if (userSession == null) {
 			// redirect to login page.
 			httpResp.sendRedirect("login");
-		} else if (this.isAllowForever()) {
+		} else if (this.josService.isAlwaysApprove(userSession.getUserId(),
+				request.getParameterValue("realm"))) {
+			this.josService.updateApproval(userSession.getUserId(), request
+					.getParameterValue("realm"));
 			// return to `return_to' page.
 			try {
 				redirectToReturnToPage(this.serverManager, httpReq, httpResp,
 						request, true);
 			} catch (MessageException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				log.error("", e);
 			}
 		} else {
 			// redirect to approving page.
 			httpReq.getSession().setAttribute("request", request);
 			httpResp.sendRedirect("approving");
 		}
-	}
-
-	private boolean isAllowForever() {
-		return true;
 	}
 }

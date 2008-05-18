@@ -90,12 +90,15 @@ public class ApprovingController extends AbstractJosSimpleFormController {
 			HttpServletResponse response, Object command, BindException errors)
 			throws Exception {
 		Boolean approved;
+		UserSession userSession = WebUtils.getUserSession(request);
+		String realm = request.getParameter("realm");
+
 		if (request.getParameter("allow_once") != null) {
 			approved = Boolean.TRUE;
+			this.josService.allow(userSession.getUserId(), realm, false);
 		} else if (request.getParameter("allow_forever") != null) {
 			approved = Boolean.TRUE;
-			UserSession us = WebUtils.getUserSession(request);
-			// TODO: this.daoFacade.allowForever(us.getUserId(), );
+			this.josService.allow(userSession.getUserId(), realm, true);
 		} else if (request.getParameter("deny") != null) {
 			approved = Boolean.FALSE;
 		} else {

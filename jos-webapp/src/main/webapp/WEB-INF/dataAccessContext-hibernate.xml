@@ -49,7 +49,9 @@
 		<property name="hibernateProperties" ref="hibernateProperties" />
 		<property name="mappingLocations">
 			<list>
-				<value>classpath*:/cn/net/openid/jos/dao/hibernate/*.xml</value>
+				<value>
+					classpath*:/cn/net/openid/jos/dao/hibernate/*.xml
+				</value>
 			</list>
 		</property>
 	</bean>
@@ -72,6 +74,14 @@
 	</bean>
 	<bean id="attributeValueDao"
 		class="cn.net.openid.jos.dao.hibernate.HibernateAttributeValueDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="realmDao"
+		class="cn.net.openid.jos.dao.hibernate.HibernateRealmDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="siteDao"
+		class="cn.net.openid.jos.dao.hibernate.HibernateSiteDao">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 </beans>

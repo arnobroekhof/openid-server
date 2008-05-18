@@ -14,6 +14,10 @@
 	<name>Java OpenID Server - Service</name>
 	<dependencies>
 		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>${groupId}</groupId>
 			<artifactId>jos-dao</artifactId>
 			<version>${version}</version>

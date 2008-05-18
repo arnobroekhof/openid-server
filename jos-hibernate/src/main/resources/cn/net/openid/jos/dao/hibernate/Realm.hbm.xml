@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="cn.net.openid.jos.domain">
+	<class name="Realm" table="openid_realm">
+		<id name="id" unsaved-value="null" type="java.lang.String"
+			length="32" column="realm_id">
+			<generator class="uuid" />
+		</id>
+		<property name="url" length="255" unique="true"
+			column="realm_url" update="false" />
+	</class>
+</hibernate-mapping>
