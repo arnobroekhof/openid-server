@@ -36,9 +36,11 @@ public class SitesController extends AbstractJosSimpleFormController {
 		String[] realmIds = request.getParameterValues("realmId");
 		String userId = WebUtils.getOrCreateUserSession(request.getSession())
 				.getUserId();
-		for (String realmId : realmIds) {
-			this.josService.updateAlwaysApprove(userId, realmId, request
-					.getParameter("alwaysApprove_" + realmId) != null);
+		if (realmIds != null) {
+			for (String realmId : realmIds) {
+				this.josService.updateAlwaysApprove(userId, realmId, request
+						.getParameter("alwaysApprove_" + realmId) != null);
+			}
 		}
 		request.setAttribute("sites", this.josService.getSites(userId));
 		return super.processFormSubmission(request, response, command, errors);

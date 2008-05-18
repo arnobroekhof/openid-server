@@ -6,7 +6,7 @@
 	<div>
 		#parse("header.vm")
 		#springBind("command.username")
-		#set($openidUrl="${openIdConfiguration.openIdUrlPrefix}$!{status.value}${openIdConfiguration.openIdUrlSuffix}")
+		#set($openidUrl="${josConfiguration.identifierPrefix}$!{status.value}${josConfiguration.identifierSuffix}")
 		OpenID：
 		<a href="${openidUrl}">
 			${openidUrl}

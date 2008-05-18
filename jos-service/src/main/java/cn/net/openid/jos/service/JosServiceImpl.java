@@ -282,10 +282,8 @@ public class JosServiceImpl implements JosService {
 	 * @see cn.net.openid.jos.service.JosService#isAlwaysApprove(java.lang.String,
 	 *      java.lang.String)
 	 */
-	public boolean isAlwaysApprove(String userId, String realm) {
-		log.debug(userId);
-		log.debug(realm);
-		Site site = this.siteDao.getSite(userId, realm);
+	public boolean isAlwaysApprove(String userId, String realmUrl) {
+		Site site = this.siteDao.getSite(userId, realmUrl);
 		return site == null ? false : site.isAlwaysApprove();
 	}
 
@@ -295,9 +293,10 @@ public class JosServiceImpl implements JosService {
 	 * @see cn.net.openid.jos.service.JosService#updateApproval(java.lang.String,
 	 *      java.lang.String)
 	 */
-	public void updateApproval(String userId, String realm) {
-		// TODO Auto-generated method stub
-
+	public void updateApproval(String userId, String realmUrl) {
+		Site site = this.siteDao.getSite(userId, realmUrl);
+		site.setApprovals(site.getApprovals() + 1);
+		this.siteDao.updateSite(site);
 	}
 
 	/*

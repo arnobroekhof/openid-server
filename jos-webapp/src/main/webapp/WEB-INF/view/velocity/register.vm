@@ -37,9 +37,9 @@
 							<label for="username">#springMessage("label.openid")</label>
 						</td>
 						<td>
-							${openIdConfiguration.openIdUrlPrefix}
+							${josConfiguration.identifierPrefix}
 							<input type="text" id="username" name="username" class="sexy" size="10" value="$!{esc.html($!{status.value})}" />
-							${openIdConfiguration.openIdUrlSuffix}
+							${josConfiguration.identifierSuffix}
 							<span class="error">$!{status.errorMessage}</span>
 						</td>
 					</tr>

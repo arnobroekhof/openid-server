@@ -59,9 +59,9 @@ public interface JosService {
 
 	void saveAttributeValues(Collection<AttributeValue> attributeValues);
 
-	boolean isAlwaysApprove(String userId, String realm);
+	boolean isAlwaysApprove(String userId, String realmUrl);
 
-	void updateApproval(String userId, String realm);
+	void updateApproval(String userId, String realmUrl);
 
 	void updateAlwaysApprove(String userId, String realmId,
 			boolean alwaysApprove);
