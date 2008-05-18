@@ -5,6 +5,8 @@ package cn.net.openid.jos.web.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +36,7 @@ import cn.net.openid.jos.web.AbstractJosSimpleFormController;
 import cn.net.openid.jos.web.UserSession;
 import cn.net.openid.jos.web.WebUtils;
 import cn.net.openid.jos.web.form.ApprovingForm;
+import cn.net.openid.jos.web.form.ApprovingForm.Attribute;
 
 /**
  * @author Sutra Zhou
@@ -74,8 +77,18 @@ public class ApprovingController extends AbstractJosSimpleFormController {
 					.getExtension(SRegMessage.OPENID_NS_SREG);
 			if (ext instanceof SRegRequest) {
 				SRegRequest sregReq = (SRegRequest) ext;
-				form.setRequired(sregReq.getAttributes(true));
-				form.setOptional(sregReq.getAttributes(false));
+				List<String> required = sregReq.getAttributes(true);
+				List<String> optional = sregReq.getAttributes(false);
+				for (String attributeName : required) {
+					Attribute attribute = form.new Attribute(attributeName, "",
+							true, "label." + attributeName);
+					form.getAttributes().add(attribute);
+				}
+				for (String attributeName : optional) {
+					Attribute attribute = form.new Attribute(attributeName, "",
+							false, "label." + attributeName);
+					form.getAttributes().add(attribute);
+				}
 			}
 		}
 		return super.referenceData(request, command, errors);
@@ -125,7 +138,6 @@ public class ApprovingController extends AbstractJosSimpleFormController {
 
 		String userSelectedClaimedId = null;
 		Boolean authenticatedAndApproved = approved;
-		String email = "user@example.org";
 
 		String opLocalId = null;
 		// if the user chose a different claimed_id than the one in request
@@ -143,7 +155,7 @@ public class ApprovingController extends AbstractJosSimpleFormController {
 			directResponse(httpResp, response.keyValueFormEncoding());
 		} else {
 			addExt(manager, response, authReq);
-			addSRegExtension(manager, response, authReq);
+			addSRegExtension(manager, response, authReq, httpReq);
 			// caller will need to decide which of the following to use:
 
 			// option1: GET HTTP-redirect to the return_to URL
@@ -168,30 +180,53 @@ public class ApprovingController extends AbstractJosSimpleFormController {
 		return null;
 	}
 
+	private static Map<String, String> backingData(
+			Map<String, Object> parameterMap) {
+		Map<String, String> ret = new LinkedHashMap<String, String>();
+
+		for (Iterator<Map.Entry<String, Object>> iter = parameterMap.entrySet()
+				.iterator(); iter.hasNext();) {
+			Map.Entry<String, Object> entry = iter.next();
+			String name = entry.getKey();
+			Object v = entry.getValue();
+
+			String value;
+			if (v instanceof String[]) {
+				String[] values = (String[]) v;
+				value = values.length > 0 ? values[0] : null;
+			} else if (v instanceof String) {
+				value = (String) v;
+			} else {
+				value = "";
+			}
+
+			ret.put(name, value);
+		}
+		return ret;
+	}
+
+	@SuppressWarnings("unchecked")
 	private static void addSRegExtension(ServerManager manager,
-			Message response, AuthRequest authReq) throws MessageException {
+			Message response, AuthRequest authReq, HttpServletRequest request)
+			throws MessageException {
 		if (authReq.hasExtension(SRegMessage.OPENID_NS_SREG)) {
 			MessageExtension ext = authReq
 					.getExtension(SRegMessage.OPENID_NS_SREG);
 			if (ext instanceof SRegRequest) {
 				SRegRequest sregReq = (SRegRequest) ext;
-				List required = sregReq.getAttributes(true);
-				List optional = sregReq.getAttributes(false);
-				if (required.contains("email") || optional.contains("email")) {
-					// data released by the user
-					Map userDataSReg = new HashMap();
-					userDataSReg.put("email", "user@example.com");
+				// data released by the user
+				Map<String, String> userDataSReg = backingData(request
+						.getParameterMap());
 
-					SRegResponse sregResp = SRegResponse.createSRegResponse(
-							sregReq, userDataSReg);
-					// (alternatively) manually add attribute values
-					// sregResp.addAttribute("email", email);
-					response.addExtension(sregResp);
-					try {
-						manager.sign((AuthSuccess) response);
-					} catch (ServerException e) {
-					} catch (AssociationException e) {
-					}
+				SRegResponse sregResp = SRegResponse.createSRegResponse(
+						sregReq, userDataSReg);
+				// (alternatively) manually add attribute values
+				// sregResp.addAttribute("email", email);
+				response.addExtension(sregResp);
+				try {
+					manager.sign((AuthSuccess) response);
+				} catch (ServerException e) {
+				} catch (AssociationException e) {
 				}
 			} else {
 				throw new UnsupportedOperationException("TODO");

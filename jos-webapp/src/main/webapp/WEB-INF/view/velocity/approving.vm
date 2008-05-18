@@ -10,14 +10,18 @@
 			<form action="approving" method="post">
 				#springBind("command.token")
 				<input type="hidden" name="$!{status.expression}" value="$!{esc.html($!{status.value})}" />
-				#springBind("command.required")
-				#foreach($attr in $status.value)
-					$attr <input type="text" name="" value="" />
+				#springBind("command.attributes")
+				<table>
+				#foreach($attribute in $status.value)
+					<tr>
+						<td class="label"><label for="attribute_$!{esc.html($!{attribute.name})}">#springMessage($!{esc.html($!{attribute.label})})</label>
+						#if(${attribute.required})
+							<span class="error">*</span>
+						#end
+					</td>
+					<td><input type="text" id="attribute_$!{esc.html($!{attribute.name})}" name="$!{esc.html($!{attribute.name})}" value="$!{esc.html($!{attribute.value})}" /></td></tr>
 				#end
-				#springBind("command.optional")
-				#foreach($attr in $status.value)
-					$attr
-				#end
+				</table>
 				<input type="submit" name="allow_forever" value="Allow Forever" />
 				<input type="submit" name="allow_once" value="Allow Once" />
 				<input type="submit" name="deny" value="Deny" />
