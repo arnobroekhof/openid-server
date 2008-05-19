@@ -1,0 +1,51 @@
+<html>
+	<head>
+		<title>#springMessage("openid") - #springMessage("personas")</title>
+	</head>
+	<body>
+	<div>
+		#parse("header.vm")
+		<fieldset>
+			<legend>#springMessage("personas")</legend>
+			<table class="list">
+				<thead>
+					<tr>
+						<th>#springMessage("message.persona.name")</th>
+						<th>#springMessage("message.persona.nickname")</th>
+						<th>#springMessage("message.persona.email")</th>
+						<th>#springMessage("message.persona.fullname")</th>
+						<th>#springMessage("message.persona.dob")</th>
+						<th>#springMessage("message.persona.gender")</th>
+						<th>#springMessage("message.persona.postcode")</th>
+						<th>#springMessage("message.persona.country")</th>
+						<th>#springMessage("message.persona.language")</th>
+						<th>#springMessage("message.persona.timezone")</th>
+					</tr>
+				</thead>
+				<tbody>
+				#foreach($persona in $personas)
+					<tr>
+						<td>$persona.name</td>
+						<td>$persona.nickname</td>
+						<td>$persona.email</td>
+						<td>$persona.fullname</td>
+						<td>$persona.dob</td>
+						<td>$persona.gender</td>
+						<td>$persona.postcode</td>
+						<td>$persona.country</td>
+						<td>$persona.language</td>
+						<td>$persona.timezone</td>
+					</tr>
+				#end
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="10"><a href="persona">Add New Persona</a></td>
+					</tr>
+				</tfoot>
+			</table>
+		</fieldset>
+		#parse("footer.vm")
+	</div>
+</body>
+</html>

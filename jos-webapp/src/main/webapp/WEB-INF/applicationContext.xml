@@ -52,6 +52,7 @@
 				<property name="userDao" ref="userDao" />
 				<property name="passwordDao" ref="passwordDao" />
 				<property name="emailDao" ref="emailDao" />
+				<property name="personaDao" ref="personaDao" />
 				<property name="attributeDao" ref="attributeDao" />
 				<property name="attributeValueDao"
 					ref="attributeValueDao" />

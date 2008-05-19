@@ -14,6 +14,7 @@ import cn.net.openid.jos.dao.AttributeDao;
 import cn.net.openid.jos.dao.AttributeValueDao;
 import cn.net.openid.jos.dao.EmailDao;
 import cn.net.openid.jos.dao.PasswordDao;
+import cn.net.openid.jos.dao.PersonaDao;
 import cn.net.openid.jos.dao.RealmDao;
 import cn.net.openid.jos.dao.SiteDao;
 import cn.net.openid.jos.dao.UserDao;
@@ -22,6 +23,7 @@ import cn.net.openid.jos.domain.AttributeValue;
 import cn.net.openid.jos.domain.Email;
 import cn.net.openid.jos.domain.JosConfiguration;
 import cn.net.openid.jos.domain.Password;
+import cn.net.openid.jos.domain.Persona;
 import cn.net.openid.jos.domain.Realm;
 import cn.net.openid.jos.domain.Site;
 import cn.net.openid.jos.domain.User;
@@ -42,6 +44,7 @@ public class JosServiceImpl implements JosService {
 	private AttributeValueDao attributeValueDao;
 	private RealmDao realmDao;
 	private SiteDao siteDao;
+	private PersonaDao personaDao;
 
 	/**
 	 * @param josConfiguration
@@ -105,6 +108,14 @@ public class JosServiceImpl implements JosService {
 	 */
 	public void setSiteDao(SiteDao siteDao) {
 		this.siteDao = siteDao;
+	}
+
+	/**
+	 * @param personaDao
+	 *            the personaDao to set
+	 */
+	public void setPersonaDao(PersonaDao personaDao) {
+		this.personaDao = personaDao;
 	}
 
 	/*
@@ -352,5 +363,50 @@ public class JosServiceImpl implements JosService {
 	public void updateAlwaysApprove(String userId, String realmId,
 			boolean alwaysApprove) {
 		this.siteDao.updateAlwaysApprove(userId, realmId, alwaysApprove);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.jos.service.JosService#deletePersona(java.lang.String)
+	 */
+	public void deletePersona(String id) {
+		this.personaDao.deletePersona(id);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.jos.service.JosService#getPersona(java.lang.String)
+	 */
+	public Persona getPersona(String id) {
+		return this.personaDao.getPersona(id);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.jos.service.JosService#getPersonas(java.lang.String)
+	 */
+	public Collection<Persona> getPersonas(String userId) {
+		return this.personaDao.getPersonas(userId);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.jos.service.JosService#insertPersona(cn.net.openid.jos.domain.Persona)
+	 */
+	public void insertPersona(Persona persona) {
+		this.personaDao.insertPersona(persona);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.jos.service.JosService#updatePersona(cn.net.openid.jos.domain.Persona)
+	 */
+	public void updatePersona(Persona persona) {
+		this.personaDao.updatePersona(persona);
 	}
 }

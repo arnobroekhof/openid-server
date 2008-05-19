@@ -173,6 +173,14 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>jos</servlet-name>
+		<url-pattern>/personas</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>jos</servlet-name>
+		<url-pattern>/persona</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>jos</servlet-name>
 		<url-pattern>/sites</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>

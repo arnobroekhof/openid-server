@@ -31,9 +31,36 @@ public class HibernatePersonaDao extends BaseHibernateEntityDao<Persona>
 	 * @see org.bestid.dao.PersonaDao#getPersonas(java.lang.String)
 	 */
 	public Collection<Persona> getPersonas(String userId) {
-		List<Persona> personas = this.find("from Persona where User.id = ?",
+		List<Persona> personas = this.find("from Persona where user.id = ?",
 				userId);
 		return personas;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.jos.dao.PersonaDao#deletePersona(java.lang.String)
+	 */
+	public void deletePersona(String id) {
+		this.getHibernateTemplate().delete(this.get(id));
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.jos.dao.PersonaDao#insertPersona(cn.net.openid.jos.domain.Persona)
+	 */
+	public void insertPersona(Persona persona) {
+		this.getHibernateTemplate().save(persona);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.jos.dao.PersonaDao#updatePersona(cn.net.openid.jos.domain.Persona)
+	 */
+	public void updatePersona(Persona persona) {
+		this.getHibernateTemplate().update(persona);
 	}
 
 }

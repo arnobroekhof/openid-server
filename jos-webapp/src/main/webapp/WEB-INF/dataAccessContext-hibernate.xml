@@ -68,6 +68,10 @@
 		class="cn.net.openid.jos.dao.hibernate.HibernateEmailDao">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
+	<bean id="personaDao"
+		class="cn.net.openid.jos.dao.hibernate.HibernatePersonaDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
 	<bean id="attributeDao"
 		class="cn.net.openid.jos.dao.hibernate.HibernateAttributeDao">
 		<property name="sessionFactory" ref="sessionFactory" />

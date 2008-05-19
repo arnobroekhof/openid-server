@@ -7,5 +7,18 @@
 			length="32" column="persona_id">
 			<generator class="uuid" />
 		</id>
+		<many-to-one name="user" column="persona_user_id" />
+		<property name="nickname" length="255"
+			column="persona_nickname" />
+		<property name="email" length="255" column="persona_email" />
+		<property name="fullname" length="255"
+			column="persona_fullname" />
+		<property name="dob" type="date" column="persona_dob" />
+		<property name="gender" type="java.lang.String"
+			column="persona_gender" length="1" />
+		<property name="postcode" column="persona_postcode" />
+		<property name="country" column="persona_country" />
+		<property name="language" column="persona_language" />
+		<property name="timezone" column="persona_timezone" />
 	</class>
 </hibernate-mapping>

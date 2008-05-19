@@ -40,7 +40,7 @@
 				#end
 				<tfoot>
 					<tr>
-						<td colspan="5" style="text-align:right;"><input type="submit" value="Save Changes" /></td>
+						<td colspan="5"><input type="submit" value="Save Changes" /></td>
 					</tr>
 				</tfoot>
 			</table>

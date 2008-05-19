@@ -96,6 +96,16 @@
 		<property name="successView" value="edit-password-success" />
 	</bean>
 
+	<!-- Persona. -->
+	<bean id="personasController"
+		class="cn.net.openid.jos.web.controller.PersonasController"
+		parent="abstractJosController">
+	</bean>
+	<bean id="personaController"
+		class="cn.net.openid.jos.web.controller.PersonaController"
+		parent="abstractJosSimpleFormController">
+	</bean>
+
 	<!-- Attribute -->
 	<bean id="attributesController"
 		class="cn.net.openid.jos.web.controller.AttributesController"
@@ -183,6 +193,8 @@
 				<entry key="/profile" value-ref="profileController" />
 				<entry key="/password"
 					value-ref="editPasswordController" />
+				<entry key="/personas" value-ref="personasController" />
+				<entry key="/persona" value-ref="personaController" />
 				<entry key="/attributes"
 					value-ref="attributesController" />
 				<entry key="/edit-attribute"

@@ -15,4 +15,10 @@ public interface PersonaDao {
 	Persona getPersona(String id);
 
 	Collection<Persona> getPersonas(String userId);
+
+	void insertPersona(Persona persona);
+
+	void updatePersona(Persona persona);
+
+	void deletePersona(String id);
 }
