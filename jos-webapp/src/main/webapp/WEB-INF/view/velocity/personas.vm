@@ -25,16 +25,16 @@
 				<tbody>
 				#foreach($persona in $personas)
 					<tr>
-						<td>$persona.name</td>
-						<td>$persona.nickname</td>
-						<td>$persona.email</td>
-						<td>$persona.fullname</td>
-						<td>$persona.dob</td>
-						<td>$persona.gender</td>
-						<td>$persona.postcode</td>
-						<td>$persona.country</td>
-						<td>$persona.language</td>
-						<td>$persona.timezone</td>
+						<td><a href="persona?id=$!{esc.html($!{persona.id})}">$!{esc.html($!{persona.name})}</a></td>
+						<td>$!{esc.html($!{persona.nickname})}</td>
+						<td>$!{esc.html($!{persona.email})}</td>
+						<td>$!{esc.html($!{persona.fullname})}</td>
+						<td>$!{esc.html($!{persona.dob})}</td>
+						<td>$!{esc.html($!{persona.gender})}</td>
+						<td>$!{esc.html($!{persona.postcode})}</td>
+						<td>$!{esc.html($!{persona.country})}</td>
+						<td>$!{esc.html($!{persona.language})}</td>
+						<td>$!{esc.html($!{persona.timezone})}</td>
 					</tr>
 				#end
 				</tbody>

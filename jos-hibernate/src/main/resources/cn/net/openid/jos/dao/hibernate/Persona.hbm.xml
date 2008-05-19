@@ -8,6 +8,7 @@
 			<generator class="uuid" />
 		</id>
 		<many-to-one name="user" column="persona_user_id" />
+		<property name="name" length="255" column="persona_name" />
 		<property name="nickname" length="255"
 			column="persona_nickname" />
 		<property name="email" length="255" column="persona_email" />

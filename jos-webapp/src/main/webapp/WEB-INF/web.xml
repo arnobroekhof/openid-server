@@ -169,10 +169,6 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>jos</servlet-name>
-		<url-pattern>/profile</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>jos</servlet-name>
 		<url-pattern>/personas</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>

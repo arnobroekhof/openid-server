@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>#springMessage("openid") - #springMessage("profile")</title>
+		<title>#springMessage("openid") - #springMessage("persona")</title>
 		<link rel="stylesheet" type="text/css" media="all" href="#springUrl('/jscalendar/skins/aqua/theme.css')" title="Aqua" />
 		<script type="text/javascript" src="#springUrl('/jscalendar/calendar_stripped.js')"></script>
 		<script type="text/javascript" src="#springUrl('/jscalendar/calendar-setup_stripped.js')"></script>
@@ -10,15 +10,26 @@
 	<div>
 		#parse("header.vm")
 		<fieldset>
-		<legend>#springMessage("profile")</legend>
-			<form action="profile" method="post">
+		<legend>#springMessage("persona")</legend>
+			<form action="persona" method="post">
+				#springBindEscaped("persona.id" false)
+				<input type="hidden" name="$!{status.expression}" value="$!{status.value}" />
 				<table>
+					<tr>
+						<td class="label">
+							<label for="name">The name of persona:</label>
+						</td>
+						<td>
+							#springFormInput("persona.name" "")
+							#springShowErrors("" "error")
+						</td>
+					</tr>
 					<tr>
 						<td class="label">
 							<label for="nickname">#springMessage("label.nickname")</label>
 						</td>
 						<td>
-							#springFormInput("profile.nickname" "")
+							#springFormInput("persona.nickname" "")
 							#springShowErrors("" "error")
 						</td>
 					</tr>
@@ -27,7 +38,7 @@
 							<label for="email">#springMessage("label.email")</lable>
 						</td>
 						<td>
-							#springFormInput("profile.email" "")
+							#springFormInput("persona.email" "")
 							#springShowErrors("" "error")
 						</td>
 					</tr>
@@ -36,7 +47,7 @@
 							<label for="fullname">#springMessage("label.fullname")</label>
 						</td>
 						<td>
-							#springFormInput("profile.fullname" "")
+							#springFormInput("persona.fullname" "")
 							#springShowErrors("" "error")
 						</td>
 					</tr>
@@ -45,7 +56,7 @@
 							<label for="dob">#springMessage("label.dob")</label>
 						</td>
 						<td>
-							#springFormInput("profile.dob" "")
+							#springFormInput("persona.dob" "")
 							<img src="jscalendar/img.gif" id="f_trigger_c" style="border: 1px solid red; cursor: pointer;" title="Date selector" onmouseover="this.style.background='red';" onmouseout="this.style.background=''" />
 <script type="text/javascript">
     Calendar.setup({
@@ -60,7 +71,7 @@
 							#springShowErrors("" "error")
 						</td>
 					</tr>
-					#springBindEscaped("profile.gender" false)
+					#springBindEscaped("persona.gender" false)
 					<tr>
 						<td class="label">
 							<label for="gender">#springMessage("label.gender")</label>
@@ -79,7 +90,7 @@
 							<label for="postcode">#springMessage("label.postcode")</label>
 						</td>
 						<td>
-							#springFormInput("profile.postcode" "")
+							#springFormInput("persona.postcode" "")
 							#springShowErrors("" "error")
 						</td>
 					</tr>
@@ -88,7 +99,7 @@
 							<label for="country">#springMessage("label.country")</label>
 						</td>
 						<td>
-							#springFormSingleSelect("profile.country" $countries "id='country'")
+							#springFormSingleSelect("persona.country" $countries "id='country'")
 							#springShowErrors("" "error")
 						</td>
 					</tr>
@@ -97,7 +108,7 @@
 							<label for="language">#springMessage("label.language")</label>
 						</td>
 						<td>
-							#springFormSingleSelect("profile.language" $languages "id='language'")
+							#springFormSingleSelect("persona.language" $languages "id='language'")
 							#springShowErrors("" "error")
 						</td>
 					</tr>
@@ -105,7 +116,7 @@
 						<td class="label">
 							<label for="timezone">#springMessage("label.timezone")</label>
 						<td>
-							#springFormSingleSelect("profile.timezone" $timezones "id='timezone'")
+							#springFormSingleSelect("persona.timezone" $timezones "id='timezone'")
 							#springShowErrors("" "error")
 						</td>
 					</tr>

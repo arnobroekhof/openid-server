@@ -8,21 +8,19 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import cn.net.openid.jos.domain.User;
+import cn.net.openid.jos.domain.Persona;
 
 /**
  * @author Sutra Zhou
  * 
  */
-public class UserValidator implements Validator {
+public class PersonaValidator implements Validator {
 
 	private static Collection<String> isoCountries;
 
@@ -46,16 +44,6 @@ public class UserValidator implements Validator {
 		genders.add("E");
 	}
 
-	private Pattern usernamePattern;
-
-	/**
-	 * @param usernamePattern
-	 *            the usernamePattern to set
-	 */
-	public void setUsernamePattern(String usernamePattern) {
-		this.usernamePattern = Pattern.compile(usernamePattern);
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -63,7 +51,7 @@ public class UserValidator implements Validator {
 	 */
 	@SuppressWarnings("unchecked")
 	public boolean supports(Class clazz) {
-		return User.class.isAssignableFrom(clazz);
+		return Persona.class.isAssignableFrom(clazz);
 	}
 
 	/*
@@ -73,40 +61,34 @@ public class UserValidator implements Validator {
 	 *      org.springframework.validation.Errors)
 	 */
 	public void validate(Object target, Errors errors) {
-		User user = (User) target;
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username",
-				"required", "Field is required.");
-		if (user.getUsername() != null) {
-			Matcher m = this.usernamePattern.matcher(user.getUsername());
-			if (!m.matches()) {
-				errors.rejectValue("username", "error.username.format",
-						"Username format not allowed.");
-			}
-		}
-		if (!StringUtils.isEmpty(user.getCountry())) {
-			if (!isoCountries.contains(user.getCountry())) {
+		Persona persona = (Persona) target;
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "required",
+				"Field is required.");
+		if (!StringUtils.isEmpty(persona.getCountry())) {
+			if (!isoCountries.contains(persona.getCountry())) {
 				errors.rejectValue("country", "required", "Field is required.");
 			}
 		}
 
-		if (!StringUtils.isEmpty(user.getLanguage())) {
-			if (!isoLanguages.contains(user.getLanguage())) {
-				errors.rejectValue("language", "notCandidate", user
+		if (!StringUtils.isEmpty(persona.getLanguage())) {
+			if (!isoLanguages.contains(persona.getLanguage())) {
+				errors.rejectValue("language", "notCandidate", persona
 						.getLanguage()
 						+ " is not a candidate.");
 			}
 		}
 
-		if (!StringUtils.isEmpty(user.getGender())) {
-			if (!genders.contains(user.getGender())) {
+		if (!StringUtils.isEmpty(persona.getGender())) {
+			if (!genders.contains(persona.getGender())) {
 				errors.rejectValue("gender", "notCandidate",
-						new Object[] { user.getGender() }, user.getGender()
+						new Object[] { persona.getGender() }, persona
+								.getGender()
 								+ " is not a candidate.");
 			}
 		}
 
-		if (user.getDob() != null) {
-			if (user.getDob().after(new Date())) {
+		if (persona.getDob() != null) {
+			if (persona.getDob().after(new Date())) {
 				errors.rejectValue("dob", "error.dateOfBirth.future",
 						"Will birth?");
 			}

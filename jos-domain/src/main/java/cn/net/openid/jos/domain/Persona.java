@@ -21,6 +21,20 @@ public class Persona implements Serializable {
 	private String name;
 
 	/**
+	 * 
+	 */
+	public Persona() {
+		this.user = new User();
+	}
+
+	/**
+	 * @param user
+	 */
+	public Persona(User user) {
+		this.user = user;
+	}
+
+	/**
 	 * Any UTF-8 string that the End User wants to use as a nickname.
 	 */
 	private String nickname;
@@ -252,5 +266,4 @@ public class Persona implements Serializable {
 	public void setTimezone(String timezone) {
 		this.timezone = timezone;
 	}
-
 }

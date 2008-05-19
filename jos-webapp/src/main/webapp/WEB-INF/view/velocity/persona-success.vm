@@ -1,0 +1,13 @@
+<html>
+	<head>
+		<title>#springMessage("openid") - #springMessage("persona")</title>
+	</head>
+	<body>
+	<div>
+		#parse("header.vm")
+		#springMessage("message.persona.modifySuccess")
+		<a href="personas">#springMessage("message.persona.backToPersonas")</a>
+		#parse("footer.vm")
+	</div>
+</body>
+</html>

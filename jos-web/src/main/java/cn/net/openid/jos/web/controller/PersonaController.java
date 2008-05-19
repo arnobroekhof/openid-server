@@ -21,7 +21,7 @@ import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
 
-import cn.net.openid.jos.domain.User;
+import cn.net.openid.jos.domain.Persona;
 import cn.net.openid.jos.web.AbstractJosSimpleFormController;
 import cn.net.openid.jos.web.UserSession;
 import cn.net.openid.jos.web.WebUtils;
@@ -30,7 +30,7 @@ import cn.net.openid.jos.web.WebUtils;
  * @author Sutra Zhou
  * 
  */
-public class ProfileController extends AbstractJosSimpleFormController {
+public class PersonaController extends AbstractJosSimpleFormController {
 	private MessageSource messageSource;
 	private LocaleResolver localeResolver;
 
@@ -67,8 +67,17 @@ public class ProfileController extends AbstractJosSimpleFormController {
 		UserSession userSession = WebUtils.getOrCreateUserSession(request
 				.getSession());
 		String userId = userSession.getUserId();
-		User user = this.josService.getUser(userId);
-		return user;
+		String id = request.getParameter("id");
+		Persona persona;
+		if (StringUtils.isEmpty(id)) {
+			persona = new Persona(this.josService.getUser(userId));
+		} else {
+			persona = this.josService.getPersona(id);
+			if (!persona.getUser().getId().equals(userId)) {
+				persona = new Persona(this.josService.getUser(userId));
+			}
+		}
+		return persona;
 	}
 
 	/*
@@ -94,6 +103,12 @@ public class ProfileController extends AbstractJosSimpleFormController {
 	@Override
 	protected void onBindAndValidate(HttpServletRequest request,
 			Object command, BindException errors) throws Exception {
+		Persona persona = (Persona) command;
+		if (!persona.getUser().getId().equals(
+				WebUtils.getOrCreateUserSession(request.getSession())
+						.getUserId())) {
+			errors.reject("hack");
+		}
 		super.onBindAndValidate(request, command, errors);
 	}
 
@@ -104,8 +119,12 @@ public class ProfileController extends AbstractJosSimpleFormController {
 	 */
 	@Override
 	protected ModelAndView onSubmit(Object command) throws Exception {
-		User user = (User) command;
-		this.josService.updateUser(user);
+		Persona persona = (Persona) command;
+		if (StringUtils.isEmpty(persona.getId())) {
+			this.josService.insertPersona(persona);
+		} else {
+			this.josService.updatePersona(persona);
+		}
 		return super.onSubmit(command);
 	}
 

@@ -71,20 +71,6 @@
 		parent="abstractJosSimpleFormController">
 	</bean>
 
-	<!-- Profile edit. -->
-	<bean id="profileController"
-		class="cn.net.openid.jos.web.controller.ProfileController"
-		parent="abstractJosSimpleFormController">
-		<property name="commandName" value="profile" />
-		<property name="commandClass"
-			value="cn.net.openid.jos.domain.User" />
-		<property name="formView" value="profile" />
-		<property name="successView" value="profile-success" />
-		<property name="validator" ref="userValidator" />
-		<property name="messageSource" ref="messageSource" />
-		<property name="localeResolver" ref="localeResolver" />
-	</bean>
-
 	<!-- Edit the password. -->
 	<bean id="editPasswordController"
 		class="cn.net.openid.jos.web.controller.EditPasswordController"
@@ -104,6 +90,14 @@
 	<bean id="personaController"
 		class="cn.net.openid.jos.web.controller.PersonaController"
 		parent="abstractJosSimpleFormController">
+		<property name="commandName" value="persona" />
+		<property name="commandClass"
+			value="cn.net.openid.jos.domain.Persona" />
+		<property name="formView" value="persona" />
+		<property name="successView" value="persona-success" />
+		<property name="validator" ref="personaValidator" />
+		<property name="messageSource" ref="messageSource" />
+		<property name="localeResolver" ref="localeResolver" />
 	</bean>
 
 	<!-- Attribute -->
@@ -190,7 +184,6 @@
 				<entry key="/email" value-ref="emailController" />
 				<entry key="/email-remove"
 					value-ref="deleteEmailController" />
-				<entry key="/profile" value-ref="profileController" />
 				<entry key="/password"
 					value-ref="editPasswordController" />
 				<entry key="/personas" value-ref="personasController" />
