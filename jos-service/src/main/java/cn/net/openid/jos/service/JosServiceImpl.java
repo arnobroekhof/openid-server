@@ -314,9 +314,10 @@ public class JosServiceImpl implements JosService {
 	 * (non-Javadoc)
 	 * 
 	 * @see cn.net.openid.jos.service.JosService#allow(java.lang.String,
-	 *      java.lang.String, boolean)
+	 *      java.lang.String, java.lang.String, boolean)
 	 */
-	public void allow(String userId, String realmUrl, boolean forever) {
+	public void allow(String userId, String realmUrl, String personaId,
+			boolean forever) {
 		if (log.isDebugEnabled()) {
 			log.debug("userId: " + userId);
 			log.debug("realmUrl: " + realmUrl);
@@ -335,12 +336,13 @@ public class JosServiceImpl implements JosService {
 			site.setLastAttempt(new Date());
 			site.setApprovals(1);
 			site.setAlwaysApprove(forever);
-			// TODO: site.setPersona(persona)
+			site.setPersona(this.personaDao.getPersona(personaId));
 
 			this.siteDao.insertSite(site);
 		} else {
 			site.setAlwaysApprove(forever);
 			site.setApprovals(site.getApprovals() + 1);
+			site.setPersona(this.personaDao.getPersona(personaId));
 			this.siteDao.updateSite(site);
 		}
 	}
@@ -352,6 +354,16 @@ public class JosServiceImpl implements JosService {
 	 */
 	public List<Site> getSites(String userId) {
 		return this.siteDao.getSites(userId);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.jos.service.JosService#getSite(java.lang.String,
+	 *      java.lang.String)
+	 */
+	public Site getSite(String userId, String realmUrl) {
+		return this.siteDao.getSite(userId, realmUrl);
 	}
 
 	/*
@@ -381,6 +393,20 @@ public class JosServiceImpl implements JosService {
 	 */
 	public Persona getPersona(String id) {
 		return this.personaDao.getPersona(id);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.jos.service.JosService#getDefaultPersona(java.lang.String)
+	 */
+	public Persona getDefaultPersona(String userId) {
+		Collection<Persona> personas = this.personaDao.getPersonas(userId);
+		Persona persona = null;
+		if (!personas.isEmpty()) {
+			persona = personas.iterator().next();
+		}
+		return persona;
 	}
 
 	/*

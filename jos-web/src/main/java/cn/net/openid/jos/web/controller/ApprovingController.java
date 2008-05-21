@@ -32,6 +32,8 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.net.openid.jos.domain.Persona;
+import cn.net.openid.jos.domain.Site;
 import cn.net.openid.jos.web.AbstractJosSimpleFormController;
 import cn.net.openid.jos.web.UserSession;
 import cn.net.openid.jos.web.WebUtils;
@@ -70,8 +72,16 @@ public class ApprovingController extends AbstractJosSimpleFormController {
 		String token = request.getParameter("token");
 		form.setToken(token);
 
-		AuthRequest authReq = WebUtils.getOrCreateUserSession(
-				request.getSession()).getRequest(token);
+		UserSession userSession = WebUtils.getOrCreateUserSession(request
+				.getSession());
+		AuthRequest authReq = userSession.getRequest(token);
+		String realmUrl = authReq.getRealm();
+		Site site = this.josService.getSite(userSession.getUserId(), realmUrl);
+		Persona persona = null;
+		if (site != null) {
+			persona = site.getPersona();
+		}
+		/*
 		if (authReq.hasExtension(SRegMessage.OPENID_NS_SREG)) {
 			MessageExtension ext = authReq
 					.getExtension(SRegMessage.OPENID_NS_SREG);
@@ -80,17 +90,18 @@ public class ApprovingController extends AbstractJosSimpleFormController {
 				List<String> required = sregReq.getAttributes(true);
 				List<String> optional = sregReq.getAttributes(false);
 				for (String attributeName : required) {
-					Attribute attribute = form.new Attribute(attributeName, "",
-							true, "label." + attributeName);
+					Attribute attribute = form.new Attribute(attributeName,
+							persona, true, "label." + attributeName);
 					form.getAttributes().add(attribute);
 				}
 				for (String attributeName : optional) {
-					Attribute attribute = form.new Attribute(attributeName, "",
-							false, "label." + attributeName);
+					Attribute attribute = form.new Attribute(attributeName,
+							persona, false, "label." + attributeName);
 					form.getAttributes().add(attribute);
 				}
 			}
 		}
+		*/
 		return super.referenceData(request, command, errors);
 	}
 
@@ -110,15 +121,16 @@ public class ApprovingController extends AbstractJosSimpleFormController {
 				.getSession());
 		AuthRequest authReq = userSession.removeRequest(request
 				.getParameter("token"));
+		String personaId = request.getParameter("personaId");
 
 		if (request.getParameter("allow_once") != null) {
 			approved = Boolean.TRUE;
 			this.josService.allow(userSession.getUserId(), authReq.getRealm(),
-					false);
+					personaId, false);
 		} else if (request.getParameter("allow_forever") != null) {
 			approved = Boolean.TRUE;
 			this.josService.allow(userSession.getUserId(), authReq.getRealm(),
-					true);
+					personaId, true);
 		} else if (request.getParameter("deny") != null) {
 			approved = Boolean.FALSE;
 		} else {

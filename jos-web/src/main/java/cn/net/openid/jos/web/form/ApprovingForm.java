@@ -7,6 +7,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import cn.net.openid.jos.domain.Persona;
+
 /**
  * @author Sutra Zhou
  * 
@@ -17,6 +22,8 @@ public class ApprovingForm implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 2752745018691700211L;
+
+	private static final Log log = LogFactory.getLog(Attribute.class);
 
 	private String token;
 	private List<Attribute> attributes;
@@ -44,6 +51,7 @@ public class ApprovingForm implements Serializable {
 	}
 
 	public class Attribute {
+
 		private String name;
 		private String value;
 		private boolean isRequired;
@@ -57,16 +65,36 @@ public class ApprovingForm implements Serializable {
 
 		/**
 		 * @param name
-		 * @param value
+		 * @param persona
 		 * @param isRequired
 		 * @param label
 		 */
-		public Attribute(String name, String value, boolean isRequired,
+		public Attribute(String name, Persona persona, boolean isRequired,
 				String label) {
 			this.name = name;
-			this.value = value;
 			this.isRequired = isRequired;
 			this.label = label;
+			if (persona != null) {
+				if (name.equals("email")) {
+					this.value = persona.getEmail();
+				} else if (name.equals("country")) {
+					this.value = persona.getCountry();
+				} else if (name.equals("fullname")) {
+					this.value = persona.getFullname();
+				} else if (name.equals("gender")) {
+					this.value = persona.getGender();
+				} else if (name.equals("language")) {
+					this.value = persona.getLanguage();
+				} else if (name.equals("nickname")) {
+					this.value = persona.getNickname();
+				} else if (name.equals("postcode")) {
+					this.value = persona.getPostcode();
+				} else if (name.equals("timezone")) {
+					this.value = persona.getTimezone();
+				}
+			}
+			log.debug("attribute name & value is: " + this.name + "="
+					+ this.value);
 		}
 
 		/**

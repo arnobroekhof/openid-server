@@ -67,11 +67,22 @@ public interface JosService {
 	void updateAlwaysApprove(String userId, String realmId,
 			boolean alwaysApprove);
 
-	void allow(String userId, String realm, boolean forever);
+	void allow(String userId, String realm, String personaId, boolean forever);
+
+	Site getSite(String userId, String realmUrl);
 
 	List<Site> getSites(String userId);
 
 	Persona getPersona(String id);
+
+	/**
+	 * Get the default persona of the user.
+	 * 
+	 * @param userId
+	 * @return the default persona of the user, return null if the user doesn't
+	 *         has any none.
+	 */
+	Persona getDefaultPersona(String userId);
 
 	Collection<Persona> getPersonas(String userId);
 
