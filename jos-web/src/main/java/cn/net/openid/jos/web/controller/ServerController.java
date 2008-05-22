@@ -18,6 +18,7 @@ import org.openid4java.message.ParameterList;
 import org.openid4java.server.ServerManager;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.net.openid.jos.domain.Persona;
 import cn.net.openid.jos.web.AbstractJosController;
 import cn.net.openid.jos.web.UserSession;
 import cn.net.openid.jos.web.WebUtils;
@@ -45,10 +46,10 @@ public class ServerController extends AbstractJosController {
 
 	public static void redirectToReturnToPage(ServerManager manager,
 			HttpServletRequest httpReq, HttpServletResponse httpResp,
-			AuthRequest authReq, boolean approved) throws MessageException,
-			IOException {
+			AuthRequest authReq, boolean approved, Persona persona)
+			throws MessageException, IOException {
 		ApprovingController.response(manager, httpReq, httpResp, authReq,
-				approved);
+				approved, persona);
 	}
 
 	/*
@@ -124,7 +125,7 @@ public class ServerController extends AbstractJosController {
 			// return to `return_to' page.
 			try {
 				redirectToReturnToPage(this.serverManager, httpReq, httpResp,
-						authReq, true);
+						authReq, true, null);
 			} catch (MessageException e) {
 				log.error("", e);
 			}

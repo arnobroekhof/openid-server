@@ -6,7 +6,6 @@ package cn.net.openid.jos.web.validation;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Date;
 import java.util.Locale;
 
 import org.apache.commons.lang.StringUtils;
@@ -87,11 +86,13 @@ public class PersonaValidator implements Validator {
 			}
 		}
 
+		/*
 		if (persona.getDob() != null) {
 			if (persona.getDob().after(new Date())) {
 				errors.rejectValue("dob", "error.dateOfBirth.future",
 						"Will birth?");
 			}
 		}
+		*/
 	}
 }

@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -26,6 +27,7 @@ public class ApprovingForm implements Serializable {
 	private static final Log log = LogFactory.getLog(Attribute.class);
 
 	private String token;
+	private String personaId;
 	private List<Attribute> attributes;
 
 	/**
@@ -48,6 +50,21 @@ public class ApprovingForm implements Serializable {
 	 */
 	public void setToken(String token) {
 		this.token = token;
+	}
+
+	/**
+	 * @return the personaId
+	 */
+	public String getPersonaId() {
+		return personaId;
+	}
+
+	/**
+	 * @param personaId
+	 *            the personaId to set
+	 */
+	public void setPersonaId(String personaId) {
+		this.personaId = personaId;
 	}
 
 	public class Attribute {
@@ -171,5 +188,15 @@ public class ApprovingForm implements Serializable {
 	 */
 	public void setAttributes(List<Attribute> attributes) {
 		this.attributes = attributes;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
 	}
 }

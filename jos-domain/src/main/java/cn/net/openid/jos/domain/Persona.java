@@ -4,7 +4,12 @@
 package cn.net.openid.jos.domain;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+import java.util.TimeZone;
 
 /**
  * @author Sutra Zhou
@@ -15,6 +20,15 @@ public class Persona implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1223541515197309353L;
+
+	private static final String PATTERN = "yyyy-MM-dd";
+	private static final TimeZone GMT_TIME_ZONE = TimeZone.getTimeZone("GMT");
+	public static final SimpleDateFormat DOB_FORMAT = new SimpleDateFormat(
+			PATTERN, Locale.US);
+
+	static {
+		DOB_FORMAT.setTimeZone(GMT_TIME_ZONE);
+	}
 
 	private String id;
 	private User user;
@@ -55,7 +69,7 @@ public class Persona implements Serializable {
 	 * his date of birth is in 1980, but not the month or day, the value
 	 * returned SHALL be "1980-00-00".
 	 */
-	private Date dob;
+	private String dob;
 
 	/**
 	 * The End User's gender, "M" for male, "F" for female.
@@ -120,7 +134,7 @@ public class Persona implements Serializable {
 	/**
 	 * @return dob
 	 */
-	public Date getDob() {
+	public String getDob() {
 		return dob;
 	}
 
@@ -128,8 +142,12 @@ public class Persona implements Serializable {
 	 * @param dob
 	 *            要设置的 dob
 	 */
-	public void setDob(Date dob) {
+	public void setDob(String dob) {
 		this.dob = dob;
+	}
+
+	public void setDob(Date date) {
+		this.dob = DOB_FORMAT.format(date);
 	}
 
 	/**
@@ -265,5 +283,19 @@ public class Persona implements Serializable {
 	 */
 	public void setTimezone(String timezone) {
 		this.timezone = timezone;
+	}
+
+	public Map<String, String> toMap() {
+		Map<String, String> ret = new HashMap<String, String>();
+		ret.put("nickname", this.getNickname());
+		ret.put("email", this.getEmail());
+		ret.put("fullname", this.getFullname());
+		ret.put("dob", this.getDob());
+		ret.put("gender", this.getGender());
+		ret.put("postcode", this.getPostcode());
+		ret.put("country", this.getCountry());
+		ret.put("language", this.getLanguage());
+		ret.put("timezone", this.getTimezone());
+		return ret;
 	}
 }

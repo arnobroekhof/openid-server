@@ -10,6 +10,52 @@
 			<form action="approving" method="post">
 				#springBind("command.token")
 				<input type="hidden" name="$!{status.expression}" value="$!{esc.html($!{status.value})}" />
+
+				#springBind("command.personaId")
+				<table class="list">
+					<thead>
+						<tr>
+							<th>&nbsp;</th>
+							<th>#springMessage("message.persona.name")</th>
+							<th>#springMessage("message.persona.nickname")</th>
+							<th>#springMessage("message.persona.email")</th>
+							<th>#springMessage("message.persona.fullname")</th>
+							<th>#springMessage("message.persona.dob")</th>
+							<th>#springMessage("message.persona.gender")</th>
+							<th>#springMessage("message.persona.postcode")</th>
+							<th>#springMessage("message.persona.country")</th>
+							<th>#springMessage("message.persona.language")</th>
+							<th>#springMessage("message.persona.timezone")</th>
+						</tr>
+					</thead>
+					<tbody>
+					#foreach($persona in $personas)
+						<tr>
+							<td><input type="radio" name="personaId" value="$!{esc.html($!{persona.id})}"
+							#if($status.value == $persona.id)
+								checked="checked"
+							#end
+							/></td>
+							<td><a href="persona?id=$!{esc.html($!{persona.id})}">$!{esc.html($!{persona.name})}</a></td>
+							<td>$!{esc.html($!{persona.nickname})}</td>
+							<td>$!{esc.html($!{persona.email})}</td>
+							<td>$!{esc.html($!{persona.fullname})}</td>
+							<td>$!{esc.html($!{persona.dob})}</td>
+							<td>$!{esc.html($!{persona.gender})}</td>
+							<td>$!{esc.html($!{persona.postcode})}</td>
+							<td>$!{esc.html($!{persona.country})}</td>
+							<td>$!{esc.html($!{persona.language})}</td>
+							<td>$!{esc.html($!{persona.timezone})}</td>
+						</tr>
+					#end
+					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="10"><a href="persona">Add New Persona</a></td>
+						</tr>
+					</tfoot>
+				</table>
+
 				#springBind("command.attributes")
 				<table>
 				#foreach($attribute in $status.value)
