@@ -13,6 +13,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.openid4java.association.AssociationException;
 import org.openid4java.message.AuthRequest;
 import org.openid4java.message.AuthSuccess;
@@ -140,19 +141,19 @@ public class ApprovingController extends AbstractJosSimpleFormController {
 		AuthRequest authReq = userSession.removeRequest(request
 				.getParameter("token"));
 		String personaId = request.getParameter("personaId");
-		Persona persona = this.josService.getPersona(personaId);
-		if (log.isDebugEnabled()) {
-			log.debug(String.format("persona.dob: %1$s, in map: %2$s", persona.getDob(), persona.toMap().get("dob")));
+		Persona persona = null;
+		if (!StringUtils.isEmpty(personaId)) {
+			persona = this.josService.getPersona(personaId);
 		}
 
 		if (request.getParameter("allow_once") != null) {
 			approved = Boolean.TRUE;
 			this.josService.allow(userSession.getUserId(), authReq.getRealm(),
-					personaId, false);
+					persona, false);
 		} else if (request.getParameter("allow_forever") != null) {
 			approved = Boolean.TRUE;
 			this.josService.allow(userSession.getUserId(), authReq.getRealm(),
-					personaId, true);
+					persona, true);
 		} else if (request.getParameter("deny") != null) {
 			approved = Boolean.FALSE;
 		} else {

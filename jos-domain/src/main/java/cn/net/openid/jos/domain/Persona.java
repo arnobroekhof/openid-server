@@ -146,9 +146,11 @@ public class Persona implements Serializable {
 		this.dob = dob;
 	}
 
+	/*
 	public void setDob(Date date) {
 		this.dob = DOB_FORMAT.format(date);
 	}
+	*/
 
 	/**
 	 * @return email

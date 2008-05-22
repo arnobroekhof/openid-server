@@ -314,9 +314,9 @@ public class JosServiceImpl implements JosService {
 	 * (non-Javadoc)
 	 * 
 	 * @see cn.net.openid.jos.service.JosService#allow(java.lang.String,
-	 *      java.lang.String, java.lang.String, boolean)
+	 *      java.lang.String, cn.net.openid.jos.domain.Persona, boolean)
 	 */
-	public void allow(String userId, String realmUrl, String personaId,
+	public void allow(String userId, String realmUrl, Persona persona,
 			boolean forever) {
 		if (log.isDebugEnabled()) {
 			log.debug("userId: " + userId);
@@ -336,13 +336,13 @@ public class JosServiceImpl implements JosService {
 			site.setLastAttempt(new Date());
 			site.setApprovals(1);
 			site.setAlwaysApprove(forever);
-			site.setPersona(this.personaDao.getPersona(personaId));
+			site.setPersona(persona);
 
 			this.siteDao.insertSite(site);
 		} else {
 			site.setAlwaysApprove(forever);
 			site.setApprovals(site.getApprovals() + 1);
-			site.setPersona(this.personaDao.getPersona(personaId));
+			site.setPersona(persona);
 			this.siteDao.updateSite(site);
 		}
 	}

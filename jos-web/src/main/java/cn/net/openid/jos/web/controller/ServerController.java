@@ -19,6 +19,7 @@ import org.openid4java.server.ServerManager;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.net.openid.jos.domain.Persona;
+import cn.net.openid.jos.domain.Site;
 import cn.net.openid.jos.web.AbstractJosController;
 import cn.net.openid.jos.web.UserSession;
 import cn.net.openid.jos.web.WebUtils;
@@ -114,25 +115,34 @@ public class ServerController extends AbstractJosController {
 		UserSession userSession = WebUtils.getOrCreateUserSession(httpReq
 				.getSession());
 
-		if (!userSession.isLoggedIn()) {
+		if (userSession.isLoggedIn()) {
+			checkId(httpReq, httpResp, authReq, userSession);
+		} else {
 			// redirect to login page.
 			httpResp.sendRedirect("login?token="
 					+ userSession.addRequest(authReq));
-		} else if (this.josService.isAlwaysApprove(userSession.getUserId(),
-				authReq.getRealm())) {
-			this.josService.updateApproval(userSession.getUserId(), authReq
-					.getRealm());
+		}
+	}
+
+	private void checkId(HttpServletRequest httpReq,
+			HttpServletResponse httpResp, AuthRequest authReq,
+			UserSession loggedInUserSession) throws IOException {
+		Site site = this.josService.getSite(loggedInUserSession.getUserId(),
+				authReq.getRealm());
+		if (site != null && site.isAlwaysApprove()) {
+			this.josService.updateApproval(loggedInUserSession.getUserId(),
+					authReq.getRealm());
 			// return to `return_to' page.
 			try {
 				redirectToReturnToPage(this.serverManager, httpReq, httpResp,
-						authReq, true, null);
+						authReq, true, site.getPersona());
 			} catch (MessageException e) {
 				log.error("", e);
 			}
 		} else {
 			// redirect to approving page.
 			httpResp.sendRedirect("approving?token="
-					+ userSession.addRequest(authReq));
+					+ loggedInUserSession.addRequest(authReq));
 		}
 	}
 }

@@ -90,8 +90,10 @@ public class PersonaController extends AbstractJosSimpleFormController {
 	protected void initBinder(HttpServletRequest request,
 			ServletRequestDataBinder binder) throws Exception {
 		super.initBinder(request, binder);
+		/*
 		binder.registerCustomEditor(Date.class, "dob", new CustomDateEditor(
 				new SimpleDateFormat("yyyy-MM-dd"), true));
+		*/
 	}
 
 	/*
@@ -104,6 +106,9 @@ public class PersonaController extends AbstractJosSimpleFormController {
 	protected void onBindAndValidate(HttpServletRequest request,
 			Object command, BindException errors) throws Exception {
 		Persona persona = (Persona) command;
+		if (log.isDebugEnabled()) {
+			log.debug("persona dob: " + persona.getDob());
+		}
 		if (!persona.getUser().getId().equals(
 				WebUtils.getOrCreateUserSession(request.getSession())
 						.getUserId())) {

@@ -67,7 +67,7 @@ public interface JosService {
 	void updateAlwaysApprove(String userId, String realmId,
 			boolean alwaysApprove);
 
-	void allow(String userId, String realm, String personaId, boolean forever);
+	void allow(String userId, String realm, Persona persona, boolean forever);
 
 	Site getSite(String userId, String realmUrl);
 

@@ -14,7 +14,8 @@
 		<property name="email" length="255" column="persona_email" />
 		<property name="fullname" length="255"
 			column="persona_fullname" />
-		<property name="dob" type="date" column="persona_dob" />
+		<property name="dob" type="string" column="persona_dob"
+			length="10" />
 		<property name="gender" type="java.lang.String"
 			column="persona_gender" length="1" />
 		<property name="postcode" column="persona_postcode" />
