@@ -79,6 +79,7 @@ public class ApprovingController extends AbstractJosSimpleFormController {
 				.getSession());
 		String userId = userSession.getUserId();
 		AuthRequest authReq = userSession.getRequest(token);
+		form.setAuthRequest(authReq);
 		String realmUrl = authReq.getRealm();
 		Site site = this.josService.getSite(userId, realmUrl);
 		if (site != null && site.getPersona() != null) {

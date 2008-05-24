@@ -10,6 +10,7 @@ import java.util.List;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openid4java.message.AuthRequest;
 
 import cn.net.openid.jos.domain.Persona;
 
@@ -29,6 +30,7 @@ public class ApprovingForm implements Serializable {
 	private String token;
 	private String personaId;
 	private List<Attribute> attributes;
+	private AuthRequest authRequest;
 
 	/**
 	 * 
@@ -65,6 +67,21 @@ public class ApprovingForm implements Serializable {
 	 */
 	public void setPersonaId(String personaId) {
 		this.personaId = personaId;
+	}
+
+	/**
+	 * @return the authRequest
+	 */
+	public AuthRequest getAuthRequest() {
+		return authRequest;
+	}
+
+	/**
+	 * @param authRequest
+	 *            the authRequest to set
+	 */
+	public void setAuthRequest(AuthRequest authRequest) {
+		this.authRequest = authRequest;
 	}
 
 	public class Attribute {
