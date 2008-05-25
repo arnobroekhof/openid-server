@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="cn.net.openid.jos.domain">
+	<class name="EmailConfirmationInfo"
+		table="openid_email_confirmation_info">
+		<id name="confirmationCode" unsaved-value="null"
+			type="java.lang.String" length="32">
+			<generator class="assigned" />
+		</id>
+		<many-to-one name="email" not-null="true" />
+		<property name="sent" not-null="true" />
+		<property name="sentDate" />
+		<property name="confirmed" not-null="true" />
+		<property name="confirmedDate" />
+	</class>
+</hibernate-mapping>

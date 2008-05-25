@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>#springMessage("openid") - #springMessage("profile")</title>
+		<title>#springMessage("openid") - #springMessage("email")</title>
 	</head>
 	<body>
 	<div>

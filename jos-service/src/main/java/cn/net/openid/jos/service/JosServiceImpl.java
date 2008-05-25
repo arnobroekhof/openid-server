@@ -7,11 +7,13 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import cn.net.openid.jos.dao.AttributeDao;
 import cn.net.openid.jos.dao.AttributeValueDao;
+import cn.net.openid.jos.dao.EmailConfirmationInfoDao;
 import cn.net.openid.jos.dao.EmailDao;
 import cn.net.openid.jos.dao.PasswordDao;
 import cn.net.openid.jos.dao.PersonaDao;
@@ -21,6 +23,7 @@ import cn.net.openid.jos.dao.UserDao;
 import cn.net.openid.jos.domain.Attribute;
 import cn.net.openid.jos.domain.AttributeValue;
 import cn.net.openid.jos.domain.Email;
+import cn.net.openid.jos.domain.EmailConfirmationInfo;
 import cn.net.openid.jos.domain.JosConfiguration;
 import cn.net.openid.jos.domain.Password;
 import cn.net.openid.jos.domain.Persona;
@@ -40,11 +43,13 @@ public class JosServiceImpl implements JosService {
 	private UserDao userDao;
 	private PasswordDao passwordDao;
 	private EmailDao emailDao;
+	private EmailConfirmationInfoDao emailConfirmationInfoDao;
 	private AttributeDao attributeDao;
 	private AttributeValueDao attributeValueDao;
 	private RealmDao realmDao;
 	private SiteDao siteDao;
 	private PersonaDao personaDao;
+	private TaskExecutorExample taskExecutorExample;
 
 	/**
 	 * @param josConfiguration
@@ -76,6 +81,15 @@ public class JosServiceImpl implements JosService {
 	 */
 	public void setEmailDao(EmailDao emailDao) {
 		this.emailDao = emailDao;
+	}
+
+	/**
+	 * @param emailConfirmationInfoDao
+	 *            the emailConfirmationInfoDao to set
+	 */
+	public void setEmailConfirmationInfoDao(
+			EmailConfirmationInfoDao emailConfirmationInfoDao) {
+		this.emailConfirmationInfoDao = emailConfirmationInfoDao;
 	}
 
 	/**
@@ -116,6 +130,14 @@ public class JosServiceImpl implements JosService {
 	 */
 	public void setPersonaDao(PersonaDao personaDao) {
 		this.personaDao = personaDao;
+	}
+
+	/**
+	 * @param taskExecutorExample
+	 *            the taskExecutorExample to set
+	 */
+	public void setTaskExecutorExample(TaskExecutorExample taskExecutorExample) {
+		this.taskExecutorExample = taskExecutorExample;
 	}
 
 	/*
@@ -225,6 +247,11 @@ public class JosServiceImpl implements JosService {
 	 */
 	public void insertEmail(Email email) {
 		this.emailDao.insertEmail(email);
+		EmailConfirmationInfo emailConfirmationInfo = new EmailConfirmationInfo(
+				email, RandomStringUtils.random(32, true, true));
+		this.emailConfirmationInfoDao
+				.insertEmailConfirmationInfo(emailConfirmationInfo);
+		this.taskExecutorExample.sendEmail(emailConfirmationInfo);
 	}
 
 	/*

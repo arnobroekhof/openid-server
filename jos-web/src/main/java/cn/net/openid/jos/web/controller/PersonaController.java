@@ -3,8 +3,6 @@
  */
 package cn.net.openid.jos.web.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Locale;
@@ -14,7 +12,6 @@ import java.util.TimeZone;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.context.MessageSource;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.ServletRequestDataBinder;

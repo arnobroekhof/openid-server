@@ -4,12 +4,8 @@
 package cn.net.openid.jos.domain;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
-import java.util.TimeZone;
 
 /**
  * @author Sutra Zhou
@@ -21,32 +17,9 @@ public class Persona implements Serializable {
 	 */
 	private static final long serialVersionUID = 1223541515197309353L;
 
-	private static final String PATTERN = "yyyy-MM-dd";
-	private static final TimeZone GMT_TIME_ZONE = TimeZone.getTimeZone("GMT");
-	public static final SimpleDateFormat DOB_FORMAT = new SimpleDateFormat(
-			PATTERN, Locale.US);
-
-	static {
-		DOB_FORMAT.setTimeZone(GMT_TIME_ZONE);
-	}
-
 	private String id;
 	private User user;
 	private String name;
-
-	/**
-	 * 
-	 */
-	public Persona() {
-		this.user = new User();
-	}
-
-	/**
-	 * @param user
-	 */
-	public Persona(User user) {
-		this.user = user;
-	}
 
 	/**
 	 * Any UTF-8 string that the End User wants to use as a nickname.
@@ -102,6 +75,20 @@ public class Persona implements Serializable {
 	private String timezone;
 
 	/**
+	 * 
+	 */
+	public Persona() {
+		this.user = new User();
+	}
+
+	/**
+	 * @param user
+	 */
+	public Persona(User user) {
+		this.user = user;
+	}
+
+	/**
 	 * @return user
 	 */
 	public User getUser() {
@@ -147,10 +134,8 @@ public class Persona implements Serializable {
 	}
 
 	/*
-	public void setDob(Date date) {
-		this.dob = DOB_FORMAT.format(date);
-	}
-	*/
+	 * public void setDob(Date date) { this.dob = DOB_FORMAT.format(date); }
+	 */
 
 	/**
 	 * @return email
