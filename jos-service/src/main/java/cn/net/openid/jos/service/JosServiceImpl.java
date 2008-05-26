@@ -7,7 +7,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -49,7 +48,6 @@ public class JosServiceImpl implements JosService {
 	private RealmDao realmDao;
 	private SiteDao siteDao;
 	private PersonaDao personaDao;
-	private TaskExecutorExample taskExecutorExample;
 
 	/**
 	 * @param josConfiguration
@@ -130,14 +128,6 @@ public class JosServiceImpl implements JosService {
 	 */
 	public void setPersonaDao(PersonaDao personaDao) {
 		this.personaDao = personaDao;
-	}
-
-	/**
-	 * @param taskExecutorExample
-	 *            the taskExecutorExample to set
-	 */
-	public void setTaskExecutorExample(TaskExecutorExample taskExecutorExample) {
-		this.taskExecutorExample = taskExecutorExample;
 	}
 
 	/*
@@ -247,11 +237,28 @@ public class JosServiceImpl implements JosService {
 	 */
 	public void insertEmail(Email email) {
 		this.emailDao.insertEmail(email);
-		EmailConfirmationInfo emailConfirmationInfo = new EmailConfirmationInfo(
-				email, RandomStringUtils.random(32, true, true));
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.jos.service.JosService#insertEmailConfirmationInfo(cn.net.openid.jos.domain.EmailConfirmationInfo)
+	 */
+	public void insertEmailConfirmationInfo(
+			EmailConfirmationInfo emailConfirmationInfo) {
 		this.emailConfirmationInfoDao
 				.insertEmailConfirmationInfo(emailConfirmationInfo);
-		this.taskExecutorExample.sendEmail(emailConfirmationInfo);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.jos.service.JosService#updateEmailConfirmationInfo(cn.net.openid.jos.domain.EmailConfirmationInfo)
+	 */
+	public void updateEmailConfirmationInfo(
+			EmailConfirmationInfo emailConfirmationInfo) {
+		this.emailConfirmationInfoDao
+				.updateEmailConfirmationInfo(emailConfirmationInfo);
 	}
 
 	/*

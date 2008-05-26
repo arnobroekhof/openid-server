@@ -10,5 +10,9 @@ import cn.net.openid.jos.domain.EmailConfirmationInfo;
  * 
  */
 public interface EmailConfirmationInfoDao {
+	EmailConfirmationInfo getEmailConfirmationInfo(String confirmationCode);
+
 	void insertEmailConfirmationInfo(EmailConfirmationInfo emailConfirmationInfo);
+
+	void updateEmailConfirmationInfo(EmailConfirmationInfo emailConfirmationInfo);
 }

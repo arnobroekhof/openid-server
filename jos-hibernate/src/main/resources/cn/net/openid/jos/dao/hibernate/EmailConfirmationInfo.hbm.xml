@@ -8,7 +8,7 @@
 			type="java.lang.String" length="32">
 			<generator class="assigned" />
 		</id>
-		<many-to-one name="email" not-null="true" />
+		<many-to-one name="email" not-null="true" update="false" />
 		<property name="sent" not-null="true" />
 		<property name="sentDate" />
 		<property name="confirmed" not-null="true" />

@@ -9,6 +9,7 @@ import java.util.List;
 import cn.net.openid.jos.domain.Attribute;
 import cn.net.openid.jos.domain.AttributeValue;
 import cn.net.openid.jos.domain.Email;
+import cn.net.openid.jos.domain.EmailConfirmationInfo;
 import cn.net.openid.jos.domain.JosConfiguration;
 import cn.net.openid.jos.domain.Password;
 import cn.net.openid.jos.domain.Persona;
@@ -47,6 +48,10 @@ public interface JosService {
 	void insertEmail(Email email);
 
 	void deleteEmail(String id);
+
+	void insertEmailConfirmationInfo(EmailConfirmationInfo emailConfirmationInfo);
+
+	void updateEmailConfirmationInfo(EmailConfirmationInfo emailConfirmationInfo);
 
 	Attribute getAttribute(String id);
 

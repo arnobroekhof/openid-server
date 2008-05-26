@@ -60,18 +60,29 @@
 					ref="attributeValueDao" />
 				<property name="realmDao" ref="realmDao" />
 				<property name="siteDao" ref="siteDao" />
-				<property name="taskExecutorExample"
-					ref="taskExecutorExample" />
 			</bean>
 		</property>
-		<!-- Uncomment the following in order to enable mail sending aspect -->
-		<!-- 
-			<property name="postInterceptors">
+		<property name="postInterceptors">
 			<list>
-			<ref bean="emailAdvisor" />
+				<ref bean="emailAdvisor" />
 			</list>
-			</property>
-		-->
+		</property>
+	</bean>
+
+	<bean id="emailAdvisor"
+		class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+		<property name="advice">
+			<ref local="insertEmailAfterReturningAdvice" />
+		</property>
+		<property name="pattern">
+			<value>.*insertEmail</value>
+		</property>
+	</bean>
+
+	<bean id="insertEmailAfterReturningAdvice"
+		class="cn.net.openid.jos.service.InsertEmailAfterReturningAdvice">
+		<property name="emailConfirmationInfoSendTaskExecutor"
+			ref="emailConfirmationInfoSendTaskExecutor" />
 	</bean>
 
 	<bean id="taskExecutor"
@@ -81,8 +92,8 @@
 		<property name="queueCapacity" value="25" />
 	</bean>
 
-	<bean id="taskExecutorExample"
-		class="cn.net.openid.jos.service.TaskExecutorExample">
+	<bean id="emailConfirmationInfoSendTaskExecutor"
+		class="cn.net.openid.jos.service.EmailConfirmationInfoSendTaskExecutor">
 		<constructor-arg ref="taskExecutor" />
 	</bean>
 
