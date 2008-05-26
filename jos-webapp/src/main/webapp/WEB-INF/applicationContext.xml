@@ -24,6 +24,7 @@
 		<property name="memberFilterFromPattern"
 			value="${jos.member.filter.from.pattern}" />
 	</bean>
+
 	<bean id="serverManager"
 		class="org.openid4java.server.ServerManager">
 		<property name="OPEndpointUrl" value="${jos.openid.server.url}" />
@@ -95,6 +96,7 @@
 	<bean id="emailConfirmationInfoSendTaskExecutor"
 		class="cn.net.openid.jos.service.EmailConfirmationInfoSendTaskExecutor">
 		<constructor-arg ref="taskExecutor" />
+		<property name="mailSender" ref="mailSender" />
 	</bean>
 
 	<bean id="personaValidator"

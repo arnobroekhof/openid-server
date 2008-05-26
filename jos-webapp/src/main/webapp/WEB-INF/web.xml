@@ -11,7 +11,8 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
 			/WEB-INF/applicationContext.xml,
-			/WEB-INF/dataAccessContext-hibernate.xml
+			/WEB-INF/dataAccessContext-hibernate.xml,
+			/WEB-INF/applicationContext-mail.xml
 		</param-value>
 	</context-param>
 	<context-param>
