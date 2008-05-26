@@ -17,6 +17,7 @@ public class EmailConfirmationInfo implements Serializable {
 	 */
 	private static final long serialVersionUID = -1421672591504003924L;
 
+	private String id;
 	private Email email;
 	private String confirmationCode;
 	private boolean sent;
@@ -48,6 +49,21 @@ public class EmailConfirmationInfo implements Serializable {
 		super();
 		this.email = email;
 		this.confirmationCode = confirmationCode;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		return id;
+	}
+
+	/**
+	 * @param id
+	 *            the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	/**

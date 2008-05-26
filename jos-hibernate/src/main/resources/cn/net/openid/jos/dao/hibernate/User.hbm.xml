@@ -3,8 +3,8 @@
 
 <hibernate-mapping package="cn.net.openid.jos.domain">
 	<class name="User" table="openid_user">
-		<id name="id" unsaved-value="null" type="java.lang.String"
-			length="32" column="user_id">
+		<id name="id" unsaved-value="null" length="32"
+			column="user_id">
 			<generator class="uuid" />
 		</id>
 		<property name="username" length="255" unique="true"

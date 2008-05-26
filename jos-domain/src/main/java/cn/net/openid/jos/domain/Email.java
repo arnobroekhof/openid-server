@@ -16,14 +16,11 @@ public class Email implements Serializable {
 	private static final long serialVersionUID = 6706127085088356027L;
 
 	private String id;
-
 	private User user;
-
 	private String address;
-
 	private boolean primary;
-
 	private boolean confirmed;
+	private EmailConfirmationInfo emailConfirmationInfo;
 
 	/**
 	 * @return user
@@ -98,6 +95,22 @@ public class Email implements Serializable {
 	 */
 	public void setPrimary(boolean primary) {
 		this.primary = primary;
+	}
+
+	/**
+	 * @return the emailConfirmationInfo
+	 */
+	public EmailConfirmationInfo getEmailConfirmationInfo() {
+		return emailConfirmationInfo;
+	}
+
+	/**
+	 * @param emailConfirmationInfo
+	 *            the emailConfirmationInfo to set
+	 */
+	public void setEmailConfirmationInfo(
+			EmailConfirmationInfo emailConfirmationInfo) {
+		this.emailConfirmationInfo = emailConfirmationInfo;
 	}
 
 }

@@ -3,15 +3,17 @@
 
 <hibernate-mapping package="cn.net.openid.jos.domain">
 	<class name="Email" table="openid_email">
-		<id name="id" unsaved-value="null" type="java.lang.String"
-			length="32" column="email_id">
+		<id name="id" unsaved-value="null" length="32"
+			column="email_id">
 			<generator class="uuid" />
 		</id>
-		<many-to-one name="user" not-null="true" column="email_userid" />
+		<many-to-one name="user" not-null="true" column="email_userid"
+			update="false" />
 		<property name="address" length="255" not-null="true"
 			column="email_address" />
 		<property name="primary" not-null="true" column="email_primary" />
 		<property name="confirmed" not-null="true"
 			column="email_confirmed" />
+		<one-to-one name="emailConfirmationInfo" cascade="delete" />
 	</class>
 </hibernate-mapping>
