@@ -79,4 +79,49 @@ public class AttributeValue implements Serializable {
 		this.value = value;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((attribute == null) ? 0 : attribute.hashCode());
+		result = prime * result + index;
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		final AttributeValue other = (AttributeValue) obj;
+		if (attribute == null) {
+			if (other.attribute != null)
+				return false;
+		} else if (!attribute.equals(other.attribute))
+			return false;
+		if (index != other.index)
+			return false;
+		if (user == null) {
+			if (other.user != null)
+				return false;
+		} else if (!user.equals(other.user))
+			return false;
+		return true;
+	}
+
 }

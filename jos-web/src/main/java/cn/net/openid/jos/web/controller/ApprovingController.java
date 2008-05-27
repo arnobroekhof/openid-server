@@ -75,8 +75,7 @@ public class ApprovingController extends AbstractJosSimpleFormController {
 		String token = request.getParameter("token");
 		form.setToken(token);
 
-		UserSession userSession = WebUtils.getOrCreateUserSession(request
-				.getSession());
+		UserSession userSession = getUser(request);
 		String userId = userSession.getUserId();
 		AuthRequest authReq = userSession.getRequest(token);
 		form.setAuthRequest(authReq);
@@ -137,8 +136,7 @@ public class ApprovingController extends AbstractJosSimpleFormController {
 			log.debug("approving form: " + form);
 		}
 		Boolean approved;
-		UserSession userSession = WebUtils.getOrCreateUserSession(request
-				.getSession());
+		UserSession userSession = getUser(request);
 		AuthRequest authReq = userSession.removeRequest(request
 				.getParameter("token"));
 		String personaId = request.getParameter("personaId");

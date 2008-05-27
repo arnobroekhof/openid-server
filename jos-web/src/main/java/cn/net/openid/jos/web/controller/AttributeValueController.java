@@ -19,7 +19,6 @@ import cn.net.openid.jos.domain.Attribute;
 import cn.net.openid.jos.domain.AttributeValue;
 import cn.net.openid.jos.web.AbstractJosSimpleFormController;
 import cn.net.openid.jos.web.UserSession;
-import cn.net.openid.jos.web.WebUtils;
 
 /**
  * @author Sutra Zhou
@@ -43,8 +42,7 @@ public class AttributeValueController extends AbstractJosSimpleFormController {
 	@Override
 	protected Object formBackingObject(HttpServletRequest request)
 			throws Exception {
-		UserSession userSession = WebUtils.getOrCreateUserSession(request
-				.getSession());
+		UserSession userSession = getUser(request);
 		List<AttributeValue> attributeValues = new ArrayList<AttributeValue>();
 		Collection<Attribute> attributes = this.josService.getAttributes();
 		Map<String, String> userAttributeValues = this.buildMap(this.josService
@@ -71,8 +69,7 @@ public class AttributeValueController extends AbstractJosSimpleFormController {
 	protected ModelAndView onSubmit(HttpServletRequest request,
 			HttpServletResponse response, Object command, BindException errors)
 			throws Exception {
-		UserSession userSession = WebUtils.getOrCreateUserSession(request
-				.getSession());
+		UserSession userSession = getUser(request);
 		List<AttributeValue> attributeValues = (List<AttributeValue>) command;
 		for (AttributeValue attributeValue : attributeValues) {
 			attributeValue.setUser(this.josService.getUser(userSession

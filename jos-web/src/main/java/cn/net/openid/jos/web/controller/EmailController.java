@@ -14,7 +14,6 @@ import cn.net.openid.jos.domain.Email;
 import cn.net.openid.jos.domain.User;
 import cn.net.openid.jos.web.AbstractJosSimpleFormController;
 import cn.net.openid.jos.web.UserSession;
-import cn.net.openid.jos.web.WebUtils;
 
 /**
  * @author Sutra Zhou
@@ -29,8 +28,7 @@ public class EmailController extends AbstractJosSimpleFormController {
 	@Override
 	protected Object formBackingObject(HttpServletRequest request)
 			throws Exception {
-		UserSession userSession = WebUtils.getOrCreateUserSession(request
-				.getSession());
+		UserSession userSession = getUser(request);
 		String userId = userSession.getUserId();
 		User user = this.josService.getUser(userId);
 

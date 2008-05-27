@@ -23,7 +23,6 @@ import cn.net.openid.jos.domain.Site;
 import cn.net.openid.jos.domain.User;
 import cn.net.openid.jos.web.AbstractJosSimpleFormController;
 import cn.net.openid.jos.web.UserSession;
-import cn.net.openid.jos.web.WebUtils;
 import cn.net.openid.jos.web.form.LoginForm;
 
 /**
@@ -77,7 +76,7 @@ public class LoginController extends AbstractJosSimpleFormController {
 			errors.rejectValue("username", "error.login.failed");
 		} else {
 			HttpSession session = request.getSession();
-			UserSession userSession = WebUtils.getOrCreateUserSession(session);
+			UserSession userSession = getUser(session);
 			userSession.setUser(user);
 			userSession.setLoggedIn(true);
 			userSession.setIdentifier(this.josService.buildOpenidUrl(lf
@@ -100,8 +99,7 @@ public class LoginController extends AbstractJosSimpleFormController {
 			throws Exception {
 		LoginForm form = (LoginForm) command;
 		String token = form.getToken();
-		UserSession userSession = WebUtils.getOrCreateUserSession(request
-				.getSession());
+		UserSession userSession = getUser(request);
 		if (userSession.hasRequest(token)) {
 			Site site = this.josService.getSite(userSession.getUserId(),
 					userSession.getRequest(token).getRealm());

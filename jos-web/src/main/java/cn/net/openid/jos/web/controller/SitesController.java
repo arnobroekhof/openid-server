@@ -15,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import cn.net.openid.jos.domain.Site;
 import cn.net.openid.jos.web.AbstractJosSimpleFormController;
-import cn.net.openid.jos.web.WebUtils;
 
 /**
  * @author Sutra Zhou
@@ -34,8 +33,7 @@ public class SitesController extends AbstractJosSimpleFormController {
 			HttpServletResponse response, Object command, BindException errors)
 			throws Exception {
 		String[] realmIds = request.getParameterValues("realmId");
-		String userId = WebUtils.getOrCreateUserSession(request.getSession())
-				.getUserId();
+		String userId = getUser(request).getUserId();
 		if (realmIds != null) {
 			for (String realmId : realmIds) {
 				this.josService.updateAlwaysApprove(userId, realmId, request
@@ -54,8 +52,7 @@ public class SitesController extends AbstractJosSimpleFormController {
 	@Override
 	protected Map<String, List<Site>> referenceData(HttpServletRequest request)
 			throws Exception {
-		return this.getModel(WebUtils.getOrCreateUserSession(
-				request.getSession()).getUserId());
+		return this.getModel(getUser(request).getUserId());
 	}
 
 	private Map<String, List<Site>> getModel(String userId) {

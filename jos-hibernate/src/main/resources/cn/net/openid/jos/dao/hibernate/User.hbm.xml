@@ -10,6 +10,6 @@
 		<property name="username" length="255" unique="true"
 			column="user_username" update="false" />
 		<property name="registerTime" type="timestamp"
-			column="user_registertime" update="false" />
+			column="user_register_time" update="false" />
 	</class>
 </hibernate-mapping>

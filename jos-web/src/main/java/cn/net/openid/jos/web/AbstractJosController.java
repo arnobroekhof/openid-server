@@ -3,6 +3,9 @@
  */
 package cn.net.openid.jos.web;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openid4java.server.ServerManager;
@@ -34,5 +37,13 @@ public abstract class AbstractJosController implements Controller {
 	 */
 	public void setServerManager(ServerManager serverManager) {
 		this.serverManager = serverManager;
+	}
+
+	public UserSession getUser(HttpServletRequest request) {
+		return WebUtils.getOrCreateUserSession(request.getSession());
+	}
+
+	public UserSession getUser(HttpSession session) {
+		return WebUtils.getOrCreateUserSession(session);
 	}
 }

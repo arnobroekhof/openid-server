@@ -22,7 +22,6 @@ import cn.net.openid.jos.domain.Persona;
 import cn.net.openid.jos.domain.Site;
 import cn.net.openid.jos.web.AbstractJosController;
 import cn.net.openid.jos.web.UserSession;
-import cn.net.openid.jos.web.WebUtils;
 
 /**
  * @author Sutra Zhou
@@ -112,8 +111,7 @@ public class ServerController extends AbstractJosController {
 	private void checkId(HttpServletRequest httpReq,
 			HttpServletResponse httpResp, AuthRequest authReq)
 			throws IOException {
-		UserSession userSession = WebUtils.getOrCreateUserSession(httpReq
-				.getSession());
+		UserSession userSession = getUser(httpReq);
 
 		if (userSession.isLoggedIn()) {
 			checkId(httpReq, httpResp, authReq, userSession);

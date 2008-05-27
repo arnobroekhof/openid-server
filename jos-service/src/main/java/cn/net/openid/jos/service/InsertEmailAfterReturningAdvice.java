@@ -6,6 +6,7 @@ package cn.net.openid.jos.service;
 import java.lang.reflect.Method;
 import java.util.Date;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.aop.AfterReturningAdvice;
 
@@ -40,8 +41,17 @@ public class InsertEmailAfterReturningAdvice implements AfterReturningAdvice {
 
 		Email email = (Email) args[0];
 
+		StringBuilder seed = new StringBuilder();
+		seed.append(email.getUser().getId());
+		seed.append(email.getUser().getUsername());
+		seed.append(email.getUser().getRegisterTime());
+		seed.append(email.getAddress());
+		seed.append(RandomStringUtils.randomAlphanumeric(32));
+		seed.append(System.currentTimeMillis());
+		seed.append(System.nanoTime());
+		String confirmationCode = DigestUtils.shaHex(seed.toString());
 		EmailConfirmationInfo emailConfirmationInfo = new EmailConfirmationInfo(
-				email, RandomStringUtils.random(32, true, true));
+				email, confirmationCode);
 		emailConfirmationInfo.setSent(true);
 		emailConfirmationInfo.setSentDate(new Date());
 

@@ -3,6 +3,9 @@
  */
 package cn.net.openid.jos.web;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openid4java.server.ServerManager;
@@ -14,7 +17,8 @@ import cn.net.openid.jos.service.JosService;
  * @author Sutra Zhou
  * 
  */
-public abstract class AbstractJosSimpleFormController extends SimpleFormController {
+public abstract class AbstractJosSimpleFormController extends
+		SimpleFormController {
 	protected final Log log = LogFactory.getLog(getClass());
 
 	protected JosService josService;
@@ -34,5 +38,13 @@ public abstract class AbstractJosSimpleFormController extends SimpleFormControll
 	 */
 	public void setServerManager(ServerManager serverManager) {
 		this.serverManager = serverManager;
+	}
+
+	public UserSession getUser(HttpServletRequest request) {
+		return WebUtils.getOrCreateUserSession(request.getSession());
+	}
+
+	public UserSession getUser(HttpSession session) {
+		return WebUtils.getOrCreateUserSession(session);
 	}
 }

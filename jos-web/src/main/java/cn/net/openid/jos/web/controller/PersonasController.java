@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.net.openid.jos.web.AbstractJosController;
-import cn.net.openid.jos.web.WebUtils;
 
 /**
  * @author Sutra Zhou
@@ -26,8 +25,7 @@ public class PersonasController extends AbstractJosController {
 	public ModelAndView handleRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		return new ModelAndView("personas", "personas", this.josService
-				.getPersonas(WebUtils.getOrCreateUserSession(
-						request.getSession()).getUserId()));
+				.getPersonas(getUser(request).getUserId()));
 	}
 
 }

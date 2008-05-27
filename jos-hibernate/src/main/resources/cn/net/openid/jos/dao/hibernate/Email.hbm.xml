@@ -7,13 +7,14 @@
 			column="email_id">
 			<generator class="uuid" />
 		</id>
-		<many-to-one name="user" not-null="true" column="email_userid"
+		<many-to-one name="user" not-null="true" column="email_user_id"
 			update="false" />
 		<property name="address" length="255" not-null="true"
 			column="email_address" />
 		<property name="primary" not-null="true" column="email_primary" />
 		<property name="confirmed" not-null="true"
 			column="email_confirmed" />
-		<one-to-one name="emailConfirmationInfo" cascade="delete" />
+		<one-to-one name="emailConfirmationInfo" cascade="delete"
+			fetch="join" lazy="no-proxy" />
 	</class>
 </hibernate-mapping>

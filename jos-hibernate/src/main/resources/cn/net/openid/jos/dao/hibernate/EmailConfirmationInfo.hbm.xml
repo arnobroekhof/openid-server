@@ -10,11 +10,17 @@
 				<param name="property">email</param>
 			</generator>
 		</id>
-		<one-to-one name="email" constrained="true" />
-		<property name="confirmationCode" length="32" update="false" />
-		<property name="sent" not-null="true" />
-		<property name="sentDate" />
-		<property name="confirmed" not-null="true" />
-		<property name="confirmedDate" />
+		<one-to-one name="email" constrained="true" fetch="join"
+			lazy="false" />
+		<property name="confirmationCode" length="32" update="false"
+			column="email_confirmation_info_confirmation_code" />
+		<property name="sent" not-null="true"
+			column="email_confirmation_info_sent" />
+		<property name="sentDate"
+			column="email_confirmation_info_sent_date" />
+		<property name="confirmed" not-null="true"
+			column="email_confirmation_info_confirmed" />
+		<property name="confirmedDate"
+			column="email_confirmation_info_confirmed_date" />
 	</class>
 </hibernate-mapping>

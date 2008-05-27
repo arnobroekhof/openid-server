@@ -4,8 +4,8 @@
 <hibernate-mapping package="cn.net.openid.jos.domain">
 	<class name="Site" table="openid_site">
 		<composite-id>
-			<key-many-to-one name="user" column="user_id" />
-			<key-many-to-one name="realm" column="realm_id" />
+			<key-many-to-one name="user" column="site_user_id" />
+			<key-many-to-one name="realm" column="site_realm_id" />
 		</composite-id>
 		<property name="alwaysApprove" column="site_always_approve" />
 		<property name="lastAttempt" column="site_last_attempt" />

@@ -21,7 +21,6 @@ import org.springframework.web.servlet.ModelAndView;
 import cn.net.openid.jos.domain.Persona;
 import cn.net.openid.jos.web.AbstractJosSimpleFormController;
 import cn.net.openid.jos.web.UserSession;
-import cn.net.openid.jos.web.WebUtils;
 
 /**
  * @author Sutra Zhou
@@ -61,8 +60,7 @@ public class PersonaController extends AbstractJosSimpleFormController {
 	@Override
 	protected Object formBackingObject(HttpServletRequest request)
 			throws Exception {
-		UserSession userSession = WebUtils.getOrCreateUserSession(request
-				.getSession());
+		UserSession userSession = getUser(request);
 		String userId = userSession.getUserId();
 		String id = request.getParameter("id");
 		Persona persona;
@@ -88,9 +86,9 @@ public class PersonaController extends AbstractJosSimpleFormController {
 			ServletRequestDataBinder binder) throws Exception {
 		super.initBinder(request, binder);
 		/*
-		binder.registerCustomEditor(Date.class, "dob", new CustomDateEditor(
-				new SimpleDateFormat("yyyy-MM-dd"), true));
-		*/
+		 * binder.registerCustomEditor(Date.class, "dob", new CustomDateEditor(
+		 * new SimpleDateFormat("yyyy-MM-dd"), true));
+		 */
 	}
 
 	/*
@@ -106,9 +104,7 @@ public class PersonaController extends AbstractJosSimpleFormController {
 		if (log.isDebugEnabled()) {
 			log.debug("persona dob: " + persona.getDob());
 		}
-		if (!persona.getUser().getId().equals(
-				WebUtils.getOrCreateUserSession(request.getSession())
-						.getUserId())) {
+		if (!persona.getUser().getId().equals(getUser(request).getUserId())) {
 			errors.reject("hack");
 		}
 		super.onBindAndValidate(request, command, errors);

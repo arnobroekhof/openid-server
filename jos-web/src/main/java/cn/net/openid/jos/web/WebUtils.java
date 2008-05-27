@@ -6,6 +6,7 @@ package cn.net.openid.jos.web;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import cn.net.openid.jos.service.JosService;
@@ -21,7 +22,7 @@ public class WebUtils {
 	private static final String JOS_SERVICE_BEAN_NAME_CONTEXT_PARAM_NAME = "josServiceBeanName";
 
 	public static String generateToken() {
-		return org.apache.commons.lang.RandomStringUtils.random(32, true, true);
+		return RandomStringUtils.randomAlphanumeric(32);
 	}
 
 	public static JosService getJosService(ServletContext servletContext) {
