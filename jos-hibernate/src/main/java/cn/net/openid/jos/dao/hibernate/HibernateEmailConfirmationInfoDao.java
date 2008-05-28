@@ -3,6 +3,8 @@
  */
 package cn.net.openid.jos.dao.hibernate;
 
+import java.util.List;
+
 import cn.net.openid.jos.dao.EmailConfirmationInfoDao;
 import cn.net.openid.jos.domain.EmailConfirmationInfo;
 
@@ -21,7 +23,16 @@ public class HibernateEmailConfirmationInfoDao extends
 	 */
 	public EmailConfirmationInfo getEmailConfirmationInfo(
 			String confirmationCode) {
-		return this.get(confirmationCode);
+		List<EmailConfirmationInfo> emailConfirmationInfos = this.find(
+				"from EmailConfirmationInfo where confirmationCode = ?",
+				confirmationCode);
+		EmailConfirmationInfo ret;
+		if (emailConfirmationInfos.isEmpty()) {
+			ret = null;
+		} else {
+			ret = emailConfirmationInfos.get(0);
+		}
+		return ret;
 	}
 
 	/*

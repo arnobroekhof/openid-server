@@ -242,6 +242,17 @@ public class JosServiceImpl implements JosService {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see cn.net.openid.jos.service.JosService#getEmailConfirmationInfo(java.lang.String)
+	 */
+	public EmailConfirmationInfo getEmailConfirmationInfo(
+			String confirmationCode) {
+		return this.emailConfirmationInfoDao
+				.getEmailConfirmationInfo(confirmationCode);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see cn.net.openid.jos.service.JosService#insertEmailConfirmationInfo(cn.net.openid.jos.domain.EmailConfirmationInfo)
 	 */
 	public void insertEmailConfirmationInfo(
@@ -259,6 +270,21 @@ public class JosServiceImpl implements JosService {
 			EmailConfirmationInfo emailConfirmationInfo) {
 		this.emailConfirmationInfoDao
 				.updateEmailConfirmationInfo(emailConfirmationInfo);
+	}
+
+	public void confirmEmail(String confirmationCode)
+			throws EmailConfirmationInfoNotFoundException {
+		EmailConfirmationInfo eci = this.emailConfirmationInfoDao
+				.getEmailConfirmationInfo(confirmationCode);
+		log.debug("email confirmation info: " + eci);
+		if (eci == null || !eci.isSent() || eci.isConfirmed()) {
+			throw new EmailConfirmationInfoNotFoundException();
+		}
+
+		eci.getEmail().setConfirmed(true);
+		eci.setConfirmed(true);
+		eci.setConfirmedDate(new Date());
+		this.emailConfirmationInfoDao.updateEmailConfirmationInfo(eci);
 	}
 
 	/*

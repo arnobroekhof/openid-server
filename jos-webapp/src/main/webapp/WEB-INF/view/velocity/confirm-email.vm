@@ -1,0 +1,21 @@
+<html>
+	<head>
+		<title>#springMessage("openid") - #springMessage("email")</title>
+	</head>
+	<body>
+	<div>
+		#parse("header.vm")
+		<fieldset>
+		<legend>#springMessage("email")</legend>
+			<form action="email-confirm" method="post">
+				<div>
+					#springFormInput("command.confirmationCode" "style='width:100%'")
+					#springShowErrors("" "error")
+					<div><input type="submit" /></div>
+				</div>
+			</form>
+		</fieldset>
+		#parse("footer.vm")
+	</div>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<html>
+	<head>
+		<title>#springMessage("openid") - #springMessage("email")</title>
+	</head>
+	<body>
+	<div>
+		#parse("header.vm")
+		<div>
+			#springMessage("message.password.createdUpdatedSuccess")
+			<a href="">#springMessage("message.credential.backToCredentials")</a>
+		</div>
+		#parse("footer.vm")
+	</div>
+</body>
+</html>

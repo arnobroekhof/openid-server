@@ -49,9 +49,14 @@ public interface JosService {
 
 	void deleteEmail(String id);
 
+	EmailConfirmationInfo getEmailConfirmationInfo(String confirmationCode);
+
 	void insertEmailConfirmationInfo(EmailConfirmationInfo emailConfirmationInfo);
 
 	void updateEmailConfirmationInfo(EmailConfirmationInfo emailConfirmationInfo);
+
+	void confirmEmail(String confirmationCode)
+			throws EmailConfirmationInfoNotFoundException;
 
 	Attribute getAttribute(String id);
 

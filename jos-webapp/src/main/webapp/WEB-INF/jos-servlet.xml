@@ -68,7 +68,15 @@
 	</bean>
 	<bean id="deleteEmailController"
 		class="cn.net.openid.jos.web.controller.DeleteEmailController"
+		parent="abstractJosController">
+	</bean>
+	<bean id="confirmEmailController"
+		class="cn.net.openid.jos.web.controller.ConfirmEmailController"
 		parent="abstractJosSimpleFormController">
+		<property name="commandClass"
+			value="cn.net.openid.jos.web.form.ConfirmEmailForm" />
+		<property name="formView" value="confirm-email" />
+		<property name="successView" value="confirm-email-success" />
 	</bean>
 
 	<!-- Edit the password. -->
@@ -157,6 +165,8 @@
 				<entry key="/home" value-ref="homeController" />
 				<entry key="/register" value-ref="registerController" />
 				<entry key="/login" value-ref="loginController" />
+				<entry key="/email-confirm"
+					value-ref="confirmEmailController" />
 				<entry key="/hl"
 					value-ref="humanLanguageSelectionController" />
 				<entry key="/server" value-ref="serverController" />
