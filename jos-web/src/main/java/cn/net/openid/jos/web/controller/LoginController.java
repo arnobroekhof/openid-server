@@ -13,15 +13,15 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openid4java.message.MessageException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.net.openid.jos.domain.Password;
-import cn.net.openid.jos.domain.Site;
 import cn.net.openid.jos.domain.User;
 import cn.net.openid.jos.web.AbstractJosSimpleFormController;
+import cn.net.openid.jos.web.CheckIdRequest;
+import cn.net.openid.jos.web.CheckIdRequestProcessor;
 import cn.net.openid.jos.web.UserSession;
 import cn.net.openid.jos.web.form.LoginForm;
 
@@ -100,24 +100,10 @@ public class LoginController extends AbstractJosSimpleFormController {
 		LoginForm form = (LoginForm) command;
 		String token = form.getToken();
 		UserSession userSession = getUser(request);
-		if (userSession.hasRequest(token)) {
-			Site site = this.josService.getSite(userSession.getUserId(),
-					userSession.getRequest(token).getRealm());
-			if (site != null && site.isAlwaysApprove()) {
-				this.josService.updateApproval(userSession.getUserId(),
-						userSession.getRequest(token).getRealm());
-				// return to `return_to' page.
-				try {
-					ServerController.redirectToReturnToPage(this.serverManager,
-							request, response, userSession.getRequest(token),
-							true, site.getPersona());
-				} catch (MessageException e) {
-					log.error("", e);
-				}
-			} else {
-				// redirect to approving page.
-				response.sendRedirect("approving?token=" + token);
-			}
+		CheckIdRequest checkIdRequest = userSession.getRequest(token);
+		if (checkIdRequest != null) {
+			new CheckIdRequestProcessor(request, response, josService,
+					serverManager, checkIdRequest).checkApproval();
 		}
 		return super.onSubmit(request, response, command, errors);
 	}

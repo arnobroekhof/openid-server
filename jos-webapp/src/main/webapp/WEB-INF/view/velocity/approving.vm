@@ -56,7 +56,7 @@ This is the persona we're going to send to <code>$command.authRequest.realm</cod
 								checked="checked"
 							#end
 							/></td>
-							<td><a href="persona?id=$!{esc.html($!{persona.id})}">$!{esc.html($!{persona.name})}</a></td>
+							<td><a href="persona?id=$!{esc.html($!{persona.id})}&token=$!{esc.html($!{token})}">$!{esc.html($!{persona.name})}</a></td>
 							<td>$!{esc.html($!{persona.nickname})}</td>
 							<td>$!{esc.html($!{persona.email})}</td>
 							<td>$!{esc.html($!{persona.fullname})}</td>
@@ -71,7 +71,7 @@ This is the persona we're going to send to <code>$command.authRequest.realm</cod
 					</tbody>
 					<tfoot>
 						<tr>
-							<td colspan="10"><a href="persona">Add New Persona</a></td>
+							<td colspan="10"><a href="persona?token=$!{esc.html($!{token})}">Add New Persona</a></td>
 						</tr>
 					</tfoot>
 				</table>

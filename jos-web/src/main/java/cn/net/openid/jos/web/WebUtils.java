@@ -3,7 +3,11 @@
  */
 package cn.net.openid.jos.web;
 
+import java.io.IOException;
+
 import javax.servlet.ServletContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.RandomStringUtils;
@@ -42,5 +46,28 @@ public class WebUtils {
 		return (UserSession) org.springframework.web.util.WebUtils
 				.getOrCreateSessionAttribute(session, USER_SESSION,
 						UserSession.class);
+	}
+
+	/**
+	 * Writer string to HTTP output stream.
+	 * 
+	 * @param httpResp
+	 *            the HTTP response
+	 * @param response
+	 *            the text which to write, if null, do nothing.
+	 * @throws IOException
+	 */
+	public static void writeResponse(HttpServletResponse httpResp,
+			String response) throws IOException {
+		if (response == null) {
+			return;
+		}
+
+		ServletOutputStream os = httpResp.getOutputStream();
+		try {
+			os.write(response.getBytes());
+		} finally {
+			os.close();
+		}
 	}
 }

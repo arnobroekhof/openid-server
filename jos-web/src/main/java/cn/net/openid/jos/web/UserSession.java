@@ -9,7 +9,6 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openid4java.message.AuthRequest;
 
 import cn.net.openid.jos.domain.User;
 
@@ -32,10 +31,10 @@ public class UserSession implements Serializable {
 	private String username;
 	private String identifier;
 	private boolean loggedIn;
-	private Map<String, AuthRequest> approvingRequest;
+	private Map<String, CheckIdRequest> approvingRequest;
 
 	public UserSession() {
-		this.approvingRequest = new HashMap<String, AuthRequest>();
+		this.approvingRequest = new HashMap<String, CheckIdRequest>();
 		this.loggedIn = false;
 	}
 
@@ -108,30 +107,28 @@ public class UserSession implements Serializable {
 		this.username = username;
 	}
 
-	public String addRequest(AuthRequest request) {
-		String token = WebUtils.generateToken();
-		this.approvingRequest.put(token, request);
-		if (log.isDebugEnabled()) {
-			log.debug("Add request: " + token);
+	public String addRequest(CheckIdRequest request) {
+		if (request.getToken() == null) {
+			String id = WebUtils.generateToken();
+			request.setToken(id);
 		}
-		return token;
+		if (!this.approvingRequest.containsKey(request.getToken())) {
+			this.approvingRequest.put(request.getToken(), request);
+		}
+		if (log.isDebugEnabled()) {
+			log.debug("Add request: " + request.getToken());
+		}
+		return request.getToken();
 	}
 
-	public boolean hasRequest(String token) {
+	public CheckIdRequest getRequest(String id) {
 		if (log.isDebugEnabled()) {
-			log.debug("has request: " + token);
+			log.debug("get request: " + id);
 		}
-		return this.approvingRequest.containsKey(token);
+		return this.approvingRequest.get(id);
 	}
 
-	public AuthRequest getRequest(String token) {
-		if (log.isDebugEnabled()) {
-			log.debug("get request: " + token);
-		}
-		return this.approvingRequest.get(token);
-	}
-
-	public AuthRequest removeRequest(String token) {
+	public CheckIdRequest removeRequest(String token) {
 		if (log.isDebugEnabled()) {
 			log.debug("Remove request: " + token);
 		}

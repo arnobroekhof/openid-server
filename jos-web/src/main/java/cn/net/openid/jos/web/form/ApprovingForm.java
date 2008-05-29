@@ -40,7 +40,7 @@ public class ApprovingForm implements Serializable {
 	}
 
 	/**
-	 * @return the token
+	 * @return the check id request token
 	 */
 	public String getToken() {
 		return token;
@@ -48,7 +48,7 @@ public class ApprovingForm implements Serializable {
 
 	/**
 	 * @param token
-	 *            the token to set
+	 *            the check id request token to set
 	 */
 	public void setToken(String token) {
 		this.token = token;
