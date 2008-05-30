@@ -1,3 +1,4 @@
+#set($springXhtmlCompliant = true)
 <html>
 	<head>
 		<title>#springMessage("openid") - #springMessage("login")</title>
@@ -9,7 +10,7 @@
 			<legend>#springMessage("login")</legend>
 			<form action="login" method="post">
 				#springBind("command.token")
-				<input type="hidden" id="token" name="$!{status.expression}" value="$!{esc.html($!{status.value})}" />
+				#springFormHiddenInput("command.token" "")
 				<table>
 					#springBind("command.username")
 					<tr>
@@ -18,9 +19,9 @@
 						</td>
 						<td>
 							${josConfiguration.identifierPrefix}
-							<input type="text" id="username" name="$!{status.expression}" class="sexy" size="10" value="$!{esc.html($!{status.value})}" />
+							#springFormInput("command.username" 'class="sexy" size="10"')
 							${josConfiguration.identifierSuffix}
-							<span class="error">$!{status.errorMessage}</span>
+							#springShowErrors("" "error")
 						</td>
 					</tr>
 					#springBind("command.password")
@@ -29,8 +30,8 @@
 							<label for="password">#springMessage("label.password")</label>
 						</td>
 						<td>
-							<input type="password" class="common" id="password" name="password" size="33" />
-							<span class="error">$!{status.errorMessage}</span>
+							#springFormPasswordInput("command.password" 'class="common" size="33"')
+							#springShowErrors("" "error")
 						</td>
 					</tr>
 					<tr>
@@ -45,7 +46,7 @@
 			<script type="text/javascript">
 				<!--
 				var objUsername = document.getElementById("username");
-				if (objUsername.value == "") {
+				if (objUsername.value === "") {
 					objUsername.focus();
 				} else {
 					document.getElementById("password").focus();
