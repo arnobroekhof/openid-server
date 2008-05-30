@@ -6,7 +6,11 @@
 	<div>
 		#parse("header.vm")
 		#springMessage("message.persona.modifySuccess")
-		<a href="personas">#springMessage("message.persona.backToPersonas")</a>
+		#if($token)
+			<a href="approving?token=$token">#springMessage("message.persona.backToApproving")</a>
+		#else
+			<a href="personas?token=$token">#springMessage("message.persona.backToPersonas")</a>
+		#end
 		#parse("footer.vm")
 	</div>
 </body>

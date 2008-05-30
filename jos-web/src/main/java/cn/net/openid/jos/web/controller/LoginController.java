@@ -97,8 +97,7 @@ public class LoginController extends AbstractJosSimpleFormController {
 	protected ModelAndView onSubmit(HttpServletRequest request,
 			HttpServletResponse response, Object command, BindException errors)
 			throws Exception {
-		LoginForm form = (LoginForm) command;
-		String token = form.getToken();
+		String token = (String) request.getAttribute("token");
 		UserSession userSession = getUser(request);
 		CheckIdRequest checkIdRequest = userSession.getRequest(token);
 		if (checkIdRequest != null) {
@@ -123,7 +122,6 @@ public class LoginController extends AbstractJosSimpleFormController {
 			form.setUsername(request.getParameter("username"));
 		}
 
-		form.setToken(request.getParameter("token"));
 		return null;
 	}
 }

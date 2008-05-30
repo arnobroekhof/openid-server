@@ -3,7 +3,7 @@
  */
 package cn.net.openid.jos.web.controller;
 
-import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -52,7 +52,6 @@ public class ApprovingController extends AbstractJosSimpleFormController {
 	 * @see org.springframework.web.servlet.mvc.SimpleFormController#referenceData(javax.servlet.http.HttpServletRequest,
 	 *      java.lang.Object, org.springframework.validation.Errors)
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	protected Map<String, Object> referenceData(HttpServletRequest request,
 			Object command, Errors errors) throws Exception {
@@ -63,17 +62,18 @@ public class ApprovingController extends AbstractJosSimpleFormController {
 		UserSession userSession = getUser(request);
 		String userId = userSession.getUserId();
 		CheckIdRequest checkIdRequest = userSession.getRequest(token);
-		AuthRequest authReq = checkIdRequest.getAuthRequest();
-		form.setAuthRequest(authReq);
-		String realmUrl = authReq.getRealm();
-		Site site = josService.getSite(userId, realmUrl);
-		if (site != null && site.getPersona() != null) {
-			form.setPersonaId(site.getPersona().getId());
+		if (checkIdRequest != null) {
+			AuthRequest authReq = checkIdRequest.getAuthRequest();
+			form.setAuthRequest(authReq);
+			String realmUrl = authReq.getRealm();
+			Site site = josService.getSite(userId, realmUrl);
+			if (site != null && site.getPersona() != null) {
+				form.setPersonaId(site.getPersona().getId());
+			}
 		}
-
-		Collection<Persona> personas = this.josService.getPersonas(userId);
-		request.setAttribute("personas", personas);
-		return super.referenceData(request, command, errors);
+		Map<String, Object> models = new HashMap<String, Object>();
+		models.put("personas", this.josService.getPersonas(userId));
+		return models;
 	}
 
 	/*
@@ -103,8 +103,7 @@ public class ApprovingController extends AbstractJosSimpleFormController {
 
 		UserSession userSession = getUser(request);
 
-		CheckIdRequest checkIdRequest = userSession.getRequest(form
-				.getToken());
+		CheckIdRequest checkIdRequest = userSession.getRequest(form.getToken());
 		AuthRequest authReq = checkIdRequest.getAuthRequest();
 
 		String userId = userSession.getUserId();

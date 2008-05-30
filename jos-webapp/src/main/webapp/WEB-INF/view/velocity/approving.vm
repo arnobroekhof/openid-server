@@ -16,16 +16,16 @@
 			<legend>#springMessage("login")</legend>
 <div>
 A site identifying itself as 
-<span><code>$command.authRequest.returnTo</code></span>
+<span><code>$!command.authRequest.returnTo</code></span>
 has asked us for confirmation that
-<span><code>$command.authRequest.identity</code></span>
+<span><code>$!command.authRequest.identity</code></span>
 is your identity URL.
 </div>
 <div>
 The site also asked for additional information.
 It did not provide a link to the policy on data it collects.
 ##You can find the their policy about the data it collected on this page.
-This is the persona we're going to send to <code>$command.authRequest.realm</code>:
+This is the persona we're going to send to <code>$!command.authRequest.realm</code>:
 </div>
 			<form action="approving" method="post">
 				#springBind("command.token")
