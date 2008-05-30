@@ -24,6 +24,8 @@ public class CheckIdRequestFilter implements Filter {
 			.getLog(CheckIdRequestFilter.class);
 	private static final boolean DEBUG = log.isDebugEnabled();
 
+	private static final String TOKEN_ATTRIBUTE_NAME = "token";
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -47,7 +49,7 @@ public class CheckIdRequestFilter implements Filter {
 			if (DEBUG) {
 				log.debug("Add attribute `token' to request: " + token);
 			}
-			request.setAttribute("token", token);
+			request.setAttribute(TOKEN_ATTRIBUTE_NAME, token);
 		}
 		chain.doFilter(request, response);
 	}

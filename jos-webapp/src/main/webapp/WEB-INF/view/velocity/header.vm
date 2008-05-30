@@ -31,3 +31,18 @@
 <div id="description">
 	#springMessage("description")
 </div>
+#if($userSession.approvingRequests.size() > 0)
+<div id="approving-tip">
+	#if($userSession.approvingRequests.size() == 1)
+		Your approving authentiation request:
+		#foreach($approvingRequest in $userSession.approvingRequests)<a href="approving?token=$approvingRequest.token">$approvingRequest.authRequest.returnTo</a>#end.
+	#else
+	Your approving authentication requests:
+	<ul>
+		#foreach($approvingRequest in $userSession.approvingRequests)
+		<li#if($approvingRequest.token == $token) class="current"#end><a href="approving?token=$approvingRequest.token">$approvingRequest.authRequest.returnTo</a></li>
+		#end
+	</ul>
+	#end
+</div>
+#end

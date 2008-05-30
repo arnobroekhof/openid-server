@@ -4,6 +4,7 @@
 package cn.net.openid.jos.web;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,10 +32,10 @@ public class UserSession implements Serializable {
 	private String username;
 	private String identifier;
 	private boolean loggedIn;
-	private Map<String, CheckIdRequest> approvingRequest;
+	private Map<String, CheckIdRequest> approvingRequests;
 
 	public UserSession() {
-		this.approvingRequest = new HashMap<String, CheckIdRequest>();
+		this.approvingRequests = new HashMap<String, CheckIdRequest>();
 		this.loggedIn = false;
 	}
 
@@ -107,13 +108,15 @@ public class UserSession implements Serializable {
 		this.username = username;
 	}
 
+	/* Authentiation Requests */
+
 	public String addRequest(CheckIdRequest request) {
 		if (request.getToken() == null) {
 			String id = WebUtils.generateToken();
 			request.setToken(id);
 		}
-		if (!this.approvingRequest.containsKey(request.getToken())) {
-			this.approvingRequest.put(request.getToken(), request);
+		if (!this.approvingRequests.containsKey(request.getToken())) {
+			this.approvingRequests.put(request.getToken(), request);
 		}
 		if (log.isDebugEnabled()) {
 			log.debug("Add request: " + request.getToken());
@@ -121,17 +124,21 @@ public class UserSession implements Serializable {
 		return request.getToken();
 	}
 
-	public CheckIdRequest getRequest(String id) {
+	public CheckIdRequest getRequest(String token) {
 		if (log.isDebugEnabled()) {
-			log.debug("get request: " + id);
+			log.debug("get request: " + token);
 		}
-		return this.approvingRequest.get(id);
+		return this.approvingRequests.get(token);
 	}
 
 	public CheckIdRequest removeRequest(String token) {
 		if (log.isDebugEnabled()) {
 			log.debug("Remove request: " + token);
 		}
-		return this.approvingRequest.remove(token);
+		return this.approvingRequests.remove(token);
+	}
+
+	public Collection<CheckIdRequest> getApprovingRequests() {
+		return this.approvingRequests.values();
 	}
 }

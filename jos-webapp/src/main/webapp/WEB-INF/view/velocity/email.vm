@@ -10,6 +10,7 @@
 	<body>
 	<div>
 		#parse("header.vm")
+		<fieldset><legend>#springMessage("email")</legend>
 		#if ($unconfirmedEmails.size() > 0)
 		<p>We are currently awaiting confirmatioon for the address listed below:</p>
 		<ul>
@@ -46,6 +47,7 @@
 			#springShowErrors("" "error")
 			<input type="submit" class="button" value="#springMessage('message.email.sendInstructions')" />
 		</form>
+		</fieldset>
 		#parse("footer.vm")
 	</div>
 </body>

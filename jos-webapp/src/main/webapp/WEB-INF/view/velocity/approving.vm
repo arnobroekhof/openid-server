@@ -88,9 +88,9 @@ This is the persona we're going to send to <code>$!command.authRequest.realm</co
 					<td><input type="text" id="attribute_$!{esc.html($!{attribute.name})}" name="$!{esc.html($!{attribute.name})}" value="$!{esc.html($!{attribute.value})}" /></td></tr>
 				#end
 				</table>
-				<input type="submit" name="allow_forever" value="Allow Forever" />
-				<input type="submit" name="allow_once" value="Allow Once" />
-				<input type="submit" name="deny" value="Deny" />
+				<input type="submit" name="allow_forever" value="Allow Forever" class="button" />
+				<input type="submit" name="allow_once" value="Allow Once" class="button" />
+				<input type="submit" name="deny" value="Deny" class="button" />
 			</form>
 		</fieldset>
 		#parse("footer.vm")
