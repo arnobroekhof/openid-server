@@ -36,14 +36,14 @@ import cn.net.openid.jos.service.JosService;
  * @author Sutra Zhou
  * 
  */
-public class CheckIdRequestProcessor {
+public class ApprovingRequestProcessor {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -2198287012373272798L;
 
 	private static final Log log = LogFactory
-			.getLog(CheckIdRequestProcessor.class);
+			.getLog(ApprovingRequestProcessor.class);
 
 	private JosService josService;
 	private ServerManager serverManager;
@@ -51,7 +51,7 @@ public class CheckIdRequestProcessor {
 	private HttpServletRequest httpReq;
 	private HttpServletResponse httpResp;
 
-	private CheckIdRequest checkIdRequest;
+	private ApprovingRequest checkIdRequest;
 	private AuthRequest authRequest;
 	private UserSession userSession;
 	private String userId;
@@ -68,9 +68,9 @@ public class CheckIdRequestProcessor {
 	 * @param userSession
 	 * @param authRequest
 	 */
-	public CheckIdRequestProcessor(HttpServletRequest httpReq,
+	public ApprovingRequestProcessor(HttpServletRequest httpReq,
 			HttpServletResponse httpResp, JosService josService,
-			ServerManager serverManager, CheckIdRequest checkIdRequest) {
+			ServerManager serverManager, ApprovingRequest checkIdRequest) {
 		this.httpReq = httpReq;
 		this.httpResp = httpResp;
 		this.josService = josService;
@@ -93,7 +93,7 @@ public class CheckIdRequestProcessor {
 		} else {
 			// redirect to login page.
 			String url = "login?token="
-					+ userSession.addRequest(checkIdRequest);
+					+ userSession.addApprovingRequest(checkIdRequest);
 			httpResp.sendRedirect(url);
 		}
 	}
@@ -114,7 +114,7 @@ public class CheckIdRequestProcessor {
 		} else {
 			// redirect to approving page.
 			String url = "approving?token="
-					+ userSession.addRequest(checkIdRequest);
+					+ userSession.addApprovingRequest(checkIdRequest);
 			httpResp.sendRedirect(url);
 		}
 	}
@@ -175,7 +175,7 @@ public class CheckIdRequestProcessor {
 			// return null;
 		}
 
-		userSession.removeRequest(checkIdRequest.getToken());
+		userSession.removeApprovingRequest(checkIdRequest.getToken());
 	}
 
 	private String directResponse(String response) throws IOException {

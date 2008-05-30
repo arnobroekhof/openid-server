@@ -17,8 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 import cn.net.openid.jos.domain.Persona;
 import cn.net.openid.jos.domain.Site;
 import cn.net.openid.jos.web.AbstractJosSimpleFormController;
-import cn.net.openid.jos.web.CheckIdRequest;
-import cn.net.openid.jos.web.CheckIdRequestProcessor;
+import cn.net.openid.jos.web.ApprovingRequest;
+import cn.net.openid.jos.web.ApprovingRequestProcessor;
 import cn.net.openid.jos.web.UserSession;
 import cn.net.openid.jos.web.form.ApprovingForm;
 
@@ -61,7 +61,7 @@ public class ApprovingController extends AbstractJosSimpleFormController {
 
 		UserSession userSession = getUser(request);
 		String userId = userSession.getUserId();
-		CheckIdRequest checkIdRequest = userSession.getRequest(token);
+		ApprovingRequest checkIdRequest = userSession.getApprovingRequest(token);
 		if (checkIdRequest != null) {
 			AuthRequest authReq = checkIdRequest.getAuthRequest();
 			form.setAuthRequest(authReq);
@@ -103,7 +103,7 @@ public class ApprovingController extends AbstractJosSimpleFormController {
 
 		UserSession userSession = getUser(request);
 
-		CheckIdRequest checkIdRequest = userSession.getRequest(form.getToken());
+		ApprovingRequest checkIdRequest = userSession.getApprovingRequest(form.getToken());
 		AuthRequest authReq = checkIdRequest.getAuthRequest();
 
 		String userId = userSession.getUserId();
@@ -129,7 +129,7 @@ public class ApprovingController extends AbstractJosSimpleFormController {
 			persona = null;
 		}
 
-		new CheckIdRequestProcessor(request, response, josService,
+		new ApprovingRequestProcessor(request, response, josService,
 				serverManager, checkIdRequest).redirectToReturnToPage(approved,
 				persona);
 		return null;

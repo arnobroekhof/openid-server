@@ -20,8 +20,8 @@ import org.springframework.web.servlet.ModelAndView;
 import cn.net.openid.jos.domain.Password;
 import cn.net.openid.jos.domain.User;
 import cn.net.openid.jos.web.AbstractJosSimpleFormController;
-import cn.net.openid.jos.web.CheckIdRequest;
-import cn.net.openid.jos.web.CheckIdRequestProcessor;
+import cn.net.openid.jos.web.ApprovingRequest;
+import cn.net.openid.jos.web.ApprovingRequestProcessor;
 import cn.net.openid.jos.web.UserSession;
 import cn.net.openid.jos.web.form.LoginForm;
 
@@ -99,9 +99,9 @@ public class LoginController extends AbstractJosSimpleFormController {
 			throws Exception {
 		String token = (String) request.getAttribute("token");
 		UserSession userSession = getUser(request);
-		CheckIdRequest checkIdRequest = userSession.getRequest(token);
+		ApprovingRequest checkIdRequest = userSession.getApprovingRequest(token);
 		if (checkIdRequest != null) {
-			new CheckIdRequestProcessor(request, response, josService,
+			new ApprovingRequestProcessor(request, response, josService,
 					serverManager, checkIdRequest).checkApproval();
 		}
 		return super.onSubmit(request, response, command, errors);

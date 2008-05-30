@@ -19,9 +19,9 @@ import org.apache.commons.logging.LogFactory;
  * @author Sutra Zhou
  * 
  */
-public class CheckIdRequestFilter implements Filter {
+public class ApprovingRequestFilter implements Filter {
 	private static final Log log = LogFactory
-			.getLog(CheckIdRequestFilter.class);
+			.getLog(ApprovingRequestFilter.class);
 	private static final boolean DEBUG = log.isDebugEnabled();
 
 	private static final String TOKEN_ATTRIBUTE_NAME = "token";

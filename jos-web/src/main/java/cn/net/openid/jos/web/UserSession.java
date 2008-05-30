@@ -32,10 +32,10 @@ public class UserSession implements Serializable {
 	private String username;
 	private String identifier;
 	private boolean loggedIn;
-	private Map<String, CheckIdRequest> approvingRequests;
+	private Map<String, ApprovingRequest> approvingRequests;
 
 	public UserSession() {
-		this.approvingRequests = new HashMap<String, CheckIdRequest>();
+		this.approvingRequests = new HashMap<String, ApprovingRequest>();
 		this.loggedIn = false;
 	}
 
@@ -110,35 +110,36 @@ public class UserSession implements Serializable {
 
 	/* Authentiation Requests */
 
-	public String addRequest(CheckIdRequest request) {
-		if (request.getToken() == null) {
+	public String addApprovingRequest(ApprovingRequest approvingRequest) {
+		if (approvingRequest.getToken() == null) {
 			String id = WebUtils.generateToken();
-			request.setToken(id);
+			approvingRequest.setToken(id);
 		}
-		if (!this.approvingRequests.containsKey(request.getToken())) {
-			this.approvingRequests.put(request.getToken(), request);
+		if (!this.approvingRequests.containsKey(approvingRequest.getToken())) {
+			this.approvingRequests.put(approvingRequest.getToken(),
+					approvingRequest);
 		}
 		if (log.isDebugEnabled()) {
-			log.debug("Add request: " + request.getToken());
+			log.debug("Add approving request: " + approvingRequest.getToken());
 		}
-		return request.getToken();
+		return approvingRequest.getToken();
 	}
 
-	public CheckIdRequest getRequest(String token) {
+	public ApprovingRequest getApprovingRequest(String token) {
 		if (log.isDebugEnabled()) {
-			log.debug("get request: " + token);
+			log.debug("get approving request: " + token);
 		}
 		return this.approvingRequests.get(token);
 	}
 
-	public CheckIdRequest removeRequest(String token) {
+	public ApprovingRequest removeApprovingRequest(String token) {
 		if (log.isDebugEnabled()) {
-			log.debug("Remove request: " + token);
+			log.debug("Remove approving request: " + token);
 		}
 		return this.approvingRequests.remove(token);
 	}
 
-	public Collection<CheckIdRequest> getApprovingRequests() {
+	public Collection<ApprovingRequest> getApprovingRequests() {
 		return this.approvingRequests.values();
 	}
 }

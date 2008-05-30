@@ -14,8 +14,8 @@ import org.openid4java.message.ParameterList;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.net.openid.jos.web.AbstractJosController;
-import cn.net.openid.jos.web.CheckIdRequest;
-import cn.net.openid.jos.web.CheckIdRequestProcessor;
+import cn.net.openid.jos.web.ApprovingRequest;
+import cn.net.openid.jos.web.ApprovingRequestProcessor;
 import cn.net.openid.jos.web.WebUtils;
 
 /**
@@ -66,8 +66,8 @@ public class ServerController extends AbstractJosController {
 				|| "checkid_immediate".equals(mode)) {
 			AuthRequest authReq = AuthRequest.createAuthRequest(request,
 					this.serverManager.getRealmVerifier());
-			new CheckIdRequestProcessor(httpReq, httpResp, josService,
-					serverManager, new CheckIdRequest(authReq)).checkLoggedIn();
+			new ApprovingRequestProcessor(httpReq, httpResp, josService,
+					serverManager, new ApprovingRequest(authReq)).checkLoggedIn();
 			responseText = null;
 		} else if ("check_authentication".equals(mode)) {
 			// --- processing a verification request ---

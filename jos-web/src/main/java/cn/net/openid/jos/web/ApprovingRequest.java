@@ -11,7 +11,7 @@ import org.openid4java.message.AuthRequest;
  * @author Sutra Zhou
  * 
  */
-public class CheckIdRequest implements Serializable {
+public class ApprovingRequest implements Serializable {
 	/**
 	 * 
 	 */
@@ -23,13 +23,13 @@ public class CheckIdRequest implements Serializable {
 	/**
 	 * 
 	 */
-	public CheckIdRequest() {
+	public ApprovingRequest() {
 	}
 
 	/**
 	 * @param authRequest
 	 */
-	public CheckIdRequest(AuthRequest authRequest) {
+	public ApprovingRequest(AuthRequest authRequest) {
 		this.authRequest = authRequest;
 	}
 
@@ -37,7 +37,7 @@ public class CheckIdRequest implements Serializable {
 	 * @param token
 	 * @param authRequest
 	 */
-	public CheckIdRequest(String token, AuthRequest authRequest) {
+	public ApprovingRequest(String token, AuthRequest authRequest) {
 		this.token = token;
 		this.authRequest = authRequest;
 	}
@@ -98,7 +98,7 @@ public class CheckIdRequest implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		final CheckIdRequest other = (CheckIdRequest) obj;
+		final ApprovingRequest other = (ApprovingRequest) obj;
 		if (token == null) {
 			if (other.token != null)
 				return false;

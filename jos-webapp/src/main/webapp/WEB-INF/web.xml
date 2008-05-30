@@ -69,10 +69,10 @@
 		<filter-class>cn.net.openid.jos.web.MemberFilter</filter-class>
 	</filter>
 	<filter>
-		<display-name>Check Id Request Filter</display-name>
-		<filter-name>Check Id Request Filter</filter-name>
+		<display-name>Approving Request Filter</display-name>
+		<filter-name>Approving Request Filter</filter-name>
 		<filter-class>
-			cn.net.openid.jos.web.CheckIdRequestFilter
+			cn.net.openid.jos.web.ApprovingRequestFilter
 		</filter-class>
 	</filter>
 
@@ -124,7 +124,7 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
-		<filter-name>Check Id Request Filter</filter-name>
+		<filter-name>Approving Request Filter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
