@@ -6,6 +6,7 @@ package cn.net.openid.jos.web.validation;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.validation.Errors;
@@ -53,12 +54,21 @@ public class RegisterFormValidator implements Validator {
 		RegisterForm user = (RegisterForm) target;
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username",
 				"required", "Field is required.");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password",
+				"required", "Field is required.");
 		if (user.getUsername() != null) {
 			Matcher m = this.usernamePattern.matcher(user.getUsername());
 			if (!m.matches()) {
 				errors.rejectValue("username", "error.username.format",
 						"Username format not allowed.");
 			}
+		}
+
+		if (!StringUtils.equals(user.getPassword(), user
+				.getConfirmingPassword())) {
+			errors.rejectValue("confirmingPassword",
+					"confirmingPassword.notEquals",
+					"Confirming password is not equals to the password.");
 		}
 	}
 }

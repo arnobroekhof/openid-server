@@ -17,8 +17,8 @@ public class RegisterForm implements Serializable {
 	private static final long serialVersionUID = 8100263157196112732L;
 
 	private String username;
-
 	private String password;
+	private String confirmingPassword;
 
 	/**
 	 * @return the password
@@ -48,6 +48,21 @@ public class RegisterForm implements Serializable {
 	 */
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	/**
+	 * @return the confirmingPassword
+	 */
+	public String getConfirmingPassword() {
+		return confirmingPassword;
+	}
+
+	/**
+	 * @param confirmingPassword
+	 *            the confirmingPassword to set
+	 */
+	public void setConfirmingPassword(String confirmingPassword) {
+		this.confirmingPassword = confirmingPassword;
 	}
 
 }

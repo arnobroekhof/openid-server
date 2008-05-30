@@ -1,24 +1,25 @@
+#set($springXhtmlCompliant = true)
 <html>
 	<head>
 		<title>#springMessage("openid") - #springMessage("register")</title>
 		<script type="text/javascript">
 			function chkFrm() {
-				var objMember = document.getElementById("username");
-				if (objMember.value == "") {
-					alert("OpenID URL is error.");
-					objMember.focus();
+				var objUsername = document.getElementById("username");
+				if (objUsername.value === "") {
+					alert("#springMessageText("error.username.format" "Username is required.")");
+					objUsername.focus();
 					return false;
 				}
 				var objPassword = document.getElementById("password");
-				if (objPassword.value == "") {
-					alert("Password can't empty.");
+				if (objPassword.value === "") {
+					alert("#springMessageText("error.password.empty" "Password is required.")");
 					objPassword.focus();
 					return false;
 				}
-				var objRetypePassword = document.getElementById("retypePassword");
-				if (objPassword.value != objRetypePassword.value) {
-					alert("Retype password is not correct.");
-					objRetypePassword.focus();
+				var objConfirmingPassword = document.getElementById("confirmingPassword");
+				if (objPassword.value !== objConfirmingPassword.value) {
+					alert("#springMessageText("error.password.notEquals" "Confirming password is not equals to the password.")");
+					objConfirmingPassword.focus();
 					return false;
 				}
 			}
@@ -38,27 +39,31 @@
 						</td>
 						<td>
 							${josConfiguration.identifierPrefix}
-							<input type="text" id="username" name="username" class="sexy" size="10" value="$!{esc.html($!{status.value})}" />
+							#springFormInput("command.username" 'class="sexy" size="10"')
 							${josConfiguration.identifierSuffix}
-							<span class="error">$!{status.errorMessage}</span>
+							#springShowErrors("" "error")
 						</td>
 					</tr>
 				</table>
 				<table>
+					#springBind("command.password")
 					<tr>
 						<td class="label">
 							<label for="password">#springMessage("label.password")</label>
 						</td>
 						<td>
-							<input type="password" id="password" name="password" />
+							#springFormPasswordInput("command.password" "")
+							#springShowErrors("" "error")
 						</td>
 					</tr>
+					#springBind("command.confirmingPassword")
 					<tr>
 						<td class="label">
 							<label for="confirmingPassword">#springMessage("label.confirmingPassword")</label>
 					  </td>
 						<td>
-							<input type="password" id="confirmingPassword" name="confirmingPpassword" />
+							#springFormPasswordInput("command.confirmingPassword" "")
+							#springShowErrors("" "error")
 						</td>
 					</tr>
 					<tr>
@@ -70,7 +75,7 @@
 			<script type="text/javascript">
 				<!--
 				var objUsername = document.getElementById("username");
-				if (objUsername.value == "") {
+				if (objUsername.value === "") {
 					objUsername.focus();
 				} else {
 					document.getElementById("password").focus();
