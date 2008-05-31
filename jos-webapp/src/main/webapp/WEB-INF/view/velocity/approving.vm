@@ -35,7 +35,6 @@ This is the persona we're going to send to <code>$!command.authRequest.realm</co
 				<table class="list">
 					<thead>
 						<tr>
-							<th>&nbsp;</th>
 							<th>#springMessage("message.persona.name")</th>
 							<th>#springMessage("message.persona.nickname")</th>
 							<th>#springMessage("message.persona.email")</th>
@@ -46,17 +45,17 @@ This is the persona we're going to send to <code>$!command.authRequest.realm</co
 							<th>#springMessage("message.persona.country")</th>
 							<th>#springMessage("message.persona.language")</th>
 							<th>#springMessage("message.persona.timezone")</th>
+							<th>#springMessage("edit")</th>
 						</tr>
 					</thead>
 					<tbody>
 					#foreach($persona in $personas)
 						<tr>
-							<td><input type="radio" name="personaId" value="$!{esc.html($!{persona.id})}"
+							<td style="text-align:left;"><input type="radio" id="$!{esc.html($!{persona.id})}" name="personaId" value="$!{esc.html($!{persona.id})}"
 							#if($status.value == $persona.id)
 								checked="checked"
 							#end
-							/></td>
-							<td><a href="persona?id=$!{esc.html($!{persona.id})}&token=$!{esc.html($!{token})}">$!{esc.html($!{persona.name})}</a></td>
+							/><label for="$!{esc.html($!{persona.id})}">$!{esc.html($!{persona.name})}</label></td>
 							<td>$!{esc.html($!{persona.nickname})}</td>
 							<td>$!{esc.html($!{persona.email})}</td>
 							<td>$!{esc.html($!{persona.fullname})}</td>
@@ -66,6 +65,7 @@ This is the persona we're going to send to <code>$!command.authRequest.realm</co
 							<td>$!{esc.html($!{persona.country})}</td>
 							<td>$!{esc.html($!{persona.language})}</td>
 							<td>$!{esc.html($!{persona.timezone})}</td>
+							<td><a href="persona?id=$!{esc.html($!{persona.id})}&token=$!{esc.html($!{token})}">#springMessage("edit")</a></td>
 						</tr>
 					#end
 					</tbody>

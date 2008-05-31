@@ -203,7 +203,7 @@ table.list tfoot tr td {
 
 #approving-tip {
 	color: #000;
-	border: 1px dashed green;
+	border: 1px dashed #ddd;
 	padding: 7px;
 }
 
