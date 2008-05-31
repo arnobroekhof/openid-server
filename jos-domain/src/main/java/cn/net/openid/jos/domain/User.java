@@ -19,7 +19,14 @@ public class User implements Serializable {
 
 	private String id;
 	private String username;
-	private Date registerTime = new Date();
+	private Date creationDate;
+
+	/**
+	 * 
+	 */
+	public User() {
+		creationDate = new Date();
+	}
 
 	/**
 	 * @return the id
@@ -29,10 +36,10 @@ public class User implements Serializable {
 	}
 
 	/**
-	 * @return the registerTime
+	 * @return the creationDate
 	 */
-	public Date getRegisterTime() {
-		return registerTime;
+	public Date getCreationDate() {
+		return creationDate;
 	}
 
 	/**
@@ -51,11 +58,11 @@ public class User implements Serializable {
 	}
 
 	/**
-	 * @param registerTime
-	 *            the registerTime to set
+	 * @param creationDate
+	 *            the creationDate to set
 	 */
-	public void setRegisterTime(Date registerTime) {
-		this.registerTime = registerTime;
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
 	}
 
 	/**

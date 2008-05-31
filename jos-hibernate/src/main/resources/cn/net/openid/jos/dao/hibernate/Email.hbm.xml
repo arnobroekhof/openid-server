@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping package="cn.net.openid.jos.domain">
-	<class name="Email" table="openid_email">
+	<class name="Email" table="jos_email">
 		<id name="id" unsaved-value="null" length="32"
 			column="email_id">
 			<generator class="uuid" />
@@ -16,5 +16,7 @@
 			column="email_confirmed" />
 		<one-to-one name="emailConfirmationInfo" cascade="delete"
 			fetch="join" lazy="no-proxy" />
+		<property name="creationDate" type="timestamp"
+			column="email_creation_date" update="false" />
 	</class>
 </hibernate-mapping>

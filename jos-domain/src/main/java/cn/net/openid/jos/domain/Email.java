@@ -4,6 +4,7 @@
 package cn.net.openid.jos.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author Sutra Zhou
@@ -21,6 +22,16 @@ public class Email implements Serializable {
 	private boolean primary;
 	private boolean confirmed;
 	private EmailConfirmationInfo emailConfirmationInfo;
+	private Date creationDate;
+
+	/**
+	 * 
+	 */
+	public Email() {
+		user = new User();
+		emailConfirmationInfo = new EmailConfirmationInfo();
+		creationDate = new Date();
+	}
 
 	/**
 	 * @return user
@@ -111,6 +122,21 @@ public class Email implements Serializable {
 	public void setEmailConfirmationInfo(
 			EmailConfirmationInfo emailConfirmationInfo) {
 		this.emailConfirmationInfo = emailConfirmationInfo;
+	}
+
+	/**
+	 * @return the creationDate
+	 */
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	/**
+	 * @param creationDate
+	 *            the creationDate to set
+	 */
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
 	}
 
 	/*

@@ -23,6 +23,18 @@ public class Site implements Serializable {
 	private Persona persona;
 	private Date lastAttempt;
 	private int approvals;
+	private Date creationDate;
+
+	/**
+	 * 
+	 */
+	public Site() {
+		user = new User();
+		realm = new Realm();
+		persona = new Persona();
+		lastAttempt = new Date();
+		creationDate = new Date();
+	}
 
 	/**
 	 * @return alwaysApprove
@@ -112,6 +124,21 @@ public class Site implements Serializable {
 	 */
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	/**
+	 * @return the creationDate
+	 */
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	/**
+	 * @param creationDate
+	 *            the creationDate to set
+	 */
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
 	}
 
 	/*

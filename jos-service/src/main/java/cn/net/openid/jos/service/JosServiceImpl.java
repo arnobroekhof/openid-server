@@ -250,7 +250,7 @@ public class JosServiceImpl implements JosService {
 		StringBuilder seed = new StringBuilder();
 		seed.append(email.getUser().getId());
 		seed.append(email.getUser().getUsername());
-		seed.append(email.getUser().getRegisterTime());
+		seed.append(email.getUser().getCreationDate());
 		seed.append(email.getAddress());
 		seed.append(RandomStringUtils.randomAlphanumeric(40));
 		seed.append(System.currentTimeMillis());

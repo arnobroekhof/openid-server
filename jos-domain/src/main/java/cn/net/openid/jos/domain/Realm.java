@@ -4,6 +4,7 @@
 package cn.net.openid.jos.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author Sutra Zhou
@@ -17,6 +18,14 @@ public class Realm implements Serializable {
 
 	private String id;
 	private String url;
+	private Date creationDate;
+
+	/**
+	 * 
+	 */
+	public Realm() {
+		creationDate = new Date();
+	}
 
 	/**
 	 * @return the id
@@ -46,6 +55,21 @@ public class Realm implements Serializable {
 	 */
 	public void setUrl(String url) {
 		this.url = url;
+	}
+
+	/**
+	 * @return the creationDate
+	 */
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	/**
+	 * @param creationDate
+	 *            the creationDate to set
+	 */
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
 	}
 
 	/*

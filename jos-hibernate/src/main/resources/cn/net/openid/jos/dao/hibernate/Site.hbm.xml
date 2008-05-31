@@ -2,14 +2,16 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping package="cn.net.openid.jos.domain">
-	<class name="Site" table="openid_site">
+	<class name="Site" table="jos_site">
 		<composite-id>
 			<key-many-to-one name="user" column="site_user_id" />
 			<key-many-to-one name="realm" column="site_realm_id" />
 		</composite-id>
 		<property name="alwaysApprove" column="site_always_approve" />
+		<many-to-one name="persona" column="site_persona" />
 		<property name="lastAttempt" column="site_last_attempt" />
 		<property name="approvals" column="site_approvals" />
-		<many-to-one name="persona" column="site_persona" />
+		<property name="creationDate" type="timestamp"
+			column="site_creation_date" />
 	</class>
 </hibernate-mapping>

@@ -4,6 +4,7 @@
 package cn.net.openid.jos.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author Sutra Zhou
@@ -16,12 +17,18 @@ public class Password implements Serializable {
 	private static final long serialVersionUID = 7141923018810122892L;
 
 	private String id;
-
 	private User user;
+	private String plaintext;
+	private String shaHex;
+	private Date creationDate;
 
-	private String password;
-
-	private String passwordShaHex;
+	/**
+	 * 
+	 */
+	public Password() {
+		user = new User();
+		creationDate = new Date();
+	}
 
 	/**
 	 * @return id
@@ -39,18 +46,18 @@ public class Password implements Serializable {
 	}
 
 	/**
-	 * @return password
+	 * @return plaintext
 	 */
-	public String getPassword() {
-		return password;
+	public String getPlaintext() {
+		return plaintext;
 	}
 
 	/**
-	 * @param password
-	 *            要设置的 password
+	 * @param plaintext
+	 *            要设置的 plaintext
 	 */
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPlaintext(String plaintext) {
+		this.plaintext = plaintext;
 	}
 
 	/**
@@ -69,18 +76,33 @@ public class Password implements Serializable {
 	}
 
 	/**
-	 * @return passwordShaHex
+	 * @return shaHex
 	 */
-	public String getPasswordShaHex() {
-		return passwordShaHex;
+	public String getShaHex() {
+		return shaHex;
 	}
 
 	/**
-	 * @param passwordShaHex
-	 *            要设置的 passwordShaHex
+	 * @param shaHex
+	 *            要设置的 shaHex
 	 */
-	public void setPasswordShaHex(String passwordShaHex) {
-		this.passwordShaHex = passwordShaHex;
+	public void setShaHex(String shaHex) {
+		this.shaHex = shaHex;
+	}
+
+	/**
+	 * @return the creationDate
+	 */
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	/**
+	 * @param creationDate
+	 *            the creationDate to set
+	 */
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
 	}
 
 	/*

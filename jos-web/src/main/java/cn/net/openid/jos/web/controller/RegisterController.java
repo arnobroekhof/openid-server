@@ -60,8 +60,8 @@ public class RegisterController extends AbstractJosSimpleFormController {
 		user.setUsername(form.getUsername());
 		password.setUser(user);
 		String passwordShaHex = DigestUtils.shaHex(form.getPassword());
-		password.setPassword(form.getPassword());
-		password.setPasswordShaHex(passwordShaHex);
+		password.setPlaintext(form.getPassword());
+		password.setShaHex(passwordShaHex);
 		this.josService.insertUser(user, password);
 		return super.onSubmit(command, errors);
 	}

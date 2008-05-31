@@ -4,6 +4,7 @@
 package cn.net.openid.jos.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -75,11 +76,14 @@ public class Persona implements Serializable {
 	 */
 	private String timezone;
 
+	private Date creationDate;
+
 	/**
 	 * 
 	 */
 	public Persona() {
-		this.user = new User();
+		user = new User();
+		creationDate = new Date();
 	}
 
 	/**
@@ -280,6 +284,21 @@ public class Persona implements Serializable {
 
 	public Locale getLocale() {
 		return new Locale(this.language, this.country);
+	}
+
+	/**
+	 * @return the creationDate
+	 */
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	/**
+	 * @param creationDate
+	 *            the creationDate to set
+	 */
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
 	}
 
 	public Map<String, String> toMap() {

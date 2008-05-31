@@ -3,7 +3,7 @@
 
 <hibernate-mapping package="cn.net.openid.jos.domain">
 	<class name="EmailConfirmationInfo"
-		table="openid_email_confirmation_info">
+		table="jos_email_confirmation_info">
 		<id name="id" unsaved-value="null" length="32"
 			column="email_confirmation_info_id">
 			<generator class="foreign">
@@ -16,11 +16,13 @@
 			column="email_confirmation_info_confirmation_code" />
 		<property name="sent" not-null="true"
 			column="email_confirmation_info_sent" />
-		<property name="sentDate"
+		<property name="sentDate" type="timestamp"
 			column="email_confirmation_info_sent_date" />
 		<property name="confirmed" not-null="true"
 			column="email_confirmation_info_confirmed" />
-		<property name="confirmedDate"
+		<property name="confirmedDate" type="timestamp"
 			column="email_confirmation_info_confirmed_date" />
+		<property name="creationDate" type="timestamp"
+			column="email_confirmation_info_creation_date" update="false" />
 	</class>
 </hibernate-mapping>

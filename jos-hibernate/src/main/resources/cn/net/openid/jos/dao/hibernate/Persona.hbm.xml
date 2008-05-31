@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping package="cn.net.openid.jos.domain">
-	<class name="Persona" table="openid_persona">
+	<class name="Persona" table="jos_persona">
 		<id name="id" unsaved-value="null" length="32"
 			column="persona_id">
 			<generator class="uuid" />
@@ -21,5 +21,7 @@
 		<property name="country" length="2" column="persona_country" />
 		<property name="language" length="2" column="persona_language" />
 		<property name="timezone" length="32" column="persona_timezone" />
+		<property name="creationDate" type="timestamp"
+			column="persona_creation_date" />
 	</class>
 </hibernate-mapping>

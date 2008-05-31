@@ -53,7 +53,7 @@ public class LoginController extends AbstractJosSimpleFormController {
 		// }
 		// }
 		Password password = this.josService.getPasswordByUserId(user.getId());
-		if (password.getPasswordShaHex().equalsIgnoreCase(
+		if (password.getShaHex().equalsIgnoreCase(
 				DigestUtils.shaHex(lf.getPassword()))) {
 			return user;
 		} else {

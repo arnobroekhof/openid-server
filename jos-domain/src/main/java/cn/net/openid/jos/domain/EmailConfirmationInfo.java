@@ -24,20 +24,21 @@ public class EmailConfirmationInfo implements Serializable {
 	private Date sentDate;
 	private boolean confirmed;
 	private Date confirmedDate;
+	private Date creationDate;
 
 	/**
 	 * 
 	 */
 	public EmailConfirmationInfo() {
-		super();
-		this.email = new Email();
+		email = new Email();
+		creationDate = new Date();
 	}
 
 	/**
 	 * @param email
 	 */
 	public EmailConfirmationInfo(Email email) {
-		super();
+		this();
 		this.email = email;
 	}
 
@@ -46,7 +47,7 @@ public class EmailConfirmationInfo implements Serializable {
 	 * @param confirmationCode
 	 */
 	public EmailConfirmationInfo(Email email, String confirmationCode) {
-		super();
+		this();
 		this.email = email;
 		this.confirmationCode = confirmationCode;
 	}
@@ -154,6 +155,21 @@ public class EmailConfirmationInfo implements Serializable {
 	 */
 	public void setConfirmed(boolean confirmed) {
 		this.confirmed = confirmed;
+	}
+
+	/**
+	 * @return the creationDate
+	 */
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	/**
+	 * @param creationDate
+	 *            the creationDate to set
+	 */
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
 	}
 
 	/*
