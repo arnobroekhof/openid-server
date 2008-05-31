@@ -32,11 +32,11 @@
 	<!--
 		For Member Filter.
 		e.g.
-		^[0-9a-zA-Z]+://([0-9a-zA-Z]+).openid.org.cn
-		^http://([0-9a-zA-Z]+).openid.org.cn
-		^https://([0-9a-zA-Z]+).openid.org.cn
+		^[0-9a-zA-Z]+://([0-9a-zA-Z]+).openid.org.cn$
+		^http://([0-9a-zA-Z]+).openid.org.cn$
+		^https://([0-9a-zA-Z]+).openid.org.cn$
 		
 		([0-9a-zA-Z]) must same as or contains the value of `jos.member.username.pattern'.
 	-->
-	<entry key="jos.member.filter.from.pattern">^http://localhost:8080/jos-webapp/test/([0-9a-zA-Z]+)</entry>
+	<entry key="jos.member.filter.from.pattern">^http://localhost:8080/jos-webapp/test/([0-9a-zA-Z]+)$</entry>
 </properties>
