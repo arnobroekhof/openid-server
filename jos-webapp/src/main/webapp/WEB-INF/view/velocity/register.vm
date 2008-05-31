@@ -39,7 +39,7 @@
 						</td>
 						<td>
 							${josConfiguration.identifierPrefix}
-							#springFormInput("command.username" 'class="sexy" size="10"')
+							#springFormInput("command.username" 'class="sexy" size="16"')
 							${josConfiguration.identifierSuffix}
 							#springShowErrors("" "error")
 						</td>
@@ -52,7 +52,7 @@
 							<label for="password">#springMessage("label.password")</label>
 						</td>
 						<td>
-							#springFormPasswordInput("command.password" "")
+							#springFormPasswordInput("command.password" 'class="common"')
 							#springShowErrors("" "error")
 						</td>
 					</tr>
@@ -62,7 +62,7 @@
 							<label for="confirmingPassword">#springMessage("label.confirmingPassword")</label>
 					  </td>
 						<td>
-							#springFormPasswordInput("command.confirmingPassword" "")
+							#springFormPasswordInput("command.confirmingPassword" 'class="common"')
 							#springShowErrors("" "error")
 						</td>
 					</tr>

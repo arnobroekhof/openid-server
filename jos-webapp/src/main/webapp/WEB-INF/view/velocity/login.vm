@@ -17,7 +17,7 @@
 						</td>
 						<td>
 							${josConfiguration.identifierPrefix}
-							#springFormInput("command.username" 'class="sexy" size="10"')
+							#springFormInput("command.username" 'class="sexy" size="16"')
 							${josConfiguration.identifierSuffix}
 							#springShowErrors("" "error")
 						</td>

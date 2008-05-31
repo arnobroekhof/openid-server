@@ -29,7 +29,6 @@ public class Email implements Serializable {
 	 */
 	public Email() {
 		user = new User();
-		emailConfirmationInfo = new EmailConfirmationInfo();
 		creationDate = new Date();
 	}
 
