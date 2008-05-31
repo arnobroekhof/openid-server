@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -45,11 +46,10 @@ public class ApprovingRequestFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
 		String token = request.getParameter("token");
-		if (token != null) {
-			if (DEBUG) {
-				log.debug("Add attribute `token' to request: " + token);
-			}
-			request.setAttribute(TOKEN_ATTRIBUTE_NAME, token);
+		request.setAttribute(TOKEN_ATTRIBUTE_NAME, StringUtils.defaultString(
+				token, StringUtils.EMPTY));
+		if (DEBUG) {
+			log.debug("Add attribute `token' to request: " + token);
 		}
 		chain.doFilter(request, response);
 	}

@@ -52,7 +52,7 @@ This is the persona we're going to send to <code>$!command.authRequest.realm</co
 					#foreach($persona in $personas)
 						<tr>
 							<td style="text-align:left;"><input type="radio" id="$!{esc.html($!{persona.id})}" name="personaId" value="$!{esc.html($!{persona.id})}"
-							#if($status.value == $persona.id)
+							#if($status && $status.value && $status.value == $persona.id)
 								checked="checked"
 							#end
 							/><label for="$!{esc.html($!{persona.id})}">$!{esc.html($!{persona.name})}</label></td>

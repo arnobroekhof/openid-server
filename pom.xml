@@ -17,6 +17,7 @@
 		<module>jos-service</module>
 		<module>jos-web</module>
 		<module>jos-webapp</module>
+		<module>jos-tools</module>
 	</modules>
 	<build>
 		<plugins>

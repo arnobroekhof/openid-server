@@ -8,8 +8,8 @@
 			<generator class="uuid" />
 		</id>
 		<property name="username" length="255" unique="true"
-			column="user_username" update="false" />
-		<property name="creationDate" type="timestamp"
-			column="user_creation_date" update="false" />
+			not-null="true" update="false" column="user_username" />
+		<property name="creationDate" type="timestamp" not-null="true"
+			update="false" column="user_creation_date" />
 	</class>
 </hibernate-mapping>

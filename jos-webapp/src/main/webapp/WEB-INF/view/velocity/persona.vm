@@ -11,7 +11,7 @@
 		#parse("header.vm")
 		<fieldset>
 		<legend>#springMessage("persona")</legend>
-			<form action="persona?token=$token" method="post">
+			<form action="persona?token=$!token" method="post">
 				#springBindEscaped("persona.id" false)
 				<input type="hidden" name="$!{status.expression}" value="$!{status.value}" />
 				<table>

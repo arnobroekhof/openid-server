@@ -8,10 +8,10 @@
 			<key-many-to-one name="realm" column="site_realm_id" />
 		</composite-id>
 		<property name="alwaysApprove" column="site_always_approve" />
-		<many-to-one name="persona" column="site_persona" />
+		<many-to-one name="persona" column="site_persona_id" />
 		<property name="lastAttempt" column="site_last_attempt" />
 		<property name="approvals" column="site_approvals" />
-		<property name="creationDate" type="timestamp"
-			column="site_creation_date" />
+		<property name="creationDate" type="timestamp" not-null="true"
+			update="false" column="site_creation_date" />
 	</class>
 </hibernate-mapping>

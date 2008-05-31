@@ -20,7 +20,7 @@
 		<property name="username">
 			<!--
 				Your username of your gmail,
-				such as daniel, daniel@gmail.com, webmaster@redv.com.
+				such as daniel, daniel@gmail.com, noreply@redv.com.
 				
 				If you're using the gmail account daniel@gmail.com,
 				the username can be the following two form:
@@ -29,7 +29,7 @@
 				
 				If your account is hosting on the Google Apps(http://www.google.com/a/),
 				the username should be only this form:
-				webmaster@redv.com
+				noreply@redv.com
 			-->
 			<value>YOUR_USERNAME</value>
 		</property>
