@@ -31,7 +31,7 @@
 <div id="description">
 	#springMessage("description")
 </div>
-#if($userSession.approvingRequests.size() > 0)
+#if($userSession && $userSession.approvingRequests.size() > 0)
 <div id="approving-tip">
 	#if($userSession.approvingRequests.size() == 1)
 		Your approving authentiation request:
