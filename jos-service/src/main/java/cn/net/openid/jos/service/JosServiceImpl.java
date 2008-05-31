@@ -7,6 +7,8 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -237,6 +239,23 @@ public class JosServiceImpl implements JosService {
 	 */
 	public void insertEmail(Email email) {
 		this.emailDao.insertEmail(email);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.jos.service.JosService#generateConfirmationCode(cn.net.openid.jos.domain.Email)
+	 */
+	public String generateConfirmationCode(Email email) {
+		StringBuilder seed = new StringBuilder();
+		seed.append(email.getUser().getId());
+		seed.append(email.getUser().getUsername());
+		seed.append(email.getUser().getRegisterTime());
+		seed.append(email.getAddress());
+		seed.append(RandomStringUtils.randomAlphanumeric(40));
+		seed.append(System.currentTimeMillis());
+		seed.append(System.nanoTime());
+		return DigestUtils.shaHex(seed.toString());
 	}
 
 	/*

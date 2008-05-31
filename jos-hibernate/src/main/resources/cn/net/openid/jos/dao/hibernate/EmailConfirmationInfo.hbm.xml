@@ -12,7 +12,7 @@
 		</id>
 		<one-to-one name="email" constrained="true" fetch="join"
 			lazy="false" />
-		<property name="confirmationCode" length="32" update="false"
+		<property name="confirmationCode" length="40" update="false"
 			column="email_confirmation_info_confirmation_code" />
 		<property name="sent" not-null="true"
 			column="email_confirmation_info_sent" />

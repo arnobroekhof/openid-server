@@ -49,6 +49,15 @@ public interface JosService {
 
 	void deleteEmail(String id);
 
+	/**
+	 * Generate a random string for EmailConfiratmionInfo.
+	 * 
+	 * @param email
+	 *            the email as a random seed
+	 * @return a string which length is 40.
+	 */
+	String generateConfirmationCode(Email email);
+
 	EmailConfirmationInfo getEmailConfirmationInfo(String confirmationCode);
 
 	void insertEmailConfirmationInfo(EmailConfirmationInfo emailConfirmationInfo);
