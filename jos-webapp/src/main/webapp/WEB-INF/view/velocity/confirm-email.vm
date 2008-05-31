@@ -6,12 +6,13 @@
 	<div>
 		#parse("header.vm")
 		<fieldset>
-		<legend>#springMessage("email")</legend>
+		<legend>Confirming e-mail address</legend>
 			<form action="email-confirm" method="post">
 				<div>
-					#springFormInput("command.confirmationCode" "style='width:100%'")
-					#springShowErrors("" "error")
-					<div><input type="submit" /></div>
+					<label for="confirmationCode">Confirmation code: </label>
+					#springFormInput("command.confirmationCode" 'class="common" style="width:50%"')
+					<input type="submit" value="Confirm" class="button" />
+					<div>#springShowErrors("" "error")</div>
 				</div>
 			</form>
 		</fieldset>

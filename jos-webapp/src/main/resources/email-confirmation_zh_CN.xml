@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties version="1.0">
+	<comment>邮件确认信息配置</comment>
+	<entry key="subject">确认你的JOS电子邮件地址</entry>
+	<entry key="text"><![CDATA[不要回复本消息!
+它是通过一个无人照管的电子邮箱发出的。
+
+要为你的JOS帐号（${identifier}）确认这个电子邮件地址，请点击这个链接：
+
+http://localhost:8080/jos-webapp/email-confirm?code=${confirmationCode}
+
+然后根据我们网站的提示完成确认。
+
+真诚地，
+JOS小组]]></entry>
+</properties>

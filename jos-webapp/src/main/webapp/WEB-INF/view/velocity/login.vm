@@ -8,7 +8,7 @@
 		#parse("header.vm")
 		<fieldset>
 			<legend>#springMessage("login")</legend>
-			<form action="login?token=$token" method="post">
+			<form action="login?token=$!token" method="post">
 				<table>
 					#springBind("command.username")
 					<tr>

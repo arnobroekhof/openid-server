@@ -25,6 +25,6 @@ public class DeleteEmailController extends AbstractJosController {
 		if (email.getUser().getId().equals(userSession.getUserId())) {
 			this.josService.deleteEmail(id);
 		}
-		return new ModelAndView("email-success");
+		return new ModelAndView("email-remove-success");
 	}
 }
