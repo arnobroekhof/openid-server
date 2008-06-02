@@ -6,7 +6,7 @@
 	<div>
 		#parse("header.vm")
 		#springMessage("message.persona.modifySuccess")
-		#if($token)
+		#if($token && $token != "")
 			<a href="approving?token=$!token">#springMessage("message.persona.backToApproving")</a>
 		#else
 			<a href="personas?token=$!token">#springMessage("message.persona.backToPersonas")</a>

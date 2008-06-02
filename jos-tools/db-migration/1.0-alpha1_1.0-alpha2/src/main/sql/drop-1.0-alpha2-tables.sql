@@ -1,0 +1,10 @@
+drop table jos_site;
+drop table jos_realm;
+drop table jos_password;
+drop table jos_email_confirmation_info;
+drop table jos_email;
+drop table jos_persona;
+drop table jos_attribute_value;
+drop table jos_attribute;
+drop table jos_user;
+commit;

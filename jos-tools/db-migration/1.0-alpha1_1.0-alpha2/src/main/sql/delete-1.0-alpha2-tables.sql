@@ -1,0 +1,10 @@
+delete from jos_site;
+delete from jos_realm;
+delete from jos_password;
+delete from jos_email_confirmation_info;
+delete from jos_email;
+delete from jos_persona;
+delete from jos_attribute_value;
+delete from jos_attribute;
+delete from jos_user;
+commit;
