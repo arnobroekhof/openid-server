@@ -17,24 +17,13 @@ public class Site implements Serializable {
 	 */
 	private static final long serialVersionUID = 4706047050803190505L;
 
-	private User user;
-	private Realm realm;
+	private User user = new User();
+	private Realm realm = new Realm();
 	private boolean alwaysApprove;
-	private Persona persona;
-	private Date lastAttempt;
+	private Persona persona = new Persona();
+	private Date lastAttempt = new Date();
 	private int approvals;
-	private Date creationDate;
-
-	/**
-	 * 
-	 */
-	public Site() {
-		user = new User();
-		realm = new Realm();
-		persona = new Persona();
-		lastAttempt = new Date();
-		creationDate = new Date();
-	}
+	private Date creationDate = new Date();
 
 	/**
 	 * @return alwaysApprove

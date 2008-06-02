@@ -20,7 +20,7 @@ public class Persona implements Serializable {
 	private static final long serialVersionUID = 1223541515197309353L;
 
 	private String id;
-	private User user;
+	private User user = new User();
 	private String name;
 
 	/**
@@ -76,14 +76,12 @@ public class Persona implements Serializable {
 	 */
 	private String timezone;
 
-	private Date creationDate;
+	private Date creationDate = new Date();
 
 	/**
 	 * 
 	 */
 	public Persona() {
-		user = new User();
-		creationDate = new Date();
 	}
 
 	/**
@@ -91,7 +89,6 @@ public class Persona implements Serializable {
 	 */
 	public Persona(User user) {
 		this.user = user;
-		creationDate = new Date();
 	}
 
 	/**

@@ -19,14 +19,7 @@ public class User implements Serializable {
 
 	private String id;
 	private String username;
-	private Date creationDate;
-
-	/**
-	 * 
-	 */
-	public User() {
-		creationDate = new Date();
-	}
+	private Date creationDate = new Date();
 
 	/**
 	 * @return the id

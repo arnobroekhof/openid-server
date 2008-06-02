@@ -17,18 +17,10 @@ public class Password implements Serializable {
 	private static final long serialVersionUID = 7141923018810122892L;
 
 	private String id;
-	private User user;
+	private User user = new User();
 	private String plaintext;
 	private String shaHex;
-	private Date creationDate;
-
-	/**
-	 * 
-	 */
-	public Password() {
-		user = new User();
-		creationDate = new Date();
-	}
+	private Date creationDate = new Date();
 
 	/**
 	 * @return id

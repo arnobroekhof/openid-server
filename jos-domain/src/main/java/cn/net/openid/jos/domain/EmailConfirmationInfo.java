@@ -18,27 +18,18 @@ public class EmailConfirmationInfo implements Serializable {
 	private static final long serialVersionUID = -1421672591504003924L;
 
 	private String id;
-	private Email email;
+	private Email email = new Email();
 	private String confirmationCode;
 	private boolean sent;
 	private Date sentDate;
 	private boolean confirmed;
 	private Date confirmedDate;
-	private Date creationDate;
-
-	/**
-	 * 
-	 */
-	public EmailConfirmationInfo() {
-		email = new Email();
-		creationDate = new Date();
-	}
+	private Date creationDate = new Date();
 
 	/**
 	 * @param email
 	 */
 	public EmailConfirmationInfo(Email email) {
-		this();
 		this.email = email;
 	}
 
@@ -47,7 +38,6 @@ public class EmailConfirmationInfo implements Serializable {
 	 * @param confirmationCode
 	 */
 	public EmailConfirmationInfo(Email email, String confirmationCode) {
-		this();
 		this.email = email;
 		this.confirmationCode = confirmationCode;
 	}

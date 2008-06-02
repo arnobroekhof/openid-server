@@ -18,14 +18,7 @@ public class Realm implements Serializable {
 
 	private String id;
 	private String url;
-	private Date creationDate;
-
-	/**
-	 * 
-	 */
-	public Realm() {
-		creationDate = new Date();
-	}
+	private Date creationDate = new Date();
 
 	/**
 	 * @return the id

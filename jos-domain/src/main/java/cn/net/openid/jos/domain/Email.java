@@ -17,20 +17,12 @@ public class Email implements Serializable {
 	private static final long serialVersionUID = 6706127085088356027L;
 
 	private String id;
-	private User user;
+	private User user = new User();
 	private String address;
 	private boolean primary;
 	private boolean confirmed;
 	private EmailConfirmationInfo emailConfirmationInfo;
-	private Date creationDate;
-
-	/**
-	 * 
-	 */
-	public Email() {
-		user = new User();
-		creationDate = new Date();
-	}
+	private Date creationDate = new Date();
 
 	/**
 	 * @return user
