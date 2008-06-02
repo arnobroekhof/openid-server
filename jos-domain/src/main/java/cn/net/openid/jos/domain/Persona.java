@@ -91,6 +91,7 @@ public class Persona implements Serializable {
 	 */
 	public Persona(User user) {
 		this.user = user;
+		creationDate = new Date();
 	}
 
 	/**
