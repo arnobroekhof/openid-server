@@ -9,7 +9,7 @@
 		</id>
 		<property name="url" length="255" unique="true"
 			column="realm_url" update="false" />
-		<property name="creationDate" type="timestamp"
+		<property name="creationDate" type="timestamp" not-null="true"
 			column="realm_creation_date" />
 	</class>
 </hibernate-mapping>

@@ -22,7 +22,7 @@
 			column="email_confirmation_info_confirmed" />
 		<property name="confirmedDate" type="timestamp"
 			column="email_confirmation_info_confirmed_date" />
-		<property name="creationDate" type="timestamp"
+		<property name="creationDate" type="timestamp" not-null="true"
 			column="email_confirmation_info_creation_date" update="false" />
 	</class>
 </hibernate-mapping>

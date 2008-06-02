@@ -16,7 +16,7 @@
 			column="email_confirmed" />
 		<one-to-one name="emailConfirmationInfo" cascade="delete"
 			fetch="join" lazy="no-proxy" />
-		<property name="creationDate" type="timestamp"
+		<property name="creationDate" type="timestamp" not-null="true"
 			column="email_creation_date" update="false" />
 	</class>
 </hibernate-mapping>
