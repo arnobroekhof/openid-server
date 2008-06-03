@@ -193,9 +193,10 @@ public class Migration {
 		}
 	}
 
-	private int getCount(Connection conn, String tableName) throws SQLException {
+	private static int getCount(Connection conn, String tableName)
+			throws SQLException {
 		int count = 0;
-		Statement stmt = oldConn.createStatement();
+		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery("select count(*) from " + tableName);
 		while (rs.next()) {
 			count = rs.getInt(1);
@@ -319,7 +320,7 @@ public class Migration {
 				+ "values(?, ?, ?, ?, ?)";
 
 		PreparedStatement oldPstmt = oldConn.prepareStatement(oldSql);
-		PreparedStatement newPstmt = oldConn.prepareStatement(newSql);
+		PreparedStatement newPstmt = newConn.prepareStatement(newSql);
 		ResultSet rs = oldPstmt.executeQuery();
 		try {
 			String passwordId, passwordUserId, passwordPlaintext;
