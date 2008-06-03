@@ -108,7 +108,7 @@ public class UserSession implements Serializable {
 		this.username = username;
 	}
 
-	/* Authentiation Requests */
+	/* Authentication Requests */
 
 	public String addApprovingRequest(ApprovingRequest approvingRequest) {
 		if (approvingRequest.getToken() == null) {
