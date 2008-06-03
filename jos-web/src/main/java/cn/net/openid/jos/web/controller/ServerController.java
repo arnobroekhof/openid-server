@@ -67,7 +67,7 @@ public class ServerController extends AbstractJosController {
 			AuthRequest authReq = AuthRequest.createAuthRequest(request,
 					this.serverManager.getRealmVerifier());
 			new ApprovingRequestProcessor(httpReq, httpResp, josService,
-					serverManager, new ApprovingRequest(authReq)).checkLoggedIn();
+					serverManager, new ApprovingRequest(authReq)).checkId();
 			responseText = null;
 		} else if ("check_authentication".equals(mode)) {
 			// --- processing a verification request ---

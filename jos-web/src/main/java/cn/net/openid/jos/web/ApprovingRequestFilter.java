@@ -11,6 +11,8 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -26,6 +28,7 @@ public class ApprovingRequestFilter implements Filter {
 	private static final boolean DEBUG = log.isDebugEnabled();
 
 	private static final String TOKEN_ATTRIBUTE_NAME = "token";
+	private static final String APPROVING_REQUEST_ATTRIBUTE_NAME = "approvingRequest";
 
 	/*
 	 * (non-Javadoc)
@@ -48,6 +51,13 @@ public class ApprovingRequestFilter implements Filter {
 		String token = request.getParameter("token");
 		request.setAttribute(TOKEN_ATTRIBUTE_NAME, StringUtils.defaultString(
 				token, StringUtils.EMPTY));
+		if (request instanceof HttpServletRequest) {
+			HttpServletRequest httpReq = (HttpServletRequest) request;
+			HttpSession session = httpReq.getSession();
+			UserSession userSession = WebUtils.getOrCreateUserSession(session);
+			request.setAttribute(APPROVING_REQUEST_ATTRIBUTE_NAME, userSession
+					.getApprovingRequest(token));
+		}
 		if (DEBUG) {
 			log.debug("Add attribute `token' to request: " + token);
 		}

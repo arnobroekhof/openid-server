@@ -468,10 +468,16 @@ public class JosServiceImpl implements JosService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.jos.service.JosService#getPersona(java.lang.String)
+	 * @see cn.net.openid.jos.service.JosService#getPersona(java.lang,String,
+	 *      java.lang.String)
 	 */
-	public Persona getPersona(String id) {
-		return this.personaDao.getPersona(id);
+	public Persona getPersona(String userId, String id) {
+		Persona persona = this.personaDao.getPersona(id);
+		if (persona != null && persona.getUser().getId().equals(userId)) {
+			return persona;
+		} else {
+			return null;
+		}
 	}
 
 	/*

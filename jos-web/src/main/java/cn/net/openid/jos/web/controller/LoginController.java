@@ -99,10 +99,11 @@ public class LoginController extends AbstractJosSimpleFormController {
 			throws Exception {
 		String token = (String) request.getAttribute("token");
 		UserSession userSession = getUser(request);
-		ApprovingRequest checkIdRequest = userSession.getApprovingRequest(token);
+		ApprovingRequest checkIdRequest = userSession
+				.getApprovingRequest(token);
 		if (checkIdRequest != null) {
 			new ApprovingRequestProcessor(request, response, josService,
-					serverManager, checkIdRequest).checkApproval();
+					serverManager, checkIdRequest).checkId();
 		}
 		return super.onSubmit(request, response, command, errors);
 	}

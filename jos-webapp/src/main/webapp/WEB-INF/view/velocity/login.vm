@@ -9,6 +9,11 @@
 		<fieldset>
 			<legend>#springMessage("login")</legend>
 			<form action="login?token=$!token" method="post">
+
+				#if($token && $token != "")
+					You must sign in to authenticate to $approvingRequest.authRequest.realm as $approvingRequest.authRequest.claimed.
+				#end
+
 				<table>
 					#springBind("command.username")
 					<tr>

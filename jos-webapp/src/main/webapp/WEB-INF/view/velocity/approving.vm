@@ -76,6 +76,8 @@ This is the persona we're going to send to <code>$!command.authRequest.realm</co
 					</tfoot>
 				</table>
 
+				#springShowErrors("" "error")
+
 				#springBind("command.attributes")
 				<table>
 				#foreach($attribute in $status.value)

@@ -92,7 +92,7 @@ public interface JosService {
 
 	List<Site> getSites(String userId);
 
-	Persona getPersona(String id);
+	Persona getPersona(String userId, String id);
 
 	/**
 	 * Get the default persona of the user.

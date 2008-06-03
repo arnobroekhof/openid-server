@@ -45,6 +45,11 @@ public class ApprovingRequestProcessor {
 	private static final Log log = LogFactory
 			.getLog(ApprovingRequestProcessor.class);
 
+	public static final int ALLOW_AUTO = 0;
+	public static final int ALLOW_ONCE = 1;
+	public static final int ALLOW_FOREVER = 2;
+	public static final int DENY = -1;
+
 	private JosService josService;
 	private ServerManager serverManager;
 
@@ -82,14 +87,9 @@ public class ApprovingRequestProcessor {
 		this.authRequest = checkIdRequest.getAuthRequest();
 	}
 
-	/**
-	 * If user logged in, do check site, otherwise redirect to login page.
-	 * 
-	 * @throws IOException
-	 */
-	public void checkLoggedIn() throws IOException {
-		if (userSession.isLoggedIn()) {
-			checkApproval();
+	public void checkId() throws IOException {
+		if (this.isLoggedInUserOwnClaimedId()) {
+			this.checkApproval();
 		} else {
 			// redirect to login page.
 			String url = "login?token="
@@ -99,12 +99,53 @@ public class ApprovingRequestProcessor {
 	}
 
 	/**
+	 * If user logged in, do check site, otherwise redirect to login page.
+	 * 
+	 * @param allowType
+	 * @param persona
+	 * @throws IOException
+	 */
+	public void checkId(int allowType, Persona persona) throws IOException {
+		if (this.isLoggedInUserOwnClaimedId()) {
+			switch (allowType) {
+			case ALLOW_ONCE:
+				this.redirectToReturnToPage(true, persona);
+				break;
+			case ALLOW_FOREVER:
+				this.redirectToReturnToPage(true, persona);
+				break;
+			case DENY:
+			default:
+				this.redirectToReturnToPage(false, null);
+				break;
+			}
+		} else {
+			// redirect to login page.
+			String url = "login?token="
+					+ userSession.addApprovingRequest(checkIdRequest);
+			httpResp.sendRedirect(url);
+		}
+	}
+
+	private boolean isLoggedInUserOwnClaimedId() {
+		boolean ret;
+		if (userSession.isLoggedIn()
+				&& this.authRequest.getClaimed().equals(
+						userSession.getIdentifier())) {
+			ret = true;
+		} else {
+			ret = false;
+		}
+		return ret;
+	}
+
+	/**
 	 * If this site is always approve, redirect to return_to page, otherwise
 	 * redirect to approving page.
 	 * 
 	 * @throws IOException
 	 */
-	public void checkApproval() throws IOException {
+	private void checkApproval() throws IOException {
 		Site site = josService.getSite(userId, authRequest.getRealm());
 		if (site != null && site.isAlwaysApprove()) {
 			josService.updateApproval(userId, authRequest.getRealm());
@@ -129,7 +170,7 @@ public class ApprovingRequestProcessor {
 	 * @throws MessageException
 	 * @throws IOException
 	 */
-	public void redirectToReturnToPage(boolean approved, Persona persona)
+	private void redirectToReturnToPage(boolean approved, Persona persona)
 			throws IOException {
 		Message response;
 		// interact with the user and obtain data needed to continue
@@ -152,11 +193,13 @@ public class ApprovingRequestProcessor {
 		if (response instanceof DirectError) {
 			directResponse(response.keyValueFormEncoding());
 		} else {
-			try {
-				addExtension(response);
-				addSRegExtension(response, persona);
-			} catch (MessageException e) {
-				log.error("", e);
+			if (authenticatedAndApproved) {
+				try {
+					addExtension(response);
+					addSRegExtension(response, persona);
+				} catch (MessageException e) {
+					log.error("", e);
+				}
 			}
 			// caller will need to decide which of the following to use:
 

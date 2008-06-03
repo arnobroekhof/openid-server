@@ -67,7 +67,7 @@ public class PersonaController extends AbstractJosSimpleFormController {
 		if (StringUtils.isEmpty(id)) {
 			persona = new Persona(this.josService.getUser(userId));
 		} else {
-			persona = this.josService.getPersona(id);
+			persona = this.josService.getPersona(userId, id);
 			if (!persona.getUser().getId().equals(userId)) {
 				persona = new Persona(this.josService.getUser(userId));
 			}

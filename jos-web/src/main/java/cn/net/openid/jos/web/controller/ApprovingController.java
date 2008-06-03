@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.openid4java.message.AuthRequest;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
@@ -61,7 +62,8 @@ public class ApprovingController extends AbstractJosSimpleFormController {
 
 		UserSession userSession = getUser(request);
 		String userId = userSession.getUserId();
-		ApprovingRequest checkIdRequest = userSession.getApprovingRequest(token);
+		ApprovingRequest checkIdRequest = userSession
+				.getApprovingRequest(token);
 		if (checkIdRequest != null) {
 			AuthRequest authReq = checkIdRequest.getAuthRequest();
 			form.setAuthRequest(authReq);
@@ -85,6 +87,12 @@ public class ApprovingController extends AbstractJosSimpleFormController {
 	@Override
 	protected void onBindAndValidate(HttpServletRequest request,
 			Object command, BindException errors) throws Exception {
+		ApprovingForm form = (ApprovingForm) command;
+		if ((request.getParameter("allow_once") != null || request
+				.getParameter("allow_forever") != null)
+				&& StringUtils.isEmpty(form.getPersonaId())) {
+			errors.rejectValue("personaId", "required", "Persona is required.");
+		}
 		super.onBindAndValidate(request, command, errors);
 	}
 
@@ -103,35 +111,33 @@ public class ApprovingController extends AbstractJosSimpleFormController {
 
 		UserSession userSession = getUser(request);
 
-		ApprovingRequest checkIdRequest = userSession.getApprovingRequest(form.getToken());
+		ApprovingRequest checkIdRequest = userSession.getApprovingRequest(form
+				.getToken());
 		AuthRequest authReq = checkIdRequest.getAuthRequest();
 
 		String userId = userSession.getUserId();
 		String personaId = request.getParameter("personaId");
 
-		Boolean approved;
+		ApprovingRequestProcessor arp = new ApprovingRequestProcessor(request,
+				response, josService, serverManager, checkIdRequest);
+
 		Persona persona;
 		if (request.getParameter("allow_once") != null) {
-			approved = Boolean.TRUE;
-			persona = josService.getPersona(personaId);
+			persona = josService.getPersona(userId, personaId);
 
 			josService.allow(userId, authReq.getRealm(), persona, false);
+			arp.checkId(ApprovingRequestProcessor.ALLOW_ONCE, persona);
 		} else if (request.getParameter("allow_forever") != null) {
-			approved = Boolean.TRUE;
-			persona = josService.getPersona(personaId);
+			persona = josService.getPersona(userId, personaId);
 
 			josService.allow(userId, authReq.getRealm(), persona, true);
+			arp.checkId(ApprovingRequestProcessor.ALLOW_FOREVER, persona);
 		} else if (request.getParameter("deny") != null) {
-			approved = Boolean.FALSE;
-			persona = null;
+			arp.checkId(ApprovingRequestProcessor.DENY, null);
 		} else {
-			approved = Boolean.FALSE;
-			persona = null;
+			arp.checkId(ApprovingRequestProcessor.DENY, null);
 		}
 
-		new ApprovingRequestProcessor(request, response, josService,
-				serverManager, checkIdRequest).redirectToReturnToPage(approved,
-				persona);
 		return null;
 	}
 }
