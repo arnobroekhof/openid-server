@@ -27,6 +27,12 @@ public class EmailConfirmationInfo implements Serializable {
 	private Date creationDate = new Date();
 
 	/**
+	 * 
+	 */
+	public EmailConfirmationInfo() {
+	}
+
+	/**
 	 * @param email
 	 */
 	public EmailConfirmationInfo(Email email) {
