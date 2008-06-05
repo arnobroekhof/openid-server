@@ -19,7 +19,7 @@
 				</thead>
 				#foreach($site in $sites)
 					<tr>
-						<td>
+						<td style="text-align:left;">
 							<input type="hidden" name="realmId" value="$!{esc.html($!{site.realm.id})}" />
 							<a href="$!{esc.html($!{site.realm.url})}">$!{esc.html($!{site.realm.url})}</a>
 						</td>
