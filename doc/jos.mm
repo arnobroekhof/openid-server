@@ -31,16 +31,32 @@
 <node CREATED="1211377159788" ID="Freemind_Link_1800735718" MODIFIED="1211377182126" TEXT="Authentication settings">
 <node CREATED="1212603204546" ID="Freemind_Link_165291398" MODIFIED="1212603729401" TEXT="Manage passwords">
 <icon BUILTIN="messagebox_warning"/>
-<node CREATED="1212603391157" ID="Freemind_Link_1507294255" MODIFIED="1212603398440" TEXT="Password list"/>
-<node CREATED="1212603245351" ID="Freemind_Link_72473486" MODIFIED="1212603253702" TEXT="Add a password"/>
+<node CREATED="1212603391157" ID="Freemind_Link_1507294255" MODIFIED="1212685322269" TEXT="Password list">
+<icon BUILTIN="stop"/>
+<hook NAME="accessories/plugins/NodeNote.properties">
+<text>Legacy function</text>
+</hook>
+</node>
+<node CREATED="1212603245351" ID="Freemind_Link_72473486" MODIFIED="1212685392595" TEXT="Add a password">
+<icon BUILTIN="button_cancel"/>
+<hook NAME="accessories/plugins/NodeNote.properties">
+<text>Do not support as in the future only one password permitted.</text>
+</hook>
+</node>
 <node CREATED="1211376841175" ID="Freemind_Link_1808724230" MODIFIED="1211376858922" TEXT="Change password"/>
-<node CREATED="1211377353861" ID="Freemind_Link_1213655722" MODIFIED="1212603422768" TEXT="Remove a password"/>
+<node CREATED="1211377353861" ID="Freemind_Link_1213655722" MODIFIED="1212685345900" TEXT="Remove a password">
+<icon BUILTIN="stop"/>
+<hook NAME="accessories/plugins/NodeNote.properties">
+<text>Legacy function</text>
+</hook>
+</node>
 </node>
 <node CREATED="1211377183355" ID="Freemind_Link_51448672" MODIFIED="1212603640323" TEXT="Manage SSL client certificates">
 <icon BUILTIN="idea"/>
 <node CREATED="1211377233924" ID="Freemind_Link_563467119" MODIFIED="1211377331642" TEXT="Add a client certificate"/>
 <node CREATED="1211377273464" ID="Freemind_Link_1830540128" MODIFIED="1211377336873" TEXT="Revoke a certificate"/>
 </node>
+<node CREATED="1212685419211" ID="Freemind_Link_996447660" MODIFIED="1212685433153" TEXT="Manage Google authentication account"/>
 </node>
 <node CREATED="1211377389876" ID="Freemind_Link_1671965080" MODIFIED="1211377393416" TEXT="Personas">
 <node CREATED="1211377415515" ID="Freemind_Link_1521736720" MODIFIED="1212603517577" TEXT="Add a persona">
