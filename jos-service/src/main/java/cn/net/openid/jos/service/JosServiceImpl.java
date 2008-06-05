@@ -309,6 +309,29 @@ public class JosServiceImpl implements JosService {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see cn.net.openid.jos.service.JosService#getPasswords(java.lang.String)
+	 */
+	public Collection<Password> getPasswords(String userId) {
+		return this.passwordDao.getPasswords(userId);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.jos.service.JosService#getPassword(java.lang.String,
+	 *      java.lang.String)
+	 */
+	public Password getPassword(String userId, String passwordId) {
+		Password password = this.passwordDao.getPassword(passwordId);
+		if (!password.getUser().getId().equals(userId)) {
+			password = null;
+		}
+		return password;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see cn.net.openid.dao.DaoFacade#getAttribute(java.lang.String)
 	 */
 	public Attribute getAttribute(String id) {

@@ -145,10 +145,6 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>jos</servlet-name>
-		<url-pattern>/provider-authorization</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>jos</servlet-name>
 		<url-pattern>/approving</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
@@ -182,6 +178,14 @@
 	<servlet-mapping>
 		<servlet-name>jos</servlet-name>
 		<url-pattern>/email-confirm</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>jos</servlet-name>
+		<url-pattern>/passwords</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>jos</servlet-name>
+		<url-pattern>/password</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>jos</servlet-name>

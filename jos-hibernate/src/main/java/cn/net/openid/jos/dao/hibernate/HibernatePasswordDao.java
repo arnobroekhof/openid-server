@@ -3,6 +3,7 @@
  */
 package cn.net.openid.jos.dao.hibernate;
 
+import java.util.Collection;
 import java.util.List;
 
 import cn.net.openid.jos.dao.PasswordDao;
@@ -22,6 +23,15 @@ public class HibernatePasswordDao extends BaseHibernateEntityDao<Password>
 	 */
 	public Password getPassword(String id) {
 		return this.get(id);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.jos.dao.PasswordDao#getPasswords(java.lang.String)
+	 */
+	public Collection<Password> getPasswords(String userId) {
+		return this.find("from Password where user.id = ?", userId);
 	}
 
 	/*

@@ -79,6 +79,10 @@
 		<property name="successView" value="confirm-email-success" />
 	</bean>
 
+	<bean id="passwordsController"
+		class="cn.net.openid.jos.web.controller.PasswordsController"
+		parent="abstractJosController">
+	</bean>
 	<!-- Edit the password. -->
 	<bean id="editPasswordController"
 		class="cn.net.openid.jos.web.controller.EditPasswordController"
@@ -194,6 +198,7 @@
 				<entry key="/email" value-ref="emailController" />
 				<entry key="/email-remove"
 					value-ref="deleteEmailController" />
+				<entry key="/passwords" value-ref="passwordsController" />
 				<entry key="/password"
 					value-ref="editPasswordController" />
 				<entry key="/personas" value-ref="personasController" />

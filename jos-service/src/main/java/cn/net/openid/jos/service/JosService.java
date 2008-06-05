@@ -31,6 +31,10 @@ public interface JosService {
 
 	Password getPasswordByUserId(String userId);
 
+	Collection<Password> getPasswords(String userId);
+
+	Password getPassword(String userId, String passwordId);
+
 	/**
 	 * 该方法的事务处理由Spring的事务处理保证。
 	 * 
