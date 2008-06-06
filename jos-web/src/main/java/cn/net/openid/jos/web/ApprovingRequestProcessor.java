@@ -201,6 +201,15 @@ public class ApprovingRequestProcessor {
 					log.error("", e);
 				}
 			}
+
+			try {
+				serverManager.sign((AuthSuccess) response);
+			} catch (ServerException e) {
+				log.error("", e);
+			} catch (AssociationException e) {
+				log.error("", e);
+			}
+
 			// caller will need to decide which of the following to use:
 
 			// option1: GET HTTP-redirect to the return_to URL
@@ -242,12 +251,6 @@ public class ApprovingRequestProcessor {
 					// (alternatively) manually add attribute values
 					// sregResp.addAttribute("email", email);
 					response.addExtension(sregResp);
-				}
-
-				try {
-					serverManager.sign((AuthSuccess) response);
-				} catch (ServerException e) {
-				} catch (AssociationException e) {
 				}
 			} else {
 				throw new UnsupportedOperationException("TODO");
