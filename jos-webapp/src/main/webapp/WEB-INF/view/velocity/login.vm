@@ -11,7 +11,7 @@
 			<form action="login#if($token && $token != '')?token=$!token#end" method="post">
 
 				#if($token && $token != "" && $approvingRequest && $approvingRequest.authRequest)
-					You must sign in to authenticate to $approvingRequest.authRequest.realm as $approvingRequest.authRequest.claimed.
+					You must sign in to authenticate to $!approvingRequest.authRequest.realm as $!approvingRequest.authRequest.identity.
 				#end
 
 				<table>
