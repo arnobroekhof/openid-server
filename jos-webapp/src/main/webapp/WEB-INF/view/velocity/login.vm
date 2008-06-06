@@ -10,7 +10,7 @@
 			<legend>#springMessage("login")</legend>
 			<form action="login#if($token && $token != '')?token=$!token#end" method="post">
 
-				#if($token && $token != "")
+				#if($token && $token != "" && $approvingRequest && $approvingRequest.authRequest)
 					You must sign in to authenticate to $approvingRequest.authRequest.realm as $approvingRequest.authRequest.claimed.
 				#end
 
