@@ -219,6 +219,7 @@
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basenames">
 			<list>
+				<value>messages-custom</value>
 				<value>cn.net.openid.jos.web.messages</value>
 			</list>
 		</property>
