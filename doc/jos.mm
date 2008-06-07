@@ -87,7 +87,10 @@
 </node>
 </node>
 <node CREATED="1211377800230" ID="Freemind_Link_1719824803" MODIFIED="1211377803161" POSITION="right" TEXT="Your domains">
-<node CREATED="1211377811421" ID="Freemind_Link_327554269" MODIFIED="1211377821984" TEXT="Set up a new domain"/>
+<node CREATED="1211377811421" ID="Freemind_Link_327554269" MODIFIED="1211377821984" TEXT="Set up a new domain">
+<node CREATED="1212827823746" ID="Freemind_Link_760207794" MODIFIED="1212827848850" TEXT="Reserved username setting"/>
+<node CREATED="1212827833391" ID="Freemind_Link_1372001347" MODIFIED="1212827843681" TEXT="Unallowable username setting"/>
+</node>
 </node>
 <node CREATED="1211377896075" ID="Freemind_Link_1511801096" MODIFIED="1211377904798" POSITION="right" TEXT="Your affiliate sites"/>
 <node CREATED="1211377919994" ID="Freemind_Link_1229179598" MODIFIED="1212603502515" POSITION="right" TEXT="Sign out">
