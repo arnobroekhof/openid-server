@@ -10,13 +10,25 @@
 	-->
 	<entry key="jos.openid.server.url">http://localhost:8080/jos-webapp/server</entry>
 
-	<!-- 
+	<!--
 		The regular expression of username pattern. 
-		The pattern is for registering checking. 
+		The pattern is for registering checking.
+
+		A regular expression tool: http://jakarta.apache.org/regexp/applet.html
 	-->
 	<entry key="jos.member.username.pattern">[a-z]{1,16}</entry>
+	
+	<!--
+		The regular expression of reserved username.
+	-->
+	<entry key="jos.member.username.reserved.pattern">root|admin|administrator</entry>
 
-	<!-- 
+	<!--
+		The regular expression of unallowable username.
+	-->
+	<entry key="jos.member.username.unallowable.pattern">w+|server|news|jos|.*fuck.*</entry>
+
+	<!--
 		For building the openid_url with field username, 
 		openid_url is the url that return to the OpenID Consumer after logged in. 
 		The openid_url will be: 
@@ -26,8 +38,8 @@
 		${jos.member.identifier.suffix} = .openid.org.cn/
 		openid_url = http://USERNAME.openid.org.cn
 	-->
-	<entry key="jos.member.identifier.prefix">http://localhost:8080/jos-webapp/member/</entry>
-	<entry key="jos.member.identifier.suffix">/</entry>
+	<entry key="jos.member.identifier.prefix">http://localhost:8080/jos-webapp/test/</entry>
+	<entry key="jos.member.identifier.suffix"></entry>
 
 	<!--
 		For Member Filter.
@@ -37,6 +49,7 @@
 		^https://([0-9a-zA-Z]+).openid.org.cn$
 		
 		([0-9a-zA-Z]) must same as or contains the value of `jos.member.username.pattern'.
+		This pattern should matches ${jos.member.identifier.prefix}${jos.member.username.pattern}${jos.member.identifier.suffix}
 	-->
 	<entry key="jos.member.filter.from.pattern">^http://localhost:8080/jos-webapp/test/([0-9a-zA-Z]+)$</entry>
 </properties>

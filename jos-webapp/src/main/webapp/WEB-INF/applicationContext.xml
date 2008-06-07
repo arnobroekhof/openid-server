@@ -17,6 +17,10 @@
 			value="${jos.openid.server.url}" />
 		<property name="usernamePattern"
 			value="${jos.member.username.pattern}" />
+		<property name="reservedUsernamePattern"
+			value="${jos.member.username.reserved.pattern}" />
+		<property name="unallowableUsernamePattern"
+			value="${jos.member.username.unallowable.pattern}" />
 		<property name="identifierPrefix"
 			value="${jos.member.identifier.prefix}" />
 		<property name="identifierSuffix"
@@ -105,7 +109,6 @@
 	</bean>
 	<bean id="registerFormValidator"
 		class="cn.net.openid.jos.web.validation.RegisterFormValidator">
-		<property name="usernamePattern"
-			value="${jos.member.username.pattern}" />
+		<property name="domainConfiguration" ref="josConfiguration" />
 	</bean>
 </beans>

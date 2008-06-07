@@ -13,6 +13,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+import cn.net.openid.jos.domain.JosConfiguration;
 import cn.net.openid.jos.web.form.RegisterForm;
 
 /**
@@ -20,18 +21,20 @@ import cn.net.openid.jos.web.form.RegisterForm;
  * 
  */
 public class RegisterFormValidator implements Validator {
+	@SuppressWarnings("unused")
 	private static final Log log = LogFactory
 			.getLog(RegisterFormValidator.class);
 
 	private Pattern usernamePattern;
+	private Pattern reservedUsernamePatter;
+	private Pattern unallowableUsernamePattern;
 
-	/**
-	 * @param usernamePattern
-	 *            the usernamePattern to set
-	 */
-	public void setUsernamePattern(String usernamePattern) {
-		log.debug("usernamePattern: " + usernamePattern);
-		this.usernamePattern = Pattern.compile(usernamePattern);
+	public void setDomainConfiguration(JosConfiguration config) {
+		this.usernamePattern = Pattern.compile(config.getUsernamePattern());
+		this.reservedUsernamePatter = Pattern.compile(config
+				.getReservedUsernamePattern(), Pattern.CASE_INSENSITIVE);
+		this.unallowableUsernamePattern = Pattern.compile(config
+				.getUnallowableUsernamePattern(), Pattern.CASE_INSENSITIVE);
 	}
 
 	/*
@@ -61,6 +64,18 @@ public class RegisterFormValidator implements Validator {
 			if (!m.matches()) {
 				errors.rejectValue("username", "error.username.format",
 						"Username format not allowed.");
+			}
+
+			m = this.reservedUsernamePatter.matcher(user.getUsername());
+			if (m.matches()) {
+				errors.rejectValue("username", "error.username.reserved",
+						"Username is reserved.");
+			}
+
+			m = this.unallowableUsernamePattern.matcher(user.getUsername());
+			if (m.matches()) {
+				errors.rejectValue("username", "error.username.unallowable",
+						"Username is unallowable.");
 			}
 		}
 
