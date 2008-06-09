@@ -30,7 +30,7 @@
 					#springBind("command.password")
 					<tr>
 						<td class="label">
-							<label for="password">#springMessage("label.password")</label>
+							<label for="password">#springMessage("password.label.password")</label>
 						</td>
 						<td>
 							#springFormPasswordInput("command.password" 'class="common" size="33"')

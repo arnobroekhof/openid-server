@@ -49,7 +49,7 @@
 					#springBind("command.password")
 					<tr>
 						<td class="label">
-							<label for="password">#springMessage("label.password")</label>
+							<label for="password">#springMessage("password.label.password")</label>
 						</td>
 						<td>
 							#springFormPasswordInput("command.password" 'class="common"')
@@ -59,7 +59,7 @@
 					#springBind("command.confirmingPassword")
 					<tr>
 						<td class="label">
-							<label for="confirmingPassword">#springMessage("label.confirmingPassword")</label>
+							<label for="confirmingPassword">#springMessage("password.label.confirmingPassword")</label>
 					  </td>
 						<td>
 							#springFormPasswordInput("command.confirmingPassword" 'class="common"')
