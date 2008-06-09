@@ -161,6 +161,7 @@
 		<property name="interceptors">
 			<list>
 				<ref local="localeChangeInterceptor" />
+				<ref local="themeChangeInterceptor" />
 			</list>
 		</property>
 		<property name="urlMap">
@@ -189,6 +190,7 @@
 			<list>
 				<ref local="userLoggedInInterceptor" />
 				<ref local="localeChangeInterceptor" />
+				<ref local="themeChangeInterceptor" />
 			</list>
 		</property>
 		<property name="urlMap">
@@ -243,10 +245,16 @@
 			<value>/WEB-INF/toolbox.xml</value>
 		</property>
 	</bean>
+
 	<bean id="localeChangeInterceptor"
 		class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
 		<property name="paramName" value="hl" />
 	</bean>
 	<bean id="localeResolver"
 		class="org.springframework.web.servlet.i18n.SessionLocaleResolver" />
+
+	<bean id="themeChangeInterceptor"
+		class="org.springframework.web.servlet.theme.ThemeChangeInterceptor" />
+	<bean id="themeResolver"
+		class="org.springframework.web.servlet.theme.SessionThemeResolver" />
 </beans>
