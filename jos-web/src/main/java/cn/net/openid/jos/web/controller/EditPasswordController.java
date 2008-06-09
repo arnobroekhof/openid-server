@@ -10,6 +10,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.net.openid.jos.domain.Password;
 import cn.net.openid.jos.web.AbstractJosSimpleFormController;
 import cn.net.openid.jos.web.form.EditPasswordForm;
 
@@ -28,7 +29,13 @@ public class EditPasswordController extends AbstractJosSimpleFormController {
 			throws Exception {
 		EditPasswordForm editPasswordForm = (EditPasswordForm) super
 				.formBackingObject(request);
-		editPasswordForm.setCredentialId(request.getParameter("id"));
+
+		String passwordId = request.getParameter("password.id");
+		if (!StringUtils.isEmpty(passwordId)) {
+			editPasswordForm.setPassword(josService.getPassword(
+					getUser(request).getUserId(), passwordId));
+		}
+
 		return editPasswordForm;
 	}
 
@@ -43,12 +50,16 @@ public class EditPasswordController extends AbstractJosSimpleFormController {
 			Object command, BindException errors) throws Exception {
 		super.onBindAndValidate(request, command, errors);
 		EditPasswordForm editPasswordForm = (EditPasswordForm) command;
-		if (StringUtils.isEmpty(editPasswordForm.getPassword())) {
-			errors.rejectValue("password", "error.password.empty");
+		if (StringUtils.isEmpty(editPasswordForm.getPassword().getName())) {
+			errors.rejectValue("password.name", "password.error.nameRequired");
 		}
-		if (!StringUtils.equals(editPasswordForm.getPassword(),
+		if (StringUtils.isEmpty(editPasswordForm.getPassword().getPlaintext())) {
+			errors.rejectValue("password.plaintext",
+					"password.error.plaintextRequired");
+		}
+		if (!StringUtils.equals(editPasswordForm.getPassword().getPlaintext(),
 				editPasswordForm.getRetypedPassword())) {
-			errors.rejectValue("retypedPassword", "error.password.notEquals");
+			errors.rejectValue("retypedPassword", "password.error.notEquals");
 		}
 	}
 
@@ -64,6 +75,9 @@ public class EditPasswordController extends AbstractJosSimpleFormController {
 			HttpServletResponse response, Object command, BindException errors)
 			throws Exception {
 		EditPasswordForm editPasswordForm = (EditPasswordForm) command;
+		Password password = editPasswordForm.getPassword();
+		josService.updatePassword(getUser(request).getUserId(), password
+				.getId(), password.getName(), password.getPlaintext());
 		return super.onSubmit(request, response, command, errors);
 	}
 }

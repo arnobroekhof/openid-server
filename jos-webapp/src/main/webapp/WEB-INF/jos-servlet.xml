@@ -89,7 +89,6 @@
 		parent="abstractJosSimpleFormController">
 		<property name="commandClass"
 			value="cn.net.openid.jos.web.form.EditPasswordForm" />
-		<property name="commandName" value="editPasswordForm" />
 		<property name="formView" value="edit-password" />
 		<property name="successView" value="edit-password-success" />
 	</bean>
@@ -223,6 +222,7 @@
 			<list>
 				<value>messages-custom</value>
 				<value>cn.net.openid.jos.web.messages</value>
+				<value>cn.net.openid.jos.web.password</value>
 			</list>
 		</property>
 	</bean>

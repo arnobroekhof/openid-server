@@ -206,6 +206,32 @@ public class JosServiceImpl implements JosService {
 	}
 
 	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.jos.service.JosService#updatePassword(java.lang.String,
+	 *      java.lang.String, java.lang.String, java.lang.String)
+	 */
+	public void updatePassword(String userId, String passwordId, String name,
+			String passwordPlaintext) {
+		Password password = this.getPassword(userId, passwordId);
+		boolean insert = false;
+		if (password == null) {
+			password = new Password(this.getUser(userId));
+			insert = true;
+		}
+
+		password.setName(name);
+		password.setPlaintext(passwordPlaintext);
+		password.setShaHex(DigestUtils.shaHex(password.getPlaintext()));
+
+		if (insert) {
+			this.passwordDao.insertPassword(password);
+		} else {
+			this.passwordDao.updatePassword(password);
+		}
+	}
+
+	/*
 	 * （非 Javadoc）
 	 * 
 	 * @see cn.net.openid.dao.DaoFacade#deleteEmail(java.lang.String)
@@ -323,7 +349,7 @@ public class JosServiceImpl implements JosService {
 	 */
 	public Password getPassword(String userId, String passwordId) {
 		Password password = this.passwordDao.getPassword(passwordId);
-		if (!password.getUser().getId().equals(userId)) {
+		if (password != null && !password.getUser().getId().equals(userId)) {
 			password = null;
 		}
 		return password;

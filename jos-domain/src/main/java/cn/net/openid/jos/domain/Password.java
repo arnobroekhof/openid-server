@@ -18,9 +18,23 @@ public class Password implements Serializable {
 
 	private String id;
 	private User user = new User();
+	private String name;
 	private String plaintext;
 	private String shaHex;
 	private Date creationDate = new Date();
+
+	/**
+	 * 
+	 */
+	public Password() {
+	}
+
+	/**
+	 * @param user
+	 */
+	public Password(User user) {
+		this.user = user;
+	}
 
 	/**
 	 * @return id
@@ -35,6 +49,21 @@ public class Password implements Serializable {
 	 */
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name
+	 *            the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	/**

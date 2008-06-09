@@ -35,6 +35,9 @@ public interface JosService {
 
 	Password getPassword(String userId, String passwordId);
 
+	void updatePassword(String userId, String passwordId, String name,
+			String passwordPlaintext);
+
 	/**
 	 * 该方法的事务处理由Spring的事务处理保证。
 	 * 

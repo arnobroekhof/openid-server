@@ -5,6 +5,8 @@ package cn.net.openid.jos.web.form;
 
 import java.io.Serializable;
 
+import cn.net.openid.jos.domain.Password;
+
 /**
  * @author Sutra Zhou
  * 
@@ -15,22 +17,22 @@ public class EditPasswordForm implements Serializable {
 	 */
 	private static final long serialVersionUID = -5154439238450014108L;
 
-	private String credentialId;
-	private String password;
+	private Password password = new Password();
 	private String retypedPassword;
-
-	/**
-	 * @return the credentialId
-	 */
-	public String getCredentialId() {
-		return credentialId;
-	}
 
 	/**
 	 * @return the password
 	 */
-	public String getPassword() {
+	public Password getPassword() {
 		return password;
+	}
+
+	/**
+	 * @param password
+	 *            the password to set
+	 */
+	public void setPassword(Password password) {
+		this.password = password;
 	}
 
 	/**
@@ -38,22 +40,6 @@ public class EditPasswordForm implements Serializable {
 	 */
 	public String getRetypedPassword() {
 		return retypedPassword;
-	}
-
-	/**
-	 * @param credentialId
-	 *            the credentialId to set
-	 */
-	public void setCredentialId(String credentialId) {
-		this.credentialId = credentialId;
-	}
-
-	/**
-	 * @param password
-	 *            the password to set
-	 */
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	/**
