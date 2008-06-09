@@ -316,8 +316,8 @@ public class Migration {
 				+ "\nfrom openid_credential c1 inner join openid_user u1 on u1.user_id = c1.credential_userid"
 				+ "\n where c1.credential_handler = '1'";
 		String newSql = "insert into jos_password"
-				+ "\n(password_id, password_user_id, password_plaintext, password_sha_hex, password_creation_date)"
-				+ "values(?, ?, ?, ?, ?)";
+				+ "\n(password_id, password_user_id, password_name, password_plaintext, password_sha_hex, password_creation_date)"
+				+ "values(?, ?, 'Default Password', ?, ?, ?)";
 
 		PreparedStatement oldPstmt = oldConn.prepareStatement(oldSql);
 		PreparedStatement newPstmt = newConn.prepareStatement(newSql);
