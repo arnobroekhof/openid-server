@@ -13,6 +13,7 @@
 					<tr>
 						<th>#springMessage("message.site.realmUrl")</th>
 						<th>#springMessage("message.site.alwaysApprove")</th>
+						<th>#springMessage("message.site.persona")</th>
 						<th>#springMessage("message.site.lastAttempt")</th>
 						<th>#springMessage("message.site.approvals")</th>
 					</tr>
@@ -21,7 +22,9 @@
 					<tr>
 						<td style="text-align:left;">
 							<input type="hidden" name="realmId" value="$!{esc.html($!{site.realm.id})}" />
-							<a href="$!{esc.html($!{site.realm.url})}">$!{esc.html($!{site.realm.url})}</a>
+							<a href="$!{esc.html($!{site.realm.url})}">
+								$!{esc.html($!{site.realm.url})}
+							</a>
 						</td>
 						<td>
 							#if($site.alwaysApprove)
@@ -29,6 +32,11 @@
 							#else
 								<input type="checkbox" name="alwaysApprove_$!{esc.html($!{site.realm.id})}" />
 							#end
+						</td>
+						<td>
+							<a href="persona?id=$!{esc.html($!{site.persona.id})}">
+								$!{esc.html($!{site.persona.name})}
+							</a>
 						</td>
 						<td>
 							$site.lastAttempt
