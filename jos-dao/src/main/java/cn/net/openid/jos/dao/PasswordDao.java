@@ -16,10 +16,6 @@ public interface PasswordDao {
 
 	Collection<Password> getPasswords(String userId);
 
-	Password getPasswordByUserId(String userId);
-
-	Password getPasswordByUsername(String username);
-
 	void insertPassword(Password password);
 
 	void updatePassword(Password password);

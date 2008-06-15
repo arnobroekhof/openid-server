@@ -37,36 +37,6 @@ public class HibernatePasswordDao extends BaseHibernateEntityDao<Password>
 	/*
 	 * （非 Javadoc）
 	 * 
-	 * @see org.bestid.dao.PasswordDao#getPasswordByUserId(java.lang.String)
-	 */
-	public Password getPasswordByUserId(String userId) {
-		List<Password> passwords = this.find("from Password where user.id = ?",
-				userId);
-		if (!passwords.isEmpty()) {
-			return passwords.get(0);
-		} else {
-			return null;
-		}
-	}
-
-	/*
-	 * （非 Javadoc）
-	 * 
-	 * @see org.bestid.dao.PasswordDao#getPasswordByUsername(java.lang.String)
-	 */
-	public Password getPasswordByUsername(String username) {
-		List<Password> passwords = this.find(
-				"from Password where user.username = ?", username);
-		if (!passwords.isEmpty()) {
-			return passwords.get(0);
-		} else {
-			return null;
-		}
-	}
-
-	/*
-	 * （非 Javadoc）
-	 * 
 	 * @see org.bestid.dao.PasswordDao#deletePassword(java.lang.String)
 	 */
 	public void deletePassword(String id) {

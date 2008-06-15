@@ -29,7 +29,7 @@ public interface JosService {
 
 	User getUserByUsername(String username);
 
-	Password getPasswordByUserId(String userId);
+	User getUser(String username, String passwordPlaintext);
 
 	Collection<Password> getPasswords(String userId);
 

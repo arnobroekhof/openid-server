@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -164,6 +165,33 @@ public class JosServiceImpl implements JosService {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see cn.net.openid.jos.service.JosService#getUser(java.lang.String,
+	 *      java.lang.String)
+	 */
+	public User getUser(String username, String passwordPlaintext) {
+		if (StringUtils.isEmpty(username)) {
+			return null;
+		}
+		User user = getUserByUsername(username);
+		if (user == null) {
+			return null;
+		}
+
+		Collection<Password> passwords = getPasswords(user.getId());
+		boolean foundPassword = false;
+		String passwordShaHex = DigestUtils.shaHex(passwordPlaintext);
+		for (Password password : passwords) {
+			if (password.getShaHex().equalsIgnoreCase(passwordShaHex)) {
+				foundPassword = true;
+				break;
+			}
+		}
+		return foundPassword ? user : null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see cn.net.openid.dao.DaoFacade#insertUser(cn.net.openid.User,
 	 *      cn.net.openid.domain.Password)
 	 */
@@ -194,15 +222,6 @@ public class JosServiceImpl implements JosService {
 	 */
 	public void updateUser(User user) {
 		this.userDao.updateUser(user);
-	}
-
-	/*
-	 * （非 Javadoc）
-	 * 
-	 * @see cn.net.openid.dao.DaoFacade#getPasswordByUserId(java.lang.String)
-	 */
-	public Password getPasswordByUserId(String userId) {
-		return this.passwordDao.getPasswordByUserId(userId);
 	}
 
 	/*
