@@ -4,7 +4,6 @@
 package cn.net.openid.jos.dao.hibernate;
 
 import java.util.Collection;
-import java.util.List;
 
 import cn.net.openid.jos.dao.PasswordDao;
 import cn.net.openid.jos.domain.Password;
