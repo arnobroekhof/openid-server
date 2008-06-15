@@ -251,6 +251,26 @@ public class JosServiceImpl implements JosService {
 	}
 
 	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.jos.service.JosService#deletePasswords(java.lang.String,
+	 *      java.lang.String[])
+	 */
+	public void deletePasswords(String userId, String[] passwordIds)
+			throws LastPasswordException {
+		User user = userDao.getUser(userId);
+		for (String passwordId : passwordIds) {
+			Password password = passwordDao.getPassword(passwordId);
+			if (password.getUser().equals(user)) {
+				passwordDao.deletePassword(password.getId());
+			}
+		}
+		if (passwordDao.getPasswords(user.getId()).size() == 0) {
+			throw new LastPasswordException();
+		}
+	}
+
+	/*
 	 * （非 Javadoc）
 	 * 
 	 * @see cn.net.openid.dao.DaoFacade#deleteEmail(java.lang.String)

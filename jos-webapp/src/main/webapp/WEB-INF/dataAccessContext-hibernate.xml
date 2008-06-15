@@ -14,10 +14,11 @@
 			value="${jdbc.validationQuery}" />
 		-->
 	</bean>
-	<bean id="transactionManager"
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource" />
-	</bean>
+	<!--bean id="dataSource"
+		class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:comp/env/jdbc/jos" />
+		</bean-->
+
 	<bean id="hibernateProperties"
 		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
 		<property name="properties">
@@ -56,40 +57,41 @@
 		</property>
 	</bean>
 
+	<bean id="baseDao"
+		class="cn.net.openid.jos.dao.hibernate.BaseHibernateEntityDao"
+		abstract="true">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
 	<bean id="userDao"
-		class="cn.net.openid.jos.dao.hibernate.HibernateUserDao">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
+		class="cn.net.openid.jos.dao.hibernate.HibernateUserDao"
+		parent="baseDao" />
 	<bean id="passwordDao"
-		class="cn.net.openid.jos.dao.hibernate.HibernatePasswordDao">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
+		class="cn.net.openid.jos.dao.hibernate.HibernatePasswordDao"
+		parent="baseDao" />
 	<bean id="emailDao"
-		class="cn.net.openid.jos.dao.hibernate.HibernateEmailDao">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
+		class="cn.net.openid.jos.dao.hibernate.HibernateEmailDao"
+		parent="baseDao" />
 	<bean id="emailConfirmationInfoDao"
-		class="cn.net.openid.jos.dao.hibernate.HibernateEmailConfirmationInfoDao">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
+		class="cn.net.openid.jos.dao.hibernate.HibernateEmailConfirmationInfoDao"
+		parent="baseDao" />
 	<bean id="personaDao"
-		class="cn.net.openid.jos.dao.hibernate.HibernatePersonaDao">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
+		class="cn.net.openid.jos.dao.hibernate.HibernatePersonaDao"
+		parent="baseDao" />
 	<bean id="attributeDao"
-		class="cn.net.openid.jos.dao.hibernate.HibernateAttributeDao">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
+		class="cn.net.openid.jos.dao.hibernate.HibernateAttributeDao"
+		parent="baseDao" />
 	<bean id="attributeValueDao"
-		class="cn.net.openid.jos.dao.hibernate.HibernateAttributeValueDao">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
+		class="cn.net.openid.jos.dao.hibernate.HibernateAttributeValueDao"
+		parent="baseDao" />
 	<bean id="realmDao"
-		class="cn.net.openid.jos.dao.hibernate.HibernateRealmDao">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
+		class="cn.net.openid.jos.dao.hibernate.HibernateRealmDao"
+		parent="baseDao" />
 	<bean id="siteDao"
-		class="cn.net.openid.jos.dao.hibernate.HibernateSiteDao">
+		class="cn.net.openid.jos.dao.hibernate.HibernateSiteDao"
+		parent="baseDao" />
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 </beans>

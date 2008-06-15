@@ -38,6 +38,9 @@ public interface JosService {
 	void updatePassword(String userId, String passwordId, String name,
 			String passwordPlaintext);
 
+	void deletePasswords(String userId, String[] passwordIds)
+			throws LastPasswordException;
+
 	/**
 	 * 该方法的事务处理由Spring的事务处理保证。
 	 * 
