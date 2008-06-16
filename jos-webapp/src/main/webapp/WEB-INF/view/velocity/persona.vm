@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>#springMessage("openid") - #springMessage("persona")</title>
+		<title>#springMessage("openid") - #springMessage("persona.title.persona")</title>
 		<link rel="stylesheet" type="text/css" media="all" href="#springUrl('/jscalendar/skins/aqua/theme.css')" title="Aqua" />
 		<script type="text/javascript" src="#springUrl('/jscalendar/calendar_stripped.js')"></script>
 		<script type="text/javascript" src="#springUrl('/jscalendar/calendar-setup_stripped.js')"></script>
@@ -10,14 +10,14 @@
 	<div>
 		#parse("header.vm")
 		<fieldset>
-		<legend>#springMessage("persona")</legend>
+		<legend>#springMessage("persona.title.persona")</legend>
 			<form action="persona?token=$!token" method="post">
 				#springBindEscaped("persona.id" false)
 				<input type="hidden" name="$!{status.expression}" value="$!{status.value}" />
 				<table>
 					<tr>
 						<td class="label">
-							<label for="name">The name of persona:</label>
+							<label for="name">#springMessage("persona.label.name")</label>
 						</td>
 						<td>
 							#springFormInput("persona.name" "")
@@ -26,7 +26,7 @@
 					</tr>
 					<tr>
 						<td class="label">
-							<label for="nickname">#springMessage("label.nickname")</label>
+							<label for="nickname">#springMessage("persona.label.nickname")</label>
 						</td>
 						<td>
 							#springFormInput("persona.nickname" "")
@@ -35,7 +35,7 @@
 					</tr>
 					<tr>
 						<td class="label">
-							<label for="email">#springMessage("label.email")</lable>
+							<label for="email">#springMessage("persona.label.email")</lable>
 						</td>
 						<td>
 							#springFormInput("persona.email" "")
@@ -44,7 +44,7 @@
 					</tr>
 					<tr>
 						<td class="label">
-							<label for="fullname">#springMessage("label.fullname")</label>
+							<label for="fullname">#springMessage("persona.label.fullname")</label>
 						</td>
 						<td>
 							#springFormInput("persona.fullname" "")
@@ -53,7 +53,7 @@
 					</tr>
 					<tr>
 						<td class="label">
-							<label for="dob">#springMessage("label.dob")</label>
+							<label for="dob">#springMessage("persona.label.dob")</label>
 						</td>
 						<td>
 							#springFormInput("persona.dob" "")
@@ -74,7 +74,7 @@
 					#springBindEscaped("persona.gender" false)
 					<tr>
 						<td class="label">
-							<label for="gender">#springMessage("label.gender")</label>
+							<label for="gender">#springMessage("persona.label.gender")</label>
 						</td>
 						<td>
 							<input type="radio" id="gender_U" name="$!{status.expression}" value="U" #if("$!status.value" == "U")checked="checked"#end /><label for="gender_U">#springMessage("gender.unknown")</label>
@@ -87,7 +87,7 @@
 					</tr>
 					<tr>
 						<td class="label">
-							<label for="postcode">#springMessage("label.postcode")</label>
+							<label for="postcode">#springMessage("persona.label.postcode")</label>
 						</td>
 						<td>
 							#springFormInput("persona.postcode" "")
@@ -96,7 +96,7 @@
 					</tr>
 					<tr>
 						<td class="label">
-							<label for="country">#springMessage("label.country")</label>
+							<label for="country">#springMessage("persona.label.country")</label>
 						</td>
 						<td>
 							#springFormSingleSelect("persona.country" $countries "id='country'")
@@ -105,7 +105,7 @@
 					</tr>
 					<tr>
 						<td class="label">
-							<label for="language">#springMessage("label.language")</label>
+							<label for="language">#springMessage("persona.label.language")</label>
 						</td>
 						<td>
 							#springFormSingleSelect("persona.language" $languages "id='language'")
@@ -114,7 +114,7 @@
 					</tr>
 					<tr>
 						<td class="label">
-							<label for="timezone">#springMessage("label.timezone")</label>
+							<label for="timezone">#springMessage("persona.label.timezone")</label>
 						<td>
 							#springFormSingleSelect("persona.timezone" $timezones "id='timezone'")
 							#springShowErrors("" "error")

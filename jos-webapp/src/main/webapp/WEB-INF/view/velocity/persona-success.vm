@@ -1,15 +1,15 @@
 <html>
 	<head>
-		<title>#springMessage("openid") - #springMessage("persona")</title>
+		<title>#springMessage("openid") - #springMessage("persona.title.persona")</title>
 	</head>
 	<body>
 	<div>
 		#parse("header.vm")
-		#springMessage("message.persona.modifySuccess")
+		#springMessage("persona.message.modifySuccess")
 		#if($token && $token != "")
-			<a href="approving?token=$!token">#springMessage("message.persona.backToApproving")</a>
+			<a href="approving?token=$!token">#springMessage("persona.message.backToApproving")</a>
 		#else
-			<a href="personas?token=$!token">#springMessage("message.persona.backToPersonas")</a>
+			<a href="personas?token=$!token">#springMessage("persona.message.backToPersonas")</a>
 		#end
 		#parse("footer.vm")
 	</div>
