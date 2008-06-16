@@ -1,31 +1,37 @@
 <html>
 	<head>
-		<title>#springMessage("openid") - #springMessage("personas")</title>
+		<title>
+			#springMessage("openid") - #springMessage("persona.title.personas")
+		</title>
 	</head>
 	<body>
 	<div>
 		#parse("header.vm")
 		<fieldset>
-			<legend>#springMessage("personas")</legend>
+			<legend>#springMessage("persona.title.personas")</legend>
 			<table class="list">
 				<thead>
 					<tr>
-						<th>#springMessage("message.persona.name")</th>
-						<th>#springMessage("message.persona.nickname")</th>
-						<th>#springMessage("message.persona.email")</th>
-						<th>#springMessage("message.persona.fullname")</th>
-						<th>#springMessage("message.persona.dob")</th>
-						<th>#springMessage("message.persona.gender")</th>
-						<th>#springMessage("message.persona.postcode")</th>
-						<th>#springMessage("message.persona.country")</th>
-						<th>#springMessage("message.persona.language")</th>
-						<th>#springMessage("message.persona.timezone")</th>
+						<th>#springMessage("persona.title.name")</th>
+						<th>#springMessage("persona.title.nickname")</th>
+						<th>#springMessage("persona.title.email")</th>
+						<th>#springMessage("persona.title.fullname")</th>
+						<th>#springMessage("persona.title.dob")</th>
+						<th>#springMessage("persona.title.gender")</th>
+						<th>#springMessage("persona.title.postcode")</th>
+						<th>#springMessage("persona.title.country")</th>
+						<th>#springMessage("persona.title.language")</th>
+						<th>#springMessage("persona.title.timezone")</th>
 					</tr>
 				</thead>
 				<tbody>
 				#foreach($persona in $personas)
 					<tr>
-						<td><a href="persona?id=$!{esc.html($!{persona.id})}">$!{esc.html($!{persona.name})}</a></td>
+						<td>
+							<a href="persona?id=$!{esc.html($!{persona.id})}">
+								$!{esc.html($!{persona.name})}
+							</a>
+						</td>
 						<td>$!{esc.html($!{persona.nickname})}</td>
 						<td>$!{esc.html($!{persona.email})}</td>
 						<td>$!{esc.html($!{persona.fullname})}</td>
@@ -40,7 +46,9 @@
 				</tbody>
 				<tfoot>
 					<tr>
-						<td colspan="10"><a href="persona">Add New Persona</a></td>
+						<td colspan="10">
+							<a href="persona">#springMessage("persona.button.addNewPersona")</a>
+						</td>
 					</tr>
 				</tfoot>
 			</table>
