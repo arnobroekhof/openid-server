@@ -42,7 +42,7 @@
 		<p>To add a new e-mail address, enter it in the form below. We will
 		send you a message with further instructions.</p>
 		<form action="email" method="post">
-			<label for="address">#springMessage("label.email")</label>
+			<label for="address">#springMessage("email.label.email")</label>
 			#springFormInput("email.address" "")
 			#springShowErrors("" "error")
 			<input type="submit" class="button" value="#springMessage('message.email.sendInstructions')" />

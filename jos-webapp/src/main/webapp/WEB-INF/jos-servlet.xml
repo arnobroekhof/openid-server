@@ -222,6 +222,7 @@
 			<list>
 				<value>messages-custom</value>
 				<value>cn.net.openid.jos.web.messages</value>
+				<value>cn.net.openid.jos.web.email</value>
 				<value>cn.net.openid.jos.web.password</value>
 				<value>cn.net.openid.jos.web.persona</value>
 			</list>
