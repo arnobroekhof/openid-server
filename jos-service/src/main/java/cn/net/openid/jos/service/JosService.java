@@ -117,7 +117,7 @@ public interface JosService {
 
 	void insertPersona(Persona persona);
 
-	void deletePersona(String id);
-
 	void updatePersona(Persona persona);
+
+	void deletePersonas(String userId, String[] personaIds);
 }

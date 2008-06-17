@@ -39,15 +39,6 @@ public class HibernatePersonaDao extends BaseHibernateEntityDao<Persona>
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.jos.dao.PersonaDao#deletePersona(java.lang.String)
-	 */
-	public void deletePersona(String id) {
-		this.getHibernateTemplate().delete(this.get(id));
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see cn.net.openid.jos.dao.PersonaDao#insertPersona(cn.net.openid.jos.domain.Persona)
 	 */
 	public void insertPersona(Persona persona) {
@@ -63,4 +54,12 @@ public class HibernatePersonaDao extends BaseHibernateEntityDao<Persona>
 		this.getHibernateTemplate().update(persona);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.jos.dao.PersonaDao#deletePersona(cn.net.openid.jos.domain.Persona)
+	 */
+	public void deletePersona(Persona persona) {
+		this.getHibernateTemplate().delete(persona);
+	}
 }

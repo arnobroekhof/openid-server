@@ -20,5 +20,5 @@ public interface PersonaDao {
 
 	void updatePersona(Persona persona);
 
-	void deletePersona(String id);
+	void deletePersona(Persona persona);
 }

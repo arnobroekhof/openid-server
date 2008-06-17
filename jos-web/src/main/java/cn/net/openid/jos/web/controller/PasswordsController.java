@@ -26,6 +26,8 @@ public class PasswordsController extends AbstractJosController {
 	public ModelAndView handleRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		String userId = getUser(request).getUserId();
+
+		// Delete checked password.
 		String[] deletePasswordIds = request
 				.getParameterValues("deletePasswordId");
 		if (deletePasswordIds != null) {
@@ -35,6 +37,7 @@ public class PasswordsController extends AbstractJosController {
 				// Last password exception.
 			}
 		}
+
 		return new ModelAndView("passwords", "passwords", josService
 				.getPasswords(userId));
 	}

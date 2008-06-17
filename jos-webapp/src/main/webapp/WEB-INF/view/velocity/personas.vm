@@ -9,9 +9,11 @@
 		#parse("header.vm")
 		<fieldset>
 			<legend>#springMessage("persona.title.personas")</legend>
+			<form method="post">
 			<table class="list">
 				<thead>
 					<tr>
+						<th>#springMessage("persona.title.delete")</th>
 						<th>#springMessage("persona.title.name")</th>
 						<th>#springMessage("persona.title.nickname")</th>
 						<th>#springMessage("persona.title.email")</th>
@@ -27,6 +29,9 @@
 				<tbody>
 				#foreach($persona in $personas)
 					<tr>
+						<td>
+							<input type="checkbox" name="deletePersonaId" value="$!{esc.html($!{persona.id})}" />
+						</td>
 						<td>
 							<a href="persona?id=$!{esc.html($!{persona.id})}">
 								$!{esc.html($!{persona.name})}
@@ -46,12 +51,14 @@
 				</tbody>
 				<tfoot>
 					<tr>
-						<td colspan="10">
+						<td colspan="11">
+							<button type="submit">#springMessage("remove")</button>
 							<a href="persona">#springMessage("persona.button.addNewPersona")</a>
 						</td>
 					</tr>
 				</tfoot>
 			</table>
+			</form>
 		</fieldset>
 		#parse("footer.vm")
 	</div>

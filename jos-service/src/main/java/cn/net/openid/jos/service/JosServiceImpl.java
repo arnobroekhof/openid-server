@@ -547,15 +547,6 @@ public class JosServiceImpl implements JosService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.jos.service.JosService#deletePersona(java.lang.String)
-	 */
-	public void deletePersona(String id) {
-		this.personaDao.deletePersona(id);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see cn.net.openid.jos.service.JosService#getPersona(java.lang,String,
 	 *      java.lang.String)
 	 */
@@ -607,5 +598,20 @@ public class JosServiceImpl implements JosService {
 	 */
 	public void updatePersona(Persona persona) {
 		this.personaDao.updatePersona(persona);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.jos.service.JosService#deletePersonas(java.lang.String,
+	 *      java.lang.String[])
+	 */
+	public void deletePersonas(String userId, String[] personaIds) {
+		for (String personaId : personaIds) {
+			Persona persona = this.getPersona(userId, personaId);
+			if (persona != null) {
+				this.personaDao.deletePersona(persona);
+			}
+		}
 	}
 }
