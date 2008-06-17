@@ -10,28 +10,25 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.net.openid.jos.domain.Site;
-import cn.net.openid.jos.web.AbstractJosSimpleFormController;
+import cn.net.openid.jos.web.AbstractJosController;
 
 /**
  * @author Sutra Zhou
  * 
  */
-public class SitesController extends AbstractJosSimpleFormController {
+public class SitesController extends AbstractJosController {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.springframework.web.servlet.mvc.SimpleFormController#processFormSubmission(javax.servlet.http.HttpServletRequest,
-	 *      javax.servlet.http.HttpServletResponse, java.lang.Object,
-	 *      org.springframework.validation.BindException)
+	 * @see org.springframework.web.servlet.mvc.Controller#handleRequest(javax.servlet.http.HttpServletRequest,
+	 *      javax.servlet.http.HttpServletResponse)
 	 */
-	@Override
-	protected ModelAndView processFormSubmission(HttpServletRequest request,
-			HttpServletResponse response, Object command, BindException errors)
-			throws Exception {
+	public ModelAndView handleRequest(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		// Update alwaysApprove.
 		String[] realmIds = request.getParameterValues("realmId");
 		String userId = getUser(request).getUserId();
 		if (realmIds != null) {
@@ -40,19 +37,8 @@ public class SitesController extends AbstractJosSimpleFormController {
 						.getParameter("alwaysApprove_" + realmId) != null);
 			}
 		}
-		request.setAttribute("sites", this.josService.getSites(userId));
-		return super.processFormSubmission(request, response, command, errors);
-	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.springframework.web.servlet.mvc.SimpleFormController#referenceData(javax.servlet.http.HttpServletRequest)
-	 */
-	@Override
-	protected Map<String, List<Site>> referenceData(HttpServletRequest request)
-			throws Exception {
-		return this.getModel(getUser(request).getUserId());
+		return new ModelAndView("sites", getModel(userId));
 	}
 
 	private Map<String, List<Site>> getModel(String userId) {
@@ -61,4 +47,5 @@ public class SitesController extends AbstractJosSimpleFormController {
 		model.put("sites", sites);
 		return model;
 	}
+
 }

@@ -141,12 +141,7 @@
 
 	<bean id="sitesController"
 		class="cn.net.openid.jos.web.controller.SitesController"
-		parent="abstractJosSimpleFormController">
-		<property name="commandClass"
-			value="cn.net.openid.jos.web.form.SitesForm" />
-		<property name="formView" value="sites" />
-		<property name="successView" value="sites" />
-	</bean>
+		parent="abstractJosController" />
 
 	<bean id="humanLanguageSelectionController"
 		class="cn.net.openid.jos.web.controller.HumanLanguageSelectionController">
@@ -225,6 +220,7 @@
 				<value>cn.net.openid.jos.web.email</value>
 				<value>cn.net.openid.jos.web.password</value>
 				<value>cn.net.openid.jos.web.persona</value>
+				<value>cn.net.openid.jos.web.site</value>
 			</list>
 		</property>
 	</bean>

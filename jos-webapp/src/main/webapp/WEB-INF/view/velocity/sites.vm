@@ -1,21 +1,21 @@
 <html>
 	<head>
-		<title>#springMessage("openid") - #springMessage("sites")</title>
+		<title>#springMessage("openid") - #springMessage("site.title.sites")</title>
 	</head>
 	<body>
 	<div>
 		#parse("header.vm")
 		<fieldset>
-			<legend>#springMessage("sites")</legend>
+			<legend>#springMessage("site.title.sites")</legend>
 			<form method="post">
 			<table class="list">
 				<thead>
 					<tr>
-						<th>#springMessage("message.site.realmUrl")</th>
-						<th>#springMessage("message.site.alwaysApprove")</th>
-						<th>#springMessage("message.site.persona")</th>
-						<th>#springMessage("message.site.lastAttempt")</th>
-						<th>#springMessage("message.site.approvals")</th>
+						<th>#springMessage("site.title.realmUrl")</th>
+						<th>#springMessage("site.title.alwaysApprove")</th>
+						<th>#springMessage("site.title.persona")</th>
+						<th>#springMessage("site.title.lastAttempt")</th>
+						<th>#springMessage("site.title.approvals")</th>
 					</tr>
 				</thead>
 				#foreach($site in $sites)

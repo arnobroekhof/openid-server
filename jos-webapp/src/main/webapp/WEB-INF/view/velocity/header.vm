@@ -12,7 +12,7 @@
 			<li><a href="passwords" title="#springMessage("password.title.password")">#springMessage("password.title.passwords")</a></li>
 			<li><a href="personas" title="#springMessage("persona.title.persona")">#springMessage("persona.title.personas")</a></li>
 			<li><a href="attribute-value" title="Attribute">附加属性</a></li>
-			<li><a href="sites" title="#springMessage("sites.tip")">#springMessage("sites")</a></li>
+			<li><a href="sites" title="#springMessage("site.title.tip")">#springMessage("site.title.sites")</a></li>
 			<li><a href="logout" title="#springMessage("logout.tip")">#springMessage("logout")</a></li>
 			#end
 			<li><a href="http://openid.net.cn" title="#springMessage("about.tip")">#springMessage("about")</a></li>
