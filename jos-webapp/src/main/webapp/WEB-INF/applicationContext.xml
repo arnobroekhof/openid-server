@@ -105,7 +105,11 @@
 	</bean>
 
 	<bean id="personaValidator"
-		class="cn.net.openid.jos.web.validation.PersonaValidator">
+		class="cn.net.openid.jos.web.validation.PersonaValidator" />
+	<bean id="emailValidator"
+		class="cn.net.openid.jos.web.validation.EmailValidator">
+		<property name="pattern"
+			value="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" />
 	</bean>
 	<bean id="registerFormValidator"
 		class="cn.net.openid.jos.web.validation.RegisterFormValidator">

@@ -65,6 +65,7 @@
 			value="cn.net.openid.jos.domain.Email" />
 		<property name="formView" value="email" />
 		<property name="successView" value="email-success" />
+		<property name="validator" ref="emailValidator" />
 	</bean>
 	<bean id="deleteEmailController"
 		class="cn.net.openid.jos.web.controller.DeleteEmailController"
