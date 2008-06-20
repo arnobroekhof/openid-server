@@ -76,8 +76,8 @@
 		parent="abstractJosSimpleFormController">
 		<property name="commandClass"
 			value="cn.net.openid.jos.web.form.ConfirmEmailForm" />
-		<property name="formView" value="confirm-email" />
-		<property name="successView" value="confirm-email-success" />
+		<property name="formView" value="email-confirm" />
+		<property name="successView" value="email-confirm-success" />
 	</bean>
 
 	<bean id="passwordsController"
