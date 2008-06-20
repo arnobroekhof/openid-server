@@ -259,12 +259,33 @@ public class JosServiceImpl implements JosService {
 	}
 
 	/*
-	 * （非 Javadoc）
+	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.dao.DaoFacade#getEmail(java.lang.String)
+	 * @see cn.net.openid.jos.service.JosService#setPrimaryEmail(cn.net.openid.jos.domain.User,
+	 *      java.lang.String)
 	 */
-	public Email getEmail(String id) {
-		return emailDao.getEmail(id);
+	public void setPrimaryEmail(User user, String id) {
+		Email email = getEmail(user, id);
+		if (email != null) {
+			Email oldPrimaryEmail = emailDao.getPrimaryEmail(user);
+			if (oldPrimaryEmail != null) {
+				oldPrimaryEmail.setPrimary(false);
+				emailDao.updateEmail(oldPrimaryEmail);
+			}
+			email.setPrimary(true);
+			emailDao.updateEmail(email);
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.jos.service.JosService#getEmail(cn.net.openid.jos.domain.User,
+	 *      java.lang.String)
+	 */
+	public Email getEmail(User user, String id) {
+		Email email = emailDao.getEmail(id);
+		return (email != null && email.getUser().equals(user)) ? email : null;
 	}
 
 	/*
@@ -356,6 +377,9 @@ public class JosServiceImpl implements JosService {
 		}
 
 		eci.getEmail().setConfirmed(true);
+		// Set primary if its the first confirmed e-mail address of the user.
+		eci.getEmail().setPrimary(
+				emailDao.getEmails(eci.getEmail().getUser()).size() == 1);
 		eci.setConfirmed(true);
 		eci.setConfirmedDate(new Date());
 		emailConfirmationInfoDao.updateEmailConfirmationInfo(eci);

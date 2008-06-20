@@ -15,9 +15,13 @@ import cn.net.openid.jos.domain.User;
 public interface EmailDao {
 	Email getEmail(String id);
 
+	Email getPrimaryEmail(User user);
+
 	Collection<Email> getEmails(User user);
 
 	void insertEmail(Email email);
+
+	void updateEmail(Email email);
 
 	void deleteEmail(String id);
 }

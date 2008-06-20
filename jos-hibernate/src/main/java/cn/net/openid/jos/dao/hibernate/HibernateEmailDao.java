@@ -25,6 +25,11 @@ public class HibernateEmailDao extends BaseHibernateEntityDao<Email> implements
 		return get(id);
 	}
 
+	public Email getPrimaryEmail(User user) {
+		return findUnique("from Email where user.id = ? and primary = true",
+				user.getId());
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -41,6 +46,15 @@ public class HibernateEmailDao extends BaseHibernateEntityDao<Email> implements
 	 */
 	public void insertEmail(Email email) {
 		getHibernateTemplate().save(email);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.jos.dao.EmailDao#updateEmail(cn.net.openid.jos.domain.Email)
+	 */
+	public void updateEmail(Email email) {
+		getHibernateTemplate().update(email);
 	}
 
 	/*

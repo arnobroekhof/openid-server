@@ -181,6 +181,10 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>jos</servlet-name>
+		<url-pattern>/email-set-primary</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>jos</servlet-name>
 		<url-pattern>/passwords</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>

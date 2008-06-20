@@ -24,8 +24,6 @@ public interface JosService {
 
 	String buildOpenidUrl(String username);
 
-	Email getEmail(String id);
-
 	User getUser(String id);
 
 	User getUserByUsername(String username);
@@ -74,11 +72,15 @@ public interface JosService {
 	 */
 	void insertUser(User user, Password password);
 
+	Email getEmail(User user, String id);
+
 	Collection<Email> getEmails(User user);
 
 	void insertEmail(User user, Email email);
 
 	void deleteEmail(User user, String id);
+
+	void setPrimaryEmail(User user, String id);
 
 	void insertEmailConfirmationInfo(User user,
 			EmailConfirmationInfo emailConfirmationInfo);

@@ -79,6 +79,9 @@
 		<property name="formView" value="email-confirm" />
 		<property name="successView" value="email-confirm-success" />
 	</bean>
+	<bean id="emailSetPrimaryController"
+		class="cn.net.openid.jos.web.controller.SetPrimaryEmailController"
+		parent="abstractJosController" />
 
 	<bean id="passwordsController"
 		class="cn.net.openid.jos.web.controller.PasswordsController"
@@ -195,6 +198,8 @@
 				<entry key="/email" value-ref="emailController" />
 				<entry key="/email-remove"
 					value-ref="deleteEmailController" />
+				<entry key="/email-set-primary"
+					value-ref="emailSetPrimaryController" />
 				<entry key="/passwords" value-ref="passwordsController" />
 				<entry key="/password"
 					value-ref="editPasswordController" />
