@@ -59,8 +59,8 @@ public class ConfirmEmailController extends AbstractJosSimpleFormController {
 			this.josService.confirmEmail(form.getConfirmationCode());
 		} catch (EmailConfirmationInfoNotFoundException e) {
 			errors.rejectValue("confirmationCode",
-					"EmailConfirmationInfoNotFoundException",
-					"Email Confirmation Info Not Found");
+					"email.error.confirmationInfoNotFound",
+					"Incorrect E-mail confirmation code.");
 		}
 		if (errors.hasErrors()) {
 			return this.showForm(request, response, errors);

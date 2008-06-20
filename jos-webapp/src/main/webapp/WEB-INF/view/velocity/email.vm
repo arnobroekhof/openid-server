@@ -33,7 +33,7 @@
 		#end
 		<p>#springMessage("email.message.addNew.description")</p>
 		<form action="email" method="post">
-			<label for="address">#springMessage("email.label.email")</label>
+			<label for="address">#springMessage("email.label.address")</label>
 			#springFormInput("email.address" "")
 			#springShowErrors("" "error")
 			<input type="submit" class="button" value="#springMessage('email.button.sendInstructions')" />
