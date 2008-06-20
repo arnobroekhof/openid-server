@@ -33,7 +33,7 @@ public class EditPasswordController extends AbstractJosSimpleFormController {
 		String passwordId = request.getParameter("password.id");
 		if (!StringUtils.isEmpty(passwordId)) {
 			editPasswordForm.setPassword(josService.getPassword(
-					getUser(request).getUserId(), passwordId));
+					getUser(request), passwordId));
 		}
 
 		return editPasswordForm;
@@ -76,8 +76,8 @@ public class EditPasswordController extends AbstractJosSimpleFormController {
 			throws Exception {
 		EditPasswordForm editPasswordForm = (EditPasswordForm) command;
 		Password password = editPasswordForm.getPassword();
-		josService.updatePassword(getUser(request).getUserId(), password
-				.getId(), password.getName(), password.getPlaintext());
+		josService.updatePassword(getUser(request), password.getId(), password
+				.getName(), password.getPlaintext());
 		return super.onSubmit(request, response, command, errors);
 	}
 }

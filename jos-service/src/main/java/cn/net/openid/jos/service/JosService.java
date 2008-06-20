@@ -4,7 +4,6 @@
 package cn.net.openid.jos.service;
 
 import java.util.Collection;
-import java.util.List;
 
 import cn.net.openid.jos.domain.Attribute;
 import cn.net.openid.jos.domain.AttributeValue;
@@ -25,39 +24,13 @@ public interface JosService {
 
 	String buildOpenidUrl(String username);
 
+	Email getEmail(String id);
+
 	User getUser(String id);
 
 	User getUserByUsername(String username);
 
 	User getUser(String username, String passwordPlaintext);
-
-	Collection<Password> getPasswords(String userId);
-
-	Password getPassword(String userId, String passwordId);
-
-	void updatePassword(String userId, String passwordId, String name,
-			String passwordPlaintext);
-
-	void deletePasswords(String userId, String[] passwordIds)
-			throws LastPasswordException;
-
-	/**
-	 * 该方法的事务处理由Spring的事务处理保证。
-	 * 
-	 * @param user
-	 * @param password
-	 */
-	void insertUser(User user, Password password);
-
-	void updateUser(User user);
-
-	Email getEmail(String id);
-
-	Collection<Email> getEmailsByUserId(String userId);
-
-	void insertEmail(Email email);
-
-	void deleteEmail(String userId, String id);
 
 	/**
 	 * Generate a random string for EmailConfiratmionInfo.
@@ -70,10 +43,6 @@ public interface JosService {
 
 	EmailConfirmationInfo getEmailConfirmationInfo(String confirmationCode);
 
-	void insertEmailConfirmationInfo(EmailConfirmationInfo emailConfirmationInfo);
-
-	void updateEmailConfirmationInfo(EmailConfirmationInfo emailConfirmationInfo);
-
 	void confirmEmail(String confirmationCode)
 			throws EmailConfirmationInfoNotFoundException;
 
@@ -85,39 +54,62 @@ public interface JosService {
 
 	void deleteAttribute(String id);
 
-	List<AttributeValue> getUserAttributeValues(String userId);
+	/* User's methods */
 
-	void saveAttributeValues(Collection<AttributeValue> attributeValues);
+	Collection<Password> getPasswords(User user);
 
-	boolean isAlwaysApprove(String userId, String realmUrl);
+	Password getPassword(User user, String passwordId);
 
-	void updateApproval(String userId, String realmUrl);
+	void updatePassword(User user, String passwordId, String name,
+			String passwordPlaintext);
 
-	void updateAlwaysApprove(String userId, String realmId,
-			boolean alwaysApprove);
-
-	void allow(String userId, String realm, Persona persona, boolean forever);
-
-	Site getSite(String userId, String realmUrl);
-
-	List<Site> getSites(String userId);
-
-	Persona getPersona(String userId, String id);
+	void deletePasswords(User user, String[] passwordIds)
+			throws LastPasswordException;
 
 	/**
-	 * Get the default persona of the user.
+	 * 该方法的事务处理由Spring的事务处理保证。
 	 * 
-	 * @param userId
-	 * @return the default persona of the user, return null if the user doesn't
-	 *         has any none.
+	 * @param user
+	 * @param password
 	 */
-	Persona getDefaultPersona(String userId);
+	void insertUser(User user, Password password);
 
-	Collection<Persona> getPersonas(String userId);
+	Collection<Email> getEmails(User user);
 
-	void insertPersona(Persona persona);
+	void insertEmail(User user, Email email);
 
-	void updatePersona(Persona persona);
+	void deleteEmail(User user, String id);
 
-	void deletePersonas(String userId, String[] personaIds);
+	void insertEmailConfirmationInfo(User user,
+			EmailConfirmationInfo emailConfirmationInfo);
+
+	void updateEmailConfirmationInfo(User user,
+			EmailConfirmationInfo emailConfirmationInfo);
+
+	Collection<AttributeValue> getUserAttributeValues(User user);
+
+	void saveAttributeValues(User user,
+			Collection<AttributeValue> attributeValues);
+
+	boolean isAlwaysApprove(User user, String realmUrl);
+
+	void updateApproval(User user, String realmUrl);
+
+	void updateAlwaysApprove(User user, String realmId, boolean alwaysApprove);
+
+	void allow(User user, String realm, Persona persona, boolean forever);
+
+	Site getSite(User user, String realmUrl);
+
+	Collection<Site> getSites(User user);
+
+	Persona getPersona(User user, String id);
+
+	Collection<Persona> getPersonas(User user);
+
+	void insertPersona(User user, Persona persona);
+
+	void updatePersona(User user, Persona persona);
+
+	void deletePersonas(User user, String[] personaIds);
 }

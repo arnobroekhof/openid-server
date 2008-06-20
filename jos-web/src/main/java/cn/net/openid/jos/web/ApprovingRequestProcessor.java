@@ -30,6 +30,7 @@ import org.openid4java.server.ServerManager;
 
 import cn.net.openid.jos.domain.Persona;
 import cn.net.openid.jos.domain.Site;
+import cn.net.openid.jos.domain.User;
 import cn.net.openid.jos.service.JosService;
 
 /**
@@ -59,7 +60,7 @@ public class ApprovingRequestProcessor {
 	private ApprovingRequest checkIdRequest;
 	private AuthRequest authRequest;
 	private UserSession userSession;
-	private String userId;
+	private User user;
 
 	/**
 	 * @param httpReq
@@ -82,7 +83,7 @@ public class ApprovingRequestProcessor {
 		this.serverManager = serverManager;
 		this.userSession = WebUtils.getOrCreateUserSession(this.httpReq
 				.getSession());
-		this.userId = userSession.getUserId();
+		this.user = userSession.getUser();
 		this.checkIdRequest = checkIdRequest;
 		this.authRequest = checkIdRequest.getAuthRequest();
 	}
@@ -146,9 +147,9 @@ public class ApprovingRequestProcessor {
 	 * @throws IOException
 	 */
 	private void checkApproval() throws IOException {
-		Site site = josService.getSite(userId, authRequest.getRealm());
+		Site site = josService.getSite(user, authRequest.getRealm());
 		if (site != null && site.isAlwaysApprove()) {
-			josService.updateApproval(userId, authRequest.getRealm());
+			josService.updateApproval(user, authRequest.getRealm());
 
 			// return to `return_to' page.
 			redirectToReturnToPage(true, site.getPersona());

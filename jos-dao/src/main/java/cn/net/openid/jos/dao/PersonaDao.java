@@ -6,6 +6,7 @@ package cn.net.openid.jos.dao;
 import java.util.Collection;
 
 import cn.net.openid.jos.domain.Persona;
+import cn.net.openid.jos.domain.User;
 
 /**
  * @author Sutra Zhou
@@ -14,7 +15,7 @@ import cn.net.openid.jos.domain.Persona;
 public interface PersonaDao {
 	Persona getPersona(String id);
 
-	Collection<Persona> getPersonas(String userId);
+	Collection<Persona> getPersonas(User user);
 
 	void insertPersona(Persona persona);
 

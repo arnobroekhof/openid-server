@@ -19,10 +19,10 @@ import cn.net.openid.jos.web.UserSession;
 public class DeleteEmailController extends AbstractJosController {
 	public ModelAndView handleRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		UserSession userSession = getUser(request);
+		UserSession userSession = getUserSession(request);
 		String id = request.getParameter("id");
 		if (!StringUtils.isEmpty(id)) {
-			josService.deleteEmail(userSession.getUserId(), id);
+			josService.deleteEmail(userSession.getUser(), id);
 		}
 		return new ModelAndView("email-remove-success");
 	}

@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.TimeZone;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.context.MessageSource;
@@ -19,8 +20,8 @@ import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.net.openid.jos.domain.Persona;
+import cn.net.openid.jos.domain.User;
 import cn.net.openid.jos.web.AbstractJosSimpleFormController;
-import cn.net.openid.jos.web.UserSession;
 
 /**
  * @author Sutra Zhou
@@ -60,16 +61,15 @@ public class PersonaController extends AbstractJosSimpleFormController {
 	@Override
 	protected Object formBackingObject(HttpServletRequest request)
 			throws Exception {
-		UserSession userSession = getUser(request);
-		String userId = userSession.getUserId();
+		User user = getUser(request);
 		String id = request.getParameter("id");
 		Persona persona;
 		if (StringUtils.isEmpty(id)) {
-			persona = new Persona(this.josService.getUser(userId));
+			persona = new Persona(user);
 		} else {
-			persona = this.josService.getPersona(userId, id);
-			if (!persona.getUser().getId().equals(userId)) {
-				persona = new Persona(this.josService.getUser(userId));
+			persona = josService.getPersona(user, id);
+			if (persona == null) {
+				persona = new Persona(user);
 			}
 		}
 		return persona;
@@ -104,26 +104,7 @@ public class PersonaController extends AbstractJosSimpleFormController {
 		if (log.isDebugEnabled()) {
 			log.debug("persona dob: " + persona.getDob());
 		}
-		if (!persona.getUser().getId().equals(getUser(request).getUserId())) {
-			errors.reject("hack");
-		}
 		super.onBindAndValidate(request, command, errors);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(java.lang.Object)
-	 */
-	@Override
-	protected ModelAndView onSubmit(Object command) throws Exception {
-		Persona persona = (Persona) command;
-		if (StringUtils.isEmpty(persona.getId())) {
-			this.josService.insertPersona(persona);
-		} else {
-			this.josService.updatePersona(persona);
-		}
-		return super.onSubmit(command);
 	}
 
 	/*
@@ -175,6 +156,26 @@ public class PersonaController extends AbstractJosSimpleFormController {
 
 		map.put("timezones", timezones);
 		return map;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax.servlet.http.HttpServletRequest,
+	 *      javax.servlet.http.HttpServletResponse, java.lang.Object,
+	 *      org.springframework.validation.BindException)
+	 */
+	@Override
+	protected ModelAndView onSubmit(HttpServletRequest request,
+			HttpServletResponse response, Object command, BindException errors)
+			throws Exception {
+		Persona persona = (Persona) command;
+		if (StringUtils.isEmpty(persona.getId())) {
+			josService.insertPersona(getUser(request), persona);
+		} else {
+			josService.updatePersona(getUser(request), persona);
+		}
+		return super.onSubmit(request, response, command, errors);
 	}
 
 	/**

@@ -10,6 +10,7 @@ import org.springframework.aop.AfterReturningAdvice;
 
 import cn.net.openid.jos.domain.Email;
 import cn.net.openid.jos.domain.EmailConfirmationInfo;
+import cn.net.openid.jos.domain.User;
 
 /**
  * @author Sutra Zhou
@@ -37,7 +38,8 @@ public class InsertEmailAfterReturningAdvice implements AfterReturningAdvice {
 			Object[] args, Object target) throws Throwable {
 		JosService josService = (JosService) target;
 
-		Email email = (Email) args[0];
+		User user = (User) args[0];
+		Email email = (Email) args[1];
 
 		String confirmationCode = josService.generateConfirmationCode(email);
 		EmailConfirmationInfo emailConfirmationInfo = new EmailConfirmationInfo(
@@ -45,7 +47,7 @@ public class InsertEmailAfterReturningAdvice implements AfterReturningAdvice {
 		emailConfirmationInfo.setSent(true);
 		emailConfirmationInfo.setSentDate(new Date());
 
-		josService.insertEmailConfirmationInfo(emailConfirmationInfo);
+		josService.insertEmailConfirmationInfo(user, emailConfirmationInfo);
 
 		this.emailConfirmationInfoSendTaskExecutor
 				.sendEmail(emailConfirmationInfo);

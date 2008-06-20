@@ -7,6 +7,7 @@ import java.util.Collection;
 
 import cn.net.openid.jos.dao.PasswordDao;
 import cn.net.openid.jos.domain.Password;
+import cn.net.openid.jos.domain.User;
 
 /**
  * @author Sutra Zhou
@@ -21,16 +22,16 @@ public class HibernatePasswordDao extends BaseHibernateEntityDao<Password>
 	 * @see org.bestid.dao.PasswordDao#getPassword(java.lang.String)
 	 */
 	public Password getPassword(String id) {
-		return this.get(id);
+		return get(id);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.jos.dao.PasswordDao#getPasswords(java.lang.String)
+	 * @see cn.net.openid.jos.dao.PasswordDao#getPasswords(cn.net.openid.jos.domain.User)
 	 */
-	public Collection<Password> getPasswords(String userId) {
-		return this.find("from Password where user.id = ?", userId);
+	public Collection<Password> getPasswords(User user) {
+		return find("from Password where user.id = ?", user.getId());
 	}
 
 	/*
@@ -39,7 +40,7 @@ public class HibernatePasswordDao extends BaseHibernateEntityDao<Password>
 	 * @see org.bestid.dao.PasswordDao#deletePassword(java.lang.String)
 	 */
 	public void deletePassword(String id) {
-		this.getHibernateTemplate().delete(this.get(id));
+		getHibernateTemplate().delete(this.get(id));
 	}
 
 	/*
@@ -48,7 +49,7 @@ public class HibernatePasswordDao extends BaseHibernateEntityDao<Password>
 	 * @see cn.net.openid.dao.PasswordDao#insertPassword(cn.net.openid.domain.Password)
 	 */
 	public void insertPassword(Password password) {
-		this.getHibernateTemplate().save(password);
+		getHibernateTemplate().save(password);
 	}
 
 	/*
@@ -57,7 +58,7 @@ public class HibernatePasswordDao extends BaseHibernateEntityDao<Password>
 	 * @see cn.net.openid.dao.PasswordDao#updatePassword(cn.net.openid.domain.Password)
 	 */
 	public void updatePassword(Password password) {
-		this.getHibernateTemplate().update(password);
+		getHibernateTemplate().update(password);
 	}
 
 }

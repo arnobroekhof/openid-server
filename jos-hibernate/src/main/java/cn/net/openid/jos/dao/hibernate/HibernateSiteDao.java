@@ -7,6 +7,7 @@ import java.util.List;
 
 import cn.net.openid.jos.dao.SiteDao;
 import cn.net.openid.jos.domain.Site;
+import cn.net.openid.jos.domain.User;
 
 /**
  * @author Sutra Zhou
@@ -15,31 +16,22 @@ import cn.net.openid.jos.domain.Site;
 public class HibernateSiteDao extends BaseHibernateEntityDao<Site> implements
 		SiteDao {
 	/*
-	 * （非 Javadoc）
+	 * (non-Javadoc)
 	 * 
-	 * @see org.bestid.dao.SiteDao#getSites(java.lang.String)
-	 */
-	public List<Site> getSites(String userId) {
-		return this.find("from Site where user.id = ?", userId);
+	 * @see cn.net.openid.jos.dao.SiteDao#getSites(cn.net.openid.jos.domain.User)
+	 */public List<Site> getSites(User user) {
+		return find("from Site where user.id = ?", user.getId());
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.jos.dao.SiteDao#getSite(java.lang.String,
+	 * @see cn.net.openid.jos.dao.SiteDao#getSite(cn.net.openid.jos.domain.User,
 	 *      java.lang.String)
 	 */
-	public Site getSite(String userId, String realmUrl) {
-		List<Site> sites = this.find(
-				"from Site where user.id = ? and realm.url = ?", new String[] {
-						userId, realmUrl });
-		Site site;
-		if (sites.isEmpty()) {
-			site = null;
-		} else {
-			site = sites.get(0);
-		}
-		return site;
+	public Site getSite(User user, String realmUrl) {
+		return findUnique("from Site where user.id = ? and realm.url = ?", user
+				.getId(), realmUrl);
 	}
 
 	/*
@@ -48,7 +40,7 @@ public class HibernateSiteDao extends BaseHibernateEntityDao<Site> implements
 	 * @see cn.net.openid.jos.dao.SiteDao#insertSite(cn.net.openid.jos.domain.Site)
 	 */
 	public void insertSite(Site site) {
-		this.getHibernateTemplate().save(site);
+		getHibernateTemplate().save(site);
 	}
 
 	/*
@@ -57,22 +49,21 @@ public class HibernateSiteDao extends BaseHibernateEntityDao<Site> implements
 	 * @see cn.net.openid.jos.dao.SiteDao#updateSite(cn.net.openid.jos.domain.Site)
 	 */
 	public void updateSite(Site site) {
-		this.getHibernateTemplate().update(site);
+		getHibernateTemplate().update(site);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.jos.dao.SiteDao#updateAlwaysApprove(java.lang.String,
+	 * @see cn.net.openid.jos.dao.SiteDao#updateAlwaysApprove(cn.net.openid.jos.domain.User,
 	 *      java.lang.String, boolean)
 	 */
-	public void updateAlwaysApprove(String userId, String realmId,
+	public void updateAlwaysApprove(User user, String realmId,
 			boolean alwaysApprove) {
-		List<Site> sites = this.find(
-				"from Site where user.id = ? and realm.id = ?", new String[] {
-						userId, realmId });
-		if (!sites.isEmpty()) {
-			Site site = sites.get(0);
+		Site site = this.findUnique(
+				"from Site where user.id = ? and realm.id = ?", user.getId(),
+				realmId);
+		if (site != null) {
 			site.setAlwaysApprove(alwaysApprove);
 			this.getHibernateTemplate().update(site);
 		}

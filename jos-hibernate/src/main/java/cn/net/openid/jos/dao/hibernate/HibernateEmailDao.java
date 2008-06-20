@@ -4,10 +4,10 @@
 package cn.net.openid.jos.dao.hibernate;
 
 import java.util.Collection;
-import java.util.List;
 
 import cn.net.openid.jos.dao.EmailDao;
 import cn.net.openid.jos.domain.Email;
+import cn.net.openid.jos.domain.User;
 
 /**
  * @author Sutra Zhou
@@ -19,19 +19,19 @@ public class HibernateEmailDao extends BaseHibernateEntityDao<Email> implements
 	/*
 	 * （非 Javadoc）
 	 * 
-	 * @see cn.net.openid.dao.EmailDao#deleteEmail(java.lang.String)
-	 */
-	public void deleteEmail(String id) {
-		this.getSession().delete(this.get(id));
-	}
-
-	/*
-	 * （非 Javadoc）
-	 * 
 	 * @see cn.net.openid.dao.EmailDao#getEmail(java.lang.String)
 	 */
 	public Email getEmail(String id) {
-		return this.get(id);
+		return get(id);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.jos.dao.EmailDao#getEmails(cn.net.openid.jos.domain.User)
+	 */
+	public Collection<Email> getEmails(User user) {
+		return find("from Email where user.id = ?", user.getId());
 	}
 
 	/*
@@ -40,17 +40,16 @@ public class HibernateEmailDao extends BaseHibernateEntityDao<Email> implements
 	 * @see cn.net.openid.dao.EmailDao#insertEmail(cn.net.openid.domain.Email)
 	 */
 	public void insertEmail(Email email) {
-		this.getHibernateTemplate().save(email);
+		getHibernateTemplate().save(email);
 	}
 
 	/*
 	 * （非 Javadoc）
 	 * 
-	 * @see cn.net.openid.dao.EmailDao#getEmailsByUserId(java.lang.String)
+	 * @see cn.net.openid.dao.EmailDao#deleteEmail(java.lang.String)
 	 */
-	public Collection<Email> getEmailsByUserId(String userId) {
-		List<Email> emails = this.find("from Email where user.id = ?", userId);
-		return emails;
+	public void deleteEmail(String id) {
+		getSession().delete(this.get(id));
 	}
 
 }

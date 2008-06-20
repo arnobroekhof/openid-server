@@ -46,7 +46,7 @@ public class LoginController extends AbstractJosSimpleFormController {
 			errors.rejectValue("username", "error.login.failed");
 		} else {
 			HttpSession session = request.getSession();
-			UserSession userSession = getUser(session);
+			UserSession userSession = getUserSession(session);
 			userSession.setUser(user);
 			userSession.setLoggedIn(true);
 			userSession.setIdentifier(this.josService.buildOpenidUrl(lf
@@ -68,7 +68,7 @@ public class LoginController extends AbstractJosSimpleFormController {
 			HttpServletResponse response, Object command, BindException errors)
 			throws Exception {
 		String token = (String) request.getAttribute("token");
-		UserSession userSession = getUser(request);
+		UserSession userSession = getUserSession(request);
 		ApprovingRequest checkIdRequest = userSession
 				.getApprovingRequest(token);
 		if (checkIdRequest != null) {

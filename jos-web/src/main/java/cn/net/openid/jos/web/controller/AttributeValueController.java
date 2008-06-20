@@ -25,7 +25,8 @@ import cn.net.openid.jos.web.UserSession;
  * 
  */
 public class AttributeValueController extends AbstractJosSimpleFormController {
-	private Map<String, String> buildMap(List<AttributeValue> attributeValues) {
+	private Map<String, String> buildMap(
+			Collection<AttributeValue> attributeValues) {
 		Map<String, String> ret = new HashMap<String, String>();
 		for (AttributeValue attributeValue : attributeValues) {
 			ret.put(attributeValue.getAttribute().getId(), attributeValue
@@ -42,11 +43,11 @@ public class AttributeValueController extends AbstractJosSimpleFormController {
 	@Override
 	protected Object formBackingObject(HttpServletRequest request)
 			throws Exception {
-		UserSession userSession = getUser(request);
+		UserSession userSession = getUserSession(request);
 		List<AttributeValue> attributeValues = new ArrayList<AttributeValue>();
 		Collection<Attribute> attributes = this.josService.getAttributes();
 		Map<String, String> userAttributeValues = this.buildMap(this.josService
-				.getUserAttributeValues(userSession.getUserId()));
+				.getUserAttributeValues(userSession.getUser()));
 		for (Attribute attribute : attributes) {
 			AttributeValue attributeValue = new AttributeValue();
 			attributeValue.setAttribute(attribute);
@@ -69,7 +70,7 @@ public class AttributeValueController extends AbstractJosSimpleFormController {
 	protected ModelAndView onSubmit(HttpServletRequest request,
 			HttpServletResponse response, Object command, BindException errors)
 			throws Exception {
-		UserSession userSession = getUser(request);
+		UserSession userSession = getUserSession(request);
 		List<AttributeValue> attributeValues = (List<AttributeValue>) command;
 		for (AttributeValue attributeValue : attributeValues) {
 			attributeValue.setUser(this.josService.getUser(userSession
@@ -78,7 +79,8 @@ public class AttributeValueController extends AbstractJosSimpleFormController {
 					.getId());
 			attributeValue.setValue(value);
 		}
-		this.josService.saveAttributeValues(attributeValues);
+		this.josService.saveAttributeValues(userSession.getUser(),
+				attributeValues);
 		return super.onSubmit(request, response, command, errors);
 	}
 

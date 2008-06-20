@@ -7,13 +7,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.net.openid.jos.domain.Email;
 import cn.net.openid.jos.domain.User;
 import cn.net.openid.jos.web.AbstractJosSimpleFormController;
-import cn.net.openid.jos.web.UserSession;
 
 /**
  * @author Sutra Zhou
@@ -28,11 +29,9 @@ public class EmailController extends AbstractJosSimpleFormController {
 	@Override
 	protected Object formBackingObject(HttpServletRequest request)
 			throws Exception {
-		UserSession userSession = getUser(request);
-		String userId = userSession.getUserId();
-		User user = this.josService.getUser(userId);
+		User user = getUser(request);
 
-		Collection<Email> emails = this.josService.getEmailsByUserId(userId);
+		Collection<Email> emails = josService.getEmails(user);
 		Collection<Email> confirmedEmails = new ArrayList<Email>(emails.size());
 		Collection<Email> unconfirmedEmails = new ArrayList<Email>(emails
 				.size());
@@ -52,15 +51,19 @@ public class EmailController extends AbstractJosSimpleFormController {
 	}
 
 	/*
-	 * （非 Javadoc）
+	 * (non-Javadoc)
 	 * 
-	 * @see org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(java.lang.Object)
+	 * @see org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax.servlet.http.HttpServletRequest,
+	 *      javax.servlet.http.HttpServletResponse, java.lang.Object,
+	 *      org.springframework.validation.BindException)
 	 */
 	@Override
-	protected ModelAndView onSubmit(Object command) throws Exception {
+	protected ModelAndView onSubmit(HttpServletRequest request,
+			HttpServletResponse response, Object command, BindException errors)
+			throws Exception {
 		Email email = (Email) command;
-		this.josService.insertEmail(email);
-		return super.onSubmit(command);
+		josService.insertEmail(getUser(request), email);
+		return super.onSubmit(request, response, command, errors);
 	}
 
 }

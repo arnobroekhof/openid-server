@@ -6,6 +6,7 @@ package cn.net.openid.jos.dao;
 import java.util.Collection;
 
 import cn.net.openid.jos.domain.Email;
+import cn.net.openid.jos.domain.User;
 
 /**
  * @author Sutra Zhou
@@ -14,7 +15,7 @@ import cn.net.openid.jos.domain.Email;
 public interface EmailDao {
 	Email getEmail(String id);
 
-	Collection<Email> getEmailsByUserId(String userId);
+	Collection<Email> getEmails(User user);
 
 	void insertEmail(Email email);
 

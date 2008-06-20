@@ -3,8 +3,8 @@
  */
 package cn.net.openid.jos.web.controller;
 
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.net.openid.jos.domain.Site;
+import cn.net.openid.jos.domain.User;
 import cn.net.openid.jos.web.AbstractJosController;
 
 /**
@@ -30,20 +31,21 @@ public class SitesController extends AbstractJosController {
 			HttpServletResponse response) throws Exception {
 		// Update alwaysApprove.
 		String[] realmIds = request.getParameterValues("realmId");
-		String userId = getUser(request).getUserId();
+		User user = getUser(request);
 		if (realmIds != null) {
 			for (String realmId : realmIds) {
-				this.josService.updateAlwaysApprove(userId, realmId, request
+				this.josService.updateAlwaysApprove(user, realmId, request
 						.getParameter("alwaysApprove_" + realmId) != null);
 			}
 		}
 
-		return new ModelAndView("sites", getModel(userId));
+		return new ModelAndView("sites", getModel(user));
 	}
 
-	private Map<String, List<Site>> getModel(String userId) {
-		List<Site> sites = this.josService.getSites(userId);
-		Map<String, List<Site>> model = new HashMap<String, List<Site>>(1);
+	private Map<String, Collection<Site>> getModel(User user) {
+		Collection<Site> sites = josService.getSites(user);
+		Map<String, Collection<Site>> model = new HashMap<String, Collection<Site>>(
+				1);
 		model.put("sites", sites);
 		return model;
 	}

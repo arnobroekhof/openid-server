@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.net.openid.jos.domain.User;
 import cn.net.openid.jos.service.LastPasswordException;
 import cn.net.openid.jos.web.AbstractJosController;
 
@@ -25,21 +26,21 @@ public class PasswordsController extends AbstractJosController {
 	 */
 	public ModelAndView handleRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		String userId = getUser(request).getUserId();
+		User user = getUser(request);
 
 		// Delete checked password.
 		String[] deletePasswordIds = request
 				.getParameterValues("deletePasswordId");
 		if (deletePasswordIds != null) {
 			try {
-				josService.deletePasswords(userId, deletePasswordIds);
+				josService.deletePasswords(user, deletePasswordIds);
 			} catch (LastPasswordException e) {
 				// Last password exception.
 			}
 		}
 
 		return new ModelAndView("passwords", "passwords", josService
-				.getPasswords(userId));
+				.getPasswords(user));
 	}
 
 }

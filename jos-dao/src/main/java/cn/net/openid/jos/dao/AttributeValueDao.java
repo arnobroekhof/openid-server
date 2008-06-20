@@ -3,9 +3,10 @@
  */
 package cn.net.openid.jos.dao;
 
-import java.util.List;
+import java.util.Collection;
 
 import cn.net.openid.jos.domain.AttributeValue;
+import cn.net.openid.jos.domain.User;
 
 /**
  * Data access object for {@link AttributeValue}.
@@ -17,31 +18,31 @@ public interface AttributeValueDao {
 	/**
 	 * Get attribute value.
 	 * 
-	 * @param userId
+	 * @param user
 	 * @param attributeId
 	 * @return return the value of the user with the specified
 	 *         <code>attributeId</code>, if this attribute has multiple
 	 *         values, return the first one(which index is 0).
 	 */
-	String getAttributeValue(String userId, String attributeId);
+	String getAttributeValue(User user, String attributeId);
 
 	/**
 	 * Get all attribute values.
 	 * 
-	 * @param userId
+	 * @param user
 	 * @param attributeId
 	 * @return return the values of the user with the specified
 	 *         <code>attributeId</code>, sorted by the index({@link AttributeValue#getIndex()}).
 	 */
-	List<String> getAttributeValues(String userId, String attributeId);
+	Collection<String> getAttributeValues(User user, String attributeId);
 
 	/**
 	 * Get all attributes of the user.
 	 * 
-	 * @param userId
+	 * @param user
 	 * @return return the attribute value of the user.
 	 */
-	List<AttributeValue> getUserAttributeValues(String userId);
+	Collection<AttributeValue> getUserAttributeValues(User user);
 
 	void saveAttributeValue(AttributeValue attributeValue);
 }
