@@ -12,7 +12,7 @@
 			${openidUrl}
 		</a>
 		#springMessage("message.register.success")
-		<a href="login?username=${link.encodeURL($!{status.value})}">#springMessage("login")</a>
+		<a href="login?username=${link.encodeURL($!{status.value})}">#springMessage("button.login")</a>
 		#parse("footer.vm")
 	</div>
 </body>
