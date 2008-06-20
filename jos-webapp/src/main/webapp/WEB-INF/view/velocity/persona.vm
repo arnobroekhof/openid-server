@@ -123,7 +123,11 @@
 					<tr>
 						<td class="label">&nbsp;</td>
 						<td>
-							<input type="submit" class="button" value="#springMessage('saveChanges')" />
+							#if(${persona.id} && ${persona.id} != "")
+								<button type="submit">#springMessage("button.modify")</button>
+							#else
+								<button type="submit">#springMessage("button.add")</button>
+							#end
 						</td>
 					</tr>
 				</table>

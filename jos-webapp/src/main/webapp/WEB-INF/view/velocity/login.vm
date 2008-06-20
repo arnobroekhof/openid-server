@@ -40,7 +40,7 @@
 					<tr>
 						<td>&nbsp;</td>
 						<td>
-							<input type="submit" value="#springMessage('login')" class="button" />
+							<button type="submit">#springMessage("button.login")</button>
 							##<a href="index.login" title="#springMessage('login.other')">#springMessage("login.other")</a>
 						</td>
 					</tr>

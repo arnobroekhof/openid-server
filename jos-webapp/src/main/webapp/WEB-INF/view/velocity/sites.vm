@@ -48,7 +48,9 @@
 				#end
 				<tfoot>
 					<tr>
-						<td colspan="5"><input type="submit" value="Save Changes" class="button" /></td>
+						<td colspan="5">
+							<button type="submit">#springMessage("button.saveChanges")</button>
+						</td>
 					</tr>
 				</tfoot>
 			</table>

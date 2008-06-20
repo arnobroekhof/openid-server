@@ -68,7 +68,9 @@
 					</tr>
 					<tr>
 						<td class="label">&nbsp;</td>
-						<td><input name="submit" type="submit" class="button" value="#springMessage("register")" /></td>
+						<td>
+							<button name="submit" type="submit">#springMessage("button.register)</button>
+						</td>
 					</tr>
 				</table>
 			</form>
