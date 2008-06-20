@@ -1,12 +1,12 @@
 <html>
 	<head>
-		<title>#springMessage("openid") - #springMessage("email")</title>
+		<title>#springMessage("openid") - #springMessage("email.title")</title>
 	</head>
 	<body>
 	<div>
 		#parse("header.vm")
-		<div>Check your e-mail! Instructions for confirming your e-mail address have been sent to you at $email.address</div>
-		<a href="email">#springMessage("message.email.backToEmail")</a>
+		<div>#springMessage("email.message.addNew.success") $email.address</div>
+		<a href="email">#springMessage("email.button.backToEmail")</a>
 		#parse("footer.vm")
 	</div>
 </body>

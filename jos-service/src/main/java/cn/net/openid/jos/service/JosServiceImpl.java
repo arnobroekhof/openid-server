@@ -271,12 +271,16 @@ public class JosServiceImpl implements JosService {
 	}
 
 	/*
-	 * （非 Javadoc）
+	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.dao.DaoFacade#deleteEmail(java.lang.String)
+	 * @see cn.net.openid.jos.service.JosService#deleteEmail(java.lang.String,
+	 *      java.lang.String)
 	 */
-	public void deleteEmail(String id) {
-		this.emailDao.deleteEmail(id);
+	public void deleteEmail(String userId, String id) {
+		Email email = this.emailDao.getEmail(id);
+		if (email != null && email.getUser().getId().equals(userId)) {
+			this.emailDao.deleteEmail(id);
+		}
 	}
 
 	/*

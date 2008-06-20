@@ -1,12 +1,12 @@
 <html>
 	<head>
-		<title>#springMessage("openid") - #springMessage("email")</title>
+		<title>#springMessage("openid") - #springMessage("email.title")</title>
 	</head>
 	<body>
 	<div>
 		#parse("header.vm")
-		<div>E-mail removed.</div>
-		<a href="email">#springMessage("message.email.backToEmail")</a>
+		<div>#springMessage("email.message.removed")</div>
+		<a href="email">#springMessage("email.button.backToEmail")</a>
 		#parse("footer.vm")
 	</div>
 </body>

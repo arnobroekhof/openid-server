@@ -57,7 +57,7 @@ public interface JosService {
 
 	void insertEmail(Email email);
 
-	void deleteEmail(String id);
+	void deleteEmail(String userId, String id);
 
 	/**
 	 * Generate a random string for EmailConfiratmionInfo.

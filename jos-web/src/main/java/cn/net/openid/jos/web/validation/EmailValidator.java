@@ -6,6 +6,7 @@ package cn.net.openid.jos.web.validation;
 import java.util.regex.Pattern;
 
 import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import cn.net.openid.jos.domain.Email;
@@ -38,7 +39,10 @@ public class EmailValidator implements Validator {
 	 */
 	public void validate(Object target, Errors errors) {
 		Email email = (Email) target;
-		if (!pattern.matcher(email.getAddress()).matches()) {
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "address",
+				"required", "Field is required.");
+		if (!errors.hasFieldErrors("address")
+				&& !pattern.matcher(email.getAddress()).matches()) {
 			errors.rejectValue("address", "email.error.address",
 					new String[] { email.getAddress() },
 					"\"{0}\" is not a valid e-mail address.");

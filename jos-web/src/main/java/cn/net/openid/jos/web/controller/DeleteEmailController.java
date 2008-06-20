@@ -6,9 +6,9 @@ package cn.net.openid.jos.web.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 
-import cn.net.openid.jos.domain.Email;
 import cn.net.openid.jos.web.AbstractJosController;
 import cn.net.openid.jos.web.UserSession;
 
@@ -21,9 +21,8 @@ public class DeleteEmailController extends AbstractJosController {
 			HttpServletResponse response) throws Exception {
 		UserSession userSession = getUser(request);
 		String id = request.getParameter("id");
-		Email email = this.josService.getEmail(id);
-		if (email.getUser().getId().equals(userSession.getUserId())) {
-			this.josService.deleteEmail(id);
+		if (!StringUtils.isEmpty(id)) {
+			josService.deleteEmail(userSession.getUserId(), id);
 		}
 		return new ModelAndView("email-remove-success");
 	}

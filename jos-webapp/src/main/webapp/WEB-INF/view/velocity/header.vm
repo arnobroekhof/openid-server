@@ -8,7 +8,7 @@
 			<li><a href="register" title="#springMessage("register.tip")">#springMessage("register")</a></li>
 			#else
 			<li><a href="home" title="#springMessage("home.tip")">#springMessage("home")</a></li>
-			<li><a href="email" title="#springMessage("email.tip")">#springMessage("email")</a></li>
+			<li><a href="email" title="#springMessage("email.title.tip")">#springMessage("email.title")</a></li>
 			<li><a href="passwords" title="#springMessage("password.title.password")">#springMessage("password.title.passwords")</a></li>
 			<li><a href="personas" title="#springMessage("persona.title.persona")">#springMessage("persona.title.personas")</a></li>
 			<li><a href="attribute-value" title="Attribute">附加属性</a></li>
