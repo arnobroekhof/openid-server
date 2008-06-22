@@ -306,6 +306,8 @@ public class JosServiceImpl implements JosService {
 	public void insertEmail(User user, Email email) {
 		if (user.equals(email.getUser())) {
 			emailDao.insertEmail(email);
+		} else {
+			throw new NoPermissionException();
 		}
 	}
 
