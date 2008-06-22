@@ -255,6 +255,8 @@ public class JosServiceImpl implements JosService {
 		Email email = emailDao.getEmail(id);
 		if (email != null && email.getUser().equals(user)) {
 			emailDao.deleteEmail(id);
+		} else {
+			throw new NoPermissionException();
 		}
 	}
 
@@ -350,6 +352,8 @@ public class JosServiceImpl implements JosService {
 		if (user.equals(emailConfirmationInfo.getEmail().getUser())) {
 			emailConfirmationInfoDao
 					.insertEmailConfirmationInfo(emailConfirmationInfo);
+		} else {
+			throw new NoPermissionException();
 		}
 	}
 
@@ -364,6 +368,8 @@ public class JosServiceImpl implements JosService {
 		if (user.equals(emailConfirmationInfo.getEmail().getUser())) {
 			emailConfirmationInfoDao
 					.updateEmailConfirmationInfo(emailConfirmationInfo);
+		} else {
+			throw new NoPermissionException();
 		}
 	}
 
@@ -592,6 +598,8 @@ public class JosServiceImpl implements JosService {
 	public void insertPersona(User user, Persona persona) {
 		if (user.equals(persona.getUser())) {
 			personaDao.insertPersona(persona);
+		} else {
+			throw new NoPermissionException();
 		}
 	}
 
@@ -604,6 +612,8 @@ public class JosServiceImpl implements JosService {
 	public void updatePersona(User user, Persona persona) {
 		if (user.equals(persona.getUser())) {
 			personaDao.updatePersona(persona);
+		} else {
+			throw new NoPermissionException();
 		}
 	}
 
