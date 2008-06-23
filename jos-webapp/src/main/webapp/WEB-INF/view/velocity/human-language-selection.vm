@@ -17,7 +17,7 @@
 			<ul class="hl">
 				#foreach ($l in $locales)
 					<li>
-						<a href="?hl=$l&amp;self=$self">
+						<a href="?hl=$l#if($self != "")&amp;self=$self#end">
 							#if("$!self" == "each")
 								$l.getDisplayName($l)
 							#else
