@@ -19,16 +19,7 @@
 		</ul>
 	</div>
 	<div id="hl">
-		<ul>
-			#foreach($locale in $request.locales)
-				<li>
-					<a href="?hl=$locale#if($!request.getParameter('self'))&amp;self=$!request.getParameter('self')#end">
-						$locale.getDisplayName($locale)
-					</a>
-				</li>
-			#end
-			<li class="last-child"><a href="hl#if($!request.getParameter('self'))?self=$!request.getParameter('self')#end">»</a></li>
-		</ul>
+		<ul>#foreach($locale in $request.locales)<li><a href="?hl=$locale#if($!request.getParameter('self'))&amp;self=$!request.getParameter('self')#end">$locale.getDisplayName($locale)</a></li>#end<li class="last-child"><a href="hl#if($!request.getParameter('self'))?self=$!request.getParameter('self')#end">»</a></li></ul>
 	</div>
 </div>
 <div id="welcome">
