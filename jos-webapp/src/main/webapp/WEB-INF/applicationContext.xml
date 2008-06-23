@@ -5,8 +5,8 @@
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
-				<value>WEB-INF/jdbc.properties</value>
-				<value>WEB-INF/jos.xml</value>
+				<value>WEB-INF/custom/jdbc.properties</value>
+				<value>WEB-INF/custom/jos.xml</value>
 			</list>
 		</property>
 	</bean>
