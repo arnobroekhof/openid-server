@@ -6,22 +6,22 @@
 		<div>
 			#parse("header.vm")
 			#set ($self = "$!request.getParameter('self')")
-			#if ("$!self" == "current")
-				<a href="?self=each">#springMessage("message.humanLanguageSelection.each")</a>
-				#springMessage("message.humanLanguageSelection.current")
-			#else
-				#springMessage("message.humanLanguageSelection.each")
+			#if ("$!self" == "each")
 				<a href="?self=current">#springMessage("message.humanLanguageSelection.current")</a>
+				#springMessage("message.humanLanguageSelection.each")
+			#else
+				#springMessage("message.humanLanguageSelection.current")
+				<a href="?self=each">#springMessage("message.humanLanguageSelection.each")</a>
 			#end
-			
+
 			<ul class="hl">
 				#foreach ($l in $locales)
 					<li>
-						<a href="?hl=${l}">
-							#if("$!self" == "current")
-								${l.getDisplayName(${locale})}
+						<a href="?hl=$l&amp;self=$self">
+							#if("$!self" == "each")
+								$l.getDisplayName($l)
 							#else
-								${l.getDisplayName(${l})}
+								$l.getDisplayName($locale)
 							#end
 						</a>
 					</li>
