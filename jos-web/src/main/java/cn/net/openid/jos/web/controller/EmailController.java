@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.validation.BindException;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.net.openid.jos.domain.Email;
@@ -21,6 +22,16 @@ import cn.net.openid.jos.web.AbstractJosSimpleFormController;
  * 
  */
 public class EmailController extends AbstractJosSimpleFormController {
+	private LocaleResolver localeResolver;
+
+	/**
+	 * @param localeResolver
+	 *            the localeResolver to set
+	 */
+	public void setLocaleResolver(LocaleResolver localeResolver) {
+		this.localeResolver = localeResolver;
+	}
+
 	/*
 	 * （非 Javadoc）
 	 * 
@@ -62,6 +73,7 @@ public class EmailController extends AbstractJosSimpleFormController {
 			HttpServletResponse response, Object command, BindException errors)
 			throws Exception {
 		Email email = (Email) command;
+		email.setLocale(localeResolver.resolveLocale(request));
 		josService.insertEmail(getUser(request), email);
 		return super.onSubmit(request, response, command, errors);
 	}

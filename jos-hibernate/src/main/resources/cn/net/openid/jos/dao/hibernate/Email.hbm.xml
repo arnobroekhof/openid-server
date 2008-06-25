@@ -11,6 +11,8 @@
 			update="false" />
 		<property name="address" length="255" not-null="true"
 			column="email_address" />
+		<property name="locale" length="16" not-null="true"
+			column="email_locale" />
 		<property name="primary" not-null="true" column="email_primary" />
 		<property name="confirmed" not-null="true"
 			column="email_confirmed" />

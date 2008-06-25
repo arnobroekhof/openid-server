@@ -5,6 +5,7 @@ package cn.net.openid.jos.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * @author Sutra Zhou
@@ -19,6 +20,7 @@ public class Email implements Serializable {
 	private String id;
 	private User user = new User();
 	private String address;
+	private Locale locale = Locale.getDefault();
 	private boolean primary;
 	private boolean confirmed;
 	private EmailConfirmationInfo emailConfirmationInfo;
@@ -67,6 +69,21 @@ public class Email implements Serializable {
 	 */
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	/**
+	 * @return the locale
+	 */
+	public Locale getLocale() {
+		return locale;
+	}
+
+	/**
+	 * @param locale
+	 *            the locale to set
+	 */
+	public void setLocale(Locale locale) {
+		this.locale = locale;
 	}
 
 	/**

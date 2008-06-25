@@ -66,6 +66,7 @@
 		<property name="formView" value="email" />
 		<property name="successView" value="email-success" />
 		<property name="validator" ref="emailValidator" />
+		<property name="localeResolver" ref="localeResolver" />
 	</bean>
 	<bean id="deleteEmailController"
 		class="cn.net.openid.jos.web.controller.DeleteEmailController"
