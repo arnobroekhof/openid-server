@@ -3,9 +3,8 @@
  */
 package cn.net.openid.jos.service;
 
-import java.io.IOException;
-import java.util.InvalidPropertiesFormatException;
-import java.util.Properties;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -30,18 +29,26 @@ public class EmailConfirmationInfoSendTaskExecutor {
 		}
 
 		public void run() {
+			Locale currentLocale = emailConfirmationInfo.getEmail().getLocale();
+			log.debug("Current locale: " + currentLocale);
 			log.debug("Sending mail to: "
 					+ this.emailConfirmationInfo.getEmail().getAddress());
+			ResourceBundle emailConfirmationResources = ResourceBundle
+					.getBundle("email-confirmation",
+							currentLocale);
+
 			SimpleMailMessage simpleMessage = new SimpleMailMessage();
 			simpleMessage.setTo(this.emailConfirmationInfo.getEmail()
 					.getAddress());
-			simpleMessage.setSubject(emailConfirmationProperties
-					.getProperty("subject"));
-			String text = emailConfirmationProperties.getProperty("text");
+			simpleMessage.setSubject(emailConfirmationResources
+					.getString("subject"));
+			String text = emailConfirmationResources.getString("text");
+
 			text = StringUtils.replace(text, "${identifier}",
 					emailConfirmationInfo.getEmail().getUser().getUsername());
 			text = StringUtils.replace(text, "${confirmationCode}",
 					emailConfirmationInfo.getConfirmationCode());
+
 			simpleMessage.setText(text);
 			mailSender.send(simpleMessage);
 		}
@@ -53,19 +60,9 @@ public class EmailConfirmationInfoSendTaskExecutor {
 
 	private TaskExecutor taskExecutor;
 	private MailSender mailSender;
-	private Properties emailConfirmationProperties;
 
 	public EmailConfirmationInfoSendTaskExecutor(TaskExecutor taskExecutor) {
 		this.taskExecutor = taskExecutor;
-		emailConfirmationProperties = new Properties();
-		try {
-			emailConfirmationProperties.loadFromXML(this.getClass()
-					.getResourceAsStream("/email-confirmation.xml"));
-		} catch (InvalidPropertiesFormatException e) {
-			throw new RuntimeException(e);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
 	}
 
 	/**
