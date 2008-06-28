@@ -1,0 +1,9 @@
+# PostgreSQL
+jdbc.driverClassName=org.postgresql.Driver
+jdbc.url=jdbc:postgresql://127.0.0.1/jos
+jdbc.username=postgres
+jdbc.password=
+jdbc.validationQuery=select from 1
+hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+hibernate.show_sql=true
+hibernate.hbm2ddl.auto=update

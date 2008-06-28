@@ -1,5 +1,5 @@
 jdbc.driverClassName=org.hsqldb.jdbcDriver
-jdbc.url=jdbc:hsqldb:mem:openid
+jdbc.url=jdbc:hsqldb:mem:jos
 jdbc.username=sa
 jdbc.password=
 jdbc.validationQuery=select from 1
@@ -7,10 +7,19 @@ hibernate.dialect=org.hibernate.dialect.HSQLDialect
 hibernate.show_sql=false
 hibernate.hbm2ddl.auto=update
 
+## hsqldb
+# jdbc.driverClassName=org.hsqldb.jdbcDriver
+# jdbc.url=jdbc:hsqldb:file:/home/sutra/hsqldb/jos
+# jdbc.username=sa
+# jdbc.password=
+# jdbc.validationQuery=select from 1
+# hibernate.dialect=org.hibernate.dialect.HSQLDialect
+# hibernate.show_sql=true
+# hibernate.hbm2ddl.auto=update
 
-# MySQL
+## MySQL
 # jdbc.driverClassName=com.mysql.jdbc.Driver
-# jdbc.url=jdbc:mysql://127.0.0.1:3306/openid?useUnicode=true&characterEncoding=utf8
+# jdbc.url=jdbc:mysql://127.0.0.1:3306/jos?useUnicode=true&characterEncoding=utf8
 # jdbc.username=root
 # jdbc.password=
 # jdbc.validationQuery=select from 1
@@ -19,9 +28,9 @@ hibernate.hbm2ddl.auto=update
 # hibernate.hbm2ddl.auto=update
 
 
-# PostgreSQL
+## PostgreSQL
 # jdbc.driverClassName=org.postgresql.Driver
-# jdbc.url=jdbc:postgresql://127.0.0.1/openid
+# jdbc.url=jdbc:postgresql://127.0.0.1/jos
 # jdbc.username=postgres
 # jdbc.password=
 # jdbc.validationQuery=select from 1

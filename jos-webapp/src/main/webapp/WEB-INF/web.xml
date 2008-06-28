@@ -12,7 +12,7 @@
 		<param-value>
 			/WEB-INF/applicationContext.xml,
 			/WEB-INF/dataAccessContext-hibernate.xml,
-			/WEB-INF/custom/applicationContext-mail.xml
+			/WEB-INF/config/applicationContext-mail.xml
 		</param-value>
 	</context-param>
 	<context-param>
