@@ -23,7 +23,8 @@ hibernate.hbm2ddl.auto=update
 # jdbc.username=root
 # jdbc.password=
 # jdbc.validationQuery=select from 1
-# hibernate.dialect=org.hibernate.dialect.MySQLDialect
+## hibernate.dialect=org.hibernate.dialect.MySQLDialect
+# hibernate.dialect=org.hibernate.dialect.MySQLInnoDBDialect
 # hibernate.show_sql=false
 # hibernate.hbm2ddl.auto=update
 
