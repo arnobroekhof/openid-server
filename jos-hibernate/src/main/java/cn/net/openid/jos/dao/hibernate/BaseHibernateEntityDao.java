@@ -12,8 +12,9 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
  * @author Sutra Zhou
- * @see <a
- *      href="http://www.blogjava.net/calvin/archive/2006/04/28/43830.html">Java5泛型的用法，T.class的获取和为擦拭法站台</a>
+ * @see <a *
+ *      href="http://www.blogjava.net/calvin/archive/2006/04/28/43830.html">
+ *      Java5泛型的用法，T.class的获取和为擦拭法站台< /a>
  */
 public abstract class BaseHibernateEntityDao<T> extends HibernateDaoSupport {
 	private Class<T> entityClass;
@@ -24,12 +25,30 @@ public abstract class BaseHibernateEntityDao<T> extends HibernateDaoSupport {
 				.getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 
+	/**
+	 * Return the persistent instance of the given entity class with the given
+	 * identifier, or null if not found.
+	 * 
+	 * @param id
+	 *            the identifier of the persistent instance
+	 * @return the persistent instance, or null if not found
+	 */
 	@SuppressWarnings("unchecked")
 	public T get(Serializable id) {
 		T o = (T) getHibernateTemplate().get(entityClass, id);
 		return o;
 	}
 
+	/**
+	 * Execute an HQL query, binding a number of values to "?" parameters in the
+	 * query string.
+	 * 
+	 * @param queryString
+	 *            a query expressed in Hibernate's query language
+	 * @param values
+	 *            the values of the parameters
+	 * @return a List containing the results of the query execution
+	 */
 	@SuppressWarnings("unchecked")
 	public List<T> find(String queryString, Object... values) {
 		return (List<T>) getHibernateTemplate().find(queryString, values);
@@ -62,4 +81,17 @@ public abstract class BaseHibernateEntityDao<T> extends HibernateDaoSupport {
 		return t;
 	}
 
+	/**
+	 * Count the rows that meet the conditions.
+	 * 
+	 * @param queryString
+	 *            a query expressed in Hibernate's query language for counting.
+	 * @param values
+	 *            the values of the parameters
+	 * @return the count
+	 */
+	public long count(String queryString, Object... values) {
+		return ((Number) getHibernateTemplate().find(queryString, values)
+				.get(0)).longValue();
+	}
 }

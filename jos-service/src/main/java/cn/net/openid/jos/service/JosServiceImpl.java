@@ -166,7 +166,7 @@ public class JosServiceImpl implements JosService {
 	 * (non-Javadoc)
 	 * 
 	 * @see cn.net.openid.jos.service.JosService#getUser(java.lang.String,
-	 *      java.lang.String)
+	 * java.lang.String)
 	 */
 	public User getUser(String username, String passwordPlaintext) {
 		if (StringUtils.isEmpty(username)) {
@@ -193,7 +193,7 @@ public class JosServiceImpl implements JosService {
 	 * (non-Javadoc)
 	 * 
 	 * @see cn.net.openid.dao.DaoFacade#insertUser(cn.net.openid.User,
-	 *      cn.net.openid.domain.Password)
+	 * cn.net.openid.domain.Password)
 	 */
 	public void insertUser(User user, Password password) {
 		userDao.insertUser(user);
@@ -203,8 +203,9 @@ public class JosServiceImpl implements JosService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.jos.service.JosService#updatePassword(cn.net.openid.jos.domain.User,
-	 *      java.lang.String, java.lang.String, java.lang.String)
+	 * @see
+	 * cn.net.openid.jos.service.JosService#updatePassword(cn.net.openid.jos
+	 * .domain.User, java.lang.String, java.lang.String, java.lang.String)
 	 */
 	public void updatePassword(User user, String passwordId, String name,
 			String passwordPlaintext) {
@@ -229,8 +230,9 @@ public class JosServiceImpl implements JosService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.jos.service.JosService#deletePasswords(cn.net.openid.jos.domain.User,
-	 *      java.lang.String[])
+	 * @see
+	 * cn.net.openid.jos.service.JosService#deletePasswords(cn.net.openid.jos
+	 * .domain.User, java.lang.String[])
 	 */
 	public void deletePasswords(User user, String[] passwordIds)
 			throws LastPasswordException {
@@ -240,7 +242,7 @@ public class JosServiceImpl implements JosService {
 				passwordDao.deletePassword(password.getId());
 			}
 		}
-		if (passwordDao.getPasswords(user).size() == 0) {
+		if (passwordDao.getPasswordCount(user) == 0L) {
 			throw new LastPasswordException();
 		}
 	}
@@ -248,8 +250,9 @@ public class JosServiceImpl implements JosService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.jos.service.JosService#deleteEmail(cn.net.openid.jos.domain.User,
-	 *      java.lang.String)
+	 * @see
+	 * cn.net.openid.jos.service.JosService#deleteEmail(cn.net.openid.jos.domain
+	 * .User, java.lang.String)
 	 */
 	public void deleteEmail(User user, String id) {
 		Email email = emailDao.getEmail(id);
@@ -263,8 +266,9 @@ public class JosServiceImpl implements JosService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.jos.service.JosService#setPrimaryEmail(cn.net.openid.jos.domain.User,
-	 *      java.lang.String)
+	 * @see
+	 * cn.net.openid.jos.service.JosService#setPrimaryEmail(cn.net.openid.jos
+	 * .domain.User, java.lang.String)
 	 */
 	public void setPrimaryEmail(User user, String id) {
 		Email email = getEmail(user, id);
@@ -282,8 +286,9 @@ public class JosServiceImpl implements JosService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.jos.service.JosService#getEmail(cn.net.openid.jos.domain.User,
-	 *      java.lang.String)
+	 * @see
+	 * cn.net.openid.jos.service.JosService#getEmail(cn.net.openid.jos.domain
+	 * .User, java.lang.String)
 	 */
 	public Email getEmail(User user, String id) {
 		Email email = emailDao.getEmail(id);
@@ -293,7 +298,9 @@ public class JosServiceImpl implements JosService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.jos.service.JosService#getEmails(cn.net.openid.jos.domain.User)
+	 * @see
+	 * cn.net.openid.jos.service.JosService#getEmails(cn.net.openid.jos.domain
+	 * .User)
 	 */
 	public Collection<Email> getEmails(User user) {
 		return emailDao.getEmails(user);
@@ -302,8 +309,9 @@ public class JosServiceImpl implements JosService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.jos.service.JosService#insertEmail(cn.net.openid.jos.domain.User,
-	 *      cn.net.openid.jos.domain.Email)
+	 * @see
+	 * cn.net.openid.jos.service.JosService#insertEmail(cn.net.openid.jos.domain
+	 * .User, cn.net.openid.jos.domain.Email)
 	 */
 	public void insertEmail(User user, Email email) {
 		if (user.equals(email.getUser())) {
@@ -316,7 +324,9 @@ public class JosServiceImpl implements JosService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.jos.service.JosService#generateConfirmationCode(cn.net.openid.jos.domain.Email)
+	 * @see
+	 * cn.net.openid.jos.service.JosService#generateConfirmationCode(cn.net.
+	 * openid.jos.domain.Email)
 	 */
 	public String generateConfirmationCode(Email email) {
 		StringBuilder seed = new StringBuilder();
@@ -333,7 +343,9 @@ public class JosServiceImpl implements JosService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.jos.service.JosService#getEmailConfirmationInfo(java.lang.String)
+	 * @see
+	 * cn.net.openid.jos.service.JosService#getEmailConfirmationInfo(java.lang
+	 * .String)
 	 */
 	public EmailConfirmationInfo getEmailConfirmationInfo(
 			String confirmationCode) {
@@ -344,8 +356,9 @@ public class JosServiceImpl implements JosService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.jos.service.JosService#insertEmailConfirmationInfo(cn.net.openid.jos.domain.User,
-	 *      cn.net.openid.jos.domain.EmailConfirmationInfo)
+	 * @see
+	 * cn.net.openid.jos.service.JosService#insertEmailConfirmationInfo(cn.net
+	 * .openid.jos.domain.User, cn.net.openid.jos.domain.EmailConfirmationInfo)
 	 */
 	public void insertEmailConfirmationInfo(User user,
 			EmailConfirmationInfo emailConfirmationInfo) {
@@ -360,8 +373,9 @@ public class JosServiceImpl implements JosService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.jos.service.JosService#updateEmailConfirmationInfo(cn.net.openid.jos.domain.User,
-	 *      cn.net.openid.jos.domain.EmailConfirmationInfo)
+	 * @see
+	 * cn.net.openid.jos.service.JosService#updateEmailConfirmationInfo(cn.net
+	 * .openid.jos.domain.User, cn.net.openid.jos.domain.EmailConfirmationInfo)
 	 */
 	public void updateEmailConfirmationInfo(User user,
 			EmailConfirmationInfo emailConfirmationInfo) {
@@ -396,7 +410,9 @@ public class JosServiceImpl implements JosService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.jos.service.JosService#getPasswords(cn.net.openid.jos.domain.User)
+	 * @see
+	 * cn.net.openid.jos.service.JosService#getPasswords(cn.net.openid.jos.domain
+	 * .User)
 	 */
 	public Collection<Password> getPasswords(User user) {
 		return passwordDao.getPasswords(user);
@@ -405,8 +421,9 @@ public class JosServiceImpl implements JosService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.jos.service.JosService#getPassword(cn.net.openid.jos.domain.User,
-	 *      java.lang.String)
+	 * @see
+	 * cn.net.openid.jos.service.JosService#getPassword(cn.net.openid.jos.domain
+	 * .User, java.lang.String)
 	 */
 	public Password getPassword(User user, String passwordId) {
 		Password password = passwordDao.getPassword(passwordId);
@@ -435,7 +452,8 @@ public class JosServiceImpl implements JosService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.dao.DaoFacade#saveAttribute(cn.net.openid.domain.Attribute)
+	 * @see
+	 * cn.net.openid.dao.DaoFacade#saveAttribute(cn.net.openid.domain.Attribute)
 	 */
 	public void saveAttribute(Attribute attribute) {
 		attributeDao.saveAttribute(attribute);
@@ -448,7 +466,9 @@ public class JosServiceImpl implements JosService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.jos.service.JosService#getUserAttributeValues(cn.net.openid.jos.domain.User)
+	 * @see
+	 * cn.net.openid.jos.service.JosService#getUserAttributeValues(cn.net.openid
+	 * .jos.domain.User)
 	 */
 	public Collection<AttributeValue> getUserAttributeValues(User user) {
 		return attributeValueDao.getUserAttributeValues(user);
@@ -457,8 +477,9 @@ public class JosServiceImpl implements JosService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.jos.service.JosService#saveAttributeValues(cn.net.openid.jos.domain.User,
-	 *      java.util.Collection)
+	 * @see
+	 * cn.net.openid.jos.service.JosService#saveAttributeValues(cn.net.openid
+	 * .jos.domain.User, java.util.Collection)
 	 */
 	public void saveAttributeValues(User user,
 			Collection<AttributeValue> attributeValues) {
@@ -481,8 +502,9 @@ public class JosServiceImpl implements JosService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.jos.service.JosService#isAlwaysApprove(cn.net.openid.jos.domain.User,
-	 *      java.lang.String)
+	 * @see
+	 * cn.net.openid.jos.service.JosService#isAlwaysApprove(cn.net.openid.jos
+	 * .domain.User, java.lang.String)
 	 */
 	public boolean isAlwaysApprove(User user, String realmUrl) {
 		Site site = siteDao.getSite(user, realmUrl);
@@ -492,8 +514,9 @@ public class JosServiceImpl implements JosService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.jos.service.JosService#updateApproval(cn.net.openid.jos.domain.User,
-	 *      java.lang.String)
+	 * @see
+	 * cn.net.openid.jos.service.JosService#updateApproval(cn.net.openid.jos
+	 * .domain.User, java.lang.String)
 	 */
 	public void updateApproval(User user, String realmUrl) {
 		Site site = siteDao.getSite(user, realmUrl);
@@ -504,8 +527,9 @@ public class JosServiceImpl implements JosService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.jos.service.JosService#allow(cn.net.openid.jos.domain.User,
-	 *      java.lang.String, cn.net.openid.jos.domain.Persona, boolean)
+	 * @see
+	 * cn.net.openid.jos.service.JosService#allow(cn.net.openid.jos.domain.User,
+	 * java.lang.String, cn.net.openid.jos.domain.Persona, boolean)
 	 */
 	public void allow(User user, String realmUrl, Persona persona,
 			boolean forever) {
@@ -541,7 +565,9 @@ public class JosServiceImpl implements JosService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.jos.service.JosService#getSites(cn.net.openid.jos.domain.User)
+	 * @see
+	 * cn.net.openid.jos.service.JosService#getSites(cn.net.openid.jos.domain
+	 * .User)
 	 */
 	public List<Site> getSites(User user) {
 		return siteDao.getSites(user);
@@ -550,8 +576,9 @@ public class JosServiceImpl implements JosService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.jos.service.JosService#getSite(cn.net.openid.jos.domain.User,
-	 *      java.lang.String)
+	 * @see
+	 * cn.net.openid.jos.service.JosService#getSite(cn.net.openid.jos.domain
+	 * .User, java.lang.String)
 	 */
 	public Site getSite(User user, String realmUrl) {
 		return siteDao.getSite(user, realmUrl);
@@ -560,8 +587,9 @@ public class JosServiceImpl implements JosService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.jos.service.JosService#updateAlwaysApprove(cn.net.openid.jos.domain.User,
-	 *      java.lang.String, boolean)
+	 * @see
+	 * cn.net.openid.jos.service.JosService#updateAlwaysApprove(cn.net.openid
+	 * .jos.domain.User, java.lang.String, boolean)
 	 */
 	public void updateAlwaysApprove(User user, String realmId,
 			boolean alwaysApprove) {
@@ -571,8 +599,9 @@ public class JosServiceImpl implements JosService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.jos.service.JosService#getPersona(cn.net.openid.jos.domain.User,
-	 *      java.lang.String)
+	 * @see
+	 * cn.net.openid.jos.service.JosService#getPersona(cn.net.openid.jos.domain
+	 * .User, java.lang.String)
 	 */
 	public Persona getPersona(User user, String id) {
 		Persona persona = personaDao.getPersona(id);
@@ -583,7 +612,9 @@ public class JosServiceImpl implements JosService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.jos.service.JosService#getPersonas(cn.net.openid.jos.domain.User)
+	 * @see
+	 * cn.net.openid.jos.service.JosService#getPersonas(cn.net.openid.jos.domain
+	 * .User)
 	 */
 	public Collection<Persona> getPersonas(User user) {
 		return personaDao.getPersonas(user);
@@ -592,8 +623,9 @@ public class JosServiceImpl implements JosService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.jos.service.JosService#insertPersona(cn.net.openid.jos.domain.User,
-	 *      cn.net.openid.jos.domain.Persona)
+	 * @see
+	 * cn.net.openid.jos.service.JosService#insertPersona(cn.net.openid.jos.
+	 * domain.User, cn.net.openid.jos.domain.Persona)
 	 */
 	public void insertPersona(User user, Persona persona) {
 		if (user.equals(persona.getUser())) {
@@ -606,8 +638,9 @@ public class JosServiceImpl implements JosService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.jos.service.JosService#updatePersona(cn.net.openid.jos.domain.User,
-	 *      cn.net.openid.jos.domain.Persona)
+	 * @see
+	 * cn.net.openid.jos.service.JosService#updatePersona(cn.net.openid.jos.
+	 * domain.User, cn.net.openid.jos.domain.Persona)
 	 */
 	public void updatePersona(User user, Persona persona) {
 		if (user.equals(persona.getUser())) {
@@ -620,8 +653,9 @@ public class JosServiceImpl implements JosService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.jos.service.JosService#deletePersonas(cn.net.openid.jos.domain.User,
-	 *      java.lang.String[])
+	 * @see
+	 * cn.net.openid.jos.service.JosService#deletePersonas(cn.net.openid.jos
+	 * .domain.User, java.lang.String[])
 	 */
 	public void deletePersonas(User user, String[] personaIds) {
 		for (String personaId : personaIds) {

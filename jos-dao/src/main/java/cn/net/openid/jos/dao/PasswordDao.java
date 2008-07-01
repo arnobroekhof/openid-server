@@ -17,6 +17,8 @@ public interface PasswordDao {
 
 	Collection<Password> getPasswords(User user);
 
+	long getPasswordCount(User user);
+
 	void insertPassword(Password password);
 
 	void updatePassword(Password password);
