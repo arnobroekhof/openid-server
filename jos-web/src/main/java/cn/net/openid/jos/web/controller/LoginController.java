@@ -62,7 +62,6 @@ public class LoginController extends AbstractJosSimpleFormController {
 	 *      javax.servlet.http.HttpServletResponse, java.lang.Object,
 	 *      org.springframework.validation.BindException)
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	protected ModelAndView onSubmit(HttpServletRequest request,
 			HttpServletResponse response, Object command, BindException errors)

@@ -22,10 +22,10 @@ public class HibernateAttributeValueDao extends
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.jos.dao.AttributeValueDao#getAttributeValue(cn.net.openid.jos.domain.User,
-	 *      java.lang.String)
-	 */@SuppressWarnings("unchecked")
-	public String getAttributeValue(User user, String attributeId) {
+	 * @see
+	 * cn.net.openid.jos.dao.AttributeValueDao#getAttributeValue(cn.net.openid
+	 * .jos.domain.User, java.lang.String)
+	 */public String getAttributeValue(User user, String attributeId) {
 		String q = "from AttributeValue where user.id = ? and attribute.id = ? order by index";
 		List<AttributeValue> attributeValues = this.find(q, user.getId(),
 				attributeId);
@@ -39,10 +39,10 @@ public class HibernateAttributeValueDao extends
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.jos.dao.AttributeValueDao#getAttributeValues(cn.net.openid.jos.domain.User,
-	 *      java.lang.String)
+	 * @see
+	 * cn.net.openid.jos.dao.AttributeValueDao#getAttributeValues(cn.net.openid
+	 * .jos.domain.User, java.lang.String)
 	 */
-	@SuppressWarnings("unchecked")
 	public Collection<String> getAttributeValues(User user, String attributeId) {
 		String q = "from AttributeValue where user.id = ? and attribute.id = ? order by index";
 		List<AttributeValue> attributeValues = this.find(q, user.getId(),
@@ -61,7 +61,9 @@ public class HibernateAttributeValueDao extends
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.jos.dao.AttributeValueDao#getUserAttributeValues(cn.net.openid.jos.domain.User)
+	 * @see
+	 * cn.net.openid.jos.dao.AttributeValueDao#getUserAttributeValues(cn.net
+	 * .openid.jos.domain.User)
 	 */
 	public List<AttributeValue> getUserAttributeValues(User user) {
 		return find("from AttributeValue where user.id = ? order by index",
@@ -71,7 +73,9 @@ public class HibernateAttributeValueDao extends
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.dao.AttributeValueDao#saveAttributeValue(cn.net.openid.domain.AttributeValue)
+	 * @see
+	 * cn.net.openid.dao.AttributeValueDao#saveAttributeValue(cn.net.openid.
+	 * domain.AttributeValue)
 	 */
 	public void saveAttributeValue(AttributeValue attributeValue) {
 		this.getHibernateTemplate().saveOrUpdate(attributeValue);
