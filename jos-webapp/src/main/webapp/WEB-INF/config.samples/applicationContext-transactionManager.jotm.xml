@@ -1,0 +1,9 @@
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+		  "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+	<bean id="jotm" class="org.springframework.transaction.jta.JotmFactoryBean" />
+	<bean id="transactionManager"
+		class="org.springframework.transaction.jta.JtaTransactionManager">
+		<property name="userTransaction" ref="jotm" />
+	</bean>
+</beans>

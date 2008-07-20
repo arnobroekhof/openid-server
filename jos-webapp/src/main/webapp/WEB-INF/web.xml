@@ -12,6 +12,8 @@
 		<param-value>
 			/WEB-INF/applicationContext.xml,
 			/WEB-INF/dataAccessContext-hibernate.xml,
+			/WEB-INF/config/applicationContext-transactionManager.xml,
+			/WEB-INF/config/applicationContext-dataSource.xml,
 			/WEB-INF/config/applicationContext-mail.xml
 		</param-value>
 	</context-param>

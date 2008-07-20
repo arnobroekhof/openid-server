@@ -51,6 +51,21 @@
 			<artifactId>commons-dbcp</artifactId>
 		</dependency>
 
+		<!-- Transaction Manager: jotm -->
+		<dependency>
+			<groupId>jotm</groupId>
+			<artifactId>jotm</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.experlog</groupId>
+			<artifactId>xapool</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>jboss</groupId>
+			<artifactId>jboss-j2ee</artifactId>
+			<version>4.0.0</version>
+		</dependency>
+
 		<!-- JDBC Drivers -->
 		<dependency>
 			<groupId>hsqldb</groupId>
