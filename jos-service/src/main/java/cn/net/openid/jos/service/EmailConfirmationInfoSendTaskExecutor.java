@@ -14,12 +14,19 @@ import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 
 import cn.net.openid.jos.domain.EmailConfirmationInfo;
+import cn.net.openid.jos.domain.JosConfiguration;
 
 /**
  * @author Sutra Zhou
  * 
  */
 public class EmailConfirmationInfoSendTaskExecutor {
+	/**
+	 * Email confirmation info send task.
+	 * 
+	 * @author Sutra Zhou
+	 * 
+	 */
 	private class EmailConfirmationInfoSendTask implements Runnable {
 		private EmailConfirmationInfo emailConfirmationInfo;
 
@@ -34,8 +41,7 @@ public class EmailConfirmationInfoSendTaskExecutor {
 			log.debug("Sending mail to: "
 					+ this.emailConfirmationInfo.getEmail().getAddress());
 			ResourceBundle emailConfirmationResources = ResourceBundle
-					.getBundle("email-confirmation",
-							currentLocale);
+					.getBundle("email-confirmation", currentLocale);
 
 			SimpleMailMessage simpleMessage = new SimpleMailMessage();
 			simpleMessage.setTo(this.emailConfirmationInfo.getEmail()
@@ -48,11 +54,12 @@ public class EmailConfirmationInfoSendTaskExecutor {
 					emailConfirmationInfo.getEmail().getUser().getUsername());
 			text = StringUtils.replace(text, "${confirmationCode}",
 					emailConfirmationInfo.getConfirmationCode());
+			text = StringUtils.replace(text, "${baseUrl}", josConfiguration
+					.getBaseUrl());
 
 			simpleMessage.setText(text);
 			mailSender.send(simpleMessage);
 		}
-
 	}
 
 	private static final Log log = LogFactory
@@ -60,6 +67,7 @@ public class EmailConfirmationInfoSendTaskExecutor {
 
 	private TaskExecutor taskExecutor;
 	private MailSender mailSender;
+	private JosConfiguration josConfiguration;
 
 	public EmailConfirmationInfoSendTaskExecutor(TaskExecutor taskExecutor) {
 		this.taskExecutor = taskExecutor;
@@ -71,6 +79,14 @@ public class EmailConfirmationInfoSendTaskExecutor {
 	 */
 	public void setMailSender(MailSender mailSender) {
 		this.mailSender = mailSender;
+	}
+
+	/**
+	 * @param josConfiguration
+	 *            the josConfiguration to set
+	 */
+	public void setJosConfiguration(JosConfiguration josConfiguration) {
+		this.josConfiguration = josConfiguration;
 	}
 
 	public void sendEmail(EmailConfirmationInfo emailConfirmationInfo) {

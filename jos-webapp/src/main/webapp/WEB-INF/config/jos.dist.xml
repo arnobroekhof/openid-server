@@ -4,6 +4,13 @@
 	<comment>Configuration for Java OpenID Server.</comment>
 
 	<!--
+		The base URL. Without slash mark ending.
+		e.g.
+		http://openid.org.cn
+	-->
+	<entry key="jos.base.url">http://localhost:8080/jos-webapp</entry>
+
+	<!--
 		OpenID Server URL.
 		e.g.
 		http://openid.org.cn/server

@@ -16,6 +16,7 @@ public class JosConfiguration implements Serializable {
 	 */
 	private static final long serialVersionUID = -422179045234771173L;
 
+	private String baseUrl;
 	private String openidServerUrl;
 	private String identifierPrefix;
 	private String identifierSuffix;
@@ -23,6 +24,21 @@ public class JosConfiguration implements Serializable {
 	private String reservedUsernamePattern;
 	private String unallowableUsernamePattern;
 	private String memberFilterFromPattern;
+
+	/**
+	 * @return the baseUrl
+	 */
+	public String getBaseUrl() {
+		return baseUrl;
+	}
+
+	/**
+	 * @param baseUrl
+	 *            the baseUrl to set
+	 */
+	public void setBaseUrl(String baseUrl) {
+		this.baseUrl = baseUrl;
+	}
 
 	/**
 	 * @return the openidServerUrl
