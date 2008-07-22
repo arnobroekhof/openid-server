@@ -59,7 +59,8 @@ public class Persona implements Serializable {
 
 	/**
 	 * The End User's country of residence as specified by <a
-	 * href="http://www.iso.org/iso/en/prods-services/iso3166ma/index.html">ISO3166</a>.
+	 * href="http://www.iso.org/iso/en/prods-services/iso3166ma/index.html"
+	 * >ISO3166</a>.
 	 */
 	private String country;
 
@@ -337,13 +338,13 @@ public class Persona implements Serializable {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof Persona))
 			return false;
 		final Persona other = (Persona) obj;
-		if (id == null) {
-			if (other.id != null)
+		if (getId() == null) {
+			if (other.getId() != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!getId().equals(other.getId()))
 			return false;
 		return true;
 	}

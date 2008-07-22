@@ -90,18 +90,18 @@ public class Realm implements Serializable {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof Realm))
 			return false;
 		final Realm other = (Realm) obj;
-		if (id == null) {
-			if (other.id != null)
+		if (getId() == null) {
+			if (other.getId() != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!getId().equals(other.getId()))
 			return false;
-		if (url == null) {
-			if (other.url != null)
+		if (getUrl() == null) {
+			if (other.getUrl() != null)
 				return false;
-		} else if (!url.equals(other.url))
+		} else if (!getUrl().equals(other.getUrl()))
 			return false;
 		return true;
 	}

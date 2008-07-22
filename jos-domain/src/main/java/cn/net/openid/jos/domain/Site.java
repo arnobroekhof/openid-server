@@ -155,18 +155,18 @@ public class Site implements Serializable {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof Site))
 			return false;
 		final Site other = (Site) obj;
-		if (realm == null) {
-			if (other.realm != null)
+		if (getRealm() == null) {
+			if (other.getRealm() != null)
 				return false;
-		} else if (!realm.equals(other.realm))
+		} else if (!getRealm().equals(other.getRealm()))
 			return false;
-		if (user == null) {
-			if (other.user != null)
+		if (getUser() == null) {
+			if (other.getUser() != null)
 				return false;
-		} else if (!user.equals(other.user))
+		} else if (!getUser().equals(other.getUser()))
 			return false;
 		return true;
 	}

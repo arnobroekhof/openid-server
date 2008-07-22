@@ -106,20 +106,20 @@ public class AttributeValue implements Serializable {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof AttributeValue))
 			return false;
 		final AttributeValue other = (AttributeValue) obj;
-		if (attribute == null) {
-			if (other.attribute != null)
+		if (getAttribute() == null) {
+			if (other.getAttribute() != null)
 				return false;
-		} else if (!attribute.equals(other.attribute))
+		} else if (!getAttribute().equals(other.getAttribute()))
 			return false;
-		if (index != other.index)
+		if (getIndex() != other.getIndex())
 			return false;
-		if (user == null) {
-			if (other.user != null)
+		if (getUser() == null) {
+			if (other.getUser() != null)
 				return false;
-		} else if (!user.equals(other.user))
+		} else if (!getUser().equals(other.getUser()))
 			return false;
 		return true;
 	}
