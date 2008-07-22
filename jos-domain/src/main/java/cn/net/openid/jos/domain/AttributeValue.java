@@ -89,9 +89,9 @@ public class AttributeValue implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
-				+ ((attribute == null) ? 0 : attribute.hashCode());
-		result = prime * result + index;
-		result = prime * result + ((user == null) ? 0 : user.hashCode());
+				+ ((getAttribute() == null) ? 0 : getAttribute().hashCode());
+		result = prime * result + getIndex();
+		result = prime * result + ((getUser() == null) ? 0 : getUser().hashCode());
 		return result;
 	}
 
