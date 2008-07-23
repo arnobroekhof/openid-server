@@ -74,7 +74,6 @@ public class Realm implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
 		result = prime * result + ((getUrl() == null) ? 0 : getUrl().hashCode());
 		return result;
 	}
@@ -93,11 +92,6 @@ public class Realm implements Serializable {
 		if (!(obj instanceof Realm))
 			return false;
 		final Realm other = (Realm) obj;
-		if (getId() == null) {
-			if (other.getId() != null)
-				return false;
-		} else if (!getId().equals(other.getId()))
-			return false;
 		if (getUrl() == null) {
 			if (other.getUrl() != null)
 				return false;
