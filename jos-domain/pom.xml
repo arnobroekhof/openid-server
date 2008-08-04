@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>cn.net.openid.jos</groupId>
 		<artifactId>jos</artifactId>
-		<version>1.0-SNAPSHOT</version>
+		<version>1.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>jos-domain</artifactId>
 	<packaging>jar</packaging>
