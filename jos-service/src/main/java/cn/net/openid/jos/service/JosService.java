@@ -5,8 +5,11 @@ package cn.net.openid.jos.service;
 
 import java.util.Collection;
 
+import javax.servlet.http.HttpServletRequest;
+
 import cn.net.openid.jos.domain.Attribute;
 import cn.net.openid.jos.domain.AttributeValue;
+import cn.net.openid.jos.domain.Domain;
 import cn.net.openid.jos.domain.Email;
 import cn.net.openid.jos.domain.EmailConfirmationInfo;
 import cn.net.openid.jos.domain.JosConfiguration;
@@ -23,6 +26,24 @@ public interface JosService {
 	JosConfiguration getJosConfiguration();
 
 	String buildOpenidUrl(String username);
+
+	/**
+	 * Parse domain and username from the request.
+	 * 
+	 * @param request
+	 *            the HTTP request
+	 * @return a user with domain, but the username maybe null if the request
+	 *         url doesn't indicate the username info.
+	 */
+	User parseUser(HttpServletRequest request);
+
+	Domain getDomain(String id);
+
+	Domain getDomainByName(String name);
+
+	Domain getDomainByName(String name, int type);
+
+	void insertDomain(Domain domain);
 
 	User getUser(String id);
 

@@ -3,9 +3,13 @@
  */
 package cn.net.openid.jos.service;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.RandomStringUtils;
@@ -15,6 +19,7 @@ import org.apache.commons.logging.LogFactory;
 
 import cn.net.openid.jos.dao.AttributeDao;
 import cn.net.openid.jos.dao.AttributeValueDao;
+import cn.net.openid.jos.dao.DomainDao;
 import cn.net.openid.jos.dao.EmailConfirmationInfoDao;
 import cn.net.openid.jos.dao.EmailDao;
 import cn.net.openid.jos.dao.PasswordDao;
@@ -24,6 +29,7 @@ import cn.net.openid.jos.dao.SiteDao;
 import cn.net.openid.jos.dao.UserDao;
 import cn.net.openid.jos.domain.Attribute;
 import cn.net.openid.jos.domain.AttributeValue;
+import cn.net.openid.jos.domain.Domain;
 import cn.net.openid.jos.domain.Email;
 import cn.net.openid.jos.domain.EmailConfirmationInfo;
 import cn.net.openid.jos.domain.JosConfiguration;
@@ -42,6 +48,7 @@ public class JosServiceImpl implements JosService {
 
 	private JosConfiguration josConfiguration;
 
+	private DomainDao domainDao;
 	private UserDao userDao;
 	private PasswordDao passwordDao;
 	private EmailDao emailDao;
@@ -58,6 +65,15 @@ public class JosServiceImpl implements JosService {
 	 */
 	public void setJosConfiguration(JosConfiguration josConfiguration) {
 		this.josConfiguration = josConfiguration;
+	}
+
+	/**
+	 * 
+	 * @param domainDao
+	 *            the domainDao to set
+	 */
+	public void setDomainDao(DomainDao domainDao) {
+		this.domainDao = domainDao;
 	}
 
 	/**
@@ -142,6 +158,99 @@ public class JosServiceImpl implements JosService {
 		return String.format("%1$s%2$s%3$s", josConfiguration
 				.getIdentifierPrefix(), username, josConfiguration
 				.getIdentifierSuffix());
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @seecn.net.openid.jos.service.JosService#parseUser(javax.servlet.http.
+	 * HttpServletRequest)
+	 */
+	public User parseUser(HttpServletRequest request) {
+		log.debug("parseUser is called.");
+
+		Domain domain = null;
+		String username = null;
+
+		URL url = null;
+		try {
+			url = new URL(request.getRequestURL().toString());
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+
+		// e.g. www.example.com
+		String host = url.getHost();
+		int dotCount = StringUtils.countMatches(host, ".");
+		if (dotCount >= 2) {
+			int firstDot = host.indexOf(".");
+			String domainNameType1 = host.substring(firstDot + 1);
+			// If we split the host, it must be type subdomain.
+			// And the first segement of the host is username.
+			domain = this.getDomainByName(domainNameType1,
+					Domain.TYPE_SUBDOMAIN);
+			if (domain != null) {
+				username = host.substring(0, firstDot);
+			}
+		}
+
+		if (domain == null) {
+			domain = this.getDomainByName(host);
+			// If type is subdirectory, retrive username from the path;
+			// if type is subdomain, the url can not indicate the username info.
+			if (domain != null && domain.getType() == Domain.TYPE_SUBDIRECTORY) {
+				int suffixLength = domain.getSuffix() == null ? 0 : domain
+						.getSuffix().length();
+				username = request.getRequestURI().substring(suffixLength + 1);
+			}
+		}
+		return new User(domain, username);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.jos.service.JosService#getDomain(java.lang.String)
+	 */
+	public Domain getDomain(String id) {
+		return domainDao.getDomain(id);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * cn.net.openid.jos.service.JosService#getDomainByName(java.lang.String)
+	 */
+	public Domain getDomainByName(String name) {
+		return domainDao.getDomainByName(name);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * cn.net.openid.jos.service.JosService#getDomainByName(java.lang.String,
+	 * int)
+	 */
+	public Domain getDomainByName(String name, int type) {
+		Domain domain = domainDao.getDomainByName(name);
+		if (domain != null && domain.getType() == type) {
+			return domain;
+		} else {
+			return null;
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * cn.net.openid.jos.service.JosService#insertDomain(cn.net.openid.jos.domain
+	 * .Domain)
+	 */
+	public void insertDomain(Domain domain) {
+		domainDao.insertDomain(domain);
 	}
 
 	/*

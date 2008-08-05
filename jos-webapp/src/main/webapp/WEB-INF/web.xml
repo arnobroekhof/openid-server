@@ -64,6 +64,18 @@
 		</filter-class>
 	</filter>
 
+	<!-- Domain Filter -->
+	<filter>
+		<display-name>Domain Filter</display-name>
+		<filter-name>Domain Filter</filter-name>
+		<filter-class>cn.net.openid.jos.web.DomainFilter</filter-class>
+		<init-param>
+			<description>Indicates the bean name of `josService'.</description>
+			<param-name>josServiceBeanName</param-name>
+			<param-value>josService</param-value>
+		</init-param>
+	</filter>
+
 	<!-- Java OpenID Server Member URL. -->
 	<filter>
 		<display-name>Member Filter</display-name>
@@ -124,6 +136,12 @@
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>openSessionInViewFilter</filter-name>
+		<servlet-name>jos</servlet-name>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Domain Filter</filter-name>
 		<servlet-name>jos</servlet-name>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>

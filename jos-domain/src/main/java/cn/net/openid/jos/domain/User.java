@@ -19,7 +19,16 @@ public class User implements Serializable {
 
 	private String id;
 	private String username;
+	private Domain domain = new Domain();
 	private Date creationDate = new Date();
+
+	public User() {
+	}
+
+	public User(Domain domain, String username) {
+		this.domain = domain;
+		this.username = username;
+	}
 
 	/**
 	 * @return the id
@@ -66,6 +75,21 @@ public class User implements Serializable {
 		this.username = username;
 	}
 
+	/**
+	 * @return the domain
+	 */
+	public Domain getDomain() {
+		return domain;
+	}
+
+	/**
+	 * @param domain
+	 *            the domain to set
+	 */
+	public void setDomain(Domain domain) {
+		this.domain = domain;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -75,7 +99,10 @@ public class User implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((getUsername() == null) ? 0 : getUsername().hashCode());
+		result = prime * result
+				+ ((getDomain() == null) ? 0 : getDomain().hashCode());
+		result = prime * result
+				+ ((getUsername() == null) ? 0 : getUsername().hashCode());
 		return result;
 	}
 
@@ -92,7 +119,12 @@ public class User implements Serializable {
 			return false;
 		if (!(obj instanceof User))
 			return false;
-		final User other = (User) obj;
+		User other = (User) obj;
+		if (getDomain() == null) {
+			if (other.getDomain() != null)
+				return false;
+		} else if (!getDomain().equals(other.getDomain()))
+			return false;
 		if (getUsername() == null) {
 			if (other.getUsername() != null)
 				return false;

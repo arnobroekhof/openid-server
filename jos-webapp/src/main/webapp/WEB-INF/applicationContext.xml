@@ -57,6 +57,7 @@
 			<bean class="cn.net.openid.jos.service.JosServiceImpl">
 				<property name="josConfiguration"
 					ref="josConfiguration" />
+				<property name="domainDao" ref="domainDao" />
 				<property name="userDao" ref="userDao" />
 				<property name="passwordDao" ref="passwordDao" />
 				<property name="emailDao" ref="emailDao" />
