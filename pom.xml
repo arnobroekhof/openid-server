@@ -230,4 +230,10 @@
 			</plugin>
 		</plugins>
 	</reporting>
+	<scm>
+		<connection>scm:svn:http://openid-server.googlecode.com/svn/trunk/</connection>
+		<developerConnection>scm:svn:https://openid-server.googlecode.com/svn/trunk</developerConnection>
+		<tag>HEAD</tag>
+		<url>http://code.google.com/p/openid-server/source/browse/</url>
+	</scm>
 </project>
