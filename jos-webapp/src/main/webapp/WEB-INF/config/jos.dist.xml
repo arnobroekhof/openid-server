@@ -23,17 +23,17 @@
 
 		A regular expression tool: http://jakarta.apache.org/regexp/applet.html
 	-->
-	<entry key="jos.member.username.pattern">[a-z]{1,16}</entry>
+	<entry key="jos.member.username.regex">[a-z]{1,16}</entry>
 	
 	<!--
 		The regular expression of reserved username.
 	-->
-	<entry key="jos.member.username.reserved.pattern">root|admin|administrator</entry>
+	<entry key="jos.member.username.reserved.regex">root|admin|administrator</entry>
 
 	<!--
 		The regular expression of unallowable username.
 	-->
-	<entry key="jos.member.username.unallowable.pattern">w+|server|news|jos|.*fuck.*</entry>
+	<entry key="jos.member.username.unallowable.regex">w+|server|news|jos|.*fuck.*</entry>
 
 	<!--
 		For building the openid_url with field username, 
@@ -58,5 +58,5 @@
 		([0-9a-zA-Z]) must same as or contains the value of `jos.member.username.pattern'.
 		This pattern should matches ${jos.member.identifier.prefix}${jos.member.username.pattern}${jos.member.identifier.suffix}
 	-->
-	<entry key="jos.member.filter.from.pattern">^http://localhost:8080/jos-webapp/test/([0-9a-zA-Z]+)$</entry>
+	<entry key="jos.member.filter.from.regex">^http://localhost:8080/jos-webapp/test/([0-9a-zA-Z]+)$</entry>
 </properties>

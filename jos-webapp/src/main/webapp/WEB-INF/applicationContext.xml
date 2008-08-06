@@ -16,18 +16,18 @@
 		<property name="baseUrl" value="${jos.base.url}" />
 		<property name="openidServerUrl"
 			value="${jos.openid.server.url}" />
-		<property name="usernamePattern"
-			value="${jos.member.username.pattern}" />
-		<property name="reservedUsernamePattern"
-			value="${jos.member.username.reserved.pattern}" />
-		<property name="unallowableUsernamePattern"
-			value="${jos.member.username.unallowable.pattern}" />
+		<property name="usernameRegex"
+			value="${jos.member.username.regex}" />
+		<property name="reservedUsernameRegex"
+			value="${jos.member.username.reserved.regex}" />
+		<property name="unallowableUsernameRegex"
+			value="${jos.member.username.unallowable.regex}" />
 		<property name="identifierPrefix"
 			value="${jos.member.identifier.prefix}" />
 		<property name="identifierSuffix"
 			value="${jos.member.identifier.suffix}" />
-		<property name="memberFilterFromPattern"
-			value="${jos.member.filter.from.pattern}" />
+		<property name="memberFilterFromRegex"
+			value="${jos.member.filter.from.regex}" />
 	</bean>
 
 	<bean id="serverManager"

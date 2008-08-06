@@ -4,6 +4,7 @@
 package cn.net.openid.jos.domain;
 
 import java.io.Serializable;
+import java.util.regex.Pattern;
 
 /**
  * @author Sutra Zhou
@@ -20,10 +21,15 @@ public class JosConfiguration implements Serializable {
 	private String openidServerUrl;
 	private String identifierPrefix;
 	private String identifierSuffix;
-	private String usernamePattern;
-	private String reservedUsernamePattern;
-	private String unallowableUsernamePattern;
-	private String memberFilterFromPattern;
+	private String usernameRegex = "[a-z]{1,16}";
+	private Pattern usernamePattern = Pattern.compile(usernameRegex);
+	private String reservedUsernameRegex = "root|toor|wheel|staff|admin|administrator";
+	private Pattern reservedUsernamePattern = Pattern.compile(
+			reservedUsernameRegex, Pattern.CASE_INSENSITIVE);
+	private String unallowableUsernameRegex = "w+|home|server|approve.*|approving|register|login|logout|email.*|password.*|persona.*|site.*|attribute.*|hl|member|news|jos|mail|smtp|pop3|pop|.*fuck.*";
+	private Pattern unallowableUsernamePattern = Pattern.compile(
+			unallowableUsernameRegex, Pattern.CASE_INSENSITIVE);
+	private String memberFilterFromRegex;
 
 	/**
 	 * @return the baseUrl
@@ -86,63 +92,100 @@ public class JosConfiguration implements Serializable {
 	}
 
 	/**
+	 * @return the usernameRegex
+	 */
+	public String getUsernameRegex() {
+		return usernameRegex;
+	}
+
+	/**
+	 * @param usernameRegex
+	 *            the usernameRegex to set
+	 */
+	public void setUsernameRegex(String usernameRegex) {
+		this.usernameRegex = usernameRegex;
+		this.usernamePattern = null;
+	}
+
+	/**
 	 * @return the usernamePattern
 	 */
-	public String getUsernamePattern() {
+	public Pattern getUsernamePattern() {
+		if (this.usernamePattern == null && this.getUsernameRegex() != null) {
+			this.usernamePattern = Pattern.compile(this.getUsernameRegex());
+		}
 		return usernamePattern;
 	}
 
 	/**
-	 * @param usernamePattern
-	 *            the usernamePattern to set
+	 * @return the reservedUsernameRegex
 	 */
-	public void setUsernamePattern(String usernamePattern) {
-		this.usernamePattern = usernamePattern;
+	public String getReservedUsernameRegex() {
+		return reservedUsernameRegex;
+	}
+
+	/**
+	 * @param reservedUsernameRegex
+	 *            the reservedUsernameRegex to set
+	 */
+	public void setReservedUsernameRegex(String reservedUsernameRegex) {
+		this.reservedUsernameRegex = reservedUsernameRegex;
+		this.reservedUsernamePattern = null;
 	}
 
 	/**
 	 * @return the reservedUsernamePattern
 	 */
-	public String getReservedUsernamePattern() {
+	public Pattern getReservedUsernamePattern() {
+		if (this.reservedUsernamePattern == null
+				&& this.getReservedUsernameRegex() != null) {
+			this.reservedUsernamePattern = Pattern.compile(this
+					.getReservedUsernameRegex(), Pattern.CASE_INSENSITIVE);
+		}
 		return reservedUsernamePattern;
 	}
 
 	/**
-	 * @param reservedUsernamePattern
-	 *            the reservedUsernamePattern to set
+	 * @return the unallowableUsernameRegex
 	 */
-	public void setReservedUsernamePattern(String reservedUsernamePattern) {
-		this.reservedUsernamePattern = reservedUsernamePattern;
+	public String getUnallowableUsernameRegex() {
+		return unallowableUsernameRegex;
+	}
+
+	/**
+	 * @param unallowableUsernameRegex
+	 *            the unallowableUsernameRegex to set
+	 */
+	public void setUnallowableUsernameRegex(String unallowableUsernameRegex) {
+		this.unallowableUsernameRegex = unallowableUsernameRegex;
+		this.unallowableUsernamePattern = null;
 	}
 
 	/**
 	 * @return the unallowableUsernamePattern
 	 */
-	public String getUnallowableUsernamePattern() {
+	public Pattern getUnallowableUsernamePattern() {
+		if (this.unallowableUsernamePattern == null
+				&& this.getUnallowableUsernameRegex() != null) {
+			this.unallowableUsernamePattern = Pattern.compile(this
+					.getUnallowableUsernameRegex(), Pattern.CASE_INSENSITIVE);
+		}
 		return unallowableUsernamePattern;
 	}
 
 	/**
-	 * @param unallowableUsernamePattern
-	 *            the unallowableUsernamePattern to set
+	 * @return the memberFilterFromRegex
 	 */
-	public void setUnallowableUsernamePattern(String unallowableUsernamePattern) {
-		this.unallowableUsernamePattern = unallowableUsernamePattern;
+	public String getMemberFilterFromRegex() {
+		return memberFilterFromRegex;
 	}
 
 	/**
-	 * @return the memberFilterFromPattern
+	 * @param memberFilterFromRegex
+	 *            the memberFilterFromRegex to set
 	 */
-	public String getMemberFilterFromPattern() {
-		return memberFilterFromPattern;
-	}
-
-	/**
-	 * @param memberFilterFromPattern
-	 *            the memberFilterFromPattern to set
-	 */
-	public void setMemberFilterFromPattern(String memberFilterFromPattern) {
-		this.memberFilterFromPattern = memberFilterFromPattern;
+	public void setMemberFilterFromRegex(String memberFilterFromRegex) {
+		this.memberFilterFromRegex = memberFilterFromRegex;
 	}
 
 }

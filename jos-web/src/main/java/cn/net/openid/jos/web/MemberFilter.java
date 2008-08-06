@@ -84,12 +84,12 @@ public class MemberFilter implements Filter {
 		log
 				.debug("fromPattern: "
 						+ josService.getJosConfiguration()
-								.getMemberFilterFromPattern());
+								.getMemberFilterFromRegex());
 		JosConfiguration domainConfiguration = josService.getJosConfiguration();
 		this.fromPattern = Pattern.compile(domainConfiguration
-				.getMemberFilterFromPattern());
+				.getMemberFilterFromRegex());
 		this.unallowableUsernamePattern = Pattern.compile(domainConfiguration
-				.getUnallowableUsernamePattern(), Pattern.CASE_INSENSITIVE);
+				.getUnallowableUsernameRegex(), Pattern.CASE_INSENSITIVE);
 	}
 
 	private void dispatch(ServletRequest request, ServletResponse response,

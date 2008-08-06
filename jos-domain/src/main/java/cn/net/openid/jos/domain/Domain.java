@@ -18,7 +18,7 @@ import java.util.Date;
  * @author Sutra Zhou
  * 
  */
-public class Domain implements Serializable {
+public class Domain extends JosConfiguration implements Serializable {
 	/**
 	 * 
 	 */

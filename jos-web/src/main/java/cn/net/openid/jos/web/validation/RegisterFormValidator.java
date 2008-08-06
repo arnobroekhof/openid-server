@@ -30,11 +30,11 @@ public class RegisterFormValidator implements Validator {
 	private Pattern unallowableUsernamePattern;
 
 	public void setDomainConfiguration(JosConfiguration config) {
-		this.usernamePattern = Pattern.compile(config.getUsernamePattern());
+		this.usernamePattern = Pattern.compile(config.getUsernameRegex());
 		this.reservedUsernamePatter = Pattern.compile(config
-				.getReservedUsernamePattern(), Pattern.CASE_INSENSITIVE);
+				.getReservedUsernameRegex(), Pattern.CASE_INSENSITIVE);
 		this.unallowableUsernamePattern = Pattern.compile(config
-				.getUnallowableUsernamePattern(), Pattern.CASE_INSENSITIVE);
+				.getUnallowableUsernameRegex(), Pattern.CASE_INSENSITIVE);
 	}
 
 	/*

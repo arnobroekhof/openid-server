@@ -170,7 +170,7 @@ public class JosServiceImpl implements JosService {
 		log.debug("parseUser is called.");
 
 		Domain domain = null;
-		String username = null;
+		String usernameSegment = null;
 
 		URL url = null;
 		try {
@@ -190,7 +190,7 @@ public class JosServiceImpl implements JosService {
 			domain = this.getDomainByName(domainNameType1,
 					Domain.TYPE_SUBDOMAIN);
 			if (domain != null) {
-				username = host.substring(0, firstDot);
+				usernameSegment = host.substring(0, firstDot);
 			}
 		}
 
@@ -201,9 +201,16 @@ public class JosServiceImpl implements JosService {
 			if (domain != null && domain.getType() == Domain.TYPE_SUBDIRECTORY) {
 				int suffixLength = domain.getSuffix() == null ? 0 : domain
 						.getSuffix().length();
-				username = request.getRequestURI().substring(suffixLength + 1);
+				usernameSegment = request.getRequestURI().substring(
+						suffixLength + 1);
 			}
 		}
+
+		String username = (domain != null && usernameSegment != null && (domain
+				.getUnallowableUsernamePattern() == null || !domain
+				.getUnallowableUsernamePattern().matcher(usernameSegment)
+				.matches())) ? usernameSegment : null;
+
 		return new User(domain, username);
 	}
 
