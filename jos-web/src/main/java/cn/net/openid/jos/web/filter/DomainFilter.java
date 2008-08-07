@@ -1,7 +1,7 @@
 /**
  * Created on 2008-8-6 上午12:16:34
  */
-package cn.net.openid.jos.web;
+package cn.net.openid.jos.web.filter;
 
 import java.io.IOException;
 
@@ -12,7 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import cn.net.openid.jos.domain.Domain;
-import cn.net.openid.jos.web.filter.OncePerRequestServiceFilter;
+import cn.net.openid.jos.web.UserSession;
+import cn.net.openid.jos.web.WebUtils;
 
 /**
  * @author Sutra Zhou
