@@ -4,6 +4,7 @@
 package cn.net.openid.jos.domain;
 
 import java.io.Serializable;
+import java.net.URL;
 import java.util.regex.Pattern;
 
 /**
@@ -17,10 +18,8 @@ public class JosConfiguration implements Serializable {
 	 */
 	private static final long serialVersionUID = -422179045234771173L;
 
-	private String baseUrl;
-	private String openidServerUrl;
-	private String identifierPrefix;
-	private String identifierSuffix;
+	private URL baseUrl;
+	private URL openidServerUrl;
 	private String usernameRegex = "[a-z]{1,16}";
 	private Pattern usernamePattern = Pattern.compile(usernameRegex);
 	private String reservedUsernameRegex = "root|toor|wheel|staff|admin|administrator";
@@ -34,7 +33,7 @@ public class JosConfiguration implements Serializable {
 	/**
 	 * @return the baseUrl
 	 */
-	public String getBaseUrl() {
+	public URL getBaseUrl() {
 		return baseUrl;
 	}
 
@@ -42,14 +41,14 @@ public class JosConfiguration implements Serializable {
 	 * @param baseUrl
 	 *            the baseUrl to set
 	 */
-	public void setBaseUrl(String baseUrl) {
+	public void setBaseUrl(URL baseUrl) {
 		this.baseUrl = baseUrl;
 	}
 
 	/**
 	 * @return the openidServerUrl
 	 */
-	public String getOpenidServerUrl() {
+	public URL getOpenidServerUrl() {
 		return openidServerUrl;
 	}
 
@@ -57,38 +56,8 @@ public class JosConfiguration implements Serializable {
 	 * @param openidServerUrl
 	 *            the openidServerUrl to set
 	 */
-	public void setOpenidServerUrl(String openidServerUrl) {
+	public void setOpenidServerUrl(URL openidServerUrl) {
 		this.openidServerUrl = openidServerUrl;
-	}
-
-	/**
-	 * @return the identifierPrefix
-	 */
-	public String getIdentifierPrefix() {
-		return identifierPrefix;
-	}
-
-	/**
-	 * @param identifierPrefix
-	 *            the identifierPrefix to set
-	 */
-	public void setIdentifierPrefix(String identifierPrefix) {
-		this.identifierPrefix = identifierPrefix;
-	}
-
-	/**
-	 * @return the identifierSuffix
-	 */
-	public String getIdentifierSuffix() {
-		return identifierSuffix;
-	}
-
-	/**
-	 * @param identifierSuffix
-	 *            the identifierSuffix to set
-	 */
-	public void setIdentifierSuffix(String identifierSuffix) {
-		this.identifierSuffix = identifierSuffix;
 	}
 
 	/**

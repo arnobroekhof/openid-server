@@ -9,9 +9,9 @@
 			<form action="home" method="post">
 				<div>
 					<label for="username">OpenID: </label>
-					${josConfiguration.identifierPrefix}
+					${domain.identifierPrefix}
 					<input type="text" id="username" name="username" class="sexy" size="16" accesskey="U" />
-					${josConfiguration.identifierSuffix}
+					${domain.identifierSuffix}
 					<button type="submit" name="login" accesskey="L">#springMessage("button.login")</button>
 					##<input type="submit" name="index.login" value="#springMessage("login.other")" class="button" accesskey="A" />
 					<button type="submit" name="register" accessky="R">#springMessage("button.register")</button>

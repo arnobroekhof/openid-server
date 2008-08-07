@@ -12,14 +12,32 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import cn.net.openid.jos.domain.Domain;
-import cn.net.openid.jos.web.UserSession;
-import cn.net.openid.jos.web.WebUtils;
 
 /**
  * @author Sutra Zhou
  * 
  */
 public class DomainFilter extends OncePerRequestServiceFilter {
+	public static final String DOMAIN_SESSION_NAME = "domain";
+
+	/**
+	 * Get domain from the session.
+	 * 
+	 * @param request
+	 *            the HTTP request
+	 * @return the domain in the session, null if session is null or attribute
+	 *         is not exists
+	 */
+	public static Domain getDomain(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		if (session != null) {
+			return (Domain) request.getSession().getAttribute(
+					DOMAIN_SESSION_NAME);
+		} else {
+			return null;
+		}
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -32,18 +50,20 @@ public class DomainFilter extends OncePerRequestServiceFilter {
 	protected void doFilterInternal(HttpServletRequest request,
 			HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
+		log.debug("Begin of domain filter.");
 		this.parseAndSetDomain(request, response);
 		filterChain.doFilter(request, response);
+		log.debug("End of domain filter.");
 	}
 
 	private void parseAndSetDomain(HttpServletRequest request,
 			HttpServletResponse response) {
 		HttpSession session = request.getSession();
-		UserSession userSession = WebUtils.getOrCreateUserSession(session);
 
-		if (userSession.getUser().getDomain().getName() == null) {
+		if (session.getAttribute(DOMAIN_SESSION_NAME) == null) {
+			log.debug("Parse domain from the request, and put into session.");
 			Domain domain = getService().parseDomain(request);
-			userSession.getUser().setDomain(domain);
+			session.setAttribute(DOMAIN_SESSION_NAME, domain);
 		}
 	}
 }

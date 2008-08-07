@@ -90,6 +90,16 @@ public class User implements Serializable {
 		this.domain = domain;
 	}
 
+	/**
+	 * Get the identifier.
+	 * 
+	 * @return the identifier
+	 */
+	public String getIdentifier() {
+		return String.format("%1$s%2$s%3$s", getDomain().getIdentifierPrefix(),
+				getUsername(), getDomain().getIdentifierSuffix());
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 

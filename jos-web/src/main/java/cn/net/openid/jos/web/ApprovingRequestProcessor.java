@@ -132,7 +132,7 @@ public class ApprovingRequestProcessor {
 		boolean ret;
 		if (userSession.isLoggedIn()
 				&& this.authRequest.getIdentity().equals(
-						userSession.getIdentifier())) {
+						userSession.getUser().getIdentifier())) {
 			ret = true;
 		} else {
 			ret = false;

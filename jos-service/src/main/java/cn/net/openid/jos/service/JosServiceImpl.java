@@ -153,17 +153,6 @@ public class JosServiceImpl implements JosService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.dao.DaoFacade#buildOpenidUrl(java.lang.String)
-	 */
-	public String buildOpenidUrl(String username) {
-		return String.format("%1$s%2$s%3$s", josConfiguration
-				.getIdentifierPrefix(), username, josConfiguration
-				.getIdentifierSuffix());
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @seecn.net.openid.jos.service.JosService#parseDomain(javax.servlet.http.
 	 * HttpServletRequest)
 	 */
@@ -191,6 +180,17 @@ public class JosServiceImpl implements JosService {
 			domain = this.getDomainByName(host);
 		}
 
+		if (domain != null) {
+			try {
+				URL baseUrl = new URL(url.getProtocol(), "www."
+						+ domain.getName(), url.getPort(), "/");
+				domain.setBaseUrl(baseUrl);
+
+				URL openidServerUrl = new URL(baseUrl, "/server");
+				domain.setOpenidServerUrl(openidServerUrl);
+			} catch (MalformedURLException e) {
+			}
+		}
 		return domain;
 	}
 

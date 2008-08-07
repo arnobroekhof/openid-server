@@ -32,7 +32,17 @@ public class MemberFilter extends OncePerRequestServiceFilter {
 	protected void doFilterInternal(HttpServletRequest request,
 			HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-		Domain domain = getService().parseDomain(request);
+		log.debug("Begin of member filter.");
+		Domain domain = null;
+		domain = DomainFilter.getDomain(request);
+		if (domain == null) {
+			log.debug("Parse domain from the request.");
+			domain = getService().parseDomain(request);
+		}
+
+		log.debug("Put the domain into the request.");
+		request.setAttribute(DomainFilter.DOMAIN_SESSION_NAME, domain);
+		log.debug("Parse username from the request.");
 		String username = getService().parseUsername(domain, request);
 
 		if (log.isDebugEnabled()) {
@@ -44,7 +54,7 @@ public class MemberFilter extends OncePerRequestServiceFilter {
 		} else {
 			this.dispatch(request, response, username);
 		}
-
+		log.debug("End of member filter.");
 	}
 
 	private void dispatch(ServletRequest request, ServletResponse response,

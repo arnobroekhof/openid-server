@@ -29,7 +29,6 @@ public class UserSession implements Serializable {
 	private static final Log log = LogFactory.getLog(UserSession.class);
 
 	private User user = new User();
-	private String identifier;
 	private boolean loggedIn = false;
 	private Map<String, ApprovingRequest> approvingRequests = new HashMap<String, ApprovingRequest>();
 
@@ -46,13 +45,6 @@ public class UserSession implements Serializable {
 	 */
 	public User getUser() {
 		return user;
-	}
-
-	/**
-	 * @return the identifier
-	 */
-	public String getIdentifier() {
-		return identifier;
 	}
 
 	/**
@@ -82,14 +74,6 @@ public class UserSession implements Serializable {
 	 */
 	public void setLoggedIn(boolean loggedIn) {
 		this.loggedIn = loggedIn;
-	}
-
-	/**
-	 * @param identifier
-	 *            the identifier to set
-	 */
-	public void setIdentifier(String identifier) {
-		this.identifier = identifier;
 	}
 
 	/* Authentication Requests */

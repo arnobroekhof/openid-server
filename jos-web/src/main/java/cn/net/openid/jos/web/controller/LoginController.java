@@ -49,8 +49,6 @@ public class LoginController extends AbstractJosSimpleFormController {
 			UserSession userSession = getUserSession(session);
 			userSession.setUser(user);
 			userSession.setLoggedIn(true);
-			userSession.setIdentifier(this.josService.buildOpenidUrl(lf
-					.getUsername()));
 		}
 		super.onBindAndValidate(request, command, errors);
 	}

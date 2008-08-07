@@ -135,6 +135,52 @@ public class Domain extends JosConfiguration implements Serializable {
 		this.creationDate = creationDate;
 	}
 
+	/**
+	 * @return the identifierPrefix
+	 */
+	public String getIdentifierPrefix() {
+		String identifierPrefix = null;
+
+		switch (getType()) {
+		case Domain.TYPE_SUBDOMAIN:
+			StringBuilder sb = new StringBuilder();
+			sb.append(getBaseUrl().getProtocol()).append("://");
+			identifierPrefix = sb.toString();
+			break;
+		case Domain.TYPE_SUBDIRECTORY:
+			// TODO
+			break;
+		default:
+			break;
+		}
+		return identifierPrefix;
+	}
+
+	/**
+	 * @return the identifierSuffix
+	 */
+	public String getIdentifierSuffix() {
+		String identifierSuffix = null;
+
+		switch (getType()) {
+		case Domain.TYPE_SUBDOMAIN:
+			StringBuilder sb = new StringBuilder();
+			sb.append('.').append(getName());
+			if (getBaseUrl().getPort() != getBaseUrl().getDefaultPort()) {
+				sb.append(':').append(getBaseUrl().getPort());
+			}
+			sb.append("/");
+			identifierSuffix = sb.toString();
+			break;
+		case Domain.TYPE_SUBDIRECTORY:
+			// TODO
+			break;
+		default:
+			break;
+		}
+		return identifierSuffix;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 

@@ -25,8 +25,6 @@ import cn.net.openid.jos.domain.User;
 public interface JosService {
 	JosConfiguration getJosConfiguration();
 
-	String buildOpenidUrl(String username);
-
 	/**
 	 * Parse domain from the request.
 	 * 
