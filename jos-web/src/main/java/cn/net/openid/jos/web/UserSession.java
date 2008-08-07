@@ -28,7 +28,7 @@ public class UserSession implements Serializable {
 
 	private static final Log log = LogFactory.getLog(UserSession.class);
 
-	private User user = null;
+	private User user = new User();
 	private String identifier;
 	private boolean loggedIn = false;
 	private Map<String, ApprovingRequest> approvingRequests = new HashMap<String, ApprovingRequest>();

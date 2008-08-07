@@ -8,6 +8,7 @@ import java.net.URL;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -163,21 +164,15 @@ public class JosServiceImpl implements JosService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @seecn.net.openid.jos.service.JosService#parseUser(javax.servlet.http.
+	 * @seecn.net.openid.jos.service.JosService#parseDomain(javax.servlet.http.
 	 * HttpServletRequest)
 	 */
-	public User parseUser(HttpServletRequest request) {
-		log.debug("parseUser is called.");
+	public Domain parseDomain(HttpServletRequest request) {
+		log.debug("parseDomain is called.");
 
 		Domain domain = null;
-		String usernameSegment = null;
 
-		URL url = null;
-		try {
-			url = new URL(request.getRequestURL().toString());
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
+		URL url = this.buildURLQuietly(request.getRequestURL().toString());
 
 		// e.g. www.example.com
 		String host = url.getHost();
@@ -189,29 +184,109 @@ public class JosServiceImpl implements JosService {
 			// And the first segement of the host is username.
 			domain = this.getDomainByName(domainNameType1,
 					Domain.TYPE_SUBDOMAIN);
-			if (domain != null) {
-				usernameSegment = host.substring(0, firstDot);
-			}
 		}
 
+		// Find domain by whole host if domain was not found.
 		if (domain == null) {
 			domain = this.getDomainByName(host);
-			// If type is subdirectory, retrive username from the path;
-			// if type is subdomain, the url can not indicate the username info.
-			if (domain != null && domain.getType() == Domain.TYPE_SUBDIRECTORY) {
-				int suffixLength = domain.getSuffix() == null ? 0 : domain
-						.getSuffix().length();
-				usernameSegment = request.getRequestURI().substring(
-						suffixLength + 1);
-			}
 		}
 
-		String username = (domain != null && usernameSegment != null && (domain
-				.getUnallowableUsernamePattern() == null || !domain
-				.getUnallowableUsernamePattern().matcher(usernameSegment)
-				.matches())) ? usernameSegment : null;
+		return domain;
+	}
 
-		return new User(domain, username);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * cn.net.openid.jos.service.JosService#parseUsername(cn.net.openid.jos.
+	 * domain.Domain, javax.servlet.http.HttpServletRequest)
+	 */
+	public String parseUsername(Domain domain, HttpServletRequest request) {
+		log.debug("parseUsername is called.");
+
+		String username = null;
+		switch (domain.getType()) {
+		case Domain.TYPE_SUBDOMAIN:
+			URL url = this.buildURLQuietly(request.getRequestURL().toString());
+			username = parseUsernameFromSubdomain(domain.getName(), url
+					.getHost());
+			break;
+		case Domain.TYPE_SUBDIRECTORY:
+			String uri = request.getRequestURI();
+			username = parseUsernameFromSubdirectory(domain.getSuffix(), uri);
+			break;
+		default:
+			break;
+		}
+
+		if (username == null) {
+			return null;
+		} else {
+			// Check whether it's an unallowable username.
+			Pattern pattern = domain.getUnallowableUsernamePattern();
+			return isMatches(pattern, username) ? null : username;
+		}
+	}
+
+	private URL buildURLQuietly(String urlString) {
+		try {
+			return new URL(urlString);
+		} catch (MalformedURLException e) {
+			throw new IllegalArgumentException(e);
+		}
+	}
+
+	/**
+	 * Check whether the input matches the pattern.
+	 * 
+	 * @param pattern
+	 *            the pattern, can be null
+	 * @param input
+	 *            the input string, can be null
+	 * @return fales if pattern or input is null
+	 */
+	private boolean isMatches(Pattern pattern, String input) {
+		if (pattern == null || input == null) {
+			return false;
+		} else {
+			return pattern.matcher(input).matches();
+		}
+	}
+
+	/**
+	 * Parse username from the host.
+	 * 
+	 * @param host
+	 *            the host of the URL.
+	 * @return the username, null if the length of domainName and host are equal
+	 */
+	private String parseUsernameFromSubdomain(String domainName, String host) {
+		if (domainName.length() == host.length()) {
+			return null;
+		} else {
+			int index = host.lastIndexOf(domainName);
+			try {
+				return host.substring(0, index - 1);
+			} catch (StringIndexOutOfBoundsException e) {
+				throw new IllegalArgumentException(
+						"The host should contains the domain name.", e);
+			}
+		}
+	}
+
+	/**
+	 * Parse username from the request URI.
+	 * 
+	 * @param suffix
+	 *            the suffix of the domain
+	 * @param requestURI
+	 *            the request URI
+	 * @return the username
+	 */
+	private String parseUsernameFromSubdirectory(String suffix,
+			String requestURI) {
+		int suffixLength = suffix == null ? 0 : suffix.length();
+		return requestURI.substring(suffixLength + 1);
 	}
 
 	/*

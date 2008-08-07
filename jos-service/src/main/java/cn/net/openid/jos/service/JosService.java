@@ -28,14 +28,25 @@ public interface JosService {
 	String buildOpenidUrl(String username);
 
 	/**
-	 * Parse domain and username from the request.
+	 * Parse domain from the request.
 	 * 
 	 * @param request
 	 *            the HTTP request
-	 * @return a user with domain, but the username maybe null if the request
-	 *         url doesn't indicate the username info.
+	 * @return the domain if it was found, else null
 	 */
-	User parseUser(HttpServletRequest request);
+	Domain parseDomain(HttpServletRequest request);
+
+	/**
+	 * Parse username from the request of the specified domain.
+	 * 
+	 * @param domain
+	 *            the domain
+	 * @param request
+	 *            the HTTP request
+	 * @return the username parsed from the request of the specified domain, if
+	 *         it was not found, null returned
+	 */
+	String parseUsername(Domain domain, HttpServletRequest request);
 
 	Domain getDomain(String id);
 

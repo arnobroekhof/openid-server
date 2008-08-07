@@ -11,44 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.web.context.support.WebApplicationContextUtils;
-import org.springframework.web.filter.OncePerRequestFilter;
-
-import cn.net.openid.jos.domain.User;
-import cn.net.openid.jos.service.JosService;
+import cn.net.openid.jos.domain.Domain;
+import cn.net.openid.jos.web.filter.OncePerRequestServiceFilter;
 
 /**
  * @author Sutra Zhou
  * 
  */
-public class DomainFilter extends OncePerRequestFilter {
-	private JosService josService;
-
-	private void parseAndSetDomain(HttpServletRequest request,
-			HttpServletResponse response) {
-		HttpSession session = request.getSession();
-		UserSession userSession = WebUtils.getOrCreateUserSession(session);
-		if (userSession.getUser() == null) {
-			User user = josService.parseUser(request);
-			userSession.setUser(user);
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.springframework.web.filter.GenericFilterBean#initFilterBean()
-	 */
-	@Override
-	protected void initFilterBean() throws ServletException {
-		super.initFilterBean();
-		this.josService = (JosService) WebApplicationContextUtils
-				.getWebApplicationContext(this.getServletContext()).getBean(
-						this.getFilterConfig().getInitParameter(
-								"josServiceBeanName"));
-
-	}
-
+public class DomainFilter extends OncePerRequestServiceFilter {
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -63,5 +33,16 @@ public class DomainFilter extends OncePerRequestFilter {
 			throws ServletException, IOException {
 		this.parseAndSetDomain(request, response);
 		filterChain.doFilter(request, response);
+	}
+
+	private void parseAndSetDomain(HttpServletRequest request,
+			HttpServletResponse response) {
+		HttpSession session = request.getSession();
+		UserSession userSession = WebUtils.getOrCreateUserSession(session);
+
+		if (userSession.getUser().getDomain().getName() == null) {
+			Domain domain = getService().parseDomain(request);
+			userSession.getUser().setDomain(domain);
+		}
 	}
 }
