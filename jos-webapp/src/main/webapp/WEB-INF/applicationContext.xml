@@ -10,11 +10,6 @@
 		</property>
 	</bean>
 
-	<bean id="serverManager"
-		class="org.openid4java.server.ServerManager">
-		<property name="OPEndpointUrl" value="${jos.openid.server.url}" />
-	</bean>
-
 	<bean id="baseTransactionProxy"
 		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
 		abstract="true">

@@ -4,14 +4,12 @@
 	<bean id="abstractJosController"
 		class="cn.net.openid.jos.web.AbstractJosController" abstract="true">
 		<property name="josService" ref="josService" />
-		<property name="serverManager" ref="serverManager" />
 	</bean>
 
 	<bean id="abstractJosSimpleFormController"
 		class="cn.net.openid.jos.web.AbstractJosSimpleFormController"
 		abstract="true">
 		<property name="josService" ref="josService" />
-		<property name="serverManager" ref="serverManager" />
 	</bean>
 
 	<bean id="serverController"
