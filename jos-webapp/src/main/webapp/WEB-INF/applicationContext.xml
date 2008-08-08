@@ -6,28 +6,8 @@
 		<property name="locations">
 			<list>
 				<value>WEB-INF/config/jdbc.properties</value>
-				<value>WEB-INF/config/jos.xml</value>
 			</list>
 		</property>
-	</bean>
-
-	<bean id="josConfiguration"
-		class="cn.net.openid.jos.domain.JosConfiguration">
-		<property name="baseUrl" value="${jos.base.url}" />
-		<property name="openidServerUrl"
-			value="${jos.openid.server.url}" />
-		<property name="usernameRegex"
-			value="${jos.member.username.regex}" />
-		<property name="reservedUsernameRegex"
-			value="${jos.member.username.reserved.regex}" />
-		<property name="unallowableUsernameRegex"
-			value="${jos.member.username.unallowable.regex}" />
-		<property name="identifierPrefix"
-			value="${jos.member.identifier.prefix}" />
-		<property name="identifierSuffix"
-			value="${jos.member.identifier.suffix}" />
-		<property name="memberFilterFromRegex"
-			value="${jos.member.filter.from.regex}" />
 	</bean>
 
 	<bean id="serverManager"
@@ -55,8 +35,6 @@
 	<bean id="josService" parent="baseTransactionProxy">
 		<property name="target">
 			<bean class="cn.net.openid.jos.service.JosServiceImpl">
-				<property name="josConfiguration"
-					ref="josConfiguration" />
 				<property name="domainDao" ref="domainDao" />
 				<property name="userDao" ref="userDao" />
 				<property name="passwordDao" ref="passwordDao" />
@@ -105,7 +83,6 @@
 		class="cn.net.openid.jos.service.EmailConfirmationInfoSendTaskExecutor">
 		<constructor-arg ref="taskExecutor" />
 		<property name="mailSender" ref="mailSender" />
-		<property name="josConfiguration" ref="josConfiguration" />
 	</bean>
 
 	<bean id="personaValidator"
@@ -117,6 +94,5 @@
 	</bean>
 	<bean id="registerFormValidator"
 		class="cn.net.openid.jos.web.validation.RegisterFormValidator">
-		<property name="domainConfiguration" ref="josConfiguration" />
 	</bean>
 </beans>

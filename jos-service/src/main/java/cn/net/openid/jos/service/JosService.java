@@ -12,7 +12,6 @@ import cn.net.openid.jos.domain.AttributeValue;
 import cn.net.openid.jos.domain.Domain;
 import cn.net.openid.jos.domain.Email;
 import cn.net.openid.jos.domain.EmailConfirmationInfo;
-import cn.net.openid.jos.domain.JosConfiguration;
 import cn.net.openid.jos.domain.Password;
 import cn.net.openid.jos.domain.Persona;
 import cn.net.openid.jos.domain.Site;
@@ -23,8 +22,6 @@ import cn.net.openid.jos.domain.User;
  * 
  */
 public interface JosService {
-	JosConfiguration getJosConfiguration();
-
 	/**
 	 * Parse domain from the request.
 	 * 

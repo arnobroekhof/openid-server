@@ -33,7 +33,6 @@ import cn.net.openid.jos.domain.AttributeValue;
 import cn.net.openid.jos.domain.Domain;
 import cn.net.openid.jos.domain.Email;
 import cn.net.openid.jos.domain.EmailConfirmationInfo;
-import cn.net.openid.jos.domain.JosConfiguration;
 import cn.net.openid.jos.domain.Password;
 import cn.net.openid.jos.domain.Persona;
 import cn.net.openid.jos.domain.Realm;
@@ -47,8 +46,6 @@ import cn.net.openid.jos.domain.User;
 public class JosServiceImpl implements JosService {
 	private static final Log log = LogFactory.getLog(JosServiceImpl.class);
 
-	private JosConfiguration josConfiguration;
-
 	private DomainDao domainDao;
 	private UserDao userDao;
 	private PasswordDao passwordDao;
@@ -59,14 +56,6 @@ public class JosServiceImpl implements JosService {
 	private RealmDao realmDao;
 	private SiteDao siteDao;
 	private PersonaDao personaDao;
-
-	/**
-	 * @param josConfiguration
-	 *            the josConfiguration to set
-	 */
-	public void setJosConfiguration(JosConfiguration josConfiguration) {
-		this.josConfiguration = josConfiguration;
-	}
 
 	/**
 	 * 
@@ -679,15 +668,6 @@ public class JosServiceImpl implements JosService {
 				attributeValueDao.saveAttributeValue(attributeValue);
 			}
 		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see cn.net.openid.dao.DaoFacade#getJosConfiguration()
-	 */
-	public JosConfiguration getJosConfiguration() {
-		return josConfiguration;
 	}
 
 	/*

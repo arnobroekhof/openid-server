@@ -38,13 +38,6 @@
 		</listener-class>
 	</listener>
 
-	<!-- Java OpenID Server. -->
-	<listener>
-		<listener-class>
-			cn.net.openid.jos.web.JosServletContextListener
-		</listener-class>
-	</listener>
-
 	<!-- Character Encoding. -->
 	<filter>
 		<display-name>Set Character Encoding Filter</display-name>
