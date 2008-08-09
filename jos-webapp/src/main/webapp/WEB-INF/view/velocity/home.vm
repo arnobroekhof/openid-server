@@ -9,11 +9,13 @@
 			<form action="home" method="post">
 				<div>
 					<label for="username">OpenID: </label>
+					<span class="identifier">
 					${domain.identifierPrefix}
-					<input type="text" id="username" name="username" class="sexy" size="16" accesskey="U" />
+					<input type="text" id="username" name="username" accesskey="U" />
 					${domain.identifierSuffix}
+					</span>
 					<button type="submit" name="login" accesskey="L">#springMessage("button.login")</button>
-					##<input type="submit" name="index.login" value="#springMessage("login.other")" class="button" accesskey="A" />
+					##<input type="submit" name="index.login" value="#springMessage("login.other")" accesskey="A" />
 					<button type="submit" name="register" accessky="R">#springMessage("button.register")</button>
 				</div>
 			</form>

@@ -38,9 +38,11 @@
 							<label for="username">#springMessage("label.openid")</label>
 						</td>
 						<td>
-							${josConfiguration.identifierPrefix}
-							#springFormInput("command.username" 'class="sexy" size="16"')
-							${josConfiguration.identifierSuffix}
+							<span class="identifier">
+							${domain.identifierPrefix}
+							#springFormInput("command.username" "")
+							${domain.identifierSuffix}
+							</span>
 							#springShowErrors("" "error")
 						</td>
 					</tr>

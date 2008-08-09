@@ -21,9 +21,11 @@
 							<label for="username">OpenID：</label>
 						</td>
 						<td>
-							${josConfiguration.identifierPrefix}
-							#springFormInput("command.username" 'class="sexy" size="16"')
-							${josConfiguration.identifierSuffix}
+							<span class="identifier">
+							${domain.identifierPrefix}
+							#springFormInput("command.username" 'size="16"')
+							${domain.identifierSuffix}
+							</span>
 							#springShowErrors("" "error")
 						</td>
 					</tr>
