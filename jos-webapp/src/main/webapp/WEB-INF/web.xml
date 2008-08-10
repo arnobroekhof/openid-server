@@ -267,6 +267,10 @@
 		<exception-type>java.lang.Exception</exception-type>
 		<location>/WEB-INF/view/jsp/errors.jsp</location>
 	</error-page>
+	<error-page>
+		<exception-type>cn.net.openid.jos.service.UnresolvedDomainException</exception-type>
+		<location>/WEB-INF/view/jsp/unresolved-domain.jsp</location>
+	</error-page>
 
 	<error-page>
 		<error-code>404</error-code>

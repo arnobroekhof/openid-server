@@ -15,7 +15,7 @@
 			</tr>
 		#end
 		</table>
-		<input type="submit" value="Save" class="button" />
+		<button type="submit">Save</button>
 		</form>
 		#parse("footer.vm")
 	</body>

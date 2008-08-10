@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import cn.net.openid.jos.domain.Domain;
+import cn.net.openid.jos.service.UnresolvedDomainException;
 
 /**
  * @author Sutra Zhou
@@ -55,21 +56,23 @@ public class DomainFilter extends OncePerRequestServiceFilter {
 			throws ServletException, IOException {
 		log.debug("Begin of domain filter.");
 		if (getDomain(request) == null) {
-			this.parseAndSetDomain(request, response);
+			Domain domain = getService().parseDomain(request);
+			if (domain != null) {
+				this.setDomain(request, domain);
+			} else {
+				throw new UnresolvedDomainException();
+			}
 		}
 		filterChain.doFilter(request, response);
 		log.debug("End of domain filter.");
 	}
 
-	private void parseAndSetDomain(HttpServletRequest request,
-			HttpServletResponse response) {
-		Domain domain = getService().parseDomain(request);
-
-		log.debug("Parse domain from the request, and put into session.");
+	private void setDomain(HttpServletRequest request, Domain domain) {
+		log.debug("Put domain info into session.");
 		HttpSession session = request.getSession(true);
 		session.setAttribute(DOMAIN_ATTRIBUTE_NAME, domain);
 
-		log.debug("Parse domain from the request, and put into request.");
+		log.debug("Put domain info into request.");
 		request.setAttribute(DOMAIN_ATTRIBUTE_NAME, domain);
 	}
 }
