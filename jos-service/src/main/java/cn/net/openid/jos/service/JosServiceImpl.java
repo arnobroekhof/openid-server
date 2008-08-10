@@ -150,10 +150,11 @@ public class JosServiceImpl implements JosService {
 
 		Domain domain = null;
 
-		URL url = this.buildURLQuietly(request.getRequestURL().toString());
+		URL requestUrl = this.buildURLQuietly(request.getRequestURL()
+				.toString());
 
 		// e.g. www.example.com
-		String host = url.getHost();
+		String host = requestUrl.getHost();
 		int dotCount = StringUtils.countMatches(host, ".");
 		if (dotCount >= 2) {
 			int firstDot = host.indexOf(".");
@@ -170,15 +171,17 @@ public class JosServiceImpl implements JosService {
 		}
 
 		if (domain != null) {
-			try {
-				URL baseUrl = new URL(url.getProtocol(), "www."
-						+ domain.getName(), url.getPort(), "/");
-				domain.setBaseUrl(baseUrl);
+			domain.setServerBaseUrl(Domain.buildServerBaseUrl(domain,
+					requestUrl, request.getContextPath()));
 
-				URL openidServerUrl = new URL(baseUrl, "/server");
+			try {
+				URL openidServerUrl = new URL(domain.getServerBaseUrl(),
+						"server");
 				domain.setOpenidServerUrl(openidServerUrl);
 			} catch (MalformedURLException e) {
+				throw new IllegalArgumentException(e);
 			}
+
 		}
 		return domain;
 	}
@@ -202,7 +205,8 @@ public class JosServiceImpl implements JosService {
 			break;
 		case Domain.TYPE_SUBDIRECTORY:
 			String uri = request.getRequestURI();
-			username = parseUsernameFromSubdirectory(domain.getSuffix(), uri);
+			username = parseUsernameFromSubdirectory(domain.getMemberPath(),
+					uri);
 			break;
 		default:
 			break;
@@ -266,16 +270,16 @@ public class JosServiceImpl implements JosService {
 	/**
 	 * Parse username from the request URI.
 	 * 
-	 * @param suffix
-	 *            the suffix of the domain
+	 * @param memberPath
+	 *            the memberPath of the domain
 	 * @param requestURI
 	 *            the request URI
 	 * @return the username
 	 */
-	private String parseUsernameFromSubdirectory(String suffix,
+	private String parseUsernameFromSubdirectory(String memberPath,
 			String requestURI) {
-		int suffixLength = suffix == null ? 0 : suffix.length();
-		return requestURI.substring(suffixLength + 1);
+		int memberPathLength = memberPath == null ? 0 : memberPath.length();
+		return requestURI.substring(memberPathLength + 1);
 	}
 
 	/*

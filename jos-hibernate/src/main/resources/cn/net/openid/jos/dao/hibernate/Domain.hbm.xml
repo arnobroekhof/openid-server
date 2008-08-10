@@ -8,7 +8,8 @@
 		<property name="name" length="255" unique="true" not-null="true"
 			update="false" column="domain_name" />
 		<property name="type" not-null="true" update="false" column="domain_type" />
-		<property name="suffix" update="false" column="domain_suffix" />
+		<property name="serverHost" update="false" column="domain_server_host" />
+		<property name="memberPath" update="false" column="domain_member_path" />
 
 		<!-- Username pattern -->
 		<property name="usernameRegex" column="domain_username_regex" />

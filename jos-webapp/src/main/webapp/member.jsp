@@ -9,6 +9,6 @@
 <p>This is the identity page for the user <strong>${username}</strong>.
 </p>
 <p>For more information, please visit <a
-	href="${domain.baseUrl}">${domain.baseUrl}</a></p>
+	href="${domain.serverBaseUrl}">${domain.serverBaseUrl}</a></p>
 </body>
 </html>

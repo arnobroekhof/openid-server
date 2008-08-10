@@ -4,21 +4,256 @@
 package cn.net.openid.jos.domain;
 
 import java.io.Serializable;
+import java.net.URL;
 import java.util.Date;
+
+import org.apache.commons.lang.StringUtils;
 
 /**
  * Virtual domain model.
+ * <p>
+ * The following are the types. The parameter "contextPath" depends on your
+ * webapp, usually we installed in the ROOT directory, the contextPath is "".
+ * </p>
  * <ol>
- * <li>type = 1: <code>http(s)://&lt;username&gt;.&lt;your-domain&gt;/</code>,
- * for example <code>http://username.openid.org.cn/</code>.</li>
- * <li>type = 2: <code>http(s)://&lt;your-domain&gt;/&lt;username&gt;</code>,
- * for example <code>http://www.openid.org.cn/username</code>.</li>
+ * <li>type = 1:
+ * <table border="1">
+ * <tr>
+ * <td>server base url:</td>
+ * <td>
+ * <code>http(s)://[&lt;serverHost&gt;.]&lt;your-domain&gt;[:&lt;port&gt;]contextPath/</code>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>identifier:</td>
+ * <td>
+ * <code>http(s)://&lt;username&gt;.&lt;your-domain&gt;[:&lt;port&gt;]contextPath/[&lt;memberPath&gt;/]</code>
+ * </td>
+ * </tr>
+ * </table>
+ * Examples:
+ * <ul>
+ * <li>
+ * <table border="1">
+ * <tr>
+ * <td>your-domain:</td>
+ * <td><code>example.com</code></td>
+ * </tr>
+ * <tr>
+ * <td>serverHost:</td>
+ * <td>null or empty</td>
+ * </tr>
+ * <tr>
+ * <td>memberPath:</td>
+ * <td>null or empty</td>
+ * </tr>
+ * <tr>
+ * <td>server base url:</td>
+ * <td><code>http(s)://example.com/</code></td>
+ * </tr>
+ * <tr>
+ * <td>identifier:</td>
+ * <td><code>http(s)://username.example.com/</code></td>
+ * </tr>
+ * </table>
+ * </li>
+ * <li>
+ * <table border="1">
+ * <tr>
+ * <td>your-domain:</td>
+ * <td><code>example.com</code></td>
+ * </tr>
+ * <tr>
+ * <td>serverHost:</td>
+ * <td><code>www</code></td>
+ * </tr>
+ * <tr>
+ * <td>memberPath:</td>
+ * <td>null or empty</td>
+ * </tr>
+ * <tr>
+ * <td>server base url:</td>
+ * <td><code>http(s)://www.example.com/</code></td>
+ * </tr>
+ * <tr>
+ * <td>identifier:</td>
+ * <td><code>http(s)://username.example.com/</code></td>
+ * </tr>
+ * </table>
+ * </li>
+ * <li>
+ * <table border="1">
+ * <tr>
+ * <td>your-domain:</td>
+ * <td><code>example.com</code></td>
+ * </tr>
+ * <tr>
+ * <td>serverHost:</td>
+ * <td>null or empty</td>
+ * <tr>
+ * <td>memberPath:</td>
+ * <td><code>member</code></td>
+ * <tr>
+ * <td>server base url:</td>
+ * <td><code>http(s)://example.com/</code></td>
+ * </tr>
+ * <tr>
+ * <td>identifier:</td>
+ * <td>
+ * <code>http(s)://username.example.com/member/</code></td>
+ * </tr>
+ * </table>
+ * </li>
+ * <li>
+ * <table border="1">
+ * <tr>
+ * <td>your-domain:</td>
+ * <td><code>example.com</code></td>
+ * </tr>
+ * <tr>
+ * <td>serverHost:</td>
+ * <td><code>www</code></td>
+ * <tr>
+ * <td>memberPath:</td>
+ * <td><code>member</code></td>
+ * <tr>
+ * <td>server base url:</td>
+ * <td><code>http(s)://www.example.com/</code></td>
+ * </tr>
+ * <tr>
+ * <td>identifier:</td>
+ * <td>
+ * <code>http(s)://username.example.com/member/</code></td>
+ * </tr>
+ * </table>
+ * </li>
+ * </ul>
+ * </li>
+ * <li>type = 2:
+ * <table border="1">
+ * <tr>
+ * <td>server base url:</td>
+ * <td>
+ * <code>http(s)://[&lt;serverHost&gt;.]&lt;your-domain&gt;[:&lt;port&gt;]contextPath/</code>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>identifier:</td>
+ * <td>
+ * <code>http(s)://&lt;your-domain&gt;[:&lt;port&gt;]contextPath/[&lt;memberPath&gt;/]&lt;username&gt;</code>
+ * </td>
+ * </tr>
+ * </table>
+ * Examples:
+ * <ul>
+ * <li>
+ * <table border="1">
+ * <tr>
+ * <td>your-domain:</td>
+ * <td><code>openid.example.com</code></td>
+ * </tr>
+ * <tr>
+ * <td>sercerHost:</td>
+ * <td>null or empty</td>
+ * </tr>
+ * <tr>
+ * <td>memberPath:</td>
+ * <td>null or empty</td>
+ * </tr>
+ * <tr>
+ * <td>server base url:</td>
+ * <td><code>http(s)://openid.example.com/</code></td>
+ * </tr>
+ * <tr>
+ * <td>identifier:</td>
+ * <td>
+ * <code>http(s)://openid.example.com/username</code></td>
+ * </tr>
+ * </table>
+ * </li>
+ * <li>
+ * <table border="1">
+ * <tr>
+ * <td>your-domain:</td>
+ * <td><code>openid.example.com</code></td>
+ * </tr>
+ * <tr>
+ * <td>serverHost:</td>
+ * <td><code>www</code></td>
+ * </tr>
+ * <tr>
+ * <td>memberPath:</td>
+ * <td>null or empty</td>
+ * </tr>
+ * <tr>
+ * <td>server base url:</td>
+ * <td><code>http(s)://www.openid.example.com/</code></td>
+ * </tr>
+ * <tr>
+ * <td>identifier:</td>
+ * <td>
+ * <code>http(s)://openid.example.com/username</code></td>
+ * </tr>
+ * </table>
+ * </li>
+ * <li>
+ * <table border="1">
+ * <tr>
+ * <td>your-domain:</td>
+ * <td><code>openid.example.com</code></td>
+ * </tr>
+ * <tr>
+ * <td>serverHost:</td>
+ * <td>null or empty</td>
+ * </tr>
+ * <tr>
+ * <td>memberPath:</td>
+ * <td><code>member</code></td>
+ * </tr>
+ * <tr>
+ * <td>server base url:</td>
+ * <td><code>http(s)://openid.example.com/</code></td>
+ * </tr>
+ * <tr>
+ * <td>identifier:</td>
+ * <td>
+ * <code>http(s)://openid.example.com/member/username</code></td>
+ * </tr>
+ * </table>
+ * </li>
+ * <li>
+ * <table border="1">
+ * <tr>
+ * <td>your-domain:</td>
+ * <td><code>openid.example.com</code></td>
+ * </tr>
+ * <tr>
+ * <td>serverHost:</td>
+ * <td><code>www</code></td>
+ * </tr>
+ * <tr>
+ * <td>memberPath:</td>
+ * <td><code>member</code></td>
+ * </tr>
+ * <tr>
+ * <td>server base url:</td>
+ * <td><code>http(s)://www.openid.example.com/</code></td>
+ * </tr>
+ * <tr>
+ * <td>identifier:</td>
+ * <td>
+ * <code>http(s)://openid.example.com/member/username</code></td>
+ * </tr>
+ * </table>
+ * </li>
+ * </ul>
+ * </li>
  * </ol>
  * 
  * @author Sutra Zhou
  * 
  */
-public class Domain extends JosConfiguration implements Serializable {
+public class Domain extends DomainConfiguration implements Serializable {
 	/**
 	 * 
 	 */
@@ -26,22 +261,24 @@ public class Domain extends JosConfiguration implements Serializable {
 
 	/**
 	 * Username as a subdomain.
-	 * <code>http(s)://&lt;username&gt;.&lt;your-domain&gt;/</code>
 	 */
 	public static final int TYPE_SUBDOMAIN = 1;
+
 	/**
 	 * Username as a subdirectory.
-	 * <code>http(s)://&lt;your-domain&gt;/&lt;username&gt;</code>
 	 */
 	public static final int TYPE_SUBDIRECTORY = 2;
 
 	private String id;
+
 	/**
-	 * e.g. openid.org.cn
+	 * your-domain.
 	 */
 	private String name;
 	private int type;
-	private String suffix;
+	private String serverHost;
+	private String memberPath;
+
 	private boolean openRegistration;
 	private Date creationDate = new Date();
 
@@ -91,18 +328,33 @@ public class Domain extends JosConfiguration implements Serializable {
 	}
 
 	/**
-	 * @return the suffix
+	 * @return the serverHost
 	 */
-	public String getSuffix() {
-		return suffix;
+	public String getServerHost() {
+		return serverHost;
 	}
 
 	/**
-	 * @param suffix
-	 *            the suffix to set
+	 * @param serverHost
+	 *            the serverHost to set
 	 */
-	public void setSuffix(String suffix) {
-		this.suffix = suffix;
+	public void setServerHost(String serverHost) {
+		this.serverHost = serverHost;
+	}
+
+	/**
+	 * @return the memberPath
+	 */
+	public String getMemberPath() {
+		return memberPath;
+	}
+
+	/**
+	 * @param memberPath
+	 *            the memberPath to set
+	 */
+	public void setMemberPath(String memberPath) {
+		this.memberPath = memberPath;
 	}
 
 	/**
@@ -136,49 +388,73 @@ public class Domain extends JosConfiguration implements Serializable {
 	}
 
 	/**
+	 * Append the port, if the port is not the default port.
+	 * 
+	 * @param sb
+	 * @param serverBaseUrl
+	 */
+	private void appendPort(StringBuilder sb, URL serverBaseUrl) {
+		int port = serverBaseUrl.getPort();
+		if (port != serverBaseUrl.getDefaultPort()) {
+			sb.append(':').append(port);
+		}
+	}
+
+	/**
+	 * Append member path if the memberPath is not empty.
+	 * 
+	 * @param sb
+	 */
+	private void appendMemberPath(StringBuilder sb) {
+		if (!StringUtils.isEmpty(this.getMemberPath())) {
+			sb.append(this.getMemberPath()).append('/');
+		}
+	}
+
+	/**
 	 * @return the identifierPrefix
 	 */
 	public String getIdentifierPrefix() {
-		String identifierPrefix = null;
+		StringBuilder sb = new StringBuilder();
+		URL baseUrl = this.getServerBaseUrl();
 
 		switch (getType()) {
 		case Domain.TYPE_SUBDOMAIN:
-			StringBuilder sb = new StringBuilder();
-			sb.append(getBaseUrl().getProtocol()).append("://");
-			identifierPrefix = sb.toString();
+			sb.append(baseUrl.getProtocol()).append("://");
 			break;
 		case Domain.TYPE_SUBDIRECTORY:
-			// TODO
+			sb.append(baseUrl.getProtocol()).append("://");
+			sb.append(getName());
+			appendPort(sb, baseUrl);
+			sb.append(baseUrl.getPath()).append("/");
+			appendMemberPath(sb);
 			break;
 		default:
 			break;
 		}
-		return identifierPrefix;
+		return sb.toString();
 	}
 
 	/**
 	 * @return the identifierSuffix
 	 */
 	public String getIdentifierSuffix() {
-		String identifierSuffix = null;
+		StringBuilder sb = new StringBuilder();
+		URL baseUrl = this.getServerBaseUrl();
 
 		switch (getType()) {
 		case Domain.TYPE_SUBDOMAIN:
-			StringBuilder sb = new StringBuilder();
 			sb.append('.').append(getName());
-			if (getBaseUrl().getPort() != getBaseUrl().getDefaultPort()) {
-				sb.append(':').append(getBaseUrl().getPort());
-			}
-			sb.append("/");
-			identifierSuffix = sb.toString();
+			appendPort(sb, baseUrl);
+			sb.append(baseUrl.getPath());
+			appendMemberPath(sb);
 			break;
 		case Domain.TYPE_SUBDIRECTORY:
-			// TODO
 			break;
 		default:
 			break;
 		}
-		return identifierSuffix;
+		return sb.toString();
 	}
 
 	/*

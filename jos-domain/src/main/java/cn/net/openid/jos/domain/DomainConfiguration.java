@@ -4,22 +4,27 @@
 package cn.net.openid.jos.domain;
 
 import java.io.Serializable;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.regex.Pattern;
+
+import org.apache.commons.lang.StringUtils;
 
 /**
  * @author Sutra Zhou
  * 
  */
-public class JosConfiguration implements Serializable {
+public abstract class DomainConfiguration implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -422179045234771173L;
 
-	private URL baseUrl;
+	private URL serverBaseUrl;
 	private URL openidServerUrl;
+
+	/* Username patterns */
 	private String usernameRegex = "[a-z]{1,16}";
 	private Pattern usernamePattern = Pattern.compile(usernameRegex);
 	private String reservedUsernameRegex = "root|toor|wheel|staff|admin|administrator";
@@ -28,21 +33,20 @@ public class JosConfiguration implements Serializable {
 	private String unallowableUsernameRegex = "w+|home|server|approve.*|approving|register|login|logout|email.*|password.*|persona.*|site.*|attribute.*|hl|member|news|jos|mail|smtp|pop3|pop|.*fuck.*";
 	private Pattern unallowableUsernamePattern = Pattern.compile(
 			unallowableUsernameRegex, Pattern.CASE_INSENSITIVE);
-	private String memberFilterFromRegex;
 
 	/**
-	 * @return the baseUrl
+	 * @return the serverBaseUrl
 	 */
-	public URL getBaseUrl() {
-		return baseUrl;
+	public URL getServerBaseUrl() {
+		return serverBaseUrl;
 	}
 
 	/**
-	 * @param baseUrl
-	 *            the baseUrl to set
+	 * @param serverBaseUrl
+	 *            the serverBaseUrl to set
 	 */
-	public void setBaseUrl(URL baseUrl) {
-		this.baseUrl = baseUrl;
+	public void setServerBaseUrl(URL serverBaseUrl) {
+		this.serverBaseUrl = serverBaseUrl;
 	}
 
 	/**
@@ -115,6 +119,17 @@ public class JosConfiguration implements Serializable {
 	}
 
 	/**
+	 * Check whether the username is reserved.
+	 * 
+	 * @param username
+	 *            the username
+	 * @return true if reserved, otherwise false.
+	 */
+	public boolean isReservedUsername(String username) {
+		return this.getReservedUsernamePattern().matcher(username).matches();
+	}
+
+	/**
 	 * @return the unallowableUsernameRegex
 	 */
 	public String getUnallowableUsernameRegex() {
@@ -143,18 +158,30 @@ public class JosConfiguration implements Serializable {
 	}
 
 	/**
-	 * @return the memberFilterFromRegex
+	 * Check whether the username is unallowable.
+	 * 
+	 * @param username
+	 *            the username
+	 * @return true if unallowable, otherwise false.
 	 */
-	public String getMemberFilterFromRegex() {
-		return memberFilterFromRegex;
+	public boolean isUnallowableUsername(String username) {
+		return this.getUnallowableUsernamePattern().matcher(username).matches();
 	}
 
-	/**
-	 * @param memberFilterFromRegex
-	 *            the memberFilterFromRegex to set
-	 */
-	public void setMemberFilterFromRegex(String memberFilterFromRegex) {
-		this.memberFilterFromRegex = memberFilterFromRegex;
+	public static URL buildServerBaseUrl(Domain domain, URL requestUrl,
+			String requestContextPath) {
+		StringBuilder sb = new StringBuilder();
+		if (!StringUtils.isEmpty(domain.getServerHost())) {
+			sb.append(domain.getServerHost()).append('.');
+		}
+		sb.append(domain.getName());
+
+		try {
+			return new URL(requestUrl.getProtocol(), sb.toString(), requestUrl
+					.getPort(), requestContextPath + "/");
+		} catch (MalformedURLException e) {
+			throw new IllegalArgumentException(e);
+		}
 	}
 
 }
