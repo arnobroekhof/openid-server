@@ -71,7 +71,7 @@ This is the persona we're going to send to <code>$!command.authRequest.realm</co
 					</tbody>
 					<tfoot>
 						<tr>
-							<td colspan="10"><a href="persona?token=$!{esc.html($!{token})}">Add New Persona</a></td>
+							<td colspan="11"><a href="persona?token=$!{esc.html($!{token})}">#springMessage("persona.button.addNewPersona")</a></td>
 						</tr>
 					</tfoot>
 				</table>
