@@ -51,19 +51,18 @@ public class DomainFilter extends OncePerRequestServiceFilter {
 			HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		log.debug("Begin of domain filter.");
-		this.parseAndSetDomain(request, response);
+		if (getDomain(request) == null) {
+			this.parseAndSetDomain(request, response);
+		}
 		filterChain.doFilter(request, response);
 		log.debug("End of domain filter.");
 	}
 
 	private void parseAndSetDomain(HttpServletRequest request,
 			HttpServletResponse response) {
+		log.debug("Parse domain from the request, and put into session.");
 		HttpSession session = request.getSession();
-
-		if (session.getAttribute(DOMAIN_SESSION_NAME) == null) {
-			log.debug("Parse domain from the request, and put into session.");
-			Domain domain = getService().parseDomain(request);
-			session.setAttribute(DOMAIN_SESSION_NAME, domain);
-		}
+		Domain domain = getService().parseDomain(request);
+		session.setAttribute(DOMAIN_SESSION_NAME, domain);
 	}
 }
