@@ -18,14 +18,15 @@ public class RemoveAttributeController extends AbstractJosController {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.springframework.web.servlet.mvc.Controller#handleRequest(javax.servlet.http.HttpServletRequest,
-	 *      javax.servlet.http.HttpServletResponse)
+	 * @see
+	 * org.springframework.web.servlet.mvc.Controller#handleRequest(javax.servlet
+	 * .http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	public ModelAndView handleRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		String id = request.getParameter("id");
 		if (id != null) {
-			this.josService.deleteAttribute(id);
+			this.getJosService().deleteAttribute(id);
 		}
 		return new ModelAndView("remove-attribute-success");
 	}

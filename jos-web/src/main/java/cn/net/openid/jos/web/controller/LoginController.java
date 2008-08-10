@@ -12,10 +12,12 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openid4java.server.ServerManager;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.net.openid.jos.domain.Domain;
 import cn.net.openid.jos.domain.User;
 import cn.net.openid.jos.web.AbstractJosSimpleFormController;
 import cn.net.openid.jos.web.ApprovingRequest;
@@ -44,8 +46,8 @@ public class LoginController extends AbstractJosSimpleFormController {
 	protected void onBindAndValidate(HttpServletRequest request,
 			Object command, BindException errors) throws Exception {
 		LoginForm lf = (LoginForm) command;
-		User user = josService.getUser(this.getDomain(request), lf
-				.getUsername(), lf.getPassword());
+		User user = getJosService().getUser(this.getDomain(request),
+				lf.getUsername(), lf.getPassword());
 		if (user == null) {
 			errors
 					.rejectValue("username",
@@ -78,7 +80,10 @@ public class LoginController extends AbstractJosSimpleFormController {
 		ApprovingRequest checkIdRequest = userSession
 				.getApprovingRequest(token);
 		if (checkIdRequest != null) {
-			new ApprovingRequestProcessor(request, response, josService,
+			Domain domain = this.getDomain(request);
+			ServerManager serverManager = this.getJosService()
+					.getServerManager(domain);
+			new ApprovingRequestProcessor(request, response, getJosService(),
 					serverManager, checkIdRequest).checkId();
 		}
 		return super.onSubmit(request, response, command, errors);

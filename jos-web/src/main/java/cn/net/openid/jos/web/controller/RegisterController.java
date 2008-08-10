@@ -42,7 +42,8 @@ public class RegisterController extends AbstractJosSimpleFormController {
 		String username = form.getUser().getUsername();
 
 		if (!errors.hasErrors()) {
-			User user = this.josService.getUser(getDomain(request), username);
+			User user = this.getJosService().getUser(getDomain(request),
+					username);
 			if (user != null) {
 				errors.rejectValue("user.username",
 						MessageCodes.User.Error.REGISTER_USER_ALREADY_EXISTS);
@@ -71,7 +72,7 @@ public class RegisterController extends AbstractJosSimpleFormController {
 		password.setName(defaultPasswordMessage);
 		password.setPlaintext(form.getPassword());
 		password.setShaHex(passwordShaHex);
-		this.josService.insertUser(user, password);
+		this.getJosService().insertUser(user, password);
 		return super.onSubmit(command, errors);
 	}
 

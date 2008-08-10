@@ -48,20 +48,6 @@ public class UserSession implements Serializable {
 	}
 
 	/**
-	 * @return the userId
-	 */
-	public String getUserId() {
-		return user.getId();
-	}
-
-	/**
-	 * @return the username
-	 */
-	public String getUsername() {
-		return user.getUsername();
-	}
-
-	/**
 	 * @return the loggedIn
 	 */
 	public boolean isLoggedIn() {

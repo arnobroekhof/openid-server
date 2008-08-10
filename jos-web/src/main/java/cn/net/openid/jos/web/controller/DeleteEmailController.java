@@ -22,7 +22,7 @@ public class DeleteEmailController extends AbstractJosController {
 		UserSession userSession = getUserSession(request);
 		String id = request.getParameter("id");
 		if (!StringUtils.isEmpty(id)) {
-			josService.deleteEmail(userSession.getUser(), id);
+			getJosService().deleteEmail(userSession.getUser(), id);
 		}
 		return new ModelAndView("email-remove-success");
 	}

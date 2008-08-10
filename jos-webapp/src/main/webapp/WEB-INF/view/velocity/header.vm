@@ -23,7 +23,10 @@
 	</div>
 </div>
 <div id="welcome">
-	 #springMessage("welcome") $!{userSession.username}
+	 #springMessage("welcome")
+	 #if(${userSession.loggedIn})
+	 <a href="$!{userSession.user.identifier}">$!{userSession.user.identifier}</a>
+	 #end
 </div>
 <div id="description">
 	#springMessage("description")

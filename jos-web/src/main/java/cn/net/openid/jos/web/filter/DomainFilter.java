@@ -18,24 +18,27 @@ import cn.net.openid.jos.domain.Domain;
  * 
  */
 public class DomainFilter extends OncePerRequestServiceFilter {
-	public static final String DOMAIN_SESSION_NAME = "domain";
+	private static final String DOMAIN_ATTRIBUTE_NAME = "domain";
 
 	/**
-	 * Get domain from the session.
+	 * Get domain from the session/request.
 	 * 
 	 * @param request
 	 *            the HTTP request
-	 * @return the domain in the session, null if session is null or attribute
-	 *         is not exists
+	 * @return the domain in the session or request, null if session is null or
+	 *         attribute is not exists in session and request.
 	 */
 	public static Domain getDomain(HttpServletRequest request) {
+		Domain domain = null;
 		HttpSession session = request.getSession(false);
 		if (session != null) {
-			return (Domain) request.getSession().getAttribute(
-					DOMAIN_SESSION_NAME);
-		} else {
-			return null;
+			domain = (Domain) request.getSession().getAttribute(
+					DOMAIN_ATTRIBUTE_NAME);
 		}
+		if (domain == null) {
+			domain = (Domain) request.getAttribute(DOMAIN_ATTRIBUTE_NAME);
+		}
+		return domain;
 	}
 
 	/*
@@ -60,9 +63,13 @@ public class DomainFilter extends OncePerRequestServiceFilter {
 
 	private void parseAndSetDomain(HttpServletRequest request,
 			HttpServletResponse response) {
-		log.debug("Parse domain from the request, and put into session.");
-		HttpSession session = request.getSession();
 		Domain domain = getService().parseDomain(request);
-		session.setAttribute(DOMAIN_SESSION_NAME, domain);
+
+		log.debug("Parse domain from the request, and put into session.");
+		HttpSession session = request.getSession(true);
+		session.setAttribute(DOMAIN_ATTRIBUTE_NAME, domain);
+
+		log.debug("Parse domain from the request, and put into request.");
+		request.setAttribute(DOMAIN_ATTRIBUTE_NAME, domain);
 	}
 }

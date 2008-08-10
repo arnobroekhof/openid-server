@@ -7,6 +7,8 @@ import java.util.Collection;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.openid4java.server.ServerManager;
+
 import cn.net.openid.jos.domain.Attribute;
 import cn.net.openid.jos.domain.AttributeValue;
 import cn.net.openid.jos.domain.Domain;
@@ -22,6 +24,8 @@ import cn.net.openid.jos.domain.User;
  * 
  */
 public interface JosService {
+	ServerManager getServerManager(Domain domain);
+
 	/**
 	 * Parse domain from the request.
 	 * 

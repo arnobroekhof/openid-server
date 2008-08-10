@@ -21,8 +21,9 @@ public class PersonasController extends AbstractJosController {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.springframework.web.servlet.mvc.Controller#handleRequest(javax.servlet.http.HttpServletRequest,
-	 *      javax.servlet.http.HttpServletResponse)
+	 * @see
+	 * org.springframework.web.servlet.mvc.Controller#handleRequest(javax.servlet
+	 * .http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	public ModelAndView handleRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -33,13 +34,13 @@ public class PersonasController extends AbstractJosController {
 				.getParameterValues("deletePersonaId");
 		if (deletePersonaIds != null) {
 			try {
-				josService.deletePersonas(user, deletePersonaIds);
+				getJosService().deletePersonas(user, deletePersonaIds);
 			} catch (LastPasswordException e) {
 				// Last password exception.
 			}
 		}
 
-		return new ModelAndView("personas", "personas", josService
+		return new ModelAndView("personas", "personas", getJosService()
 				.getPersonas(user));
 	}
 

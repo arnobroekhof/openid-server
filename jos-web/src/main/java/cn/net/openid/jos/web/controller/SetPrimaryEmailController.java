@@ -20,14 +20,15 @@ public class SetPrimaryEmailController extends AbstractJosController {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.springframework.web.servlet.mvc.Controller#handleRequest(javax.servlet.http.HttpServletRequest,
-	 *      javax.servlet.http.HttpServletResponse)
+	 * @see
+	 * org.springframework.web.servlet.mvc.Controller#handleRequest(javax.servlet
+	 * .http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	public ModelAndView handleRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		String id = request.getParameter("id");
 		if (!StringUtils.isEmpty(id)) {
-			josService.setPrimaryEmail(getUser(request), id);
+			getJosService().setPrimaryEmail(getUser(request), id);
 		}
 		request.getRequestDispatcher("/email").forward(request, response);
 		return null;

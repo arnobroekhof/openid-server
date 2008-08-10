@@ -38,7 +38,7 @@
 			<label for="address">#springMessage("email.label.address")</label>
 			#springFormInput("email.address" "")
 			#springShowErrors("" "error")
-			<input type="submit" class="button" value="#springMessage('email.button.sendInstructions')" />
+			<button type="submit">#springMessage("email.button.sendInstructions")</button>
 		</form>
 		</fieldset>
 		#parse("footer.vm")

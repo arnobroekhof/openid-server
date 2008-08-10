@@ -7,7 +7,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +19,7 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openid4java.server.ServerManager;
 
 import cn.net.openid.jos.dao.AttributeDao;
 import cn.net.openid.jos.dao.AttributeValueDao;
@@ -45,6 +48,8 @@ import cn.net.openid.jos.domain.User;
  */
 public class JosServiceImpl implements JosService {
 	private static final Log log = LogFactory.getLog(JosServiceImpl.class);
+
+	private final Map<Domain, ServerManager> serverManagers = new HashMap<Domain, ServerManager>();
 
 	private DomainDao domainDao;
 	private UserDao userDao;
@@ -137,6 +142,33 @@ public class JosServiceImpl implements JosService {
 	 */
 	public void setPersonaDao(PersonaDao personaDao) {
 		this.personaDao = personaDao;
+	}
+
+	private synchronized ServerManager newServerManager(Domain domain) {
+		ServerManager serverManager = this.serverManagers.get(domain);
+		if (serverManager == null) {
+			log.debug("new a serverManager for " + domain);
+			serverManager = new ServerManager();
+			serverManager.setOPEndpointUrl(domain.getOpenidServerUrl()
+					.toString());
+			this.serverManagers.put(domain, serverManager);
+		}
+		return serverManager;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * cn.net.openid.jos.service.JosService#getServerManager(cn.net.openid.jos
+	 * .domain.Domain)
+	 */
+	public ServerManager getServerManager(Domain domain) {
+		ServerManager serverManager = this.serverManagers.get(domain);
+		if (serverManager == null) {
+			serverManager = newServerManager(domain);
+		}
+		return serverManager;
 	}
 
 	/*

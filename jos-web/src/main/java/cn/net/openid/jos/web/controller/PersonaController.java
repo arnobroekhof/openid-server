@@ -56,7 +56,9 @@ public class PersonaController extends AbstractJosSimpleFormController {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.springframework.web.servlet.mvc.AbstractFormController#formBackingObject(javax.servlet.http.HttpServletRequest)
+	 * @see
+	 * org.springframework.web.servlet.mvc.AbstractFormController#formBackingObject
+	 * (javax.servlet.http.HttpServletRequest)
 	 */
 	@Override
 	protected Object formBackingObject(HttpServletRequest request)
@@ -67,7 +69,7 @@ public class PersonaController extends AbstractJosSimpleFormController {
 		if (StringUtils.isEmpty(id)) {
 			persona = new Persona(user);
 		} else {
-			persona = josService.getPersona(user, id);
+			persona = getJosService().getPersona(user, id);
 			if (persona == null) {
 				persona = new Persona(user);
 			}
@@ -78,8 +80,10 @@ public class PersonaController extends AbstractJosSimpleFormController {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.springframework.web.servlet.mvc.BaseCommandController#initBinder(javax.servlet.http.HttpServletRequest,
-	 *      org.springframework.web.bind.ServletRequestDataBinder)
+	 * @see
+	 * org.springframework.web.servlet.mvc.BaseCommandController#initBinder(
+	 * javax.servlet.http.HttpServletRequest,
+	 * org.springframework.web.bind.ServletRequestDataBinder)
 	 */
 	@Override
 	protected void initBinder(HttpServletRequest request,
@@ -94,8 +98,10 @@ public class PersonaController extends AbstractJosSimpleFormController {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.springframework.web.servlet.mvc.BaseCommandController#onBindAndValidate(javax.servlet.http.HttpServletRequest,
-	 *      java.lang.Object, org.springframework.validation.BindException)
+	 * @see
+	 * org.springframework.web.servlet.mvc.BaseCommandController#onBindAndValidate
+	 * (javax.servlet.http.HttpServletRequest, java.lang.Object,
+	 * org.springframework.validation.BindException)
 	 */
 	@Override
 	protected void onBindAndValidate(HttpServletRequest request,
@@ -110,7 +116,9 @@ public class PersonaController extends AbstractJosSimpleFormController {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.springframework.web.servlet.mvc.SimpleFormController#referenceData(javax.servlet.http.HttpServletRequest)
+	 * @see
+	 * org.springframework.web.servlet.mvc.SimpleFormController#referenceData
+	 * (javax.servlet.http.HttpServletRequest)
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
@@ -161,9 +169,10 @@ public class PersonaController extends AbstractJosSimpleFormController {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax.servlet.http.HttpServletRequest,
-	 *      javax.servlet.http.HttpServletResponse, java.lang.Object,
-	 *      org.springframework.validation.BindException)
+	 * @see
+	 * org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax
+	 * .servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse,
+	 * java.lang.Object, org.springframework.validation.BindException)
 	 */
 	@Override
 	protected ModelAndView onSubmit(HttpServletRequest request,
@@ -171,9 +180,9 @@ public class PersonaController extends AbstractJosSimpleFormController {
 			throws Exception {
 		Persona persona = (Persona) command;
 		if (StringUtils.isEmpty(persona.getId())) {
-			josService.insertPersona(getUser(request), persona);
+			getJosService().insertPersona(getUser(request), persona);
 		} else {
-			josService.updatePersona(getUser(request), persona);
+			getJosService().updatePersona(getUser(request), persona);
 		}
 		return super.onSubmit(request, response, command, errors);
 	}

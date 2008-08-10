@@ -8,7 +8,6 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openid4java.server.ServerManager;
 import org.springframework.web.servlet.mvc.Controller;
 
 import cn.net.openid.jos.domain.Domain;
@@ -23,8 +22,14 @@ import cn.net.openid.jos.web.filter.DomainFilter;
 public abstract class AbstractJosController implements Controller {
 	protected final Log log = LogFactory.getLog(getClass());
 
-	protected JosService josService;
-	protected ServerManager serverManager;
+	private JosService josService;
+
+	/**
+	 * @return the josService
+	 */
+	public JosService getJosService() {
+		return josService;
+	}
 
 	/**
 	 * @param josService
@@ -32,14 +37,6 @@ public abstract class AbstractJosController implements Controller {
 	 */
 	public void setJosService(JosService josService) {
 		this.josService = josService;
-	}
-
-	/**
-	 * @param serverManager
-	 *            the serverManager to set
-	 */
-	public void setServerManager(ServerManager serverManager) {
-		this.serverManager = serverManager;
 	}
 
 	/**

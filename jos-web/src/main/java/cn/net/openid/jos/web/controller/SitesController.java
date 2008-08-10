@@ -24,8 +24,9 @@ public class SitesController extends AbstractJosController {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.springframework.web.servlet.mvc.Controller#handleRequest(javax.servlet.http.HttpServletRequest,
-	 *      javax.servlet.http.HttpServletResponse)
+	 * @see
+	 * org.springframework.web.servlet.mvc.Controller#handleRequest(javax.servlet
+	 * .http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	public ModelAndView handleRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -34,8 +35,13 @@ public class SitesController extends AbstractJosController {
 		User user = getUser(request);
 		if (realmIds != null) {
 			for (String realmId : realmIds) {
-				this.josService.updateAlwaysApprove(user, realmId, request
-						.getParameter("alwaysApprove_" + realmId) != null);
+				this.getJosService()
+						.updateAlwaysApprove(
+								user,
+								realmId,
+								request
+										.getParameter("alwaysApprove_"
+												+ realmId) != null);
 			}
 		}
 
@@ -43,7 +49,7 @@ public class SitesController extends AbstractJosController {
 	}
 
 	private Map<String, Collection<Site>> getModel(User user) {
-		Collection<Site> sites = josService.getSites(user);
+		Collection<Site> sites = getJosService().getSites(user);
 		Map<String, Collection<Site>> model = new HashMap<String, Collection<Site>>(
 				1);
 		model.put("sites", sites);
