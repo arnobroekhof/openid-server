@@ -5,12 +5,14 @@
 	<body>
 	<div>
 		#parse("header.vm")
-		#springBind("command.username")
-		#set($openidUrl="${josConfiguration.identifierPrefix}$!{status.value}${josConfiguration.identifierSuffix}")
+		#springBind("command.user.username")
+		#set($openidUrl="${command.user.domain.identifierPrefix}$!{status.value}${command.user.domain.identifierSuffix}")
 		OpenID：
+		<span class="identifier">
 		<a href="${openidUrl}">
 			${openidUrl}
 		</a>
+		</span>
 		#springMessage("message.register.success")
 		<a href="login?username=${link.encodeURL($!{status.value})}">#springMessage("button.login")</a>
 		#parse("footer.vm")

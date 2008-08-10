@@ -336,23 +336,26 @@ public class JosServiceImpl implements JosService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.dao.DaoFacade#getUserByUsername(java.lang.String)
+	 * @see
+	 * cn.net.openid.jos.service.JosService#getUser(cn.net.openid.jos.domain
+	 * .Domain, java.lang.String)
 	 */
-	public User getUserByUsername(String username) {
-		return userDao.getUserByUsername(username);
+	public User getUser(Domain domain, String username) {
+		return userDao.getUser(domain, username);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.jos.service.JosService#getUser(java.lang.String,
-	 * java.lang.String)
+	 * @see
+	 * cn.net.openid.jos.service.JosService#getUser(cn.net.openid.jos.domain
+	 * .Domain, java.lang.String, java.lang.String)
 	 */
-	public User getUser(String username, String passwordPlaintext) {
+	public User getUser(Domain domain, String username, String passwordPlaintext) {
 		if (StringUtils.isEmpty(username)) {
 			return null;
 		}
-		User user = getUserByUsername(username);
+		User user = getUser(domain, username);
 		if (user == null) {
 			return null;
 		}

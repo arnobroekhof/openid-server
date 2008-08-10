@@ -53,9 +53,9 @@ public interface JosService {
 
 	User getUser(String id);
 
-	User getUserByUsername(String username);
+	User getUser(Domain domain, String username);
 
-	User getUser(String username, String passwordPlaintext);
+	User getUser(Domain domain, String username, String passwordPlaintext);
 
 	/**
 	 * Generate a random string for EmailConfiratmionInfo.

@@ -4,6 +4,7 @@
 package cn.net.openid.jos.dao.hibernate;
 
 import cn.net.openid.jos.dao.UserDao;
+import cn.net.openid.jos.domain.Domain;
 import cn.net.openid.jos.domain.User;
 
 /**
@@ -25,16 +26,20 @@ public class HibernateUserDao extends BaseHibernateEntityDao<User> implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.dao.UserDao#getUserByUsername(java.lang.String)
+	 * @see
+	 * cn.net.openid.jos.dao.UserDao#getUser(cn.net.openid.jos.domain.Domain,
+	 * java.lang.String)
 	 */
-	public User getUserByUsername(String username) {
-		return findUnique("from User where username = ?", username);
+	public User getUser(Domain domain, String username) {
+		return findUnique("from User where domain = ? and username = ?",
+				domain, username);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.jos.dao.UserDao#insertUser(cn.net.openid.jos.domain.User)
+	 * @see
+	 * cn.net.openid.jos.dao.UserDao#insertUser(cn.net.openid.jos.domain.User)
 	 */
 	public void insertUser(User user) {
 		getHibernateTemplate().save(user);

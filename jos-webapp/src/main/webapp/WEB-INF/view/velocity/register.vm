@@ -4,21 +4,21 @@
 		<title>#springMessage("openid") - #springMessage("register")</title>
 		<script type="text/javascript">
 			function chkFrm() {
-				var objUsername = document.getElementById("username");
+				var objUsername = document.getElementById("user.username");
 				if (objUsername.value === "") {
-					alert("#springMessageText("error.username.format" "Username is required.")");
+					alert("#springMessageText("user.error.username.format" "Username is required.")");
 					objUsername.focus();
 					return false;
 				}
 				var objPassword = document.getElementById("password");
 				if (objPassword.value === "") {
-					alert("#springMessageText("error.password.empty" "Password is required.")");
+					alert("#springMessageText("user.error.password.empty" "Password is required.")");
 					objPassword.focus();
 					return false;
 				}
 				var objConfirmingPassword = document.getElementById("confirmingPassword");
 				if (objPassword.value !== objConfirmingPassword.value) {
-					alert("#springMessageText("error.password.notEquals" "Confirming password is not equals to the password.")");
+					alert("#springMessageText("user.error.confirmingPassword.notEquals" "Confirming password is not equals to the password.")");
 					objConfirmingPassword.focus();
 					return false;
 				}
@@ -32,7 +32,7 @@
 			<legend>#springMessage("register")</legend>
 			<form action="register" method="post" onsubmit="return chkFrm()">
 				<table>
-					#springBind("command.username")
+					#springBind("command.user.username")
 					<tr>
 						<td class="label">
 							<label for="username">#springMessage("label.openid")</label>
@@ -40,7 +40,7 @@
 						<td>
 							<span class="identifier">
 							${domain.identifierPrefix}
-							#springFormInput("command.username" "")
+							#springFormInput("command.user.username" "")
 							${domain.identifierSuffix}
 							</span>
 							#springShowErrors("" "error")
@@ -54,7 +54,7 @@
 							<label for="password">#springMessage("password.label.plaintext")</label>
 						</td>
 						<td>
-							#springFormPasswordInput("command.password" 'class="common"')
+							#springFormPasswordInput("command.password" "")
 							#springShowErrors("" "error")
 						</td>
 					</tr>
@@ -64,7 +64,7 @@
 							<label for="confirmingPassword">#springMessage("password.label.confirmingPassword")</label>
 					  </td>
 						<td>
-							#springFormPasswordInput("command.confirmingPassword" 'class="common"')
+							#springFormPasswordInput("command.confirmingPassword" "")
 							#springShowErrors("" "error")
 						</td>
 					</tr>
@@ -78,7 +78,7 @@
 			</form>
 			<script type="text/javascript">
 				<!--
-				var objUsername = document.getElementById("username");
+				var objUsername = document.getElementById("user.username");
 				if (objUsername.value === "") {
 					objUsername.focus();
 				} else {

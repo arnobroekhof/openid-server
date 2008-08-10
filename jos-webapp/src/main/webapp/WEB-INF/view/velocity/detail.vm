@@ -1,17 +1,16 @@
+#springBind("userSession.user")
 <h3>Using Your Own OpenID URL</h3>
 <p>
 	#springMessage("message.yourOpenid")
 </p>
 <pre>
-$!{userSession.identifier}
+<a href="$!{status.value.identifier}">$!{status.value.identifier}</a>
 </pre>
 <p>
 #springMessage("message.yourOpenid.1")
 <pre>
-&lt;link rel="openid2.provider openid.server"
-	href="${josConfiguration.openidServerUrl}" /&gt;
-&lt;link rel="openid2.local_id openid.delegate"
-	href="$!{userSession.identifier}" /&gt;
+&lt;link rel="openid2.provider openid.server" href="${userSession.user.domain.openidServerUrl}" /&gt;
+&lt;link rel="openid2.local_id openid.delegate" href="$!{userSession.user.identifier}" /&gt;
 </pre>
 #springMessage("message.yourOpenid.2")
 </p>

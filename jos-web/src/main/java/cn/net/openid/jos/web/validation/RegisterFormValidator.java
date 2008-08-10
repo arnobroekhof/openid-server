@@ -4,7 +4,6 @@
 package cn.net.openid.jos.web.validation;
 
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -13,7 +12,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import cn.net.openid.jos.domain.JosConfiguration;
+import cn.net.openid.jos.web.MessageCodes;
 import cn.net.openid.jos.web.form.RegisterForm;
 
 /**
@@ -24,18 +23,6 @@ public class RegisterFormValidator implements Validator {
 	@SuppressWarnings("unused")
 	private static final Log log = LogFactory
 			.getLog(RegisterFormValidator.class);
-
-	private Pattern usernamePattern;
-	private Pattern reservedUsernamePatter;
-	private Pattern unallowableUsernamePattern;
-
-	public void setDomainConfiguration(JosConfiguration config) {
-		this.usernamePattern = Pattern.compile(config.getUsernameRegex());
-		this.reservedUsernamePatter = Pattern.compile(config
-				.getReservedUsernameRegex(), Pattern.CASE_INSENSITIVE);
-		this.unallowableUsernamePattern = Pattern.compile(config
-				.getUnallowableUsernameRegex(), Pattern.CASE_INSENSITIVE);
-	}
 
 	/*
 	 * (non-Javadoc)
@@ -51,39 +38,39 @@ public class RegisterFormValidator implements Validator {
 	 * (non-Javadoc)
 	 * 
 	 * @see org.springframework.validation.Validator#validate(java.lang.Object,
-	 *      org.springframework.validation.Errors)
+	 * org.springframework.validation.Errors)
 	 */
 	public void validate(Object target, Errors errors) {
-		RegisterForm user = (RegisterForm) target;
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username",
-				"required", "Field is required.");
+		RegisterForm form = (RegisterForm) target;
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "user.username",
+				MessageCodes.Error.REQUIRED);
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password",
-				"required", "Field is required.");
-		if (user.getUsername() != null) {
-			Matcher m = this.usernamePattern.matcher(user.getUsername());
-			if (!m.matches()) {
-				errors.rejectValue("username", "error.username.format",
-						"Username format not allowed.");
-			}
-
-			m = this.reservedUsernamePatter.matcher(user.getUsername());
-			if (m.matches()) {
-				errors.rejectValue("username", "error.username.reserved",
-						"Username is reserved.");
-			}
-
-			m = this.unallowableUsernamePattern.matcher(user.getUsername());
-			if (m.matches()) {
-				errors.rejectValue("username", "error.username.unallowable",
-						"Username is unallowable.");
-			}
+				MessageCodes.Error.REQUIRED);
+		Matcher m = form.getUser().getDomain().getUsernamePattern().matcher(
+				form.getUser().getUsername());
+		if (!m.matches()) {
+			errors.rejectValue("user.username",
+					MessageCodes.User.Error.USERNAME_FORMAT);
 		}
 
-		if (!StringUtils.equals(user.getPassword(), user
+		m = form.getUser().getDomain().getReservedUsernamePattern().matcher(
+				form.getUser().getUsername());
+		if (m.matches()) {
+			errors.rejectValue("user.username",
+					MessageCodes.User.Error.USERNAME_RESERVED);
+		}
+
+		m = form.getUser().getDomain().getUnallowableUsernamePattern().matcher(
+				form.getUser().getUsername());
+		if (m.matches()) {
+			errors.rejectValue("user.username",
+					MessageCodes.User.Error.USERNAME_UNALLOWABLE);
+		}
+
+		if (!StringUtils.equals(form.getPassword(), form
 				.getConfirmingPassword())) {
 			errors.rejectValue("confirmingPassword",
-					"confirmingPassword.notEquals",
-					"Confirming password is not equals to the password.");
+					MessageCodes.User.Error.CONFIRMING_PASSWORD_NOT_EQUALS);
 		}
 	}
 }

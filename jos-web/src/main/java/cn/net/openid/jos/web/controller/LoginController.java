@@ -20,6 +20,7 @@ import cn.net.openid.jos.domain.User;
 import cn.net.openid.jos.web.AbstractJosSimpleFormController;
 import cn.net.openid.jos.web.ApprovingRequest;
 import cn.net.openid.jos.web.ApprovingRequestProcessor;
+import cn.net.openid.jos.web.MessageCodes;
 import cn.net.openid.jos.web.UserSession;
 import cn.net.openid.jos.web.form.LoginForm;
 
@@ -34,17 +35,24 @@ public class LoginController extends AbstractJosSimpleFormController {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.springframework.web.servlet.mvc.BaseCommandController#onBindAndValidate(javax.servlet.http.HttpServletRequest,
-	 *      java.lang.Object, org.springframework.validation.BindException)
+	 * @see
+	 * org.springframework.web.servlet.mvc.BaseCommandController#onBindAndValidate
+	 * (javax.servlet.http.HttpServletRequest, java.lang.Object,
+	 * org.springframework.validation.BindException)
 	 */
 	@Override
 	protected void onBindAndValidate(HttpServletRequest request,
 			Object command, BindException errors) throws Exception {
 		LoginForm lf = (LoginForm) command;
-		User user = josService.getUser(lf.getUsername(), lf.getPassword());
+		User user = josService.getUser(this.getDomain(request), lf
+				.getUsername(), lf.getPassword());
 		if (user == null) {
-			errors.rejectValue("username", "error.login.failed");
+			errors
+					.rejectValue("username",
+							MessageCodes.User.Error.LOGIN_FAILED);
 		} else {
+			user.setDomain(this.getDomain(request));
+
 			HttpSession session = request.getSession();
 			UserSession userSession = getUserSession(session);
 			userSession.setUser(user);
@@ -56,9 +64,10 @@ public class LoginController extends AbstractJosSimpleFormController {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax.servlet.http.HttpServletRequest,
-	 *      javax.servlet.http.HttpServletResponse, java.lang.Object,
-	 *      org.springframework.validation.BindException)
+	 * @see
+	 * org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax
+	 * .servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse,
+	 * java.lang.Object, org.springframework.validation.BindException)
 	 */
 	@Override
 	protected ModelAndView onSubmit(HttpServletRequest request,
@@ -78,8 +87,10 @@ public class LoginController extends AbstractJosSimpleFormController {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.springframework.web.servlet.mvc.SimpleFormController#referenceData(javax.servlet.http.HttpServletRequest,
-	 *      java.lang.Object, org.springframework.validation.Errors)
+	 * @see
+	 * org.springframework.web.servlet.mvc.SimpleFormController#referenceData
+	 * (javax.servlet.http.HttpServletRequest, java.lang.Object,
+	 * org.springframework.validation.Errors)
 	 */
 	@Override
 	protected Map<Object, Object> referenceData(HttpServletRequest request,

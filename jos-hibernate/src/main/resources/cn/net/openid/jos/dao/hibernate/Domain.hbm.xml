@@ -9,8 +9,14 @@
 			update="false" column="domain_name" />
 		<property name="type" not-null="true" update="false" column="domain_type" />
 		<property name="suffix" update="false" column="domain_suffix" />
+
+		<!-- Username pattern -->
 		<property name="usernameRegex" column="domain_username_regex" />
+
+		<!-- Reserved username pattern -->
 		<property name="reservedUsernameRegex" column="domain_reserved_username_regex" />
+
+		<!-- Unallowable username pattern -->
 		<property name="unallowableUsernameRegex" column="domain_unallowable_username_regex" />
 		<property name="creationDate" type="timestamp" not-null="true"
 			update="false" column="domain_creation_date" />
