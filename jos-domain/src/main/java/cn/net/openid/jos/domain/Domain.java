@@ -395,7 +395,7 @@ public class Domain extends DomainConfiguration implements Serializable {
 	 */
 	private void appendPort(StringBuilder sb, URL serverBaseUrl) {
 		int port = serverBaseUrl.getPort();
-		if (port != serverBaseUrl.getDefaultPort()) {
+		if (port != -1 && port != serverBaseUrl.getDefaultPort()) {
 			sb.append(':').append(port);
 		}
 	}
