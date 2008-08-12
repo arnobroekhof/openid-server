@@ -13,20 +13,22 @@
 	<div>
 		#parse("header.vm")
 		<fieldset>
-			<legend>#springMessage("login")</legend>
-<div>
-A site identifying itself as 
-<span><code>$!command.authRequest.returnTo</code></span>
-has asked us for confirmation that
-<span><code>$!command.authRequest.identity</code></span>
-is your identity URL.
-</div>
-<div>
-The site also asked for additional information.
-It did not provide a link to the policy on data it collects.
-##You can find the their policy about the data it collected on this page.
-This is the persona we're going to send to <code>$!command.authRequest.realm</code>:
-</div>
+			<legend>#springMessageText("approving.title" "OpenID Verification")</legend>
+			<div>
+				#springMessageText("approving.1" "A site identifying itself as ") 
+				<span><code>$!command.authRequest.returnTo</code></span>
+				#springMessageText("approving.2" " has asked us for confirmation that ")
+				<span><code>$!command.authRequest.identity</code></span>
+				#springMessageText("approving.3" " is your identity URL. ")
+			</div>
+			<div>
+				#springMessageText("approving.additionalInformation.1" "The site also asked for additional information. ")
+				#springMessageText("approving.additionalInformation.2" "It did not provide a link to the policy on data it collects. ")
+				##springMessageText("approving.additionalInformation.3" "You can find the their policy about the data it collected on this page. ")
+				#springMessageText("approving.additionalInformation.4" "This is the persona we're going to send to ") 
+				<code>$!command.authRequest.realm</code>
+				#springMessageText("approving.additionalInformation.5" ": ")
+			</div>
 			<form action="approving" method="post">
 				#springBind("command.token")
 				<input type="hidden" name="$!{status.expression}" value="$!{esc.html($!{status.value})}" />

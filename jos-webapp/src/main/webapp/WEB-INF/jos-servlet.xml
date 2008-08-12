@@ -228,6 +228,7 @@
 				<value>cn.net.openid.jos.web.password</value>
 				<value>cn.net.openid.jos.web.persona</value>
 				<value>cn.net.openid.jos.web.site</value>
+				<value>cn.net.openid.jos.web.approving</value>
 			</list>
 		</property>
 	</bean>
