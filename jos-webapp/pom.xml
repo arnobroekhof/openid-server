@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>cn.net.openid.jos</groupId>
 		<artifactId>jos</artifactId>
-		<version>1.1-SNAPSHOT</version>
+		<version>1.1.0-alpha</version>
 	</parent>
 	<artifactId>jos-webapp</artifactId>
 	<packaging>war</packaging>
