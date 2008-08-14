@@ -7,7 +7,7 @@
 			<li><a href="login" title="#springMessage("login")">#springMessage("login")</a></li>
 			<li><a href="register" title="#springMessage("register.tip")">#springMessage("register")</a></li>
 			#else
-			<li><a href="home" title="#springMessage("home.tip")">#springMessage("home")</a></li>
+			<li><a href="#springUrl('/')" title="#springMessage("home.tip")">#springMessage("home")</a></li>
 			<li><a href="email" title="#springMessage("email.title.tip")">#springMessage("email.title")</a></li>
 			<li><a href="passwords" title="#springMessage("password.title.password")">#springMessage("password.title.passwords")</a></li>
 			<li><a href="personas" title="#springMessage("persona.title.persona")">#springMessage("persona.title.personas")</a></li>
