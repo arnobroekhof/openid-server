@@ -1,3 +1,4 @@
+#set($springXhtmlCompliant = true)
 #springBind("userSession.user")
 <h3>Using Your Own OpenID URL</h3>
 <p>

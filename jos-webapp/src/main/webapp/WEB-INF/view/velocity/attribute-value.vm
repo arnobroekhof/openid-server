@@ -1,3 +1,4 @@
+#set($springXhtmlCompliant = true)
 <html>
 	<head>
 		<title>附加属性</title>

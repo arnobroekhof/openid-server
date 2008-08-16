@@ -1,3 +1,4 @@
+#set($springXhtmlCompliant = true)
 <div id="header">
 	<div id="logo"><img src="openid-logo.png" alt="OpenID" /></div>
 	<div id="navbar">

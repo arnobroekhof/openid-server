@@ -1,3 +1,4 @@
+#set($springXhtmlCompliant = true)
 <html>
 	<head>
 		<title>#springMessage("openid") - #springMessage("email.title")</title>
