@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
-import org.springframework.context.MessageSource;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.LocaleResolver;
@@ -24,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import cn.net.openid.jos.domain.Persona;
 import cn.net.openid.jos.domain.User;
+import cn.net.openid.jos.service.TimeZoneOffsetFormat;
 import cn.net.openid.jos.web.AbstractJosSimpleFormController;
 import cn.net.openid.jos.web.filter.UserAgentLocalesFilter;
 
@@ -32,7 +32,7 @@ import cn.net.openid.jos.web.filter.UserAgentLocalesFilter;
  * 
  */
 public class PersonaController extends AbstractJosSimpleFormController {
-	private MessageSource messageSource;
+	private TimeZoneOffsetFormat offsetFormat = new TimeZoneOffsetFormat();
 	private LocaleResolver localeResolver;
 
 	/**
@@ -41,36 +41,6 @@ public class PersonaController extends AbstractJosSimpleFormController {
 	 */
 	public void setLocaleResolver(LocaleResolver localeResolver) {
 		this.localeResolver = localeResolver;
-	}
-
-	/**
-	 * @param messageSource
-	 *            the messageSource to set
-	 */
-	public void setMessageSource(MessageSource messageSource) {
-		this.messageSource = messageSource;
-	}
-
-	private String formatOffset(int offset) {
-		int m = offset / (1000 * 60);
-		int h = m / 60;
-		StringBuffer sb = new StringBuffer();
-		if (offset > 0) {
-			sb.append('+');
-		} else {
-			sb.append('-');
-		}
-		if (Math.abs(h) < 10) {
-			sb.append('0');
-		}
-		sb.append(Math.abs(h)).append(":");
-		m = m - h * 60;
-		if (m == 0) {
-			sb.append("00");
-		} else {
-			sb.append(Math.abs(m));
-		}
-		return sb.toString();
 	}
 
 	/*
@@ -151,61 +121,95 @@ public class PersonaController extends AbstractJosSimpleFormController {
 		final Locale locale = this.localeResolver.resolveLocale(request);
 
 		// Locale
+		String c, l;
+		final Map<String, String> relatedCountries = new LinkedHashMap<String, String>();
+		final Map<String, String> relatedLanguages = new LinkedHashMap<String, String>();
+
+		c = locale.getCountry();
+		l = locale.getLanguage();
+		if (!StringUtils.isEmpty(c)) {
+			relatedCountries.put(c, locale.getDisplayCountry(locale));
+		}
+		if (!StringUtils.isEmpty(l)) {
+			relatedLanguages.put(l, locale.getDisplayLanguage(locale));
+		}
+
 		final Collection<Locale> userAgentLocales = UserAgentLocalesFilter
 				.getUserAgentLocales(request);
 		final Set<String> userAgentCountries = new HashSet<String>();
 		final Set<String> userAgentLanguages = new HashSet<String>();
-		for (Locale l : userAgentLocales) {
-			userAgentCountries.add(l.getCountry());
-			userAgentLanguages.add(l.getLanguage());
+		for (Locale theLocale : userAgentLocales) {
+			c = theLocale.getCountry();
+			l = theLocale.getLanguage();
+			if (!StringUtils.isEmpty(c) && !relatedCountries.containsKey(c)) {
+				relatedCountries.put(c, theLocale.getDisplayCountry(locale));
+			}
+			if (!StringUtils.isEmpty(l) && !relatedLanguages.containsKey(l)) {
+				relatedLanguages.put(l, theLocale.getDisplayLanguage(locale));
+			}
+
+			userAgentCountries.add(c);
+			userAgentLanguages.add(l);
 		}
 
-		final Map<String, String> relatedCountries = new LinkedHashMap<String, String>();
 		final Map<String, String> countries = new LinkedHashMap<String, String>();
-		final Map<String, String> relatedLanguages = new LinkedHashMap<String, String>();
 		final Map<String, String> languages = new LinkedHashMap<String, String>();
 
 		Locale[] locales = Locale.getAvailableLocales();
+		String displayCountry, displayLanguage;
+		boolean related;
 		for (Locale theLocale : locales) {
-			final String c = theLocale.getCountry(), l = theLocale
-					.getLanguage();
+			c = theLocale.getCountry();
+			l = theLocale.getLanguage();
+			related = (userAgentCountries.contains(c) || userAgentLanguages
+					.contains(l));
 			if (!StringUtils.isEmpty(c)) {
-				String displayCountry = theLocale.getDisplayCountry(locale);
-				if (userAgentCountries.contains(c)
-						|| userAgentLanguages.contains(l)) {
+				displayCountry = theLocale.getDisplayCountry(locale);
+				if (related && !relatedCountries.containsKey(c)) {
 					relatedCountries.put(c, displayCountry);
 				}
-				countries.put(c, displayCountry);
-			}
-			if (!StringUtils.isEmpty(l) && !languages.containsKey(l)) {
-				String displayLanguage = theLocale.getDisplayLanguage(locale);
-				if (userAgentLanguages.contains(l)) {
-					relatedLanguages.put(l, displayLanguage);
+				if (!countries.containsKey(c)) {
+					countries.put(c, displayCountry);
 				}
-				languages.put(l, displayLanguage);
+			}
+			if (!StringUtils.isEmpty(l)) {
+				displayLanguage = theLocale.getDisplayLanguage(locale);
+				if (related && !relatedLanguages.containsKey(l)) {
+					relatedLanguages.put(c, displayLanguage);
+				}
+				if (!languages.containsKey(l)) {
+					languages.put(l, displayLanguage);
+				}
 			}
 		}
 
+		data.put("relatedCountries", relatedCountries);
+		data.put("relatedLanguages", relatedLanguages);
+
 		Map m = new LinkedHashMap();
-		m.put(this.getMessageSourceAccessor().getMessage("persona.title.related"), relatedCountries);
-		m.put(this.getMessageSourceAccessor().getMessage("persona.title.all"), countries);
+		m.put(this.getMessageSourceAccessor().getMessage("persona.title.all"),
+				countries);
 		data.put("countries", m);
 
 		m = new LinkedHashMap();
-		m.put(this.getMessageSourceAccessor().getMessage("persona.title.related"), relatedLanguages);
-		m.put(this.getMessageSourceAccessor().getMessage("persona.title.all"), languages);
+		m.put(this.getMessageSourceAccessor().getMessage("persona.title.all"),
+				languages);
 		data.put("languages", m);
 
 		// TimeZone
 		final Map<String, String> timezones = new LinkedHashMap<String, String>();
 		String[] timezoneIds = TimeZone.getAvailableIDs();
+		String format = this.getMessageSourceAccessor().getMessage("timeZone");
 		for (String timeZoneId : timezoneIds) {
 			TimeZone timeZone = TimeZone.getTimeZone(timeZoneId);
-			String longName = timeZone.getDisplayName(locale);
+			String shortName = timeZone.getDisplayName(false, TimeZone.SHORT,
+					locale);
+			String longName = timeZone.getDisplayName(false, TimeZone.LONG,
+					locale);
 			int offset = timeZone.getRawOffset();
-			timezones.put(timeZone.getID(), String.format(this.messageSource
-					.getMessage("timezone", new String[] {}, locale), this
-					.formatOffset(offset), longName, timeZone.getID()));
+			String displayTimeZone = String.format(format, offsetFormat
+					.format(offset), shortName, longName, timeZone.getID());
+			timezones.put(timeZone.getID(), displayTimeZone);
 		}
 		data.put("timezones", timezones);
 

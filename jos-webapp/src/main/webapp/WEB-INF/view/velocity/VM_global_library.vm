@@ -2,7 +2,7 @@
 	#springBind($path)
 	#set($selected = false)
 	<select name="${status.expression}" ${attributes}>
-		<option value=""#if(!$selected && "$!status.value" == "")#set($selected = true) selected="selected"#end>----</option>
+		<option value=""#if(!$selected && "$!status.value" == "")#set($selected = true) selected="selected"#end>-</option>
 		##options
 		#foreach($option in $opts.entrySet())
 		<option value="${option.key}"#if(!$selected && "$!status.value" == "$option.key")#set($selected = true) selected="selected"#end>$option.value</option>

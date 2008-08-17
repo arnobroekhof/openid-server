@@ -100,7 +100,7 @@
 							<label for="country">#springMessage("persona.label.country")</label>
 						</td>
 						<td>
-							#josFormSingleSelect("persona.country" "" $countries "id='country'")
+							#josFormSingleSelect("persona.country" $relatedCountries $countries "id='country'")
 							#springShowErrors("" "error")
 						</td>
 					</tr>
@@ -109,7 +109,7 @@
 							<label for="language">#springMessage("persona.label.language")</label>
 						</td>
 						<td>
-							#josFormSingleSelect("persona.language" "" $languages "id='language'")
+							#josFormSingleSelect("persona.language" $relatedLanguages $languages "id='language'")
 							#springShowErrors("" "error")
 						</td>
 					</tr>

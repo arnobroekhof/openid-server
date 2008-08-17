@@ -110,7 +110,6 @@
 		<property name="formView" value="persona" />
 		<property name="successView" value="persona-success" />
 		<property name="validator" ref="personaValidator" />
-		<property name="messageSource" ref="messageSource" />
 		<property name="localeResolver" ref="localeResolver" />
 	</bean>
 
