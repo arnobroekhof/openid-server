@@ -197,11 +197,17 @@ public class PersonaController extends AbstractJosSimpleFormController {
 		data.put("languages", m);
 
 		// TimeZone
-		final Map<String, String> timezones = new LinkedHashMap<String, String>();
-		String[] timezoneIds = TimeZone.getAvailableIDs();
+		final Map<String, String> relatedTimeZones = new LinkedHashMap<String, String>();
+		Integer userAgentOffset = org.apache.commons.lang.math.NumberUtils
+				.createInteger(request.getParameter("offset"));
+		int userAgentOffsetValue = userAgentOffset != null ? userAgentOffset
+				.intValue() : 0;
+		final Map<String, String> timeZones = new LinkedHashMap<String, String>();
+		String[] timeZoneIds = TimeZone.getAvailableIDs();
 		String format = this.getMessageSourceAccessor().getMessage("timeZone");
-		for (String timeZoneId : timezoneIds) {
+		for (String timeZoneId : timeZoneIds) {
 			TimeZone timeZone = TimeZone.getTimeZone(timeZoneId);
+			String id = timeZone.getID();
 			String shortName = timeZone.getDisplayName(false, TimeZone.SHORT,
 					locale);
 			String longName = timeZone.getDisplayName(false, TimeZone.LONG,
@@ -209,9 +215,19 @@ public class PersonaController extends AbstractJosSimpleFormController {
 			int offset = timeZone.getRawOffset();
 			String displayTimeZone = String.format(format, offsetFormat
 					.format(offset), shortName, longName, timeZone.getID());
-			timezones.put(timeZone.getID(), displayTimeZone);
+
+			if (userAgentOffset != null && userAgentOffsetValue == offset) {
+				relatedTimeZones.put(id, displayTimeZone);
+			}
+
+			timeZones.put(id, displayTimeZone);
 		}
-		data.put("timezones", timezones);
+		data.put("relatedTimeZones", relatedTimeZones);
+
+		m = new LinkedHashMap();
+		m.put(this.getMessageSourceAccessor().getMessage("persona.title.all"),
+				timeZones);
+		data.put("timeZones", m);
 
 		return data;
 	}

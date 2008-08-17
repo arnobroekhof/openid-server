@@ -117,7 +117,7 @@
 						<td class="label">
 							<label for="timezone">#springMessage("persona.label.timezone")</label>
 						<td>
-							#josFormSingleSelect("persona.timezone" $timezones "" "id='timezone'")
+							#josFormSingleSelect("persona.timezone" $relatedTimeZones $timeZones "id='timezone'")
 							#springShowErrors("" "error")
 						</td>
 					</tr>
