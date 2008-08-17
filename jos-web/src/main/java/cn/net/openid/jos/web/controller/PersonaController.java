@@ -3,10 +3,13 @@
  */
 package cn.net.openid.jos.web.controller;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.TimeZone;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 import cn.net.openid.jos.domain.Persona;
 import cn.net.openid.jos.domain.User;
 import cn.net.openid.jos.web.AbstractJosSimpleFormController;
+import cn.net.openid.jos.web.filter.UserAgentLocalesFilter;
 
 /**
  * @author Sutra Zhou
@@ -30,6 +34,22 @@ import cn.net.openid.jos.web.AbstractJosSimpleFormController;
 public class PersonaController extends AbstractJosSimpleFormController {
 	private MessageSource messageSource;
 	private LocaleResolver localeResolver;
+
+	/**
+	 * @param localeResolver
+	 *            the localeResolver to set
+	 */
+	public void setLocaleResolver(LocaleResolver localeResolver) {
+		this.localeResolver = localeResolver;
+	}
+
+	/**
+	 * @param messageSource
+	 *            the messageSource to set
+	 */
+	public void setMessageSource(MessageSource messageSource) {
+		this.messageSource = messageSource;
+	}
 
 	private String formatOffset(int offset) {
 		int m = offset / (1000 * 60);
@@ -123,36 +143,62 @@ public class PersonaController extends AbstractJosSimpleFormController {
 	@SuppressWarnings("unchecked")
 	@Override
 	protected Map referenceData(HttpServletRequest request) throws Exception {
-		Map map = super.referenceData(request);
-		if (map == null) {
-			map = new HashMap<Object, Object>();
+		Map data = super.referenceData(request);
+		if (data == null) {
+			data = new HashMap<Object, Object>();
 		}
 
-		Locale locale = this.localeResolver.resolveLocale(request);
+		final Locale locale = this.localeResolver.resolveLocale(request);
 
-		final Map<String, String> timezones = new LinkedHashMap<String, String>();
+		// Locale
+		final Collection<Locale> userAgentLocales = UserAgentLocalesFilter
+				.getUserAgentLocales(request);
+		final Set<String> userAgentCountries = new HashSet<String>();
+		final Set<String> userAgentLanguages = new HashSet<String>();
+		for (Locale l : userAgentLocales) {
+			userAgentCountries.add(l.getCountry());
+			userAgentLanguages.add(l.getLanguage());
+		}
+
+		final Map<String, String> relatedCountries = new LinkedHashMap<String, String>();
 		final Map<String, String> countries = new LinkedHashMap<String, String>();
+		final Map<String, String> relatedLanguages = new LinkedHashMap<String, String>();
 		final Map<String, String> languages = new LinkedHashMap<String, String>();
 
 		Locale[] locales = Locale.getAvailableLocales();
-		countries.put("", "--");
-		languages.put("", "--");
-		for (Locale l : locales) {
-			if (!StringUtils.isEmpty(l.getCountry())
-					&& !countries.containsKey(l.getCountry())) {
-				countries.put(l.getCountry(), l.getDisplayCountry(locale));
+		for (Locale theLocale : locales) {
+			final String c = theLocale.getCountry(), l = theLocale
+					.getLanguage();
+			if (!StringUtils.isEmpty(c)) {
+				String displayCountry = theLocale.getDisplayCountry(locale);
+				if (userAgentCountries.contains(c)
+						|| userAgentLanguages.contains(l)) {
+					relatedCountries.put(c, displayCountry);
+				}
+				countries.put(c, displayCountry);
 			}
-			if (!StringUtils.isEmpty(l.getLanguage())
-					&& !languages.containsKey(l.getLanguage())) {
-				languages.put(l.getLanguage(), l.getDisplayLanguage(locale));
+			if (!StringUtils.isEmpty(l) && !languages.containsKey(l)) {
+				String displayLanguage = theLocale.getDisplayLanguage(locale);
+				if (userAgentLanguages.contains(l)) {
+					relatedLanguages.put(l, displayLanguage);
+				}
+				languages.put(l, displayLanguage);
 			}
 		}
 
-		map.put("countries", countries);
-		map.put("languages", languages);
+		Map m = new LinkedHashMap();
+		m.put(this.getMessageSourceAccessor().getMessage("persona.title.related"), relatedCountries);
+		m.put(this.getMessageSourceAccessor().getMessage("persona.title.all"), countries);
+		data.put("countries", m);
 
+		m = new LinkedHashMap();
+		m.put(this.getMessageSourceAccessor().getMessage("persona.title.related"), relatedLanguages);
+		m.put(this.getMessageSourceAccessor().getMessage("persona.title.all"), languages);
+		data.put("languages", m);
+
+		// TimeZone
+		final Map<String, String> timezones = new LinkedHashMap<String, String>();
 		String[] timezoneIds = TimeZone.getAvailableIDs();
-		timezones.put("", "--");
 		for (String timeZoneId : timezoneIds) {
 			TimeZone timeZone = TimeZone.getTimeZone(timeZoneId);
 			String longName = timeZone.getDisplayName(locale);
@@ -161,9 +207,9 @@ public class PersonaController extends AbstractJosSimpleFormController {
 					.getMessage("timezone", new String[] {}, locale), this
 					.formatOffset(offset), longName, timeZone.getID()));
 		}
+		data.put("timezones", timezones);
 
-		map.put("timezones", timezones);
-		return map;
+		return data;
 	}
 
 	/*
@@ -185,22 +231,6 @@ public class PersonaController extends AbstractJosSimpleFormController {
 			getJosService().updatePersona(getUser(request), persona);
 		}
 		return super.onSubmit(request, response, command, errors);
-	}
-
-	/**
-	 * @param localeResolver
-	 *            the localeResolver to set
-	 */
-	public void setLocaleResolver(LocaleResolver localeResolver) {
-		this.localeResolver = localeResolver;
-	}
-
-	/**
-	 * @param messageSource
-	 *            the messageSource to set
-	 */
-	public void setMessageSource(MessageSource messageSource) {
-		this.messageSource = messageSource;
 	}
 
 }
