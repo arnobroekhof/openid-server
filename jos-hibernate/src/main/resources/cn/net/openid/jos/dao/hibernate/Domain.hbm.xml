@@ -10,15 +10,7 @@
 		<property name="type" not-null="true" update="false" column="domain_type" />
 		<property name="serverHost" update="false" column="domain_server_host" />
 		<property name="memberPath" update="false" column="domain_member_path" />
-
-		<!-- Username pattern -->
-		<property name="usernameRegex" column="domain_username_regex" />
-
-		<!-- Reserved username pattern -->
-		<property name="reservedUsernameRegex" column="domain_reserved_username_regex" />
-
-		<!-- Unallowable username pattern -->
-		<property name="unallowableUsernameRegex" column="domain_unallowable_username_regex" />
+		<one-to-one name="usernameConfiguration" cascade="all" />
 		<property name="creationDate" type="timestamp" not-null="true"
 			update="false" column="domain_creation_date" />
 	</class>

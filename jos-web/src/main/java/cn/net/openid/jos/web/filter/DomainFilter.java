@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import cn.net.openid.jos.domain.Domain;
 import cn.net.openid.jos.service.UnresolvedDomainException;
 
@@ -19,6 +22,7 @@ import cn.net.openid.jos.service.UnresolvedDomainException;
  * 
  */
 public class DomainFilter extends OncePerRequestServiceFilter {
+	private static final Log log = LogFactory.getLog(DomainFilter.class);
 	private static final String DOMAIN_ATTRIBUTE_NAME = "domain";
 
 	/**
@@ -38,6 +42,11 @@ public class DomainFilter extends OncePerRequestServiceFilter {
 		}
 		if (domain == null) {
 			domain = (Domain) request.getAttribute(DOMAIN_ATTRIBUTE_NAME);
+		}
+		if (log.isDebugEnabled()) {
+			if (domain != null) {
+				log.debug(domain + ": " + domain.getUsernameConfiguration());
+			}
 		}
 		return domain;
 	}
@@ -74,5 +83,8 @@ public class DomainFilter extends OncePerRequestServiceFilter {
 
 		log.debug("Put domain info into request.");
 		request.setAttribute(DOMAIN_ATTRIBUTE_NAME, domain);
+		if (log.isDebugEnabled()) {
+			log.debug(domain + "" + domain.getUsernameConfiguration());
+		}
 	}
 }

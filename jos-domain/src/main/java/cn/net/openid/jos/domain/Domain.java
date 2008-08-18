@@ -3,9 +3,7 @@
  */
 package cn.net.openid.jos.domain;
 
-import java.io.Serializable;
 import java.net.URL;
-import java.util.Date;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -253,7 +251,7 @@ import org.apache.commons.lang.StringUtils;
  * @author Sutra Zhou
  * 
  */
-public class Domain extends DomainConfiguration implements Serializable {
+public class Domain extends BaseEntity {
 	/**
 	 * 
 	 */
@@ -269,8 +267,6 @@ public class Domain extends DomainConfiguration implements Serializable {
 	 */
 	public static final int TYPE_SUBDIRECTORY = 2;
 
-	private String id;
-
 	/**
 	 * your-domain.
 	 */
@@ -278,24 +274,8 @@ public class Domain extends DomainConfiguration implements Serializable {
 	private int type;
 	private String serverHost;
 	private String memberPath;
-
-	private boolean openRegistration;
-	private Date creationDate = new Date();
-
-	/**
-	 * @return the id
-	 */
-	public String getId() {
-		return id;
-	}
-
-	/**
-	 * @param id
-	 *            the id to set
-	 */
-	public void setId(String id) {
-		this.id = id;
-	}
+	private UsernameConfiguration usernameConfiguration;
+	private transient DomainRuntime runtime = new DomainRuntime();
 
 	/**
 	 * @return the name
@@ -358,57 +338,34 @@ public class Domain extends DomainConfiguration implements Serializable {
 	}
 
 	/**
-	 * @return the openRegistration
+	 * @return the usernameConfiguration
 	 */
-	public boolean isOpenRegistration() {
-		return openRegistration;
+	public UsernameConfiguration getUsernameConfiguration() {
+		return usernameConfiguration;
 	}
 
 	/**
-	 * @param openRegistration
-	 *            the openRegistration to set
+	 * @param usernameConfiguration
+	 *            the usernameConfiguration to set
 	 */
-	public void setOpenRegistration(boolean openRegistration) {
-		this.openRegistration = openRegistration;
+	public void setUsernameConfiguration(
+			UsernameConfiguration usernameConfiguration) {
+		this.usernameConfiguration = usernameConfiguration;
 	}
 
 	/**
-	 * @return the creationDate
+	 * @return the runtime
 	 */
-	public Date getCreationDate() {
-		return creationDate;
+	public DomainRuntime getRuntime() {
+		return runtime;
 	}
 
 	/**
-	 * @param creationDate
-	 *            the creationDate to set
+	 * @param runtime
+	 *            the runtime to set
 	 */
-	public void setCreationDate(Date creationDate) {
-		this.creationDate = creationDate;
-	}
-
-	/**
-	 * Append the port, if the port is not the default port.
-	 * 
-	 * @param sb
-	 * @param serverBaseUrl
-	 */
-	private void appendPort(StringBuilder sb, URL serverBaseUrl) {
-		int port = serverBaseUrl.getPort();
-		if (port != -1 && port != serverBaseUrl.getDefaultPort()) {
-			sb.append(':').append(port);
-		}
-	}
-
-	/**
-	 * Append member path if the memberPath is not empty.
-	 * 
-	 * @param sb
-	 */
-	private void appendMemberPath(StringBuilder sb) {
-		if (!StringUtils.isEmpty(this.getMemberPath())) {
-			sb.append(this.getMemberPath()).append('/');
-		}
+	public void setRuntime(DomainRuntime runtime) {
+		this.runtime = runtime;
 	}
 
 	/**
@@ -416,7 +373,7 @@ public class Domain extends DomainConfiguration implements Serializable {
 	 */
 	public String getIdentifierPrefix() {
 		StringBuilder sb = new StringBuilder();
-		URL baseUrl = this.getServerBaseUrl();
+		URL baseUrl = this.getRuntime().getServerBaseUrl();
 
 		switch (getType()) {
 		case Domain.TYPE_SUBDOMAIN:
@@ -440,7 +397,7 @@ public class Domain extends DomainConfiguration implements Serializable {
 	 */
 	public String getIdentifierSuffix() {
 		StringBuilder sb = new StringBuilder();
-		URL baseUrl = this.getServerBaseUrl();
+		URL baseUrl = this.getRuntime().getServerBaseUrl();
 
 		switch (getType()) {
 		case Domain.TYPE_SUBDOMAIN:
@@ -501,6 +458,30 @@ public class Domain extends DomainConfiguration implements Serializable {
 	@Override
 	public String toString() {
 		return getName();
+	}
+
+	/**
+	 * Append the port, if the port is not the default port.
+	 * 
+	 * @param sb
+	 * @param serverBaseUrl
+	 */
+	private void appendPort(StringBuilder sb, URL serverBaseUrl) {
+		int port = serverBaseUrl.getPort();
+		if (port != -1 && port != serverBaseUrl.getDefaultPort()) {
+			sb.append(':').append(port);
+		}
+	}
+
+	/**
+	 * Append member path if the memberPath is not empty.
+	 * 
+	 * @param sb
+	 */
+	private void appendMemberPath(StringBuilder sb) {
+		if (!StringUtils.isEmpty(this.getMemberPath())) {
+			sb.append(this.getMemberPath()).append('/');
+		}
 	}
 
 }

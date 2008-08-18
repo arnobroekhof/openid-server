@@ -27,6 +27,44 @@ public class RegisterController extends AbstractJosSimpleFormController {
 	 * (non-Javadoc)
 	 * 
 	 * @see
+	 * org.springframework.web.servlet.mvc.SimpleFormController#referenceData
+	 * (javax.servlet.http.HttpServletRequest, java.lang.Object,
+	 * org.springframework.validation.Errors)
+	 */
+	@Override
+	protected Map<Object, Object> referenceData(HttpServletRequest request,
+			Object command, Errors errors) throws Exception {
+		RegisterForm form = (RegisterForm) command;
+
+		// Set current domain to the user.
+		form.getUser().setDomain(this.getDomain(request));
+
+		form.getUser().setUsername(request.getParameter("username"));
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.springframework.web.servlet.mvc.AbstractFormController#formBackingObject
+	 * (javax.servlet.http.HttpServletRequest)
+	 */
+	@Override
+	protected Object formBackingObject(HttpServletRequest request)
+			throws Exception {
+		RegisterForm form = (RegisterForm) super.formBackingObject(request);
+
+		// Set current domain to the user.
+		form.getUser().setDomain(this.getDomain(request));
+
+		return form;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
 	 * org.springframework.web.servlet.mvc.BaseCommandController#onBindAndValidate
 	 * (javax.servlet.http.HttpServletRequest, java.lang.Object,
 	 * org.springframework.validation.BindException)
@@ -35,9 +73,6 @@ public class RegisterController extends AbstractJosSimpleFormController {
 	protected void onBindAndValidate(HttpServletRequest request,
 			Object command, BindException errors) throws Exception {
 		RegisterForm form = (RegisterForm) command;
-
-		// Set current domain to the user.
-		form.getUser().setDomain(this.getDomain(request));
 
 		String username = form.getUser().getUsername();
 
@@ -76,19 +111,4 @@ public class RegisterController extends AbstractJosSimpleFormController {
 		return super.onSubmit(command, errors);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.SimpleFormController#referenceData
-	 * (javax.servlet.http.HttpServletRequest, java.lang.Object,
-	 * org.springframework.validation.Errors)
-	 */
-	@Override
-	protected Map<Object, Object> referenceData(HttpServletRequest request,
-			Object command, Errors errors) throws Exception {
-		RegisterForm form = (RegisterForm) command;
-		form.getUser().setUsername(request.getParameter("username"));
-		return null;
-	}
 }

@@ -3,24 +3,20 @@
  */
 package cn.net.openid.jos.domain;
 
-import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @author Sutra Zhou
  * 
  */
-public class User implements Serializable {
+public class User extends BaseEntity {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -6219139356897428716L;
 
-	private String id;
 	private String username;
 	private Domain domain = new Domain();
-	private Date creationDate = new Date();
 
 	public User() {
 	}
@@ -31,40 +27,10 @@ public class User implements Serializable {
 	}
 
 	/**
-	 * @return the id
-	 */
-	public String getId() {
-		return id;
-	}
-
-	/**
-	 * @return the creationDate
-	 */
-	public Date getCreationDate() {
-		return creationDate;
-	}
-
-	/**
 	 * @return the username
 	 */
 	public String getUsername() {
 		return username;
-	}
-
-	/**
-	 * @param id
-	 *            the id to set
-	 */
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	/**
-	 * @param creationDate
-	 *            the creationDate to set
-	 */
-	public void setCreationDate(Date creationDate) {
-		this.creationDate = creationDate;
 	}
 
 	/**

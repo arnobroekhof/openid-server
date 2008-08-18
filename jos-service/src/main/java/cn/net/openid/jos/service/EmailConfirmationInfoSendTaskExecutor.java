@@ -55,7 +55,7 @@ public class EmailConfirmationInfoSendTaskExecutor {
 					emailConfirmationInfo.getConfirmationCode());
 			text = StringUtils.replace(text, "${serverBaseUrl}",
 					emailConfirmationInfo.getEmail().getUser().getDomain()
-							.getServerBaseUrl().toString());
+							.getRuntime().getServerBaseUrl().toString());
 
 			simpleMessage.setText(text);
 			mailSender.send(simpleMessage);

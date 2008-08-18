@@ -3,8 +3,6 @@
  */
 package cn.net.openid.jos.web.validation;
 
-import java.util.regex.Matcher;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -20,7 +18,6 @@ import cn.net.openid.jos.web.form.RegisterForm;
  * 
  */
 public class RegisterFormValidator implements Validator {
-	@SuppressWarnings("unused")
 	private static final Log log = LogFactory
 			.getLog(RegisterFormValidator.class);
 
@@ -41,32 +38,42 @@ public class RegisterFormValidator implements Validator {
 	 * org.springframework.validation.Errors)
 	 */
 	public void validate(Object target, Errors errors) {
-		RegisterForm form = (RegisterForm) target;
+		final RegisterForm form = (RegisterForm) target;
+		if (log.isDebugEnabled()) {
+			log.debug("Username configuration: "
+					+ form.getUser().getDomain().getUsernameConfiguration());
+		}
+
+		// Username is required.
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "user.username",
 				MessageCodes.Error.REQUIRED);
+
+		// Password is required.
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password",
 				MessageCodes.Error.REQUIRED);
-		Matcher m = form.getUser().getDomain().getUsernamePattern().matcher(
-				form.getUser().getUsername());
-		if (!m.matches()) {
+
+		// Is not a username?
+		if (!form.getUser().getDomain().getUsernameConfiguration().isUsername(
+				form.getUser().getUsername())) {
 			errors.rejectValue("user.username",
 					MessageCodes.User.Error.USERNAME_FORMAT);
 		}
 
-		m = form.getUser().getDomain().getReservedUsernamePattern().matcher(
-				form.getUser().getUsername());
-		if (m.matches()) {
+		// Is username reserved?
+		if (form.getUser().getDomain().getUsernameConfiguration().isReserved(
+				(form.getUser().getUsername()))) {
 			errors.rejectValue("user.username",
 					MessageCodes.User.Error.USERNAME_RESERVED);
 		}
 
-		m = form.getUser().getDomain().getUnallowableUsernamePattern().matcher(
-				form.getUser().getUsername());
-		if (m.matches()) {
+		// Is username unallowable?
+		if (form.getUser().getDomain().getUsernameConfiguration()
+				.isUnallowable(form.getUser().getUsername())) {
 			errors.rejectValue("user.username",
 					MessageCodes.User.Error.USERNAME_UNALLOWABLE);
 		}
 
+		// Confirmed password?
 		if (!StringUtils.equals(form.getPassword(), form
 				.getConfirmingPassword())) {
 			errors.rejectValue("confirmingPassword",

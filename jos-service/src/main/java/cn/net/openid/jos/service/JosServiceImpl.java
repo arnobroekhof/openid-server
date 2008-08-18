@@ -34,6 +34,7 @@ import cn.net.openid.jos.dao.UserDao;
 import cn.net.openid.jos.domain.Attribute;
 import cn.net.openid.jos.domain.AttributeValue;
 import cn.net.openid.jos.domain.Domain;
+import cn.net.openid.jos.domain.DomainRuntime;
 import cn.net.openid.jos.domain.Email;
 import cn.net.openid.jos.domain.EmailConfirmationInfo;
 import cn.net.openid.jos.domain.Password;
@@ -149,8 +150,8 @@ public class JosServiceImpl implements JosService {
 		if (serverManager == null) {
 			log.debug("new a serverManager for " + domain);
 			serverManager = new ServerManager();
-			serverManager.setOPEndpointUrl(domain.getOpenidServerUrl()
-					.toString());
+			serverManager.setOPEndpointUrl(domain.getRuntime()
+					.getOpenidServerUrl().toString());
 			this.serverManagers.put(domain, serverManager);
 		}
 		return serverManager;
@@ -203,13 +204,14 @@ public class JosServiceImpl implements JosService {
 		}
 
 		if (domain != null) {
-			domain.setServerBaseUrl(Domain.buildServerBaseUrl(domain,
-					requestUrl, request.getContextPath()));
+			domain.getRuntime().setServerBaseUrl(
+					DomainRuntime.buildServerBaseUrl(domain, requestUrl,
+							request.getContextPath()));
 
 			try {
-				URL openidServerUrl = new URL(domain.getServerBaseUrl(),
-						"server");
-				domain.setOpenidServerUrl(openidServerUrl);
+				URL openidServerUrl = new URL(domain.getRuntime()
+						.getServerBaseUrl(), "server");
+				domain.getRuntime().setOpenidServerUrl(openidServerUrl);
 			} catch (MalformedURLException e) {
 				throw new IllegalArgumentException(e);
 			}
@@ -248,7 +250,8 @@ public class JosServiceImpl implements JosService {
 			return null;
 		} else {
 			// Check whether it's an unallowable username.
-			Pattern pattern = domain.getUnallowableUsernamePattern();
+			Pattern pattern = domain.getUsernameConfiguration()
+					.getUnallowablePattern();
 			return isMatches(pattern, username) ? null : username;
 		}
 	}
