@@ -34,15 +34,12 @@ import cn.net.openid.jos.domain.User;
 import cn.net.openid.jos.service.JosService;
 
 /**
+ * Approving request processor.
+ * 
  * @author Sutra Zhou
  * 
  */
 public class ApprovingRequestProcessor {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -2198287012373272798L;
-
 	private static final Log log = LogFactory
 			.getLog(ApprovingRequestProcessor.class);
 
@@ -51,16 +48,18 @@ public class ApprovingRequestProcessor {
 	public static final int ALLOW_FOREVER = 2;
 	public static final int DENY = -1;
 
-	private JosService josService;
-	private ServerManager serverManager;
+	private final JosService josService;
+	private final ServerManager serverManager;
 
-	private HttpServletRequest httpReq;
-	private HttpServletResponse httpResp;
+	private final HttpServletRequest httpReq;
+	private final HttpServletResponse httpResp;
 
-	private ApprovingRequest checkIdRequest;
-	private AuthRequest authRequest;
-	private UserSession userSession;
-	private User user;
+	private final UserSession userSession;
+	private final User user;
+
+	private final ApprovingRequest checkIdRequest;
+	private final AuthRequest authRequest;
+	private final String realm;
 
 	/**
 	 * @param httpReq
@@ -79,13 +78,17 @@ public class ApprovingRequestProcessor {
 			ServerManager serverManager, ApprovingRequest checkIdRequest) {
 		this.httpReq = httpReq;
 		this.httpResp = httpResp;
+
 		this.josService = josService;
 		this.serverManager = serverManager;
+
 		this.userSession = WebUtils.getOrCreateUserSession(this.httpReq
 				.getSession());
 		this.user = userSession.getUser();
+
 		this.checkIdRequest = checkIdRequest;
 		this.authRequest = checkIdRequest.getAuthRequest();
+		this.realm = this.authRequest.getRealm();
 	}
 
 	public void checkId() throws IOException {
@@ -110,9 +113,11 @@ public class ApprovingRequestProcessor {
 		if (this.isLoggedInUserOwnClaimedId()) {
 			switch (allowType) {
 			case ALLOW_ONCE:
+				josService.allow(this.user, this.realm, persona, false);
 				this.redirectToReturnToPage(true, persona);
 				break;
 			case ALLOW_FOREVER:
+				josService.allow(this.user, this.realm, persona, true);
 				this.redirectToReturnToPage(true, persona);
 				break;
 			case DENY:

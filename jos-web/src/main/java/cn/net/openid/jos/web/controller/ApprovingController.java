@@ -125,7 +125,6 @@ public class ApprovingController extends AbstractJosSimpleFormController {
 
 		ApprovingRequest checkIdRequest = userSession.getApprovingRequest(form
 				.getToken());
-		AuthRequest authReq = checkIdRequest.getAuthRequest();
 
 		String personaId = request.getParameter("personaId");
 
@@ -137,16 +136,10 @@ public class ApprovingController extends AbstractJosSimpleFormController {
 		if (request.getParameter("allow_once") != null) {
 			persona = getJosService().getPersona(userSession.getUser(),
 					personaId);
-
-			getJosService().allow(userSession.getUser(), authReq.getRealm(),
-					persona, false);
 			arp.checkId(ApprovingRequestProcessor.ALLOW_ONCE, persona);
 		} else if (request.getParameter("allow_forever") != null) {
 			persona = getJosService().getPersona(userSession.getUser(),
 					personaId);
-
-			getJosService().allow(userSession.getUser(), authReq.getRealm(),
-					persona, true);
 			arp.checkId(ApprovingRequestProcessor.ALLOW_FOREVER, persona);
 		} else if (request.getParameter("deny") != null) {
 			arp.checkId(ApprovingRequestProcessor.DENY, null);
