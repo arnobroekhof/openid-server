@@ -130,6 +130,15 @@ public interface JosService {
 
 	void updateAlwaysApprove(User user, String realmId, boolean alwaysApprove);
 
+	/**
+	 * When user click allow(allow_once or allow_forever) button, invoke this
+	 * method to login the site approvals.
+	 * 
+	 * @param user
+	 * @param realm
+	 * @param persona
+	 * @param forever
+	 */
 	void allow(User user, String realm, Persona persona, boolean forever);
 
 	Site getSite(User user, String realmUrl);
