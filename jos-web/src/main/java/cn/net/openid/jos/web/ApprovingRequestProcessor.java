@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openid4java.association.AssociationException;
+import org.openid4java.message.AuthFailure;
 import org.openid4java.message.AuthRequest;
 import org.openid4java.message.AuthSuccess;
 import org.openid4java.message.DirectError;
@@ -198,6 +199,8 @@ public class ApprovingRequestProcessor {
 
 		if (response instanceof DirectError) {
 			directResponse(response.keyValueFormEncoding());
+		} else if (response instanceof AuthFailure) {
+			httpResp.sendRedirect(response.getDestinationUrl(true));
 		} else {
 			if (authenticatedAndApproved) {
 				try {
