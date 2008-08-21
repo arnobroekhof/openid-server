@@ -18,6 +18,7 @@ import cn.net.openid.jos.domain.Password;
 import cn.net.openid.jos.domain.Persona;
 import cn.net.openid.jos.domain.Site;
 import cn.net.openid.jos.domain.User;
+import cn.net.openid.jos.service.exception.PersonaInUseException;
 
 /**
  * @author Sutra Zhou
@@ -153,5 +154,6 @@ public interface JosService {
 
 	void updatePersona(User user, Persona persona);
 
-	void deletePersonas(User user, String[] personaIds);
+	void deletePersonas(User user, String[] personaIds)
+			throws PersonaInUseException;
 }

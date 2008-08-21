@@ -153,8 +153,21 @@ public class ApprovingRequestProcessor {
 	 * @throws IOException
 	 */
 	private void checkApproval() throws IOException {
+		boolean approved;
 		Site site = josService.getSite(user, authRequest.getRealm());
 		if (site != null && site.isAlwaysApprove()) {
+			boolean sreg = authRequest.hasExtension(SRegMessage.OPENID_NS_SREG);
+			if ((sreg && site.getPersona() != null)
+					|| (!sreg && site.getPersona() == null)) {
+				approved = true;
+			} else {
+				approved = false;
+			}
+		} else {
+			approved = false;
+		}
+
+		if (approved) {
 			josService.updateApproval(user, authRequest.getRealm());
 
 			// return to `return_to' page.

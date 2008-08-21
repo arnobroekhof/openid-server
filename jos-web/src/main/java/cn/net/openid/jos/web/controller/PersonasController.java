@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.net.openid.jos.domain.User;
-import cn.net.openid.jos.service.LastPasswordException;
+import cn.net.openid.jos.service.exception.PersonaInUseException;
 import cn.net.openid.jos.web.AbstractJosController;
 
 /**
@@ -26,7 +26,7 @@ public class PersonasController extends AbstractJosController {
 	 * .http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	public ModelAndView handleRequest(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+			HttpServletResponse response) {
 		User user = getUser(request);
 
 		// Delete checked personas.
@@ -35,8 +35,8 @@ public class PersonasController extends AbstractJosController {
 		if (deletePersonaIds != null) {
 			try {
 				getJosService().deletePersonas(user, deletePersonaIds);
-			} catch (LastPasswordException e) {
-				// Last password exception.
+			} catch (PersonaInUseException e) {
+				request.setAttribute("error", "persona.error.inUse");
 			}
 		}
 

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.openid4java.message.AuthRequest;
+import org.openid4java.message.sreg.SRegMessage;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
@@ -63,6 +64,8 @@ public class ApprovingController extends AbstractJosSimpleFormController {
 	@Override
 	protected Map<String, Object> referenceData(HttpServletRequest request,
 			Object command, Errors errors) throws Exception {
+		Map<String, Object> models = new HashMap<String, Object>();
+
 		ApprovingForm form = (ApprovingForm) command;
 		String token = request.getParameter("token");
 		form.setToken(token);
@@ -73,16 +76,19 @@ public class ApprovingController extends AbstractJosSimpleFormController {
 		if (checkIdRequest != null) {
 			AuthRequest authReq = checkIdRequest.getAuthRequest();
 			form.setAuthRequest(authReq);
-			String realmUrl = authReq.getRealm();
-			Site site = getJosService()
-					.getSite(userSession.getUser(), realmUrl);
-			if (site != null && site.getPersona() != null) {
-				form.setPersonaId(site.getPersona().getId());
+
+			if (authReq.hasExtension(SRegMessage.OPENID_NS_SREG)) {
+				models.put("personas", this.getJosService().getPersonas(
+						userSession.getUser()));
+
+				String realmUrl = authReq.getRealm();
+				Site site = getJosService().getSite(userSession.getUser(),
+						realmUrl);
+				if (site != null && site.getPersona() != null) {
+					form.setPersonaId(site.getPersona().getId());
+				}
 			}
 		}
-		Map<String, Object> models = new HashMap<String, Object>();
-		models.put("personas", this.getJosService().getPersonas(
-				userSession.getUser()));
 		return models;
 	}
 
@@ -98,10 +104,16 @@ public class ApprovingController extends AbstractJosSimpleFormController {
 	protected void onBindAndValidate(HttpServletRequest request,
 			Object command, BindException errors) throws Exception {
 		ApprovingForm form = (ApprovingForm) command;
-		if ((request.getParameter("allow_once") != null || request
-				.getParameter("allow_forever") != null)
-				&& StringUtils.isEmpty(form.getPersonaId())) {
-			errors.rejectValue("personaId", "required", "Persona is required.");
+		boolean allow = request.getParameter("allow_once") != null
+				|| request.getParameter("allow_forever") != null;
+		if (allow) {
+			boolean sreg = getUserSession(request).getApprovingRequest(
+					form.getToken()).getAuthRequest().hasExtension(
+					SRegMessage.OPENID_NS_SREG);
+			if (sreg && StringUtils.isEmpty(form.getPersonaId())) {
+				errors.rejectValue("personaId", "required",
+						"Persona is required.");
+			}
 		}
 		super.onBindAndValidate(request, command, errors);
 	}
@@ -132,14 +144,18 @@ public class ApprovingController extends AbstractJosSimpleFormController {
 				response, getJosService(), this.getJosService()
 						.getServerManager(domain), checkIdRequest);
 
-		Persona persona;
+		Persona persona = null;
 		if (request.getParameter("allow_once") != null) {
-			persona = getJosService().getPersona(userSession.getUser(),
-					personaId);
+			if (personaId != null) {
+				persona = getJosService().getPersona(userSession.getUser(),
+						personaId);
+			}
 			arp.checkId(ApprovingRequestProcessor.ALLOW_ONCE, persona);
 		} else if (request.getParameter("allow_forever") != null) {
-			persona = getJosService().getPersona(userSession.getUser(),
-					personaId);
+			if (personaId != null) {
+				persona = getJosService().getPersona(userSession.getUser(),
+						personaId);
+			}
 			arp.checkId(ApprovingRequestProcessor.ALLOW_FOREVER, persona);
 		} else if (request.getParameter("deny") != null) {
 			arp.checkId(ApprovingRequestProcessor.DENY, null);

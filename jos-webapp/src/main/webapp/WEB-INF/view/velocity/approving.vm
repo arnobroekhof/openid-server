@@ -22,6 +22,7 @@
 				<span><code>$!command.authRequest.identity</code></span>
 				#springMessageText("approving.3" " is your identity URL. ")
 			</div>
+			#if($personas)
 			<div>
 				#springMessageText("approving.additionalInformation.1" "The site also asked for additional information. ")
 				#springMessageText("approving.additionalInformation.2" "It did not provide a link to the policy on data it collects. ")
@@ -30,10 +31,12 @@
 				<code>$!command.authRequest.realm</code>
 				#springMessageText("approving.additionalInformation.5" ": ")
 			</div>
+			#end
 			<form action="approving" method="post">
 				#springBind("command.token")
 				<input type="hidden" name="$!{status.expression}" value="$!{esc.html($!{status.value})}" />
 
+				#if($personas)
 				#springBind("command.personaId")
 				<table class="list">
 					<thead>
@@ -78,6 +81,7 @@
 						</tr>
 					</tfoot>
 				</table>
+				#end
 
 				#springShowErrors("" "error")
 

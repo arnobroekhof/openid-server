@@ -22,4 +22,6 @@ public interface PersonaDao {
 	void updatePersona(Persona persona);
 
 	void deletePersona(Persona persona);
+
+	long countSites(Persona persona);
 }

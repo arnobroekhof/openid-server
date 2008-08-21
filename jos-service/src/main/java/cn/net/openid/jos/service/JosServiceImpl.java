@@ -42,6 +42,7 @@ import cn.net.openid.jos.domain.Persona;
 import cn.net.openid.jos.domain.Realm;
 import cn.net.openid.jos.domain.Site;
 import cn.net.openid.jos.domain.User;
+import cn.net.openid.jos.service.exception.PersonaInUseException;
 
 /**
  * @author Sutra Zhou
@@ -870,11 +871,16 @@ public class JosServiceImpl implements JosService {
 	 * cn.net.openid.jos.service.JosService#deletePersonas(cn.net.openid.jos
 	 * .domain.User, java.lang.String[])
 	 */
-	public void deletePersonas(User user, String[] personaIds) {
+	public void deletePersonas(User user, String[] personaIds)
+			throws PersonaInUseException {
 		for (String personaId : personaIds) {
 			Persona persona = getPersona(user, personaId);
 			if (persona != null) {
-				personaDao.deletePersona(persona);
+				if (personaDao.countSites(persona) != 0L) {
+					throw new PersonaInUseException();
+				} else {
+					personaDao.deletePersona(persona);
+				}
 			}
 		}
 	}

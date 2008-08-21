@@ -68,6 +68,9 @@
 					</tr>
 				</tfoot>
 			</table>
+			#if($error)
+				<div class="error">#springMessage("persona.error.inUse")</div>
+			#end
 			</form>
 		</fieldset>
 		#parse("footer.vm")
