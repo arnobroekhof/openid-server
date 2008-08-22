@@ -44,6 +44,9 @@
 		abstract="true">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
+	<bean id="domainDao"
+		class="cn.net.openid.jos.dao.hibernate.HibernateDomainDao"
+		parent="baseDao" />
 	<bean id="userDao"
 		class="cn.net.openid.jos.dao.hibernate.HibernateUserDao"
 		parent="baseDao" />

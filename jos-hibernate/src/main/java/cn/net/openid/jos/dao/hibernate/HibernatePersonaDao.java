@@ -60,4 +60,12 @@ public class HibernatePersonaDao extends BaseHibernateEntityDao<Persona>
 	public void deletePersona(Persona persona) {
 		getHibernateTemplate().delete(persona);
 	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see cn.net.openid.jos.dao.PersonaDao#countSites(cn.net.openid.jos.domain.Persona)
+	 */
+	public long countSites(Persona persona) {
+		return count("select count(*) from Site where persona = ?", persona);
+	}
 }

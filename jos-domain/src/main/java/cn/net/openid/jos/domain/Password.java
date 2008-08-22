@@ -3,25 +3,21 @@
  */
 package cn.net.openid.jos.domain;
 
-import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @author Sutra Zhou
  * 
  */
-public class Password implements Serializable {
+public class Password extends BaseEntity {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 7141923018810122892L;
 
-	private String id;
 	private User user = new User();
 	private String name;
 	private String plaintext;
 	private String shaHex;
-	private Date creationDate = new Date();
 
 	/**
 	 * 
@@ -34,21 +30,6 @@ public class Password implements Serializable {
 	 */
 	public Password(User user) {
 		this.user = user;
-	}
-
-	/**
-	 * @return id
-	 */
-	public String getId() {
-		return id;
-	}
-
-	/**
-	 * @param id
-	 *            要设置的 id
-	 */
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	/**
@@ -109,21 +90,6 @@ public class Password implements Serializable {
 	 */
 	public void setShaHex(String shaHex) {
 		this.shaHex = shaHex;
-	}
-
-	/**
-	 * @return the creationDate
-	 */
-	public Date getCreationDate() {
-		return creationDate;
-	}
-
-	/**
-	 * @param creationDate
-	 *            the creationDate to set
-	 */
-	public void setCreationDate(Date creationDate) {
-		this.creationDate = creationDate;
 	}
 
 	/*

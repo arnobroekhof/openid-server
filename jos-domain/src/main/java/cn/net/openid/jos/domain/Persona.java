@@ -3,8 +3,6 @@
  */
 package cn.net.openid.jos.domain;
 
-import java.io.Serializable;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -13,13 +11,12 @@ import java.util.Map;
  * @author Sutra Zhou
  * 
  */
-public class Persona implements Serializable {
+public class Persona extends BaseEntity {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1223541515197309353L;
 
-	private String id;
 	private User user = new User();
 	private String name;
 
@@ -76,8 +73,6 @@ public class Persona implements Serializable {
 	 * example, "Europe/Paris" or "America/Los_Angeles".
 	 */
 	private String timezone;
-
-	private Date creationDate = new Date();
 
 	/**
 	 * 
@@ -187,21 +182,6 @@ public class Persona implements Serializable {
 	}
 
 	/**
-	 * @return id
-	 */
-	public String getId() {
-		return id;
-	}
-
-	/**
-	 * @param id
-	 *            要设置的 id
-	 */
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	/**
 	 * @return language
 	 */
 	public String getLanguage() {
@@ -283,21 +263,6 @@ public class Persona implements Serializable {
 
 	public Locale getLocale() {
 		return new Locale(this.language, this.country);
-	}
-
-	/**
-	 * @return the creationDate
-	 */
-	public Date getCreationDate() {
-		return creationDate;
-	}
-
-	/**
-	 * @param creationDate
-	 *            the creationDate to set
-	 */
-	public void setCreationDate(Date creationDate) {
-		this.creationDate = creationDate;
 	}
 
 	public Map<String, String> toMap() {

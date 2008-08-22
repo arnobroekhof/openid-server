@@ -1,3 +1,4 @@
+#set($springXhtmlCompliant = true)
 <div id="header">
 	<div id="logo"><img src="openid-logo.png" alt="OpenID" /></div>
 	<div id="navbar">
@@ -7,7 +8,7 @@
 			<li><a href="login" title="#springMessage("login")">#springMessage("login")</a></li>
 			<li><a href="register" title="#springMessage("register.tip")">#springMessage("register")</a></li>
 			#else
-			<li><a href="home" title="#springMessage("home.tip")">#springMessage("home")</a></li>
+			<li><a href="#springUrl('/')" title="#springMessage("home.tip")">#springMessage("home")</a></li>
 			<li><a href="email" title="#springMessage("email.title.tip")">#springMessage("email.title")</a></li>
 			<li><a href="passwords" title="#springMessage("password.title.password")">#springMessage("password.title.passwords")</a></li>
 			<li><a href="personas" title="#springMessage("persona.title.persona")">#springMessage("persona.title.personas")</a></li>
@@ -23,7 +24,10 @@
 	</div>
 </div>
 <div id="welcome">
-	 #springMessage("welcome") $!{userSession.username}
+	 #springMessage("welcome")
+	 #if(${userSession.loggedIn})
+	 <a href="$!{userSession.user.identifier}">$!{userSession.user.identifier}</a>
+	 #end
 </div>
 <div id="description">
 	#springMessage("description")
@@ -31,10 +35,10 @@
 #if($userSession && $userSession.approvingRequests.size() > 0)
 <div id="approving-tip">
 	#if($userSession.approvingRequests.size() == 1)
-		Your approving authentiation request:
+		#springMessageText("approving.request" "Your approving authentiation request: ")
 		#foreach($approvingRequest in $userSession.approvingRequests)<a href="approving?token=$approvingRequest.token">$approvingRequest.authRequest.returnTo</a>#end.
 	#else
-	Your approving authentication requests:
+	#springMessageText("approving.requests" "Your approving authentication requests: ")
 	<ul>
 		#foreach($approvingRequest in $userSession.approvingRequests)
 		<li#if($token && $approvingRequest.token == $token) class="current"#end><a href="approving?token=$approvingRequest.token">$approvingRequest.authRequest.returnTo</a></li>

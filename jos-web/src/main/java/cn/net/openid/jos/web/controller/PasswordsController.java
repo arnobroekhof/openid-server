@@ -21,8 +21,9 @@ public class PasswordsController extends AbstractJosController {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.springframework.web.servlet.mvc.Controller#handleRequest(javax.servlet.http.HttpServletRequest,
-	 *      javax.servlet.http.HttpServletResponse)
+	 * @see
+	 * org.springframework.web.servlet.mvc.Controller#handleRequest(javax.servlet
+	 * .http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	public ModelAndView handleRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -33,13 +34,13 @@ public class PasswordsController extends AbstractJosController {
 				.getParameterValues("deletePasswordId");
 		if (deletePasswordIds != null) {
 			try {
-				josService.deletePasswords(user, deletePasswordIds);
+				getJosService().deletePasswords(user, deletePasswordIds);
 			} catch (LastPasswordException e) {
 				// Last password exception.
 			}
 		}
 
-		return new ModelAndView("passwords", "passwords", josService
+		return new ModelAndView("passwords", "passwords", getJosService()
 				.getPasswords(user));
 	}
 

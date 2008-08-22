@@ -44,14 +44,20 @@ public class MemberServlet extends HttpServlet {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest,
-	 *      javax.servlet.http.HttpServletResponse)
+	 * @see
+	 * javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest
+	 * , javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		req.setAttribute("username", req.getPathInfo().substring(1));
-		this.context.getRequestDispatcher("/member.jsp").forward(req, resp);
+		String pathInfo = req.getPathInfo();
+		if (pathInfo != null && pathInfo.length() > 1) {
+			req.setAttribute("username", req.getPathInfo().substring(1));
+			this.context.getRequestDispatcher("/member.jsp").forward(req, resp);
+		} else {
+			resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
+		}
 	}
 
 }

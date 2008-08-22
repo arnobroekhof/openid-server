@@ -1,3 +1,4 @@
+#set($springXhtmlCompliant = true)
 <html>
 	<head>
 		<title>附加属性</title>
@@ -15,7 +16,7 @@
 			</tr>
 		#end
 		</table>
-		<input type="submit" value="Save" class="button" />
+		<button type="submit">Save</button>
 		</form>
 		#parse("footer.vm")
 	</body>

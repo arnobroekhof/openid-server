@@ -1,7 +1,7 @@
 /**
  * Created on 2008-5-31 上午05:52:07
  */
-package cn.net.openid.jos.web;
+package cn.net.openid.jos.web.filter;
 
 import java.io.IOException;
 
@@ -17,6 +17,9 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import cn.net.openid.jos.web.UserSession;
+import cn.net.openid.jos.web.WebUtils;
 
 /**
  * @author Sutra Zhou

@@ -38,16 +38,18 @@ public class AttributeValueController extends AbstractJosSimpleFormController {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.springframework.web.servlet.mvc.AbstractFormController#formBackingObject(javax.servlet.http.HttpServletRequest)
+	 * @see
+	 * org.springframework.web.servlet.mvc.AbstractFormController#formBackingObject
+	 * (javax.servlet.http.HttpServletRequest)
 	 */
 	@Override
 	protected Object formBackingObject(HttpServletRequest request)
 			throws Exception {
 		UserSession userSession = getUserSession(request);
 		List<AttributeValue> attributeValues = new ArrayList<AttributeValue>();
-		Collection<Attribute> attributes = this.josService.getAttributes();
-		Map<String, String> userAttributeValues = this.buildMap(this.josService
-				.getUserAttributeValues(userSession.getUser()));
+		Collection<Attribute> attributes = this.getJosService().getAttributes();
+		Map<String, String> userAttributeValues = this.buildMap(this
+				.getJosService().getUserAttributeValues(userSession.getUser()));
 		for (Attribute attribute : attributes) {
 			AttributeValue attributeValue = new AttributeValue();
 			attributeValue.setAttribute(attribute);
@@ -61,9 +63,10 @@ public class AttributeValueController extends AbstractJosSimpleFormController {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax.servlet.http.HttpServletRequest,
-	 *      javax.servlet.http.HttpServletResponse, java.lang.Object,
-	 *      org.springframework.validation.BindException)
+	 * @see
+	 * org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax
+	 * .servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse,
+	 * java.lang.Object, org.springframework.validation.BindException)
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
@@ -73,13 +76,13 @@ public class AttributeValueController extends AbstractJosSimpleFormController {
 		UserSession userSession = getUserSession(request);
 		List<AttributeValue> attributeValues = (List<AttributeValue>) command;
 		for (AttributeValue attributeValue : attributeValues) {
-			attributeValue.setUser(this.josService.getUser(userSession
-					.getUserId()));
+			attributeValue.setUser(this.getJosService().getUser(
+					userSession.getUser().getId()));
 			String value = request.getParameter(attributeValue.getAttribute()
 					.getId());
 			attributeValue.setValue(value);
 		}
-		this.josService.saveAttributeValues(userSession.getUser(),
+		this.getJosService().saveAttributeValues(userSession.getUser(),
 				attributeValues);
 		return super.onSubmit(request, response, command, errors);
 	}

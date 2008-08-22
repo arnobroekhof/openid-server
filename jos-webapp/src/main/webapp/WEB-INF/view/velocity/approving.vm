@@ -1,3 +1,4 @@
+#set($springXhtmlCompliant = true)
 <html>
 	<head>
 		<title>#springMessage("openid") - #springMessage("login")</title>
@@ -13,24 +14,29 @@
 	<div>
 		#parse("header.vm")
 		<fieldset>
-			<legend>#springMessage("login")</legend>
-<div>
-A site identifying itself as 
-<span><code>$!command.authRequest.returnTo</code></span>
-has asked us for confirmation that
-<span><code>$!command.authRequest.identity</code></span>
-is your identity URL.
-</div>
-<div>
-The site also asked for additional information.
-It did not provide a link to the policy on data it collects.
-##You can find the their policy about the data it collected on this page.
-This is the persona we're going to send to <code>$!command.authRequest.realm</code>:
-</div>
+			<legend>#springMessageText("approving.title" "OpenID Verification")</legend>
+			<div>
+				#springMessageText("approving.1" "A site identifying itself as ") 
+				<span><code>$!command.authRequest.returnTo</code></span>
+				#springMessageText("approving.2" " has asked us for confirmation that ")
+				<span><code>$!command.authRequest.identity</code></span>
+				#springMessageText("approving.3" " is your identity URL. ")
+			</div>
+			#if($personas)
+			<div>
+				#springMessageText("approving.additionalInformation.1" "The site also asked for additional information. ")
+				#springMessageText("approving.additionalInformation.2" "It did not provide a link to the policy on data it collects. ")
+				##springMessageText("approving.additionalInformation.3" "You can find the their policy about the data it collected on this page. ")
+				#springMessageText("approving.additionalInformation.4" "This is the persona we're going to send to ") 
+				<code>$!command.authRequest.realm</code>
+				#springMessageText("approving.additionalInformation.5" ": ")
+			</div>
+			#end
 			<form action="approving" method="post">
 				#springBind("command.token")
 				<input type="hidden" name="$!{status.expression}" value="$!{esc.html($!{status.value})}" />
 
+				#if($personas)
 				#springBind("command.personaId")
 				<table class="list">
 					<thead>
@@ -71,10 +77,11 @@ This is the persona we're going to send to <code>$!command.authRequest.realm</co
 					</tbody>
 					<tfoot>
 						<tr>
-							<td colspan="10"><a href="persona?token=$!{esc.html($!{token})}">Add New Persona</a></td>
+							<td colspan="11"><a href="persona?token=$!{esc.html($!{token})}">#springMessage("persona.button.addNewPersona")</a></td>
 						</tr>
 					</tfoot>
 				</table>
+				#end
 
 				#springShowErrors("" "error")
 
@@ -90,9 +97,9 @@ This is the persona we're going to send to <code>$!command.authRequest.realm</co
 					<td><input type="text" id="attribute_$!{esc.html($!{attribute.name})}" name="$!{esc.html($!{attribute.name})}" value="$!{esc.html($!{attribute.value})}" /></td></tr>
 				#end
 				</table>
-				<input type="submit" name="allow_forever" value="Allow Forever" class="button" />
-				<input type="submit" name="allow_once" value="Allow Once" class="button" />
-				<input type="submit" name="deny" value="Deny" class="button" />
+				<button type="submit" name="allow_forever">#springMessageText("button.allowForever" "Allow Forever")</button>
+				<button type="submit" name="allow_once">#springMessageText("button.allowOnce" "Allow Once")</button>
+				<button type="submit" name="deny">#springMessageText("button.deny" "Deny")</button>
 			</form>
 		</fieldset>
 		#parse("footer.vm")

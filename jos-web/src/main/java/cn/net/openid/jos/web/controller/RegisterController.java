@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import cn.net.openid.jos.domain.Password;
 import cn.net.openid.jos.domain.User;
 import cn.net.openid.jos.web.AbstractJosSimpleFormController;
+import cn.net.openid.jos.web.MessageCodes;
 import cn.net.openid.jos.web.form.RegisterForm;
 
 /**
@@ -25,20 +26,62 @@ public class RegisterController extends AbstractJosSimpleFormController {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.springframework.web.servlet.mvc.BaseCommandController#onBindAndValidate(javax.servlet.http.HttpServletRequest,
-	 *      java.lang.Object, org.springframework.validation.BindException)
+	 * @see
+	 * org.springframework.web.servlet.mvc.SimpleFormController#referenceData
+	 * (javax.servlet.http.HttpServletRequest, java.lang.Object,
+	 * org.springframework.validation.Errors)
+	 */
+	@Override
+	protected Map<Object, Object> referenceData(HttpServletRequest request,
+			Object command, Errors errors) throws Exception {
+		RegisterForm form = (RegisterForm) command;
+
+		// Set current domain to the user.
+		form.getUser().setDomain(this.getDomain(request));
+
+		form.getUser().setUsername(request.getParameter("username"));
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.springframework.web.servlet.mvc.AbstractFormController#formBackingObject
+	 * (javax.servlet.http.HttpServletRequest)
+	 */
+	@Override
+	protected Object formBackingObject(HttpServletRequest request)
+			throws Exception {
+		RegisterForm form = (RegisterForm) super.formBackingObject(request);
+
+		// Set current domain to the user.
+		form.getUser().setDomain(this.getDomain(request));
+
+		return form;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.springframework.web.servlet.mvc.BaseCommandController#onBindAndValidate
+	 * (javax.servlet.http.HttpServletRequest, java.lang.Object,
+	 * org.springframework.validation.BindException)
 	 */
 	@Override
 	protected void onBindAndValidate(HttpServletRequest request,
 			Object command, BindException errors) throws Exception {
 		RegisterForm form = (RegisterForm) command;
-		String username = form.getUsername();
+
+		String username = form.getUser().getUsername();
 
 		if (!errors.hasErrors()) {
-			User user = this.josService.getUserByUsername(username);
+			User user = this.getJosService().getUser(getDomain(request),
+					username);
 			if (user != null) {
-				errors.rejectValue("username",
-						"error.register.usernameAlreadyExists");
+				errors.rejectValue("user.username",
+						MessageCodes.User.Error.REGISTER_USER_ALREADY_EXISTS);
 			}
 		}
 
@@ -48,37 +91,24 @@ public class RegisterController extends AbstractJosSimpleFormController {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(java.lang.Object,
-	 *      org.springframework.validation.BindException)
+	 * @see
+	 * org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(java
+	 * .lang.Object, org.springframework.validation.BindException)
 	 */
 	@Override
 	protected ModelAndView onSubmit(Object command, BindException errors)
 			throws Exception {
 		RegisterForm form = (RegisterForm) command;
-		User user = new User();
-		user.setUsername(form.getUsername());
+		User user = form.getUser();
 		String passwordShaHex = DigestUtils.shaHex(form.getPassword());
 		Password password = new Password(user);
 		String defaultPasswordMessage = this.getMessageSourceAccessor()
-				.getMessage("password.title.defaultPassword");
+				.getMessage(MessageCodes.Password.Title.DEFAULT_PASSWORD);
 		password.setName(defaultPasswordMessage);
 		password.setPlaintext(form.getPassword());
 		password.setShaHex(passwordShaHex);
-		this.josService.insertUser(user, password);
+		this.getJosService().insertUser(user, password);
 		return super.onSubmit(command, errors);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.springframework.web.servlet.mvc.SimpleFormController#referenceData(javax.servlet.http.HttpServletRequest,
-	 *      java.lang.Object, org.springframework.validation.Errors)
-	 */
-	@Override
-	protected Map<Object, Object> referenceData(HttpServletRequest request,
-			Object command, Errors errors) throws Exception {
-		RegisterForm form = (RegisterForm) command;
-		form.setUsername(request.getParameter("username"));
-		return null;
-	}
 }

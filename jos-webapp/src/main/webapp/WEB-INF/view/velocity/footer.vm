@@ -1,3 +1,4 @@
+#set($springXhtmlCompliant = true)
 <div id="footer">
 	#springMessage("message.copyright") &copy; 2006-2008, <a href="http://openid.org.cn">OpenID.org.cn</a>
 </div>

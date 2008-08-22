@@ -11,8 +11,10 @@ import org.openid4java.message.AuthRequest;
 import org.openid4java.message.DirectError;
 import org.openid4java.message.Message;
 import org.openid4java.message.ParameterList;
+import org.openid4java.server.ServerManager;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.net.openid.jos.domain.Domain;
 import cn.net.openid.jos.web.AbstractJosController;
 import cn.net.openid.jos.web.ApprovingRequest;
 import cn.net.openid.jos.web.ApprovingRequestProcessor;
@@ -32,8 +34,9 @@ public class ServerController extends AbstractJosController {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.springframework.web.servlet.mvc.Controller#handleRequest(javax.servlet.http.HttpServletRequest,
-	 *      javax.servlet.http.HttpServletResponse)
+	 * @see
+	 * org.springframework.web.servlet.mvc.Controller#handleRequest(javax.servlet
+	 * .http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	public ModelAndView handleRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -50,6 +53,12 @@ public class ServerController extends AbstractJosController {
 
 	private String processRequest(HttpServletRequest httpReq,
 			HttpServletResponse httpResp) throws Exception {
+		Domain domain = this.getDomain(httpReq);
+		if (log.isDebugEnabled()) {
+			log.debug("domain: " + domain);
+		}
+		ServerManager serverManager = this.getJosService().getServerManager(domain);
+
 		// extract the parameters from the request
 		ParameterList request = new ParameterList(httpReq.getParameterMap());
 
@@ -60,18 +69,18 @@ public class ServerController extends AbstractJosController {
 
 		if ("associate".equals(mode)) {
 			// --- process an association request ---
-			response = this.serverManager.associationResponse(request);
+			response = serverManager.associationResponse(request);
 			responseText = response.keyValueFormEncoding();
 		} else if ("checkid_setup".equals(mode)
 				|| "checkid_immediate".equals(mode)) {
 			AuthRequest authReq = AuthRequest.createAuthRequest(request,
-					this.serverManager.getRealmVerifier());
-			new ApprovingRequestProcessor(httpReq, httpResp, josService,
+					serverManager.getRealmVerifier());
+			new ApprovingRequestProcessor(httpReq, httpResp, getJosService(),
 					serverManager, new ApprovingRequest(authReq)).checkId();
 			responseText = null;
 		} else if ("check_authentication".equals(mode)) {
 			// --- processing a verification request ---
-			response = this.serverManager.verify(request);
+			response = serverManager.verify(request);
 			responseText = response.keyValueFormEncoding();
 		} else {
 			// --- error response ---

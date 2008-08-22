@@ -38,13 +38,6 @@
 		</listener-class>
 	</listener>
 
-	<!-- Java OpenID Server. -->
-	<listener>
-		<listener-class>
-			cn.net.openid.jos.web.JosServletContextListener
-		</listener-class>
-	</listener>
-
 	<!-- Character Encoding. -->
 	<filter>
 		<display-name>Set Character Encoding Filter</display-name>
@@ -58,30 +51,42 @@
 		</init-param>
 	</filter>
 	<filter>
+		<display-name>Request Logging Filter</display-name>
+		<filter-name>Request Logging Filter</filter-name>
+		<filter-class>org.springframework.web.filter.CommonsRequestLoggingFilter</filter-class>
+	</filter>
+	<filter>
 		<filter-name>openSessionInViewFilter</filter-name>
 		<filter-class>
 			org.springframework.orm.hibernate3.support.OpenSessionInViewFilter
 		</filter-class>
 	</filter>
 
+	<!-- Domain Filter -->
+	<filter>
+		<display-name>Domain Filter</display-name>
+		<filter-name>Domain Filter</filter-name>
+		<filter-class>cn.net.openid.jos.web.filter.DomainFilter</filter-class>
+	</filter>
+
 	<!-- Java OpenID Server Member URL. -->
 	<filter>
 		<display-name>Member Filter</display-name>
 		<filter-name>Member Filter</filter-name>
-		<filter-class>cn.net.openid.jos.web.MemberFilter</filter-class>
+		<filter-class>cn.net.openid.jos.web.filter.MemberFilter</filter-class>
 	</filter>
 	<filter>
 		<display-name>User Agent Locales Filter</display-name>
 		<filter-name>User Agent Locales Filter</filter-name>
 		<filter-class>
-			cn.net.openid.jos.web.UserAgentLocalesFilter
+			cn.net.openid.jos.web.filter.UserAgentLocalesFilter
 		</filter-class>
 	</filter>
 	<filter>
 		<display-name>Approving Request Filter</display-name>
 		<filter-name>Approving Request Filter</filter-name>
 		<filter-class>
-			cn.net.openid.jos.web.ApprovingRequestFilter
+			cn.net.openid.jos.web.filter.ApprovingRequestFilter
 		</filter-class>
 	</filter>
 
@@ -123,10 +128,16 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
+		<filter-name>Request Logging Filter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
 		<filter-name>openSessionInViewFilter</filter-name>
-		<servlet-name>jos</servlet-name>
-		<dispatcher>REQUEST</dispatcher>
-		<dispatcher>FORWARD</dispatcher>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Domain Filter</filter-name>
+		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>Member Filter</filter-name>
@@ -135,6 +146,8 @@
 	<filter-mapping>
 		<filter-name>User Agent Locales Filter</filter-name>
 		<servlet-name>jos</servlet-name>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>Approving Request Filter</filter-name>
@@ -251,6 +264,10 @@
 	<error-page>
 		<exception-type>java.lang.Exception</exception-type>
 		<location>/WEB-INF/view/jsp/errors.jsp</location>
+	</error-page>
+	<error-page>
+		<exception-type>cn.net.openid.jos.service.UnresolvedDomainException</exception-type>
+		<location>/WEB-INF/view/jsp/unresolved-domain.jsp</location>
 	</error-page>
 
 	<error-page>

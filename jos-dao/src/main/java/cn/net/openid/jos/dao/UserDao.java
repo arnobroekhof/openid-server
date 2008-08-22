@@ -3,6 +3,7 @@
  */
 package cn.net.openid.jos.dao;
 
+import cn.net.openid.jos.domain.Domain;
 import cn.net.openid.jos.domain.User;
 
 /**
@@ -12,7 +13,7 @@ import cn.net.openid.jos.domain.User;
 public interface UserDao {
 	User getUser(String id);
 
-	User getUserByUsername(String username);
+	User getUser(Domain domain, String username);
 
 	void insertUser(User user);
 

@@ -14,7 +14,6 @@ import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 
 import cn.net.openid.jos.domain.EmailConfirmationInfo;
-import cn.net.openid.jos.domain.JosConfiguration;
 
 /**
  * @author Sutra Zhou
@@ -51,11 +50,12 @@ public class EmailConfirmationInfoSendTaskExecutor {
 			String text = emailConfirmationResources.getString("text");
 
 			text = StringUtils.replace(text, "${identifier}",
-					emailConfirmationInfo.getEmail().getUser().getUsername());
+					emailConfirmationInfo.getEmail().getUser().getIdentifier());
 			text = StringUtils.replace(text, "${confirmationCode}",
 					emailConfirmationInfo.getConfirmationCode());
-			text = StringUtils.replace(text, "${baseUrl}", josConfiguration
-					.getBaseUrl());
+			text = StringUtils.replace(text, "${serverBaseUrl}",
+					emailConfirmationInfo.getEmail().getUser().getDomain()
+							.getRuntime().getServerBaseUrl().toString());
 
 			simpleMessage.setText(text);
 			mailSender.send(simpleMessage);
@@ -67,7 +67,6 @@ public class EmailConfirmationInfoSendTaskExecutor {
 
 	private TaskExecutor taskExecutor;
 	private MailSender mailSender;
-	private JosConfiguration josConfiguration;
 
 	public EmailConfirmationInfoSendTaskExecutor(TaskExecutor taskExecutor) {
 		this.taskExecutor = taskExecutor;
@@ -79,14 +78,6 @@ public class EmailConfirmationInfoSendTaskExecutor {
 	 */
 	public void setMailSender(MailSender mailSender) {
 		this.mailSender = mailSender;
-	}
-
-	/**
-	 * @param josConfiguration
-	 *            the josConfiguration to set
-	 */
-	public void setJosConfiguration(JosConfiguration josConfiguration) {
-		this.josConfiguration = josConfiguration;
 	}
 
 	public void sendEmail(EmailConfirmationInfo emailConfirmationInfo) {

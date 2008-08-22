@@ -23,7 +23,9 @@ public class ConfirmEmailController extends AbstractJosSimpleFormController {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.springframework.web.servlet.mvc.AbstractFormController#formBackingObject(javax.servlet.http.HttpServletRequest)
+	 * @see
+	 * org.springframework.web.servlet.mvc.AbstractFormController#formBackingObject
+	 * (javax.servlet.http.HttpServletRequest)
 	 */
 	@Override
 	protected Object formBackingObject(HttpServletRequest request)
@@ -40,15 +42,17 @@ public class ConfirmEmailController extends AbstractJosSimpleFormController {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(java.lang.Object,
-	 *      org.springframework.validation.BindException)
+	 * @see
+	 * org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(java
+	 * .lang.Object, org.springframework.validation.BindException)
 	 */
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax.servlet.http.HttpServletRequest,
-	 *      javax.servlet.http.HttpServletResponse, java.lang.Object,
-	 *      org.springframework.validation.BindException)
+	 * @see
+	 * org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax
+	 * .servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse,
+	 * java.lang.Object, org.springframework.validation.BindException)
 	 */
 	@Override
 	protected ModelAndView onSubmit(HttpServletRequest request,
@@ -56,7 +60,7 @@ public class ConfirmEmailController extends AbstractJosSimpleFormController {
 			throws Exception {
 		ConfirmEmailForm form = (ConfirmEmailForm) command;
 		try {
-			this.josService.confirmEmail(form.getConfirmationCode());
+			this.getJosService().confirmEmail(form.getConfirmationCode());
 		} catch (EmailConfirmationInfoNotFoundException e) {
 			errors.rejectValue("confirmationCode",
 					"email.error.confirmationInfoNotFound",
