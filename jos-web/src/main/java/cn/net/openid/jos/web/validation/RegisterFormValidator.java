@@ -3,9 +3,6 @@
  */
 package cn.net.openid.jos.web.validation;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -13,7 +10,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import cn.net.openid.jos.domain.JosConfiguration;
+import cn.net.openid.jos.web.MessageCodes;
 import cn.net.openid.jos.web.form.RegisterForm;
 
 /**
@@ -21,21 +18,8 @@ import cn.net.openid.jos.web.form.RegisterForm;
  * 
  */
 public class RegisterFormValidator implements Validator {
-	@SuppressWarnings("unused")
 	private static final Log log = LogFactory
 			.getLog(RegisterFormValidator.class);
-
-	private Pattern usernamePattern;
-	private Pattern reservedUsernamePatter;
-	private Pattern unallowableUsernamePattern;
-
-	public void setDomainConfiguration(JosConfiguration config) {
-		this.usernamePattern = Pattern.compile(config.getUsernamePattern());
-		this.reservedUsernamePatter = Pattern.compile(config
-				.getReservedUsernamePattern(), Pattern.CASE_INSENSITIVE);
-		this.unallowableUsernamePattern = Pattern.compile(config
-				.getUnallowableUsernamePattern(), Pattern.CASE_INSENSITIVE);
-	}
 
 	/*
 	 * (non-Javadoc)
@@ -51,39 +35,49 @@ public class RegisterFormValidator implements Validator {
 	 * (non-Javadoc)
 	 * 
 	 * @see org.springframework.validation.Validator#validate(java.lang.Object,
-	 *      org.springframework.validation.Errors)
+	 * org.springframework.validation.Errors)
 	 */
 	public void validate(Object target, Errors errors) {
-		RegisterForm user = (RegisterForm) target;
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username",
-				"required", "Field is required.");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password",
-				"required", "Field is required.");
-		if (user.getUsername() != null) {
-			Matcher m = this.usernamePattern.matcher(user.getUsername());
-			if (!m.matches()) {
-				errors.rejectValue("username", "error.username.format",
-						"Username format not allowed.");
-			}
-
-			m = this.reservedUsernamePatter.matcher(user.getUsername());
-			if (m.matches()) {
-				errors.rejectValue("username", "error.username.reserved",
-						"Username is reserved.");
-			}
-
-			m = this.unallowableUsernamePattern.matcher(user.getUsername());
-			if (m.matches()) {
-				errors.rejectValue("username", "error.username.unallowable",
-						"Username is unallowable.");
-			}
+		final RegisterForm form = (RegisterForm) target;
+		if (log.isDebugEnabled()) {
+			log.debug("Username configuration: "
+					+ form.getUser().getDomain().getUsernameConfiguration());
 		}
 
-		if (!StringUtils.equals(user.getPassword(), user
+		// Username is required.
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "user.username",
+				MessageCodes.Error.REQUIRED);
+
+		// Password is required.
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password",
+				MessageCodes.Error.REQUIRED);
+
+		// Is not a username?
+		if (!form.getUser().getDomain().getUsernameConfiguration().isUsername(
+				form.getUser().getUsername())) {
+			errors.rejectValue("user.username",
+					MessageCodes.User.Error.USERNAME_FORMAT);
+		}
+
+		// Is username reserved?
+		if (form.getUser().getDomain().getUsernameConfiguration().isReserved(
+				(form.getUser().getUsername()))) {
+			errors.rejectValue("user.username",
+					MessageCodes.User.Error.USERNAME_RESERVED);
+		}
+
+		// Is username unallowable?
+		if (form.getUser().getDomain().getUsernameConfiguration()
+				.isUnallowable(form.getUser().getUsername())) {
+			errors.rejectValue("user.username",
+					MessageCodes.User.Error.USERNAME_UNALLOWABLE);
+		}
+
+		// Confirmed password?
+		if (!StringUtils.equals(form.getPassword(), form
 				.getConfirmingPassword())) {
 			errors.rejectValue("confirmingPassword",
-					"confirmingPassword.notEquals",
-					"Confirming password is not equals to the password.");
+					MessageCodes.User.Error.CONFIRMING_PASSWORD_NOT_EQUALS);
 		}
 	}
 }

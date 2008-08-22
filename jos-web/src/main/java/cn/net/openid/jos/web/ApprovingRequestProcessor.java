@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openid4java.association.AssociationException;
+import org.openid4java.message.AuthFailure;
 import org.openid4java.message.AuthRequest;
 import org.openid4java.message.AuthSuccess;
 import org.openid4java.message.DirectError;
@@ -34,15 +35,12 @@ import cn.net.openid.jos.domain.User;
 import cn.net.openid.jos.service.JosService;
 
 /**
+ * Approving request processor.
+ * 
  * @author Sutra Zhou
  * 
  */
 public class ApprovingRequestProcessor {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -2198287012373272798L;
-
 	private static final Log log = LogFactory
 			.getLog(ApprovingRequestProcessor.class);
 
@@ -51,16 +49,18 @@ public class ApprovingRequestProcessor {
 	public static final int ALLOW_FOREVER = 2;
 	public static final int DENY = -1;
 
-	private JosService josService;
-	private ServerManager serverManager;
+	private final JosService josService;
+	private final ServerManager serverManager;
 
-	private HttpServletRequest httpReq;
-	private HttpServletResponse httpResp;
+	private final HttpServletRequest httpReq;
+	private final HttpServletResponse httpResp;
 
-	private ApprovingRequest checkIdRequest;
-	private AuthRequest authRequest;
-	private UserSession userSession;
-	private User user;
+	private final UserSession userSession;
+	private final User user;
+
+	private final ApprovingRequest checkIdRequest;
+	private final AuthRequest authRequest;
+	private final String realm;
 
 	/**
 	 * @param httpReq
@@ -79,13 +79,17 @@ public class ApprovingRequestProcessor {
 			ServerManager serverManager, ApprovingRequest checkIdRequest) {
 		this.httpReq = httpReq;
 		this.httpResp = httpResp;
+
 		this.josService = josService;
 		this.serverManager = serverManager;
+
 		this.userSession = WebUtils.getOrCreateUserSession(this.httpReq
 				.getSession());
 		this.user = userSession.getUser();
+
 		this.checkIdRequest = checkIdRequest;
 		this.authRequest = checkIdRequest.getAuthRequest();
+		this.realm = this.authRequest.getRealm();
 	}
 
 	public void checkId() throws IOException {
@@ -110,9 +114,11 @@ public class ApprovingRequestProcessor {
 		if (this.isLoggedInUserOwnClaimedId()) {
 			switch (allowType) {
 			case ALLOW_ONCE:
+				josService.allow(this.user, this.realm, persona, false);
 				this.redirectToReturnToPage(true, persona);
 				break;
 			case ALLOW_FOREVER:
+				josService.allow(this.user, this.realm, persona, true);
 				this.redirectToReturnToPage(true, persona);
 				break;
 			case DENY:
@@ -132,7 +138,7 @@ public class ApprovingRequestProcessor {
 		boolean ret;
 		if (userSession.isLoggedIn()
 				&& this.authRequest.getIdentity().equals(
-						userSession.getIdentifier())) {
+						userSession.getUser().getIdentifier())) {
 			ret = true;
 		} else {
 			ret = false;
@@ -147,8 +153,21 @@ public class ApprovingRequestProcessor {
 	 * @throws IOException
 	 */
 	private void checkApproval() throws IOException {
+		boolean approved;
 		Site site = josService.getSite(user, authRequest.getRealm());
 		if (site != null && site.isAlwaysApprove()) {
+			boolean sreg = authRequest.hasExtension(SRegMessage.OPENID_NS_SREG);
+			if ((sreg && site.getPersona() != null)
+					|| (!sreg && site.getPersona() == null)) {
+				approved = true;
+			} else {
+				approved = false;
+			}
+		} else {
+			approved = false;
+		}
+
+		if (approved) {
 			josService.updateApproval(user, authRequest.getRealm());
 
 			// return to `return_to' page.
@@ -193,6 +212,8 @@ public class ApprovingRequestProcessor {
 
 		if (response instanceof DirectError) {
 			directResponse(response.keyValueFormEncoding());
+		} else if (response instanceof AuthFailure) {
+			httpResp.sendRedirect(response.getDestinationUrl(true));
 		} else {
 			if (authenticatedAndApproved) {
 				try {

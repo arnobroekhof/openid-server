@@ -1,8 +1,16 @@
+#set($springXhtmlCompliant = true)
 <html>
 	<head>
 		<title>
 			#springMessage("openid") - #springMessage("persona.title.personas")
 		</title>
+		<script type="text/javascript">
+		<!--
+		function getOffset() {
+			return new Date().getTimezoneOffset() * 1000 * 60 * -1;
+		}
+		//-->
+		</script>
 	</head>
 	<body>
 	<div>
@@ -33,7 +41,8 @@
 							<input type="checkbox" name="deletePersonaId" value="$!{esc.html($!{persona.id})}" />
 						</td>
 						<td>
-							<a href="persona?id=$!{esc.html($!{persona.id})}">
+							<a href="persona?id=$!{esc.html($!{persona.id})}"
+								onclick="this.href += '&offset=' + getOffset()">
 								$!{esc.html($!{persona.name})}
 							</a>
 						</td>
@@ -53,11 +62,15 @@
 					<tr>
 						<td colspan="11">
 							<button type="submit">#springMessage("button.remove")</button>
-							<a href="persona">#springMessage("persona.button.addNewPersona")</a>
+							<a href="persona"
+								onclick="this.href += '?offset=' + getOffset()">#springMessage("persona.button.addNewPersona")</a>
 						</td>
 					</tr>
 				</tfoot>
 			</table>
+			#if($error)
+				<div class="error">#springMessage("persona.error.inUse")</div>
+			#end
 			</form>
 		</fieldset>
 		#parse("footer.vm")

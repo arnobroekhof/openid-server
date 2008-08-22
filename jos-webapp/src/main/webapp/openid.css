@@ -57,16 +57,22 @@ ul {
 /******************************************************************************
  * Defined class.
  ******************************************************************************/
-input.sexy {
-	background: url(login-bg.gif) no-repeat;
+input[type=text], input[type=password] {
 	background-color: #fff;
 	background-position: 0 50%;
 	color: #000;
-	padding-left: 18px;
 	border: 1px #A5ACB2 solid;
 }
 
-button, input.button {
+input[type=text]:hover, input[type=password]:hover {
+	border-color: red;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+	border-color: rgb(255, 98, 0);
+}
+
+button {
 	background: rgb(255, 98, 0) none repeat scroll 0%;
 	/*
 	-moz-background-clip: -moz-initial;
@@ -77,10 +83,23 @@ button, input.button {
 	border: 1px outset;
 }
 
-input.common {
+span.identifier {
+	background: url(login-bg.gif) no-repeat;
+	background-position: 0 50%;
+	padding-left: 18px;
+}
+
+span.identifier input[type=text] {
+	border-width: 0px 0px 1px 0px;
+	width: 6em;
+}
+
+input.sexy {
+	background: url(login-bg.gif) no-repeat;
 	background-color: #fff;
 	background-position: 0 50%;
 	color: #000;
+	padding-left: 18px;
 	border: 1px #A5ACB2 solid;
 }
 

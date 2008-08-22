@@ -5,6 +5,8 @@ package cn.net.openid.jos.web.form;
 
 import java.io.Serializable;
 
+import cn.net.openid.jos.domain.User;
+
 /**
  * @author Sutra Zhou
  * 
@@ -16,9 +18,24 @@ public class RegisterForm implements Serializable {
 	 */
 	private static final long serialVersionUID = 8100263157196112732L;
 
-	private String username;
+	private User user = new User();
 	private String password;
 	private String confirmingPassword;
+
+	/**
+	 * @return the user
+	 */
+	public User getUser() {
+		return user;
+	}
+
+	/**
+	 * @param user
+	 *            the user to set
+	 */
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	/**
 	 * @return the password
@@ -28,26 +45,11 @@ public class RegisterForm implements Serializable {
 	}
 
 	/**
-	 * @return the username
-	 */
-	public String getUsername() {
-		return username;
-	}
-
-	/**
 	 * @param password
 	 *            the password to set
 	 */
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	/**
-	 * @param username
-	 *            the username to set
-	 */
-	public void setUsername(String username) {
-		this.username = username;
 	}
 
 	/**

@@ -18,14 +18,16 @@ public class EditAttributeController extends AbstractJosSimpleFormController {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.springframework.web.servlet.mvc.AbstractFormController#formBackingObject(javax.servlet.http.HttpServletRequest)
+	 * @see
+	 * org.springframework.web.servlet.mvc.AbstractFormController#formBackingObject
+	 * (javax.servlet.http.HttpServletRequest)
 	 */
 	@Override
 	protected Object formBackingObject(HttpServletRequest request)
 			throws Exception {
 		String id = request.getParameter("id");
 		if (StringUtils.isNotEmpty(id)) {
-			return this.josService.getAttribute(id);
+			return this.getJosService().getAttribute(id);
 		} else {
 			return super.formBackingObject(request);
 		}
@@ -34,7 +36,9 @@ public class EditAttributeController extends AbstractJosSimpleFormController {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.springframework.web.servlet.mvc.SimpleFormController#doSubmitAction(java.lang.Object)
+	 * @see
+	 * org.springframework.web.servlet.mvc.SimpleFormController#doSubmitAction
+	 * (java.lang.Object)
 	 */
 	@Override
 	protected void doSubmitAction(Object command) throws Exception {
@@ -42,7 +46,7 @@ public class EditAttributeController extends AbstractJosSimpleFormController {
 		if (StringUtils.isEmpty(attribute.getId())) {
 			attribute.setId(null);
 		}
-		this.josService.saveAttribute(attribute);
+		this.getJosService().saveAttribute(attribute);
 	}
 
 }

@@ -35,14 +35,16 @@ public class EmailController extends AbstractJosSimpleFormController {
 	/*
 	 * （非 Javadoc）
 	 * 
-	 * @see org.springframework.web.servlet.mvc.AbstractFormController#formBackingObject(javax.servlet.http.HttpServletRequest)
+	 * @see
+	 * org.springframework.web.servlet.mvc.AbstractFormController#formBackingObject
+	 * (javax.servlet.http.HttpServletRequest)
 	 */
 	@Override
 	protected Object formBackingObject(HttpServletRequest request)
 			throws Exception {
 		User user = getUser(request);
 
-		Collection<Email> emails = josService.getEmails(user);
+		Collection<Email> emails = getJosService().getEmails(user);
 		Collection<Email> confirmedEmails = new ArrayList<Email>(emails.size());
 		Collection<Email> unconfirmedEmails = new ArrayList<Email>(emails
 				.size());
@@ -64,9 +66,10 @@ public class EmailController extends AbstractJosSimpleFormController {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax.servlet.http.HttpServletRequest,
-	 *      javax.servlet.http.HttpServletResponse, java.lang.Object,
-	 *      org.springframework.validation.BindException)
+	 * @see
+	 * org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax
+	 * .servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse,
+	 * java.lang.Object, org.springframework.validation.BindException)
 	 */
 	@Override
 	protected ModelAndView onSubmit(HttpServletRequest request,
@@ -74,7 +77,7 @@ public class EmailController extends AbstractJosSimpleFormController {
 			throws Exception {
 		Email email = (Email) command;
 		email.setLocale(localeResolver.resolveLocale(request));
-		josService.insertEmail(getUser(request), email);
+		getJosService().insertEmail(getUser(request), email);
 		return super.onSubmit(request, response, command, errors);
 	}
 

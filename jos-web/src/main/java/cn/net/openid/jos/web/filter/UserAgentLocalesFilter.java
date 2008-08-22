@@ -1,7 +1,7 @@
 /**
  * Created on 2008-6-26 上午01:47:18
  */
-package cn.net.openid.jos.web;
+package cn.net.openid.jos.web.filter;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,6 +38,7 @@ import javax.servlet.ServletResponse;
  * 
  */
 public class UserAgentLocalesFilter implements Filter {
+	private static final String USER_AGENT_LOCALES = "userAgentLocales";
 
 	/*
 	 * (non-Javadoc)
@@ -62,7 +63,7 @@ public class UserAgentLocalesFilter implements Filter {
 		while (localesEnum.hasMoreElements()) {
 			localesCollection.add(localesEnum.nextElement());
 		}
-		request.setAttribute("userAgentLocales", localesCollection);
+		request.setAttribute(USER_AGENT_LOCALES, localesCollection);
 
 		chain.doFilter(request, response);
 	}
@@ -74,6 +75,11 @@ public class UserAgentLocalesFilter implements Filter {
 	 */
 	public void init(FilterConfig filterConfig) throws ServletException {
 
+	}
+
+	@SuppressWarnings("unchecked")
+	public static Collection<Locale> getUserAgentLocales(ServletRequest request) {
+		return (Collection<Locale>) request.getAttribute(USER_AGENT_LOCALES);
 	}
 
 }

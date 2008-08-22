@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="cn.net.openid.jos.domain">
+	<class name="Domain" table="jos_domain">
+		<id name="id" unsaved-value="null" length="32" column="domain_id">
+			<generator class="uuid" />
+		</id>
+		<property name="name" length="255" unique="true" not-null="true"
+			update="false" column="domain_name" />
+		<property name="type" not-null="true" update="false" column="domain_type" />
+		<property name="serverHost" update="false" column="domain_server_host" />
+		<property name="memberPath" update="false" column="domain_member_path" />
+		<one-to-one name="usernameConfiguration" cascade="all" />
+		<property name="creationDate" type="timestamp" not-null="true"
+			update="false" column="domain_creation_date" />
+	</class>
+</hibernate-mapping>

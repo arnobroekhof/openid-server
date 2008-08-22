@@ -4,14 +4,12 @@
 	<bean id="abstractJosController"
 		class="cn.net.openid.jos.web.AbstractJosController" abstract="true">
 		<property name="josService" ref="josService" />
-		<property name="serverManager" ref="serverManager" />
 	</bean>
 
 	<bean id="abstractJosSimpleFormController"
 		class="cn.net.openid.jos.web.AbstractJosSimpleFormController"
 		abstract="true">
 		<property name="josService" ref="josService" />
-		<property name="serverManager" ref="serverManager" />
 	</bean>
 
 	<bean id="serverController"
@@ -112,7 +110,6 @@
 		<property name="formView" value="persona" />
 		<property name="successView" value="persona-success" />
 		<property name="validator" ref="personaValidator" />
-		<property name="messageSource" ref="messageSource" />
 		<property name="localeResolver" ref="localeResolver" />
 	</bean>
 
@@ -225,10 +222,12 @@
 				<value>messages-custom</value>
 				<value>cn.net.openid.jos.web.messages</value>
 				<value>cn.net.openid.jos.web.buttons</value>
+				<value>cn.net.openid.jos.web.user</value>
 				<value>cn.net.openid.jos.web.email</value>
 				<value>cn.net.openid.jos.web.password</value>
 				<value>cn.net.openid.jos.web.persona</value>
 				<value>cn.net.openid.jos.web.site</value>
+				<value>cn.net.openid.jos.web.approving</value>
 			</list>
 		</property>
 	</bean>

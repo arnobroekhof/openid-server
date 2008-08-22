@@ -11,7 +11,7 @@
 			<form action="login#if($token && $token != '')?token=$!token#end" method="post">
 
 				#if($token && $token != "" && $approvingRequest && $approvingRequest.authRequest)
-					You must sign in to authenticate to $!approvingRequest.authRequest.realm as $!approvingRequest.authRequest.identity.
+					#springMessageText("approving.mustSignIn.1" "You must sign in to authenticate to ")$!{approvingRequest.authRequest.realm}#springMessageText("approving.mustSignIn.2" " as ")$!{approvingRequest.authRequest.identity}#springMessageText("approving.mustSignIn.3" ".")
 				#end
 
 				<table>
@@ -21,9 +21,11 @@
 							<label for="username">OpenID：</label>
 						</td>
 						<td>
-							${josConfiguration.identifierPrefix}
-							#springFormInput("command.username" 'class="sexy" size="16"')
-							${josConfiguration.identifierSuffix}
+							<span class="identifier">
+							${domain.identifierPrefix}
+							#springFormInput("command.username" 'size="16"')
+							${domain.identifierSuffix}
+							</span>
 							#springShowErrors("" "error")
 						</td>
 					</tr>

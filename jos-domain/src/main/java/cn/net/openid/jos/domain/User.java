@@ -3,36 +3,27 @@
  */
 package cn.net.openid.jos.domain;
 
-import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @author Sutra Zhou
  * 
  */
-public class User implements Serializable {
+public class User extends BaseEntity {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -6219139356897428716L;
 
-	private String id;
 	private String username;
-	private Date creationDate = new Date();
+	private Domain domain = new Domain();
 
-	/**
-	 * @return the id
-	 */
-	public String getId() {
-		return id;
+	public User() {
 	}
 
-	/**
-	 * @return the creationDate
-	 */
-	public Date getCreationDate() {
-		return creationDate;
+	public User(Domain domain, String username) {
+		this.domain = domain;
+		this.username = username;
 	}
 
 	/**
@@ -43,27 +34,36 @@ public class User implements Serializable {
 	}
 
 	/**
-	 * @param id
-	 *            the id to set
-	 */
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	/**
-	 * @param creationDate
-	 *            the creationDate to set
-	 */
-	public void setCreationDate(Date creationDate) {
-		this.creationDate = creationDate;
-	}
-
-	/**
 	 * @param username
 	 *            the username to set
 	 */
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	/**
+	 * @return the domain
+	 */
+	public Domain getDomain() {
+		return domain;
+	}
+
+	/**
+	 * @param domain
+	 *            the domain to set
+	 */
+	public void setDomain(Domain domain) {
+		this.domain = domain;
+	}
+
+	/**
+	 * Get the identifier.
+	 * 
+	 * @return the identifier
+	 */
+	public String getIdentifier() {
+		return String.format("%1$s%2$s%3$s", getDomain().getIdentifierPrefix(),
+				getUsername(), getDomain().getIdentifierSuffix());
 	}
 
 	/*
@@ -75,7 +75,10 @@ public class User implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((getUsername() == null) ? 0 : getUsername().hashCode());
+		result = prime * result
+				+ ((getDomain() == null) ? 0 : getDomain().hashCode());
+		result = prime * result
+				+ ((getUsername() == null) ? 0 : getUsername().hashCode());
 		return result;
 	}
 
@@ -92,7 +95,12 @@ public class User implements Serializable {
 			return false;
 		if (!(obj instanceof User))
 			return false;
-		final User other = (User) obj;
+		User other = (User) obj;
+		if (getDomain() == null) {
+			if (other.getDomain() != null)
+				return false;
+		} else if (!getDomain().equals(other.getDomain()))
+			return false;
 		if (getUsername() == null) {
 			if (other.getUsername() != null)
 				return false;

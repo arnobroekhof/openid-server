@@ -8,11 +8,12 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openid4java.server.ServerManager;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
+import cn.net.openid.jos.domain.Domain;
 import cn.net.openid.jos.domain.User;
 import cn.net.openid.jos.service.JosService;
+import cn.net.openid.jos.web.filter.DomainFilter;
 
 /**
  * @author Sutra Zhou
@@ -22,8 +23,14 @@ public abstract class AbstractJosSimpleFormController extends
 		SimpleFormController {
 	protected final Log log = LogFactory.getLog(getClass());
 
-	protected JosService josService;
-	protected ServerManager serverManager;
+	private JosService josService;
+
+	/**
+	 * @return the josService
+	 */
+	public JosService getJosService() {
+		return josService;
+	}
 
 	/**
 	 * @param josService
@@ -34,11 +41,15 @@ public abstract class AbstractJosSimpleFormController extends
 	}
 
 	/**
-	 * @param serverManager
-	 *            the serverManager to set
+	 * Get the current domain.
+	 * 
+	 * @param request
+	 *            the HTTP request
+	 * @return current domain which parsed from the request url by
+	 *         {@link DomainFilter}.
 	 */
-	public void setServerManager(ServerManager serverManager) {
-		this.serverManager = serverManager;
+	public Domain getDomain(HttpServletRequest request) {
+		return DomainFilter.getDomain(request);
 	}
 
 	/* User Session */

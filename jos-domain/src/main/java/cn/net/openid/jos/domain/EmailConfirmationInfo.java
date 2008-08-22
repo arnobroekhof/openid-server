@@ -3,28 +3,25 @@
  */
 package cn.net.openid.jos.domain;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @author Sutra Zhou
  * 
  */
-public class EmailConfirmationInfo implements Serializable {
+public class EmailConfirmationInfo extends BaseEntity {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -1421672591504003924L;
 
-	private String id;
 	private Email email = new Email();
 	private String confirmationCode;
 	private boolean sent;
 	private Date sentDate;
 	private boolean confirmed;
 	private Date confirmedDate;
-	private Date creationDate = new Date();
 
 	/**
 	 * 
@@ -46,21 +43,6 @@ public class EmailConfirmationInfo implements Serializable {
 	public EmailConfirmationInfo(Email email, String confirmationCode) {
 		this.email = email;
 		this.confirmationCode = confirmationCode;
-	}
-
-	/**
-	 * @return the id
-	 */
-	public String getId() {
-		return id;
-	}
-
-	/**
-	 * @param id
-	 *            the id to set
-	 */
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	/**
@@ -151,21 +133,6 @@ public class EmailConfirmationInfo implements Serializable {
 	 */
 	public void setConfirmed(boolean confirmed) {
 		this.confirmed = confirmed;
-	}
-
-	/**
-	 * @return the creationDate
-	 */
-	public Date getCreationDate() {
-		return creationDate;
-	}
-
-	/**
-	 * @param creationDate
-	 *            the creationDate to set
-	 */
-	public void setCreationDate(Date creationDate) {
-		this.creationDate = creationDate;
 	}
 
 	/*

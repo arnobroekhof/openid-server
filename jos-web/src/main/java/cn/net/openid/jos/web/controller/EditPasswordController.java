@@ -22,7 +22,9 @@ public class EditPasswordController extends AbstractJosSimpleFormController {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.springframework.web.servlet.mvc.AbstractFormController#formBackingObject(javax.servlet.http.HttpServletRequest)
+	 * @see
+	 * org.springframework.web.servlet.mvc.AbstractFormController#formBackingObject
+	 * (javax.servlet.http.HttpServletRequest)
 	 */
 	@Override
 	protected Object formBackingObject(HttpServletRequest request)
@@ -32,7 +34,7 @@ public class EditPasswordController extends AbstractJosSimpleFormController {
 
 		String passwordId = request.getParameter("password.id");
 		if (!StringUtils.isEmpty(passwordId)) {
-			editPasswordForm.setPassword(josService.getPassword(
+			editPasswordForm.setPassword(getJosService().getPassword(
 					getUser(request), passwordId));
 		}
 
@@ -42,8 +44,10 @@ public class EditPasswordController extends AbstractJosSimpleFormController {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.springframework.web.servlet.mvc.BaseCommandController#onBindAndValidate(javax.servlet.http.HttpServletRequest,
-	 *      java.lang.Object, org.springframework.validation.BindException)
+	 * @see
+	 * org.springframework.web.servlet.mvc.BaseCommandController#onBindAndValidate
+	 * (javax.servlet.http.HttpServletRequest, java.lang.Object,
+	 * org.springframework.validation.BindException)
 	 */
 	@Override
 	protected void onBindAndValidate(HttpServletRequest request,
@@ -66,9 +70,10 @@ public class EditPasswordController extends AbstractJosSimpleFormController {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax.servlet.http.HttpServletRequest,
-	 *      javax.servlet.http.HttpServletResponse, java.lang.Object,
-	 *      org.springframework.validation.BindException)
+	 * @see
+	 * org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax
+	 * .servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse,
+	 * java.lang.Object, org.springframework.validation.BindException)
 	 */
 	@Override
 	protected ModelAndView onSubmit(HttpServletRequest request,
@@ -76,8 +81,8 @@ public class EditPasswordController extends AbstractJosSimpleFormController {
 			throws Exception {
 		EditPasswordForm editPasswordForm = (EditPasswordForm) command;
 		Password password = editPasswordForm.getPassword();
-		josService.updatePassword(getUser(request), password.getId(), password
-				.getName(), password.getPlaintext());
+		getJosService().updatePassword(getUser(request), password.getId(),
+				password.getName(), password.getPlaintext());
 		return super.onSubmit(request, response, command, errors);
 	}
 }

@@ -1,0 +1,19 @@
+#macro( josFormSingleSelect $path $opts $optgroups $attributes )
+	#springBind($path)
+	#set($selected = false)
+	<select name="${status.expression}" ${attributes}>
+		<option value=""#if(!$selected && "$!status.value" == "")#set($selected = true) selected="selected"#end>-</option>
+		##options
+		#foreach($option in $opts.entrySet())
+		<option value="${option.key}"#if(!$selected && "$!status.value" == "$option.key")#set($selected = true) selected="selected"#end>$option.value</option>
+		#end
+		##optgroups
+		#foreach($options in $optgroups.entrySet())
+		<optgroup label="${options.key}">
+			#foreach($option in $options.value.entrySet())
+			<option value="${option.key}"#if(!$selected && "$!status.value" == "$option.key")#set($selected = true) selected="selected"#end>$option.value</option>
+			#end
+		</optgroup>
+		#end
+	</select>
+#end

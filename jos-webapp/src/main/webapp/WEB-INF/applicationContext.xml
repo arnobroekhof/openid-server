@@ -6,33 +6,8 @@
 		<property name="locations">
 			<list>
 				<value>WEB-INF/config/jdbc.properties</value>
-				<value>WEB-INF/config/jos.xml</value>
 			</list>
 		</property>
-	</bean>
-
-	<bean id="josConfiguration"
-		class="cn.net.openid.jos.domain.JosConfiguration">
-		<property name="baseUrl" value="${jos.base.url}" />
-		<property name="openidServerUrl"
-			value="${jos.openid.server.url}" />
-		<property name="usernamePattern"
-			value="${jos.member.username.pattern}" />
-		<property name="reservedUsernamePattern"
-			value="${jos.member.username.reserved.pattern}" />
-		<property name="unallowableUsernamePattern"
-			value="${jos.member.username.unallowable.pattern}" />
-		<property name="identifierPrefix"
-			value="${jos.member.identifier.prefix}" />
-		<property name="identifierSuffix"
-			value="${jos.member.identifier.suffix}" />
-		<property name="memberFilterFromPattern"
-			value="${jos.member.filter.from.pattern}" />
-	</bean>
-
-	<bean id="serverManager"
-		class="org.openid4java.server.ServerManager">
-		<property name="OPEndpointUrl" value="${jos.openid.server.url}" />
 	</bean>
 
 	<bean id="baseTransactionProxy"
@@ -55,8 +30,7 @@
 	<bean id="josService" parent="baseTransactionProxy">
 		<property name="target">
 			<bean class="cn.net.openid.jos.service.JosServiceImpl">
-				<property name="josConfiguration"
-					ref="josConfiguration" />
+				<property name="domainDao" ref="domainDao" />
 				<property name="userDao" ref="userDao" />
 				<property name="passwordDao" ref="passwordDao" />
 				<property name="emailDao" ref="emailDao" />
@@ -104,7 +78,6 @@
 		class="cn.net.openid.jos.service.EmailConfirmationInfoSendTaskExecutor">
 		<constructor-arg ref="taskExecutor" />
 		<property name="mailSender" ref="mailSender" />
-		<property name="josConfiguration" ref="josConfiguration" />
 	</bean>
 
 	<bean id="personaValidator"
@@ -116,6 +89,5 @@
 	</bean>
 	<bean id="registerFormValidator"
 		class="cn.net.openid.jos.web.validation.RegisterFormValidator">
-		<property name="domainConfiguration" ref="josConfiguration" />
 	</bean>
 </beans>
