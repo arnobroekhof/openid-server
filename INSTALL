@@ -3,9 +3,12 @@ Quick Install Guide
 1. Modify the configuration files
     All configuration files are in the directory WEB-INF/config/, and there are
   some examples in WEB-INF/config.samples.
+
 1.1 Database configuration
+
 1.1.1 Copy the jdbc driver libraries into your classpath(WEB-INF/lib
   or ${TOMCAT_HOME}/lib)
+
 1.1.2 Write jdbc.properties
     Copy file form jdbc.dist.properties to jdbc.properties.
     Modify the following parameters(You can choose a template for your database
@@ -16,26 +19,12 @@ Quick Install Guide
         time, you should grant create tables, read, write privileges to it.
     * jdbc.password: the password of the user.
     * hibernate.dialect: the dialect of the database for hibernate3.
-1.2 Site configuration
-    Copy file jos.dist.xml to jos.xml.
-    Modify jos.xml, the following is the descriptions of the parameters:
-    * jos.base.url: the base url of your site,
-  for example: http://www.openid.org.cn/
-    * jos.openid.server.url: for example: http://www.openid.org.cn/server
-    * jos.member.username.pattern: a regular expression of username for
-  register new user.
-    * jos.member.username.reserved.pattern: a regular expression of reserverd
-  username.
-    * jos.member.username.unallowable.pattern: a regular expression of
-  unallowable username. This parameter is important, usually "www" should be
-  unallowable.
-    * jos.member.identifier.prefix: for example: http://
-    * jos.member.identifier.suffix: for example: .openid.org.cn/
-    * jos.member.filter.form.pattern:
- for example: ^http://([0-9a-zA-Z]+).openid.org.cn$
-1.3 Mail sender configuration
+
+1.2 Mail sender configuration
     Copy file applicationContext-mail.dist.xml to applicationContext-mail.xml
   and modify for yours.
+
 2. Package the files as a war(optional).
+
 3. Deploy the war or the webapp directory into your webapp container(such as
   Tomcat).
