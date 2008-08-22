@@ -15,7 +15,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import cn.net.openid.jos.domain.Domain;
-import cn.net.openid.jos.service.UnresolvedDomainException;
 
 /**
  * @author Sutra Zhou
@@ -66,11 +65,7 @@ public class DomainFilter extends OncePerRequestServiceFilter {
 		log.debug("Begin of domain filter.");
 		if (getDomain(request) == null) {
 			Domain domain = getService().parseDomain(request);
-			if (domain != null) {
-				this.setDomain(request, domain);
-			} else {
-				throw new UnresolvedDomainException();
-			}
+			this.setDomain(request, domain);
 		}
 		filterChain.doFilter(request, response);
 		log.debug("End of domain filter.");
