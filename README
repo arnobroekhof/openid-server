@@ -6,4 +6,5 @@ jos-hibernate/	: DAO implementation with hibernate3.
 jos-service/	: Service layer.
 jos-web/	: Web classes.
 jos-webapp/	: Web resources, such as jsp, js, images.
+jos-tools/	: Tools, such as database migration.
 doc/		: Documents.

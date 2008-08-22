@@ -33,7 +33,7 @@
 	<!--
 		The regular expression of unallowable username.
 	-->
-	<entry key="jos.member.username.unallowable.pattern">w+|server|news|jos|.*fuck.*</entry>
+	<entry key="jos.member.username.unallowable.pattern">w+|home|server|approve.*|approving|register|login|logout|email.*|password.*|persona.*|site.*|attribute.*|hl|member|news|jos|mail|smtp|pop3|pop|.*fuck.*</entry>
 
 	<!--
 		For building the openid_url with field username, 
