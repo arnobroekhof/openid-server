@@ -217,6 +217,8 @@ public class JosServiceImpl implements JosService {
 				throw new IllegalArgumentException(e);
 			}
 
+		} else {
+			throw new UnresolvedDomainException(host);
 		}
 		return domain;
 	}

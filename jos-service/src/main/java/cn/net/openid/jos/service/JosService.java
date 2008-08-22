@@ -34,7 +34,8 @@ public interface JosService {
 	 *            the HTTP request
 	 * @return the domain if it was found, else null
 	 */
-	Domain parseDomain(HttpServletRequest request);
+	Domain parseDomain(HttpServletRequest request)
+			throws UnresolvedDomainException;
 
 	/**
 	 * Parse username from the request of the specified domain.
