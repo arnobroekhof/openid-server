@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>cn.net.openid.jos</groupId>
 		<artifactId>jos-tools</artifactId>
-		<version>1.1-SNAPSHOT</version>
+		<version>1.2-SNAPSHOT</version>
 	</parent>
 	<groupId>cn.net.openid.jos.jos-tools</groupId>
 	<artifactId>db-migration</artifactId>
