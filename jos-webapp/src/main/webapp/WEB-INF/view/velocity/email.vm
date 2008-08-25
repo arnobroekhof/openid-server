@@ -2,11 +2,6 @@
 <html>
 	<head>
 		<title>#springMessage("openid") - #springMessage("email.title")</title>
-		<script type="text/javascript">
-			function checkAll(checkbox) {
-				$("input[type='checkbox'][name='id']").attr("checked", checkbox.checked ? "checked" : "");
-			}
-		</script>
 	</head>
 	<body>
 	<div>

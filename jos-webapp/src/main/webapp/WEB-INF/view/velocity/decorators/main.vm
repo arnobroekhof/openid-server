@@ -12,7 +12,6 @@
 		<link rel="shortcut icon" href="$base/favicon.ico" type="image/x-icon" />
 		<link rel="stylesheet" type="text/css" media="screen"
 			href="$base/openid.css" />
-		<script type="text/javascript" src="$base/jquery.js"></script>
 		$head
 	</head>
 	<body>

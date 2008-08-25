@@ -42,7 +42,7 @@
 						</td>
 						<td>
 							<a href="persona?id=$!{esc.html($!{persona.id})}"
-								onclick="this.href += '&offset=' + getOffset()">
+								onclick="this.href += '&offset=' + getOffset();this.onclick=function(){}">
 								$!{esc.html($!{persona.name})}
 							</a>
 						</td>
@@ -63,7 +63,7 @@
 						<td colspan="11">
 							<button type="submit">#springMessage("button.remove")</button>
 							<a href="persona"
-								onclick="this.href += '?offset=' + getOffset()">#springMessage("persona.button.addNewPersona")</a>
+								onclick="this.href += '?offset=' + getOffset();this.onclick=function(){}">#springMessage("persona.button.addNewPersona")</a>
 						</td>
 					</tr>
 				</tfoot>

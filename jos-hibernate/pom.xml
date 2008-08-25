@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>cn.net.openid.jos</groupId>
 		<artifactId>jos</artifactId>
-		<version>1.1-SNAPSHOT</version>
+		<version>1.1.0</version>
 	</parent>
 	<artifactId>jos-hibernate</artifactId>
 	<packaging>jar</packaging>
@@ -11,7 +11,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring</artifactId>
+			<artifactId>spring-orm</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>

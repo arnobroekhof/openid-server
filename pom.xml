@@ -8,7 +8,7 @@
 	<artifactId>jos</artifactId>
 	<packaging>pom</packaging>
 	<name>Java OpenID Server</name>
-	<version>1.1-SNAPSHOT</version>
+	<version>1.1.0</version>
 	<url>http://openid.net.cn</url>
 	<modules>
 		<module>jos-domain</module>
@@ -110,28 +110,33 @@
 			</dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>
-				<artifactId>spring</artifactId>
-				<version>2.5.4</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
 				<artifactId>spring-core</artifactId>
-				<version>2.5.4</version>
+				<version>2.5.5</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-context-support</artifactId>
-				<version>2.5.4</version>
+				<version>2.5.5</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-aop</artifactId>
-				<version>2.5.4</version>
+				<version>2.5.5</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-webmvc</artifactId>
-				<version>2.5.4</version>
+				<version>2.5.5</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-orm</artifactId>
+				<version>2.5.5</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-jdbc</artifactId>
+				<version>2.5.5</version>
 			</dependency>
 			<dependency>
 				<groupId>opensymphony</groupId>
@@ -193,6 +198,18 @@
 				<artifactId>xapool</artifactId>
 				<version>1.5.0</version>
 			</dependency>
+
+			<!-- Mail -->
+			<dependency>
+				<groupId>javax.mail</groupId>
+				<artifactId>mail</artifactId>
+				<version>1.4</version>
+			</dependency>
+			<dependency>
+				<groupId>javax.activation</groupId>
+				<artifactId>activation</artifactId>
+				<version>1.1</version>
+			</dependency> 
 
 			<!-- JDBC Drivers -->
 			<dependency>
