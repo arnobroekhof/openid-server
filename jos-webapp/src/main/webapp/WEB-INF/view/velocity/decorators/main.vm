@@ -12,6 +12,8 @@
 		<link rel="shortcut icon" href="$base/favicon.ico" type="image/x-icon" />
 		<link rel="stylesheet" type="text/css" media="screen"
 			href="$base/openid.css" />
+		<link rel="stylesheet" type="text/css" media="screen"
+			href="$base/${domain.id}.css" />
 		$head
 	</head>
 	<body>
