@@ -24,7 +24,30 @@ Quick Install Guide
     Copy file applicationContext-mail.dist.xml to applicationContext-mail.xml
   and modify for yours.
 
-2. Package the files as a war(optional).
+2. Download JavaScript Calendar and install it
+    The calendar if for persona modification page.
+    Download from http://www.dynarch.com/projects/calendar/
+    Unpack to directory /jscalendar/ in the webapp
 
-3. Deploy the war or the webapp directory into your webapp container(such as
+3. Package the files as a war(optional).
+
+4. Deploy the war or the webapp directory into your webapp container(such as
   Tomcat).
+
+5. Add domain(s)
+    We stored the domain configurations in database. As now, the domain
+  management has not been implemented yet. You should add domain info to
+  database manually.
+    After the webapp deployed, the tables should be created in your database
+  automatically. Execute these two SQL sentence:
+    * insert into jos_domain(domain_id, domain_name, domain_type,
+  domain_server_host, domain_member_path, domain_creation_date)
+  values('1', 'yourdomain.com', 1, 'www', null, currentdate);
+    * insert into jos_username_configuration(id, regex,
+  reserved_username_regex, unallowed_username_regex, creation_date)
+  values('1', '[a-z]{1,16}', 'root|toor|admin|administrator',
+  'www|news|bbs', currentdate);
+    The descriptions of the fields see the documentation of class
+  "cn.net.openid.jos.domain.Domain".
+    The fields which is or ends with 'regex' are all in regular-expression
+  format: see http://java.sun.com/j2se/1.5.0/docs/api/java/util/regex/Pattern.html.
