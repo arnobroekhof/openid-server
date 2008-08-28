@@ -145,8 +145,10 @@
 		class="cn.net.openid.jos.web.controller.SitesController"
 		parent="abstractJosController" />
 
+	<!-- Human languages -->
 	<bean id="humanLanguageSelectionController"
-		class="cn.net.openid.jos.web.controller.HumanLanguageSelectionController">
+		class="cn.net.openid.jos.web.controller.HumanLanguageSelectionController"
+		parent="abstractJosController">
 		<property name="formView" value="human-language-selection" />
 		<property name="localeResolver" ref="localeResolver" />
 	</bean>

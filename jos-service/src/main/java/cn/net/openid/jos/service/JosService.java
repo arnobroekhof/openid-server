@@ -4,6 +4,7 @@
 package cn.net.openid.jos.service;
 
 import java.util.Collection;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -25,6 +26,13 @@ import cn.net.openid.jos.service.exception.PersonaInUseException;
  * 
  */
 public interface JosService {
+	/**
+	 * Get all available languages.
+	 * 
+	 * @return a collection of available languages.
+	 */
+	Collection<Locale> getAvailableLanguages();
+
 	ServerManager getServerManager(Domain domain);
 
 	/**

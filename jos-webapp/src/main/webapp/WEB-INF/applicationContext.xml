@@ -42,6 +42,13 @@
 					ref="attributeValueDao" />
 				<property name="realmDao" ref="realmDao" />
 				<property name="siteDao" ref="siteDao" />
+				<property name="availableLanguages">
+					<set>
+						<value>en_US</value>
+						<value>ja</value>
+						<value>zh_CN</value>
+					</set>
+				</property>
 			</bean>
 		</property>
 		<property name="postInterceptors">

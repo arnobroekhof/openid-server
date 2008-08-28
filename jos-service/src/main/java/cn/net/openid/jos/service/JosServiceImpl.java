@@ -5,16 +5,21 @@ package cn.net.openid.jos.service;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang.LocaleUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -53,6 +58,8 @@ public class JosServiceImpl implements JosService {
 
 	private final Map<Domain, ServerManager> serverManagers = new HashMap<Domain, ServerManager>();
 
+	private Collection<Locale> availableLanguages;
+
 	private DomainDao domainDao;
 	private UserDao userDao;
 	private PasswordDao passwordDao;
@@ -63,6 +70,11 @@ public class JosServiceImpl implements JosService {
 	private RealmDao realmDao;
 	private SiteDao siteDao;
 	private PersonaDao personaDao;
+
+	public JosServiceImpl() {
+		this.availableLanguages = Collections.unmodifiableCollection(Arrays
+				.asList(Locale.getAvailableLocales()));
+	}
 
 	/**
 	 * 
@@ -144,6 +156,20 @@ public class JosServiceImpl implements JosService {
 	 */
 	public void setPersonaDao(PersonaDao personaDao) {
 		this.personaDao = personaDao;
+	}
+
+	public void setAvailableLanguages(Collection<String> availableLanguages) {
+		this.availableLanguages = new LinkedHashSet<Locale>(availableLanguages
+				.size());
+		for (String language : availableLanguages) {
+			this.availableLanguages.add(LocaleUtils.toLocale(language));
+		}
+		this.availableLanguages = Collections
+				.unmodifiableCollection(this.availableLanguages);
+	}
+
+	public Collection<Locale> getAvailableLanguages() {
+		return this.availableLanguages;
 	}
 
 	private synchronized ServerManager newServerManager(Domain domain) {
