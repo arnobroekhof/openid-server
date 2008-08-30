@@ -42,7 +42,7 @@ Quick Install Guide
   automatically. Execute these two SQL sentence:
     * insert into jos_domain(domain_id, domain_name, domain_type,
   domain_server_host, domain_member_path, domain_creation_date)
-  values('1', 'yourdomain.com', 1, 'www', null, currentdate);
+  values('1', 'example1.com', 1, 'www', null, currentdate);
     * insert into jos_username_configuration(id, regex,
   reserved_username_regex, unallowed_username_regex, creation_date)
   values('1', '[a-z]{1,16}', 'root|toor|admin|administrator',
@@ -82,3 +82,18 @@ Quick Install Guide
   "cn.net.openid.jos.domain.Domain".
     The fields which is or ends with 'regex' are all in regular-expression
   format: see http://java.sun.com/j2se/1.5.0/docs/api/java/util/regex/Pattern.html.
+
+
+Appendix
+  How to test on localhost?
+  Add the following block to your hosts file(/etc/hosts on Unix-like operating
+  systems, more about hosts file see http://en.wikipedia.org/wiki/Hosts_file):
+
+127.0.0.1	www.example1.com
+127.0.0.1	sutra.example1.com
+127.0.0.1	test.example1.com
+
+  Then you can register a username "sutra" or "test" to test by your browser
+  on "http://www.example1.com/".
+  Attention, under this mode as using 127.0.0.1 as your IP, you can't test on
+  an external OpenID-enalbed site(RP) which IP is not "127.0.0.1".
