@@ -65,7 +65,8 @@ Quick Install Guide
   Usually "www";
     * domain_member_path: the appendix of domain name in end users' OpenID
   Identifier(url), type is string, usually set as database "null".
-  For example "http://sutra.example1.com/test/", "http://www.example1.com/test/"  here "test" is the domain_member_path.
+  For example "http://sutra.example1.com/test/", "http://www.example1.com/test/"
+  here "test" is the domain_member_path.
     * domain_creation_date: a date to indicates the creation date, type is
   datetime.
 
