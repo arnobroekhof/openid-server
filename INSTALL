@@ -47,7 +47,37 @@ Quick Install Guide
   reserved_username_regex, unallowed_username_regex, creation_date)
   values('1', '[a-z]{1,16}', 'root|toor|admin|administrator',
   'www|news|bbs', currentdate);
-    The descriptions of the fields see the documentation of class
+
+    Fields description:
+
+    Table "jos_domain":
+
+    * domain_id: the id of your domain, type is string.
+    * domain_name: the domain name of your domain, such as "example1.com",
+  "openid.org.cn".
+    * domain_type: 1 and 2 is available, type is integer. 1 means the OpenID
+  Identifier(url) of the end users are subdomains, for example
+  "http://sutra.example1.com", "http://sutra.openid.org.cn";
+  2 means the OpenID Identifier(url) of the end users are subdirectory,
+  for example "http://www.example1.com/sutra/",
+  "http://www.openid.org.cn/sutra/".
+    * domain_server_host: the homepage of OpenID server, type is string.
+  Usually "www";
+    * domain_member_path: the appendix of domain name in end users' OpenID
+  Identifier(url), type is string, usually set as database "null".
+  For example "http://sutra.example1.com/test/", "http://www.example1.com/test/"  here "test" is the domain_member_path.
+    * domain_creation_date: a date to indicates the creation date, type is
+  datetime.
+
+    Table "jos_username_configuration"
+    * id: the id must be equals to the jos_domain.domain_id.
+    * regex: username regex, in regular format.
+    * reserved_username_regex: reserved username, in regular format.
+    * unallowable_username_regex: unallowable username, in regular format.
+  Attention, if the domain_server_host is setted, the it must be indicated
+  in unallowable_username_regex.
+
+    More descriptions of the fields see the documentation of class
   "cn.net.openid.jos.domain.Domain".
     The fields which is or ends with 'regex' are all in regular-expression
   format: see http://java.sun.com/j2se/1.5.0/docs/api/java/util/regex/Pattern.html.
