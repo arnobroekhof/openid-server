@@ -1,0 +1,18 @@
+#set($springXhtmlCompliant = true)
+<html>
+	<head>
+		<title>#springMessage("openid") - #springMessage("register")</title>
+	</head>
+	<body>
+	<div>
+		#parse("header.vm")
+		<form action="#springUrl("/captcha")" method="post">
+			#parse("recaptcha.vm")
+			#springBind("command.captcha")
+			#springShowErrors("<br />" "error")
+			<button type="submit">Continue</button>
+		</form>
+		#parse("footer.vm")
+	</div>
+</body>
+</html>

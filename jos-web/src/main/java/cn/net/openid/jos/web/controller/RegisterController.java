@@ -16,6 +16,7 @@ import cn.net.openid.jos.domain.Password;
 import cn.net.openid.jos.domain.User;
 import cn.net.openid.jos.web.AbstractJosSimpleFormController;
 import cn.net.openid.jos.web.MessageCodes;
+import cn.net.openid.jos.web.filter.CaptchaFilter;
 import cn.net.openid.jos.web.form.RegisterForm;
 
 /**
@@ -86,6 +87,11 @@ public class RegisterController extends AbstractJosSimpleFormController {
 		}
 
 		super.onBindAndValidate(request, command, errors);
+
+		// Register success, remove the human flag.
+		if (!errors.hasErrors()) {
+			CaptchaFilter.setHuman(request, false);
+		}
 	}
 
 	/*
