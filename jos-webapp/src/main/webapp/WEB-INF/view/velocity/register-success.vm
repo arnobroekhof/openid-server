@@ -15,7 +15,7 @@
 		</a>
 		</span>
 		#springMessage("message.register.success")
-		<a href="login?username=${link.encodeURL($!{status.value})}">#springMessage("button.login")</a>
+		<a href="#josUrl("/login?username=${link.encodeURL($!{status.value})}")">#springMessage("button.login")</a>
 		#parse("footer.vm")
 	</div>
 </body>

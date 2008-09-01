@@ -35,7 +35,7 @@
 							#end
 						</td>
 						<td>
-							<a href="persona?id=$!{esc.html($!{site.persona.id})}">
+							<a href="#josUrl("/persona?id=$!{esc.html($!{site.persona.id})}")">
 								$!{esc.html($!{site.persona.name})}
 							</a>
 						</td>

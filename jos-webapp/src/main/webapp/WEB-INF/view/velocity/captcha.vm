@@ -6,7 +6,7 @@
 	<body>
 	<div>
 		#parse("header.vm")
-		<form action="#springUrl("/captcha")" method="post">
+		<form action="#josUrl("/captcha")" method="post">
 			#parse("recaptcha.vm")
 			#springBind("command.captcha")
 			#springShowErrors("<br />" "error")

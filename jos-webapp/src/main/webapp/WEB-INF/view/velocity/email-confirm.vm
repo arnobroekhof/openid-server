@@ -8,7 +8,7 @@
 		#parse("header.vm")
 		<fieldset>
 		<legend>#springMessage("email.title.confirming")</legend>
-			<form action="email-confirm" method="post">
+			<form action="#josUrl("/email-confirm")" method="post">
 				<div>
 					<label for="confirmationCode">#springMessage("email.label.confirmationCode")</label>
 					#springFormInput("command.confirmationCode" 'class="common" style="width:50%"')

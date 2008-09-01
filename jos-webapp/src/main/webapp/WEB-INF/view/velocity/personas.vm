@@ -41,7 +41,7 @@
 							<input type="checkbox" name="deletePersonaId" value="$!{esc.html($!{persona.id})}" />
 						</td>
 						<td>
-							<a href="persona?id=$!{esc.html($!{persona.id})}"
+							<a href="#josUrl("/persona?id=$!{esc.html($!{persona.id})}")"
 								onclick="this.href += '&offset=' + getOffset();this.onclick=function(){}">
 								$!{esc.html($!{persona.name})}
 							</a>
@@ -62,7 +62,7 @@
 					<tr>
 						<td colspan="11">
 							<button type="submit">#springMessage("button.remove")</button>
-							<a href="persona"
+							<a href="#josUrl("/persona")"
 								onclick="this.href += '?offset=' + getOffset();this.onclick=function(){}">#springMessage("persona.button.addNewPersona")</a>
 						</td>
 					</tr>

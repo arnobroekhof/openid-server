@@ -17,3 +17,11 @@
 		#end
 	</select>
 #end
+
+#**
+ * josUrl
+ *
+ * Takes a relative URL and makes it absolute from the server root by
+ * adding the context root for the web application.
+ *#
+#macro( josUrl $relativeUrl )$response.encodeURL("#springUrl(${relativeUrl})")#end

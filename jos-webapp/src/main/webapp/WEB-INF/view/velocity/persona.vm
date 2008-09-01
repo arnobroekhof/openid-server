@@ -12,7 +12,7 @@
 		#parse("header.vm")
 		<fieldset>
 		<legend>#springMessage("persona.title.persona")</legend>
-			<form action="persona?token=$!token" method="post">
+			<form action="#josUrl("/persona#if($token && $token != '')?token=$!token#end")" method="post">
 				#springBindEscaped("persona.id" false)
 				<input type="hidden" name="$!{status.expression}" value="$!{status.value}" />
 				<table>

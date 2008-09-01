@@ -32,7 +32,7 @@
 				#springMessageText("approving.additionalInformation.5" ": ")
 			</div>
 			#end
-			<form action="approving" method="post">
+			<form action="#josUrl("/approving")" method="post">
 				#springBind("command.token")
 				<input type="hidden" name="$!{status.expression}" value="$!{esc.html($!{status.value})}" />
 

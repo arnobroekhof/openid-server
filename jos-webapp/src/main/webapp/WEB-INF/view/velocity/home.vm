@@ -7,7 +7,7 @@
 		<div>
 			#parse("header.vm")
 			#if(!${userSession.loggedIn})
-			<form action="home" method="post">
+			<form action="#josUrl("/home")" method="post">
 				<div>
 					<label for="username">OpenID: </label>
 					<span class="identifier">

@@ -30,7 +30,7 @@
 		<p>#springMessage("email.message.primary.description")</p>
 		#end
 		<p>#springMessage("email.message.addNew.description")</p>
-		<form action="email" method="post">
+		<form action="#josUrl("/email")" method="post">
 			<label for="address">#springMessage("email.label.address")</label>
 			#springFormInput("email.address" "")
 			#springShowErrors("" "error")
