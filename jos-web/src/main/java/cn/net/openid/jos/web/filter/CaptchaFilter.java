@@ -75,8 +75,9 @@ public class CaptchaFilter extends OncePerRequestServiceFilter {
 			filterChain.doFilter(request, response);
 		} else {
 			setFrom(request, request.getRequestURI());
-			this.getServletContext().getRequestDispatcher("/captcha").forward(
-					request, response);
+			response.sendRedirect(response.encodeRedirectURL(request
+					.getContextPath()
+					+ "/captcha"));
 		}
 	}
 
