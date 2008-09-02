@@ -6,12 +6,15 @@
 	<body>
 	<div>
 		#parse("header.vm")
-		<form action="#josUrl("/captcha")" method="post">
-			#parse("recaptcha.vm")
-			#springBind("command.captcha")
-			#springShowErrors("<br />" "error")
-			<button type="submit">Continue</button>
-		</form>
+		<fieldset>
+			<legend>#springMessage("captcha.title")</legend>
+			<form action="#josUrl("/captcha")" method="post">
+				#parse("recaptcha.vm")
+				#springBind("command.captcha")
+				#springShowErrors("<br />" "error")
+				<button type="submit">#springMessage("button.continue")</button>
+			</form>
+		</fieldset>
 		#parse("footer.vm")
 	</div>
 </body>

@@ -1,3 +1,10 @@
+<script>
+var RecaptchaOptions = {
+	theme: 'white',
+	lang: '$command.locale'
+};
+</script>
+
 <script type="text/javascript"
 	src="http://api.recaptcha.net/challenge?k=$domain.configuration.get("recaptcha.public_key")">
 </script>

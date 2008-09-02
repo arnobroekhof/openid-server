@@ -4,6 +4,7 @@
 package cn.net.openid.jos.web.form;
 
 import java.io.Serializable;
+import java.util.Locale;
 
 /**
  * @author Sutra Zhou
@@ -17,6 +18,7 @@ public class CaptchaForm implements Serializable {
 	private static final long serialVersionUID = -7661908793403102686L;
 
 	private String captcha;
+	private Locale locale;
 
 	/**
 	 * @return the captcha
@@ -31,6 +33,21 @@ public class CaptchaForm implements Serializable {
 	 */
 	public void setCaptcha(String captcha) {
 		this.captcha = captcha;
+	}
+
+	/**
+	 * @return the locale
+	 */
+	public Locale getLocale() {
+		return locale;
+	}
+
+	/**
+	 * @param locale
+	 *            the locale to set
+	 */
+	public void setLocale(Locale locale) {
+		this.locale = locale;
 	}
 
 }

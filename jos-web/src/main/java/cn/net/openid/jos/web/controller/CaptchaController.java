@@ -11,17 +11,44 @@ import net.tanesha.recaptcha.ReCaptchaResponse;
 
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.net.openid.jos.domain.Domain;
 import cn.net.openid.jos.web.AbstractJosSimpleFormController;
 import cn.net.openid.jos.web.filter.CaptchaFilter;
+import cn.net.openid.jos.web.form.CaptchaForm;
 
 /**
  * @author Sutra Zhou
  * 
  */
 public class CaptchaController extends AbstractJosSimpleFormController {
+	private LocaleResolver localeResolver;
+
+	/**
+	 * @param localeResolver
+	 *            the localeResolver to set
+	 */
+	public void setLocaleResolver(LocaleResolver localeResolver) {
+		this.localeResolver = localeResolver;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.springframework.web.servlet.mvc.AbstractFormController#formBackingObject
+	 * (javax.servlet.http.HttpServletRequest)
+	 */
+	@Override
+	protected Object formBackingObject(HttpServletRequest request)
+			throws Exception {
+		CaptchaForm captchaForm = (CaptchaForm) super
+				.formBackingObject(request);
+		captchaForm.setLocale(this.localeResolver.resolveLocale(request));
+		return captchaForm;
+	}
 
 	/*
 	 * (non-Javadoc)

@@ -158,6 +158,7 @@
 		parent="abstractJosSimpleFormController">
 		<property name="commandClass" value="cn.net.openid.jos.web.form.CaptchaForm" />
 		<property name="formView" value="captcha" />
+		<property name="localeResolver" ref="localeResolver" />
 	</bean>
 
 	<!-- The url mappings that can be visited anonymously. -->
@@ -238,6 +239,7 @@
 				<value>cn.net.openid.jos.web.persona</value>
 				<value>cn.net.openid.jos.web.site</value>
 				<value>cn.net.openid.jos.web.approving</value>
+				<value>cn.net.openid.jos.web.captcha</value>
 			</list>
 		</property>
 	</bean>
