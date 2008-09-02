@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import cn.net.openid.jos.domain.Domain;
 import cn.net.openid.jos.web.AbstractJosSimpleFormController;
+import cn.net.openid.jos.web.MessageCodes;
 import cn.net.openid.jos.web.filter.CaptchaFilter;
 import cn.net.openid.jos.web.form.CaptchaForm;
 
@@ -79,8 +80,8 @@ public class CaptchaController extends AbstractJosSimpleFormController {
 		if (!reCaptchaResponse.isValid()) {
 			FieldError fieldError = new FieldError("command", "captcha",
 					request.getParameter("recaptcha_response_field"), false,
-					new String[] { "errors.badCaptcha" }, null,
-					"Please try again.");
+					new String[] { MessageCodes.Captcha.Error.BAD_CAPTCHA },
+					null, "Please try again.");
 			errors.addError(fieldError);
 		}
 	}

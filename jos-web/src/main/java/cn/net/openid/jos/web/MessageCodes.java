@@ -14,18 +14,36 @@ public class MessageCodes {
 
 	public static class User {
 		public static class Error {
-			public static final String LOGIN_FAILED = "user.error.login.failed";
-			public static final String USERNAME_FORMAT = "user.error.username.format";
-			public static final String USERNAME_RESERVED = "user.error.username.reserved";
-			public static final String USERNAME_UNALLOWABLE = "user.error.username.unallowable";
-			public static final String REGISTER_USER_ALREADY_EXISTS = "user.error.register.userAlreadyExists";
-			public static final String CONFIRMING_PASSWORD_NOT_EQUALS = "user.error.confirmingPassword.notEquals";
+			private static final String PREFIX = "user.error.";
+
+			public static final String LOGIN_FAILED = PREFIX + "login.failed";
+			public static final String USERNAME_FORMAT = PREFIX
+					+ "username.format";
+			public static final String USERNAME_RESERVED = PREFIX
+					+ "username.reserved";
+			public static final String USERNAME_UNALLOWABLE = PREFIX
+					+ "username.unallowable";
+			public static final String REGISTER_USER_ALREADY_EXISTS = PREFIX
+					+ "register.userAlreadyExists";
+			public static final String CONFIRMING_PASSWORD_NOT_EQUALS = PREFIX
+					+ "confirmingPassword.notEquals";
 		}
 	}
 
 	public static class Password {
 		public static class Title {
-			public static final String DEFAULT_PASSWORD = "password.title.defaultPassword";
+			private static final String PREFIX = "password.title.";
+
+			public static final String DEFAULT_PASSWORD = PREFIX
+					+ "defaultPassword";
+		}
+	}
+
+	public static class Captcha {
+		public static class Error {
+			private static final String PREFIX = "captcha.error.";
+
+			public static final String BAD_CAPTCHA = PREFIX + "badCaptcha";
 		}
 	}
 }
