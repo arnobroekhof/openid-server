@@ -19,7 +19,10 @@ import cn.net.openid.jos.domain.Password;
 import cn.net.openid.jos.domain.Persona;
 import cn.net.openid.jos.domain.Site;
 import cn.net.openid.jos.domain.User;
+import cn.net.openid.jos.service.exception.EmailConfirmationInfoNotFoundException;
+import cn.net.openid.jos.service.exception.LastPasswordException;
 import cn.net.openid.jos.service.exception.PersonaInUseException;
+import cn.net.openid.jos.service.exception.UnresolvedDomainException;
 
 /**
  * @author Sutra Zhou

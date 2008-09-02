@@ -281,7 +281,7 @@
 		<location>/WEB-INF/view/jsp/errors.jsp</location>
 	</error-page>
 	<error-page>
-		<exception-type>cn.net.openid.jos.service.UnresolvedDomainException</exception-type>
+		<exception-type>cn.net.openid.jos.service.exception.UnresolvedDomainException</exception-type>
 		<location>/WEB-INF/view/jsp/unresolved-domain.jsp</location>
 	</error-page>
 

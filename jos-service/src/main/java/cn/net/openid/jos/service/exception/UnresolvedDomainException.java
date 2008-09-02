@@ -1,7 +1,7 @@
 /**
  * Created on 2008-8-11 上午12:54:32
  */
-package cn.net.openid.jos.service;
+package cn.net.openid.jos.service.exception;
 
 /**
  * Unchecked exception thrown when an attempt is made to parse a domain
