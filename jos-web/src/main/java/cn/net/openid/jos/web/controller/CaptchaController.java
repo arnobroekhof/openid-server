@@ -13,6 +13,7 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.net.openid.jos.domain.Domain;
 import cn.net.openid.jos.web.AbstractJosSimpleFormController;
 import cn.net.openid.jos.web.filter.CaptchaFilter;
 
@@ -40,7 +41,9 @@ public class CaptchaController extends AbstractJosSimpleFormController {
 
 		// Probably don't want to hardcode your private key here but
 		// just to get it working is OK...
-		reCaptcha.setPrivateKey("6Lcd_gIAAAAAAPKYJjS4t7LuoDshWtzEJUJgKGq-");
+		Domain domain = this.getDomain(request);
+		reCaptcha.setPrivateKey((String) domain.getConfiguration().get(
+				"recaptcha.private_key"));
 
 		ReCaptchaResponse reCaptchaResponse = reCaptcha.checkAnswer(remoteAddr,
 				request.getParameter("recaptcha_challenge_field"), request

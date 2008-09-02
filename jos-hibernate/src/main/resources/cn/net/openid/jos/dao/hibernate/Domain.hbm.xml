@@ -13,5 +13,15 @@
 		<one-to-one name="usernameConfiguration" cascade="all" />
 		<property name="creationDate" type="timestamp" not-null="true"
 			update="false" column="domain_creation_date" />
+		<map name="configuration"
+			table="jos_domain_configuration"
+			lazy="false"
+			inverse="false"
+			cascade="all-delete-orphan"
+			order-by="domain_id, attribute_name asc">
+			<key column="domain_id" not-null="true" />
+			<map-key column="attribute_name" type="string" />
+			<element column="attribute_value" type="text" />
+		</map>
 	</class>
 </hibernate-mapping>

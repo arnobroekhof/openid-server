@@ -4,6 +4,7 @@
 package cn.net.openid.jos.domain;
 
 import java.net.URL;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -275,6 +276,7 @@ public class Domain extends BaseEntity {
 	private String serverHost;
 	private String memberPath;
 	private UsernameConfiguration usernameConfiguration;
+	private Map<String, Object> configuration;
 	private transient DomainRuntime runtime = new DomainRuntime();
 
 	/**
@@ -351,6 +353,21 @@ public class Domain extends BaseEntity {
 	public void setUsernameConfiguration(
 			UsernameConfiguration usernameConfiguration) {
 		this.usernameConfiguration = usernameConfiguration;
+	}
+
+	/**
+	 * @return the configuration
+	 */
+	public Map<String, Object> getConfiguration() {
+		return configuration;
+	}
+
+	/**
+	 * @param configuration
+	 *            the configuration to set
+	 */
+	public void setConfiguration(Map<String, Object> configuration) {
+		this.configuration = configuration;
 	}
 
 	/**
