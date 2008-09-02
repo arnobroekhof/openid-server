@@ -20,7 +20,7 @@
 		</ul>
 	</div>
 	<div id="hl">
-		<ul>#foreach($l in $userAgentLocales)<li><a href="#josUrl("?hl=$l#if($!request.getParameter('self'))&amp;self=$!request.getParameter('self')#end")">$l.getDisplayName($l)</a></li>#end<li class="last-child"><a href="#josUrl("/hl#if($!request.getParameter('self'))?self=$!request.getParameter('self')#end")" title="#springMessageText('button.moreLanguages' 'More languages')">»</a></li></ul>
+		<ul>#foreach($l in $userAgentLocales)<li><a href="?hl=$l#if($!request.getParameter('self'))&amp;self=$!request.getParameter('self')#end">$l.getDisplayName($l)</a></li>#end<li class="last-child"><a href="#josUrl("/hl#if($!request.getParameter('self'))?self=$!request.getParameter('self')#end")" title="#springMessageText('button.moreLanguages' 'More languages')">»</a></li></ul>
 	</div>
 </div>
 <div id="welcome">
