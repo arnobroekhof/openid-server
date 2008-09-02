@@ -42,7 +42,7 @@ public class CaptchaController extends AbstractJosSimpleFormController {
 		// Probably don't want to hardcode your private key here but
 		// just to get it working is OK...
 		Domain domain = this.getDomain(request);
-		reCaptcha.setPrivateKey((String) domain.getConfiguration().get(
+		reCaptcha.setPrivateKey(domain.getConfiguration().get(
 				"recaptcha.private_key"));
 
 		ReCaptchaResponse reCaptchaResponse = reCaptcha.checkAnswer(remoteAddr,

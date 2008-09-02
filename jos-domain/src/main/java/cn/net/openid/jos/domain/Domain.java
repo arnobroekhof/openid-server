@@ -276,7 +276,7 @@ public class Domain extends BaseEntity {
 	private String serverHost;
 	private String memberPath;
 	private UsernameConfiguration usernameConfiguration;
-	private Map<String, Object> configuration;
+	private Map<String, String> configuration;
 	private transient DomainRuntime runtime = new DomainRuntime();
 
 	/**
@@ -358,7 +358,7 @@ public class Domain extends BaseEntity {
 	/**
 	 * @return the configuration
 	 */
-	public Map<String, Object> getConfiguration() {
+	public Map<String, String> getConfiguration() {
 		return configuration;
 	}
 
@@ -366,7 +366,7 @@ public class Domain extends BaseEntity {
 	 * @param configuration
 	 *            the configuration to set
 	 */
-	public void setConfiguration(Map<String, Object> configuration) {
+	public void setConfiguration(Map<String, String> configuration) {
 		this.configuration = configuration;
 	}
 
@@ -429,6 +429,11 @@ public class Domain extends BaseEntity {
 			break;
 		}
 		return sb.toString();
+	}
+
+	public boolean getBooleanAttribute(String attributeName) {
+		String attributeValue = this.getConfiguration().get(attributeName);
+		return Boolean.parseBoolean(attributeValue);
 	}
 
 	/*

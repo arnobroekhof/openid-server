@@ -13,6 +13,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 
+import cn.net.openid.jos.domain.Domain;
+
 /**
  * @author Sutra Zhou
  * 
@@ -71,7 +73,9 @@ public class CaptchaFilter extends OncePerRequestServiceFilter {
 	protected void doFilterInternal(HttpServletRequest request,
 			HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-		if (isHuman(request)) {
+		Domain domain = DomainFilter.getDomain(request);
+		boolean captcha = domain.getBooleanAttribute("captcha");
+		if (!captcha || isHuman(request)) {
 			filterChain.doFilter(request, response);
 		} else {
 			setFrom(request, request.getRequestURI());
