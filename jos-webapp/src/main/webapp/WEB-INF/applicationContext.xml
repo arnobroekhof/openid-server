@@ -42,7 +42,7 @@
 					ref="attributeValueDao" />
 				<property name="realmDao" ref="realmDao" />
 				<property name="siteDao" ref="siteDao" />
-				<property name="availableLanguages">
+				<property name="availableLocales">
 					<set>
 						<value>en_US</value>
 						<value>ja</value>

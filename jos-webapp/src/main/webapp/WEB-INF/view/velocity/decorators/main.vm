@@ -9,11 +9,11 @@
 		<meta name="keywords" content="openid" />
 		<meta name="description" content="OpenID Provider" />
 		<link rel="icon" href="$base/favicon.ico" type="image/x-icon" />
-		<link rel="shortcut icon" href="$base/favicon.ico" type="image/x-icon" />
+		<link rel="shortcut icon" href="$response.encodeURL("$base/favicon.ico")" type="image/x-icon" />
 		<link rel="stylesheet" type="text/css" media="screen"
-			href="$base/openid.css" />
+			href="$response.encodeURL("$base/openid.css")" />
 		<link rel="stylesheet" type="text/css" media="screen"
-			href="$base/${domain.id}.css" />
+			href="$response.encodeURL("$base/${domain.id}.css")" />
 		$head
 	</head>
 	<body>

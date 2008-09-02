@@ -30,11 +30,11 @@ import cn.net.openid.jos.service.exception.UnresolvedDomainException;
  */
 public interface JosService {
 	/**
-	 * Get all available languages.
+	 * Get all available locales.
 	 * 
-	 * @return a collection of available languages.
+	 * @return a collection of available locales.
 	 */
-	Collection<Locale> getAvailableLanguages();
+	Collection<Locale> getAvailableLocales();
 
 	ServerManager getServerManager(Domain domain);
 

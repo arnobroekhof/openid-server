@@ -267,8 +267,14 @@
 		class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
 		<property name="paramName" value="hl" />
 	</bean>
+	<!--
 	<bean id="localeResolver"
 		class="org.springframework.web.servlet.i18n.SessionLocaleResolver" />
+	-->
+	<bean id="localeResolver"
+		class="cn.net.openid.jos.web.i18n.DomainSessionLocaleResolver">
+		<property name="josService" ref="josService" />
+	</bean>
 
 	<bean id="themeChangeInterceptor"
 		class="org.springframework.web.servlet.theme.ThemeChangeInterceptor" />

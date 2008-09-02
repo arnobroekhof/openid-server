@@ -62,7 +62,7 @@ public class JosServiceImpl implements JosService {
 
 	private final Map<Domain, ServerManager> serverManagers = new HashMap<Domain, ServerManager>();
 
-	private Collection<Locale> availableLanguages;
+	private Collection<Locale> availableLocales;
 
 	private DomainDao domainDao;
 	private UserDao userDao;
@@ -76,7 +76,7 @@ public class JosServiceImpl implements JosService {
 	private PersonaDao personaDao;
 
 	public JosServiceImpl() {
-		this.availableLanguages = Collections.unmodifiableCollection(Arrays
+		this.availableLocales = Collections.unmodifiableCollection(Arrays
 				.asList(Locale.getAvailableLocales()));
 	}
 
@@ -162,18 +162,18 @@ public class JosServiceImpl implements JosService {
 		this.personaDao = personaDao;
 	}
 
-	public void setAvailableLanguages(Collection<String> availableLanguages) {
-		this.availableLanguages = new LinkedHashSet<Locale>(availableLanguages
+	public void setAvailableLocales(Collection<String> availableLocales) {
+		this.availableLocales = new LinkedHashSet<Locale>(availableLocales
 				.size());
-		for (String language : availableLanguages) {
-			this.availableLanguages.add(LocaleUtils.toLocale(language));
+		for (String language : availableLocales) {
+			this.availableLocales.add(LocaleUtils.toLocale(language));
 		}
-		this.availableLanguages = Collections
-				.unmodifiableCollection(this.availableLanguages);
+		this.availableLocales = Collections
+				.unmodifiableCollection(this.availableLocales);
 	}
 
-	public Collection<Locale> getAvailableLanguages() {
-		return this.availableLanguages;
+	public Collection<Locale> getAvailableLocales() {
+		return this.availableLocales;
 	}
 
 	private synchronized ServerManager newServerManager(Domain domain) {
