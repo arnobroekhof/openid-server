@@ -74,6 +74,7 @@ public class JosServiceImpl implements JosService {
 	private RealmDao realmDao;
 	private SiteDao siteDao;
 	private PersonaDao personaDao;
+	private PasswordGenerator passwordGenerator;
 
 	public JosServiceImpl() {
 		this.availableLocales = Collections.unmodifiableCollection(Arrays
@@ -160,6 +161,15 @@ public class JosServiceImpl implements JosService {
 	 */
 	public void setPersonaDao(PersonaDao personaDao) {
 		this.personaDao = personaDao;
+	}
+
+	/**
+	 * 
+	 * @param passwordGenerator
+	 *            the passwordGenerator to set
+	 */
+	public void setPasswordGenerator(PasswordGenerator passwordGenerator) {
+		this.passwordGenerator = passwordGenerator;
 	}
 
 	public void setAvailableLocales(Collection<String> availableLocales) {
@@ -413,7 +423,12 @@ public class JosServiceImpl implements JosService {
 	 * .Domain, java.lang.String)
 	 */
 	public User getUser(Domain domain, String username) {
-		return userDao.getUser(domain, username);
+		User user = userDao.getUser(domain, username);
+		if (user != null) {
+			// Set domain with the runtime domain.
+			user.setDomain(domain);
+		}
+		return user;
 	}
 
 	/*
@@ -500,6 +515,38 @@ public class JosServiceImpl implements JosService {
 		if (passwordDao.getPasswordCount(user) == 0L) {
 			throw new LastPasswordException();
 		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * cn.net.openid.jos.service.JosService#generateSingleUsePassword(cn.net
+	 * .openid .jos.domain.User, cn.net.openid.jos.domain.Email)
+	 */
+	public Password generateSingleUsePassword(User user, Email email) {
+		Password ret = null;
+		Collection<Password> passwords = this.getPasswords(user);
+		for (Password password : passwords) {
+			if (password.getMaximumServiceTimes() == 1) {
+				ret = password;
+				break;
+			}
+		}
+
+		if (ret == null) {
+			ret = new Password(user);
+			ret.setMaximumServiceTimes(Password.SINGLE_USE);
+
+			ret.setName(email.getAddress());
+			String passwordPlaintext = new String(this.passwordGenerator
+					.generate(16, 32));
+			ret.setPlaintext(passwordPlaintext);
+			ret.setShaHex(DigestUtils.shaHex(ret.getPlaintext()));
+
+			passwordDao.insertPassword(ret);
+		}
+		return ret;
 	}
 
 	/*

@@ -234,6 +234,10 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>jos</servlet-name>
+		<url-pattern>/forgot-password</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>jos</servlet-name>
 		<url-pattern>/personas</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>

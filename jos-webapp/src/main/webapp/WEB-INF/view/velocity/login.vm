@@ -18,12 +18,12 @@
 					#springBind("command.username")
 					<tr>
 						<td class="label">
-							<label for="username">OpenID：</label>
+							<label for="username">#springMessage("label.openid")</label>
 						</td>
 						<td>
 							<span class="identifier">
 							${domain.identifierPrefix}
-							#springFormInput("command.username" 'size="16"')
+							#springFormInput("command.username" "")
 							${domain.identifierSuffix}
 							</span>
 							#springShowErrors("" "error")
@@ -44,6 +44,7 @@
 						<td>
 							<button type="submit">#springMessage("button.login")</button>
 							##<a href="index.login" title="#springMessage('login.other')">#springMessage("login.other")</a>
+							<a href="#josUrl("/forgot-password")">#springMessage("password.title.forgot")</a>
 						</td>
 					</tr>
 				</table>

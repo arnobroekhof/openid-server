@@ -37,6 +37,13 @@ public class MessageCodes {
 			public static final String DEFAULT_PASSWORD = PREFIX
 					+ "defaultPassword";
 		}
+
+		public static class Error {
+			public static final String PREFIX = "password.error.";
+
+			public static final String USERNAME_OR_EMAIL_ADDRESS_INCORRECT = PREFIX
+					+ "usernameOrEmailAddressIncorrect";
+		}
 	}
 
 	public static class Captcha {

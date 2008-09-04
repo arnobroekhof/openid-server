@@ -9,7 +9,7 @@
 			#if(!${userSession.loggedIn})
 			<form action="#josUrl("/home")" method="post">
 				<div>
-					<label for="username">OpenID: </label>
+					<label for="username">#springMessage("label.openid")</label>
 					<span class="identifier">
 					${domain.identifierPrefix}
 					<input type="text" id="username" name="username" accesskey="U" />

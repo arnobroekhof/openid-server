@@ -21,6 +21,7 @@
 				<prop key="update*">PROPAGATION_REQUIRED</prop>
 				<prop key="save*">PROPAGATION_REQUIRED</prop>
 				<prop key="delete*">PROPAGATION_REQUIRED</prop>
+				<prop key="generate*">PROPAGATION_REQUIRED</prop>
 				<prop key="allow">PROPAGATION_REQUIRED</prop>
 				<prop key="confirmEmail">PROPAGATION_REQUIRED</prop>
 				<prop key="*">PROPAGATION_REQUIRED,readOnly</prop>
@@ -42,6 +43,7 @@
 					ref="attributeValueDao" />
 				<property name="realmDao" ref="realmDao" />
 				<property name="siteDao" ref="siteDao" />
+				<property name="passwordGenerator" ref="passwordGenerator" />
 				<property name="availableLocales">
 					<set>
 						<value>en_US</value>
@@ -55,9 +57,13 @@
 		<property name="postInterceptors">
 			<list>
 				<ref bean="emailAdvisor" />
+				<ref bean="sendSingleUsePasswordAdvisor" />
 			</list>
 		</property>
 	</bean>
+
+	<bean id="passwordGenerator"
+		class="cn.net.openid.jos.service.RandomPasswordGenerator" />
 
 	<bean id="emailAdvisor"
 		class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
@@ -69,10 +75,26 @@
 		</property>
 	</bean>
 
+	<bean id="sendSingleUsePasswordAdvisor"
+		class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+		<property name="advice">
+			<ref local="generateSingleUsePasswordAfterReturningAdvice" />
+		</property>
+		<property name="pattern">
+			<value>.*generateSingleUsePassword</value>
+		</property>
+	</bean>
+
 	<bean id="insertEmailAfterReturningAdvice"
 		class="cn.net.openid.jos.service.InsertEmailAfterReturningAdvice">
 		<property name="emailConfirmationInfoSendTaskExecutor"
 			ref="emailConfirmationInfoSendTaskExecutor" />
+	</bean>
+
+	<bean id="generateSingleUsePasswordAfterReturningAdvice"
+		class="cn.net.openid.jos.service.GenerateSingleUsePasswordAfterReturningAdvice">
+		<property name="passwordSendTaskExecutor"
+			ref="passwordSendTaskExecutor" />
 	</bean>
 
 	<bean id="taskExecutor"
@@ -84,6 +106,12 @@
 
 	<bean id="emailConfirmationInfoSendTaskExecutor"
 		class="cn.net.openid.jos.service.EmailConfirmationInfoSendTaskExecutor">
+		<constructor-arg ref="taskExecutor" />
+		<property name="mailSender" ref="mailSender" />
+	</bean>
+
+	<bean id="passwordSendTaskExecutor"
+		class="cn.net.openid.jos.service.PasswordSendTaskExecutor">
 		<constructor-arg ref="taskExecutor" />
 		<property name="mailSender" ref="mailSender" />
 	</bean>

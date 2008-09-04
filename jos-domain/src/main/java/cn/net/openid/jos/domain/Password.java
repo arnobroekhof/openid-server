@@ -3,12 +3,14 @@
  */
 package cn.net.openid.jos.domain;
 
-
 /**
  * @author Sutra Zhou
  * 
  */
 public class Password extends BaseEntity {
+	public static final int INFINITE_SERVICE_TIMES = -1;
+	public static final int SINGLE_USE = 1;
+
 	/**
 	 * 
 	 */
@@ -18,6 +20,7 @@ public class Password extends BaseEntity {
 	private String name;
 	private String plaintext;
 	private String shaHex;
+	private int maximumServiceTimes = INFINITE_SERVICE_TIMES;
 
 	/**
 	 * 
@@ -90,6 +93,21 @@ public class Password extends BaseEntity {
 	 */
 	public void setShaHex(String shaHex) {
 		this.shaHex = shaHex;
+	}
+
+	/**
+	 * @return the maximumServiceTimes
+	 */
+	public int getMaximumServiceTimes() {
+		return maximumServiceTimes;
+	}
+
+	/**
+	 * @param maximumServiceTimes
+	 *            the maximumServiceTimes to set
+	 */
+	public void setMaximumServiceTimes(int maximumServiceTimes) {
+		this.maximumServiceTimes = maximumServiceTimes;
 	}
 
 	/*

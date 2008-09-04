@@ -107,6 +107,8 @@ public interface JosService {
 
 	void deletePasswords(User user, String[] passwordIds)
 			throws LastPasswordException;
+	
+	Password generateSingleUsePassword(User user, Email email);
 
 	/**
 	 * 该方法的事务处理由Spring的事务处理保证。

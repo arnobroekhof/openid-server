@@ -95,6 +95,14 @@
 		<property name="formView" value="password" />
 		<property name="successView" value="password-success" />
 	</bean>
+	<bean id="forgotPasswordController"
+		class="cn.net.openid.jos.web.controller.ForgotPasswordController"
+		parent="abstractJosSimpleFormController">
+		<property name="commandClass"
+			value="cn.net.openid.jos.domain.Email" />
+		<property name="formView" value="forgot-password" />
+		<property name="successView" value="forgot-password-success" />
+	</bean>
 
 	<!-- Persona. -->
 	<bean id="personasController"
@@ -176,6 +184,7 @@
 				<entry key="/home" value-ref="homeController" />
 				<entry key="/register" value-ref="registerController" />
 				<entry key="/login" value-ref="loginController" />
+				<entry key="/forgot-password" value-ref="forgotPasswordController" />
 				<entry key="/email-confirm"
 					value-ref="confirmEmailController" />
 				<entry key="/hl"
