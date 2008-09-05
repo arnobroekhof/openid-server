@@ -72,7 +72,7 @@ public interface JosService {
 
 	User getUser(Domain domain, String username);
 
-	User getUser(Domain domain, String username, String passwordPlaintext);
+	User login(Domain domain, String username, String passwordPlaintext);
 
 	/**
 	 * Generate a random string for EmailConfiratmionInfo.

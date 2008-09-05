@@ -20,6 +20,7 @@ public class Password extends BaseEntity {
 	private String name;
 	private String plaintext;
 	private String shaHex;
+	private long usedTimes;
 	private int maximumServiceTimes = INFINITE_SERVICE_TIMES;
 
 	/**
@@ -96,6 +97,21 @@ public class Password extends BaseEntity {
 	}
 
 	/**
+	 * @return the usedTimes
+	 */
+	public long getUsedTimes() {
+		return usedTimes;
+	}
+
+	/**
+	 * @param usedTimes
+	 *            the usedTimes to set
+	 */
+	public void setUsedTimes(long usedTimes) {
+		this.usedTimes = usedTimes;
+	}
+
+	/**
 	 * @return the maximumServiceTimes
 	 */
 	public int getMaximumServiceTimes() {
@@ -108,6 +124,11 @@ public class Password extends BaseEntity {
 	 */
 	public void setMaximumServiceTimes(int maximumServiceTimes) {
 		this.maximumServiceTimes = maximumServiceTimes;
+	}
+
+	public boolean isUseful() {
+		return this.getMaximumServiceTimes() == Password.INFINITE_SERVICE_TIMES ? true
+				: this.getUsedTimes() < this.getMaximumServiceTimes();
 	}
 
 	/*

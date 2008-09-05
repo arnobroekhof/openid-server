@@ -46,14 +46,14 @@ public class LoginController extends AbstractJosSimpleFormController {
 	protected void onBindAndValidate(HttpServletRequest request,
 			Object command, BindException errors) throws Exception {
 		LoginForm lf = (LoginForm) command;
-		User user = getJosService().getUser(this.getDomain(request),
+		User user = getJosService().login(this.getDomain(request),
 				lf.getUsername(), lf.getPassword());
 		if (user == null) {
-			errors
-					.rejectValue("username",
-							MessageCodes.User.Error.LOGIN_FAILED);
+			String errorCode = MessageCodes.User.Error.LOGIN_FAILED;
+			errors.rejectValue("username", errorCode);
 		} else {
-			user.setDomain(this.getDomain(request));
+			// Comment as this logic has moved to JosService.
+			// user.setDomain(this.getDomain(request));
 
 			HttpSession session = request.getSession();
 			UserSession userSession = getUserSession(session);

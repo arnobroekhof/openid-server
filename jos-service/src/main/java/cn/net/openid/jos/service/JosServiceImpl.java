@@ -434,11 +434,10 @@ public class JosServiceImpl implements JosService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * cn.net.openid.jos.service.JosService#getUser(cn.net.openid.jos.domain
+	 * @see cn.net.openid.jos.service.JosService#login(cn.net.openid.jos.domain
 	 * .Domain, java.lang.String, java.lang.String)
 	 */
-	public User getUser(Domain domain, String username, String passwordPlaintext) {
+	public User login(Domain domain, String username, String passwordPlaintext) {
 		if (StringUtils.isEmpty(username)) {
 			return null;
 		}
@@ -451,8 +450,11 @@ public class JosServiceImpl implements JosService {
 		boolean foundPassword = false;
 		String passwordShaHex = DigestUtils.shaHex(passwordPlaintext);
 		for (Password password : passwords) {
-			if (password.getShaHex().equalsIgnoreCase(passwordShaHex)) {
+			if (password.isUseful()
+					&& password.getShaHex().equalsIgnoreCase(passwordShaHex)) {
 				foundPassword = true;
+				password.setUsedTimes(password.getUsedTimes() + 1);
+				passwordDao.updatePassword(password);
 				break;
 			}
 		}
