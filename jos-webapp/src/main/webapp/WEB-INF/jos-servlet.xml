@@ -1,6 +1,9 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
 		  "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 <beans>
+
+	<!-- ================ CONTROLLER DEFINITIONS ================ -->
+
 	<bean id="abstractJosController"
 		class="cn.net.openid.jos.web.AbstractJosController" abstract="true">
 		<property name="josService" ref="josService" />
@@ -169,6 +172,9 @@
 		<property name="localeResolver" ref="localeResolver" />
 	</bean>
 
+
+	<!-- ================ INTERCEPTOR DEFINITIONS ================ -->
+
 	<!-- The interceptor to check user session. -->
 	<bean id="userLoggedInInterceptor"
 		class="cn.net.openid.jos.web.interceptor.UserLoggedInInterceptor">
@@ -180,6 +186,9 @@
 		class="cn.net.openid.jos.web.interceptor.CaptchaInterceptor" />
 	<bean id="forgotPasswordCaptchaInterceptor"
 		class="cn.net.openid.jos.web.interceptor.CaptchaInterceptor" />
+
+
+	<!-- ================ MAPPING DEFINITIONS ================ -->
 
 	<!-- The url mappings that can be visited anonymously. -->
 	<bean id="handlerMapping"
@@ -288,6 +297,10 @@
 			</map>
 		</property>
 	</bean>
+
+
+	<!-- ================ MESSAGE SOURCE DEFINITION ================ -->
+
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basenames">
@@ -305,6 +318,10 @@
 			</list>
 		</property>
 	</bean>
+
+
+	<!-- ================ VELOCITY DEFINITION ================ -->
+
 	<bean id="velocityConfigurer"
 		class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
 		<property name="resourceLoaderPath"
@@ -325,6 +342,9 @@
 		</property>
 	</bean>
 
+
+	<!-- ================ LOCALE ================ -->
+
 	<bean id="localeChangeInterceptor"
 		class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
 		<property name="paramName" value="hl" />
@@ -337,6 +357,9 @@
 		class="cn.net.openid.jos.web.i18n.DomainSessionLocaleResolver">
 		<property name="josService" ref="josService" />
 	</bean>
+
+
+	<!-- ================ THEME ================ -->
 
 	<bean id="themeChangeInterceptor"
 		class="org.springframework.web.servlet.theme.ThemeChangeInterceptor" />

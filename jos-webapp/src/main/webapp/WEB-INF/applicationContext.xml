@@ -66,6 +66,9 @@
 	<bean id="passwordGenerator"
 		class="cn.net.openid.jos.service.RandomPasswordGenerator" />
 
+
+	<!-- ================ ADVISOR DEFINITIONS ================ -->
+
 	<bean id="emailAdvisor"
 		class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
 		<property name="advice">
@@ -86,6 +89,9 @@
 		</property>
 	</bean>
 
+
+	<!-- ================ ADVICE DEFINITIONS ================ -->
+
 	<bean id="insertEmailAfterReturningAdvice"
 		class="cn.net.openid.jos.service.InsertEmailAfterReturningAdvice">
 		<property name="emailConfirmationInfoSendTaskExecutor"
@@ -97,6 +103,8 @@
 		<property name="passwordSendTaskExecutor"
 			ref="passwordSendTaskExecutor" />
 	</bean>
+
+	<!-- ================ TASK EXECUTOR DEFINITIONS ================ -->
 
 	<bean id="taskExecutor"
 		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
@@ -117,6 +125,9 @@
 		<property name="mailSender" ref="mailSender" />
 	</bean>
 
+
+	<!-- ================ VALIDATOR DEFINITIONS ================ -->
+
 	<bean id="personaValidator"
 		class="cn.net.openid.jos.web.validation.PersonaValidator" />
 	<bean id="emailValidator"
@@ -128,7 +139,10 @@
 		class="cn.net.openid.jos.web.validation.RegisterFormValidator">
 	</bean>
 
+
+	<!-- ================ FILTER DEFINITIONS ================ -->
 	<!-- Setup filters so native filters will use josService -->
+
 	<bean id="oncePerRequestServiceFilter"
 		class="cn.net.openid.jos.web.filter.OncePerRequestServiceFilter"
 		abstract="true">

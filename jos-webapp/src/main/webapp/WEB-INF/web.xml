@@ -32,6 +32,9 @@
 		</listener-class>
 	</listener>
 
+
+	<!-- ================ FILTER DEFINITIONS ================ -->
+
 	<!-- Character Encoding. -->
 	<filter>
 		<display-name>Set Character Encoding Filter</display-name>
@@ -109,6 +112,9 @@
 		</filter-class>
 	</filter>
 
+
+	<!-- ================ SERVLET DEFINITIONS ================ -->
+
 	<servlet>
 		<servlet-name>jos</servlet-name>
 		<servlet-class>
@@ -134,6 +140,9 @@
 		</servlet-class>
 		<load-on-startup>10</load-on-startup>
 	</servlet>
+
+
+	<!-- ================ FILTER MAPPING ================ -->
 
 	<filter-mapping>
 		<filter-name>Set Character Encoding Filter</filter-name>
@@ -183,6 +192,10 @@
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 	</filter-mapping>
+
+
+	<!-- ================ SERVLET MAPPING ================ -->
+
 	<servlet-mapping>
 		<servlet-name>sitemesh-velocity</servlet-name>
 		<url-pattern>*.vm</url-pattern>
@@ -196,6 +209,9 @@
 		<url-pattern>/member/*</url-pattern>
 	</servlet-mapping>
 
+
+	<!-- ================ SECURITY SETTINGS ================ -->
+
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>*.do</web-resource-name>
@@ -204,6 +220,9 @@
 		</web-resource-collection>
 		<auth-constraint />
 	</security-constraint>
+
+
+	<!-- ================ ERROR PAGE DEFINTIONS ================ -->
 
 	<error-page>
 		<exception-type>

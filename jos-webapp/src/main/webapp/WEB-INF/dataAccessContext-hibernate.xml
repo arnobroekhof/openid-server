@@ -39,11 +39,15 @@
 		</property>
 	</bean>
 
+
+	<!-- ================ DAO DEFINITIONS ================ -->
+
 	<bean id="baseDao"
 		class="cn.net.openid.jos.dao.hibernate.BaseHibernateEntityDao"
 		abstract="true">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
+
 	<bean id="domainDao"
 		class="cn.net.openid.jos.dao.hibernate.HibernateDomainDao"
 		parent="baseDao" />
