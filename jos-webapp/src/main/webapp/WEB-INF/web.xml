@@ -192,6 +192,15 @@
 		<url-pattern>/member/*</url-pattern>
 	</servlet-mapping>
 
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>*.do</web-resource-name>
+			<description>Disable access to *.do directly.</description>
+			<url-pattern>*.do</url-pattern>
+		</web-resource-collection>
+		<auth-constraint />
+	</security-constraint>
+
 	<error-page>
 		<exception-type>
 			org.springframework.context.ApplicationContextException
