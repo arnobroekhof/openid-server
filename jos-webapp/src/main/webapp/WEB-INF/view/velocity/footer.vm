@@ -1,4 +1,9 @@
 #set($springXhtmlCompliant = true)
 <div id="footer">
-	#springMessage("message.copyright") &copy; 2006-2008, <a href="http://openid.org.cn">OpenID.org.cn</a>
+	#if($domain.configuration.get("inceptionYear") && $domain.getIntAttribute("inceptionYear") != $date.year)
+		#set($copyrightYears = "$domain.getIntAttribute('inceptionYear')-$date.year")
+	#else
+		#set($copyrightYears = $date.year)
+	#end
+	#springMessage("message.copyright") &copy; $!copyrightYears, <a href="$!domain.configuration.get("organization.url")">$!domain.configuration.get("organization.name")</a>
 </div>

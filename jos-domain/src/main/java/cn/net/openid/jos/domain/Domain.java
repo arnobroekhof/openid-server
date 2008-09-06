@@ -7,6 +7,7 @@ import java.net.URL;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.NumberUtils;
 
 /**
  * Virtual domain model.
@@ -434,6 +435,10 @@ public class Domain extends BaseEntity {
 	public boolean getBooleanAttribute(String attributeName) {
 		String attributeValue = this.getConfiguration().get(attributeName);
 		return Boolean.parseBoolean(attributeValue);
+	}
+
+	public int getIntAttribute(String attributeName) {
+		return NumberUtils.toInt(this.getConfiguration().get(attributeName));
 	}
 
 	/*
