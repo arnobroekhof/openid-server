@@ -3,11 +3,11 @@
 	"http://tuckey.org/res/dtds/urlrewrite3.1.dtd">
 <urlrewrite>
 	<rule>
-		<from>^/$</from>
+		<from>^/(;jsessionid=.*)?$</from>
 		<to>/home.do</to>
 	</rule>
 	<rule>
-		<from>^/(server|captcha|approving|index|home|register|login|logout|email|email\-remove|email\-confirm|email\-set\-primary|passwords|password|forgot\-password|personas|persona|sites|attributs|edit\-attribute|remove\-attribute|attribute\-value|hl)$</from>
+		<from>^/(server|captcha|approving|index|home|register|login|logout|email|email\-remove|email\-confirm|email\-set\-primary|passwords|password|forgot\-password|personas|persona|sites|attributs|edit\-attribute|remove\-attribute|attribute\-value|hl)(;jsessionid=.*)?$</from>
 		<to>/$1.do</to>
 	</rule>
 </urlrewrite>
