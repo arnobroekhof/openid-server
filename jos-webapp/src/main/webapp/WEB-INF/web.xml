@@ -214,9 +214,10 @@
 
 	<security-constraint>
 		<web-resource-collection>
-			<web-resource-name>*.do</web-resource-name>
-			<description>Disable access to *.do directly.</description>
+			<web-resource-name>*.do and member.jsp</web-resource-name>
+			<description>Disable access to *.do and member.jsp directly.</description>
 			<url-pattern>*.do</url-pattern>
+			<url-pattern>/member.jsp</url-pattern>
 		</web-resource-collection>
 		<auth-constraint />
 	</security-constraint>
