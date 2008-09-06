@@ -514,7 +514,7 @@ public class JosServiceImpl implements JosService {
 				passwordDao.deletePassword(password.getId());
 			}
 		}
-		if (passwordDao.getPasswordCount(user) == 0L) {
+		if (passwordDao.getInfinitePasswordCount(user) == 0L) {
 			throw new LastPasswordException();
 		}
 	}
