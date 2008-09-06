@@ -25,12 +25,6 @@
 		<param-value>true</param-value>
 	</context-param>
 
-	<!-- Java OpenID Server. -->
-	<context-param>
-		<param-name>josServiceBeanName</param-name>
-		<param-value>josService</param-value>
-	</context-param>
-
 	<!-- Spring. -->
 	<listener>
 		<listener-class>
@@ -74,21 +68,31 @@
 	<filter>
 		<display-name>Domain Filter</display-name>
 		<filter-name>Domain Filter</filter-name>
-		<filter-class>cn.net.openid.jos.web.filter.DomainFilter</filter-class>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+		<init-param>
+			<param-name>targetBeanName</param-name>
+			<param-value>domainFilter</param-value>
+		</init-param>
 	</filter>
 
 	<!-- Java OpenID Server Member URL. -->
 	<filter>
 		<display-name>Member Filter</display-name>
 		<filter-name>Member Filter</filter-name>
-		<filter-class>cn.net.openid.jos.web.filter.MemberFilter</filter-class>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+		<init-param>
+			<param-name>targetBeanName</param-name>
+			<param-value>memberFilter</param-value>
+		</init-param>
 	</filter>
 	<filter>
 		<display-name>User Agent Locales Filter</display-name>
 		<filter-name>User Agent Locales Filter</filter-name>
-		<filter-class>
-			cn.net.openid.jos.web.filter.UserAgentLocalesFilter
-		</filter-class>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+		<init-param>
+			<param-name>targetBeanName</param-name>
+			<param-value>userAgentLocalesFilter</param-value>
+		</init-param>
 	</filter>
 	<filter>
 		<display-name>Approving Request Filter</display-name>

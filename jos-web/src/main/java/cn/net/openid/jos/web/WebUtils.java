@@ -5,15 +5,11 @@ package cn.net.openid.jos.web;
 
 import java.io.IOException;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.RandomStringUtils;
-import org.springframework.web.context.support.WebApplicationContextUtils;
-
-import cn.net.openid.jos.service.JosService;
 
 /**
  * The utilities for web.
@@ -23,17 +19,9 @@ import cn.net.openid.jos.service.JosService;
  */
 public class WebUtils {
 	private static final String USER_SESSION = "userSession";
-	private static final String JOS_SERVICE_BEAN_NAME_CONTEXT_PARAM_NAME = "josServiceBeanName";
 
 	public static String generateToken() {
 		return RandomStringUtils.randomAlphanumeric(32);
-	}
-
-	public static JosService getJosService(ServletContext servletContext) {
-		String beanName = servletContext
-				.getInitParameter(JOS_SERVICE_BEAN_NAME_CONTEXT_PARAM_NAME);
-		return (JosService) WebApplicationContextUtils
-				.getWebApplicationContext(servletContext).getBean(beanName);
 	}
 
 	/**
