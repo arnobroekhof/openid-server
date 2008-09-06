@@ -57,18 +57,18 @@ ul {
 /******************************************************************************
  * Defined class.
  ******************************************************************************/
-input[type=text], input[type=password] {
+input[type=text],input[type=password] {
 	background-color: #fff;
 	background-position: 0 50%;
 	color: #000;
 	border: 1px #A5ACB2 solid;
 }
 
-input[type=text]:hover, input[type=password]:hover {
+input[type=text]:hover,input[type=password]:hover {
 	border-color: red;
 }
 
-input[type=text]:focus, input[type=password]:focus {
+input[type=text]:focus,input[type=password]:focus {
 	border-color: rgb(255, 98, 0);
 }
 
@@ -138,6 +138,12 @@ table.list th,table.list td {
 
 table.list tfoot tr td {
 	text-align: right;
+}
+
+/* Useless password */
+tr.useless {
+	border: 1px solid #fcc;
+	background-color: #fee;
 }
 
 /******************************************************************************
