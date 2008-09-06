@@ -5,18 +5,14 @@ package cn.net.openid.jos.web.filter;
 
 import java.io.IOException;
 
-import javax.servlet.Filter;
 import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 import cn.net.openid.jos.web.UserSession;
 import cn.net.openid.jos.web.WebUtils;
@@ -25,32 +21,24 @@ import cn.net.openid.jos.web.WebUtils;
  * @author Sutra Zhou
  * 
  */
-public class ApprovingRequestFilter implements Filter {
-	private static final Log log = LogFactory
-			.getLog(ApprovingRequestFilter.class);
-	private static final boolean DEBUG = log.isDebugEnabled();
-
+public class ApprovingRequestFilter extends OncePerRequestFilter {
 	private static final String TOKEN_ATTRIBUTE_NAME = "token";
 	private static final String APPROVING_REQUEST_ATTRIBUTE_NAME = "approvingRequest";
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.servlet.Filter#destroy()
-	 */
-	public void destroy() {
-		// TODO Auto-generated method stub
-
-	}
+	private final boolean DEBUG = logger.isDebugEnabled();
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest,
-	 *      javax.servlet.ServletResponse, javax.servlet.FilterChain)
+	 * @see
+	 * org.springframework.web.filter.OncePerRequestFilter#doFilterInternal(
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse, javax.servlet.FilterChain)
 	 */
-	public void doFilter(ServletRequest request, ServletResponse response,
-			FilterChain chain) throws IOException, ServletException {
+	@Override
+	protected void doFilterInternal(HttpServletRequest request,
+			HttpServletResponse response, FilterChain filterChain)
+			throws ServletException, IOException {
 		String token = request.getParameter("token");
 		request.setAttribute(TOKEN_ATTRIBUTE_NAME, StringUtils.defaultString(
 				token, StringUtils.EMPTY));
@@ -62,18 +50,8 @@ public class ApprovingRequestFilter implements Filter {
 					.getApprovingRequest(token));
 		}
 		if (DEBUG) {
-			log.debug("Add attribute `token' to request: " + token);
+			logger.debug("Add attribute `token' to request: " + token);
 		}
-		chain.doFilter(request, response);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
-	 */
-	public void init(FilterConfig filterConfig) throws ServletException {
-		// TODO Auto-generated method stub
-
+		filterChain.doFilter(request, response);
 	}
 }

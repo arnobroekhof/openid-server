@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 3.1//EN"
+	"http://tuckey.org/res/dtds/urlrewrite3.1.dtd">
+<urlrewrite>
+	<rule>
+		<from>^/$</from>
+		<to>/home.do</to>
+	</rule>
+	<rule>
+		<from>^/(server|captcha|approving|index|home|register|login|logout|email|email\-remove|email\-confirm|email\-set\-primary|passwords|password|forgot\-password|personas|persona|sites|attributs|edit\-attribute|remove\-attribute|attribute\-value|hl)$</from>
+		<to>/$1.do</to>
+	</rule>
+</urlrewrite>

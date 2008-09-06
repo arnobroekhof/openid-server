@@ -192,14 +192,14 @@
 		</property>
 		<property name="urlMap">
 			<map>
-				<entry key="/index.html" value-ref="homeController" />
-				<entry key="/home" value-ref="homeController" />
-				<entry key="/email-confirm"
+				<entry key="/index.do" value-ref="homeController" />
+				<entry key="/home.do" value-ref="homeController" />
+				<entry key="/email-confirm.do"
 					value-ref="confirmEmailController" />
-				<entry key="/hl"
+				<entry key="/hl.do"
 					value-ref="humanLanguageSelectionController" />
-				<entry key="/server" value-ref="serverController" />
-				<entry key="/captcha" value-ref="captchaController" />
+				<entry key="/server.do" value-ref="serverController" />
+				<entry key="/captcha.do" value-ref="captchaController" />
 			</map>
 		</property>
 	</bean>
@@ -215,7 +215,7 @@
 		</property>
 		<property name="urlMap">
 			<map>
-				<entry key="/login" value-ref="loginController" />
+				<entry key="/login.do" value-ref="loginController" />
 			</map>
 		</property>
 	</bean>
@@ -231,7 +231,7 @@
 		</property>
 		<property name="urlMap">
 			<map>
-				<entry key="/register" value-ref="registerController" />
+				<entry key="/register.do" value-ref="registerController" />
 			</map>
 		</property>
 	</bean>
@@ -247,7 +247,7 @@
 		</property>
 		<property name="urlMap">
 			<map>
-				<entry key="/forgot-password"
+				<entry key="/forgot-password.do"
 					value-ref="forgotPasswordController" />
 			</map>
 		</property>
@@ -264,27 +264,27 @@
 		</property>
 		<property name="urlMap">
 			<map>
-				<entry key="/approving" value-ref="approvingController" />
-				<entry key="/logout" value-ref="logoutController" />
-				<entry key="/email" value-ref="emailController" />
-				<entry key="/email-remove"
+				<entry key="/approving.do" value-ref="approvingController" />
+				<entry key="/logout.do" value-ref="logoutController" />
+				<entry key="/email.do" value-ref="emailController" />
+				<entry key="/email-remove.do"
 					value-ref="deleteEmailController" />
-				<entry key="/email-set-primary"
+				<entry key="/email-set-primary.do"
 					value-ref="emailSetPrimaryController" />
-				<entry key="/passwords" value-ref="passwordsController" />
-				<entry key="/password"
+				<entry key="/passwords.do" value-ref="passwordsController" />
+				<entry key="/password.do"
 					value-ref="editPasswordController" />
-				<entry key="/personas" value-ref="personasController" />
-				<entry key="/persona" value-ref="personaController" />
-				<entry key="/attributes"
+				<entry key="/personas.do" value-ref="personasController" />
+				<entry key="/persona.do" value-ref="personaController" />
+				<entry key="/attributes.do"
 					value-ref="attributesController" />
-				<entry key="/edit-attribute"
+				<entry key="/edit-attribute.do"
 					value-ref="editAttributeController" />
-				<entry key="/remove-attribute"
+				<entry key="/remove-attribute.do"
 					value-ref="removeAttributeController" />
-				<entry key="/attribute-value"
+				<entry key="/attribute-value.do"
 					value-ref="attributeValueController" />
-				<entry key="/sites" value-ref="sitesController" />
+				<entry key="/sites.do" value-ref="sitesController" />
 			</map>
 		</property>
 	</bean>

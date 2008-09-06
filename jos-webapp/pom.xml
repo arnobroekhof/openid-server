@@ -117,6 +117,12 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>org.tuckey</groupId>
+			<artifactId>urlrewritefilter</artifactId>
+		</dependency> 
+
 		<dependency>
 			<groupId>${groupId}</groupId>
 			<artifactId>jos-web</artifactId>
