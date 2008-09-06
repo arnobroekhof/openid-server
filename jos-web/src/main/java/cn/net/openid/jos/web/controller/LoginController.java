@@ -25,6 +25,7 @@ import cn.net.openid.jos.web.ApprovingRequestProcessor;
 import cn.net.openid.jos.web.MessageCodes;
 import cn.net.openid.jos.web.UserSession;
 import cn.net.openid.jos.web.form.LoginForm;
+import cn.net.openid.jos.web.interceptor.CaptchaInterceptor;
 
 /**
  * @author Sutra Zhou
@@ -86,6 +87,7 @@ public class LoginController extends AbstractJosSimpleFormController {
 			new ApprovingRequestProcessor(request, response, getJosService(),
 					serverManager, checkIdRequest).checkId();
 		}
+		CaptchaInterceptor.setHuman(request, false);
 		return super.onSubmit(request, response, command, errors);
 	}
 

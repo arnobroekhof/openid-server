@@ -14,6 +14,7 @@ import cn.net.openid.jos.domain.Email;
 import cn.net.openid.jos.domain.User;
 import cn.net.openid.jos.web.AbstractJosSimpleFormController;
 import cn.net.openid.jos.web.MessageCodes;
+import cn.net.openid.jos.web.interceptor.CaptchaInterceptor;
 
 /**
  * @author Sutra Zhou
@@ -61,6 +62,9 @@ public class ForgotPasswordController extends AbstractJosSimpleFormController {
 				errors.rejectValue("address", errorCode);
 			}
 		}
-	}
 
+		if (!errors.hasErrors()) {
+			CaptchaInterceptor.setHuman(request, false);
+		}
+	}
 }

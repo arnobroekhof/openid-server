@@ -169,6 +169,18 @@
 		<property name="localeResolver" ref="localeResolver" />
 	</bean>
 
+	<!-- The interceptor to check user session. -->
+	<bean id="userLoggedInInterceptor"
+		class="cn.net.openid.jos.web.interceptor.UserLoggedInInterceptor">
+		<property name="loginPath" value="/login" />
+	</bean>
+	<bean id="loginCaptchaInterceptor"
+		class="cn.net.openid.jos.web.interceptor.CaptchaInterceptor" />
+	<bean id="registerCaptchaInterceptor"
+		class="cn.net.openid.jos.web.interceptor.CaptchaInterceptor" />
+	<bean id="forgotPasswordCaptchaInterceptor"
+		class="cn.net.openid.jos.web.interceptor.CaptchaInterceptor" />
+
 	<!-- The url mappings that can be visited anonymously. -->
 	<bean id="handlerMapping"
 		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
@@ -182,9 +194,6 @@
 			<map>
 				<entry key="/index.html" value-ref="homeController" />
 				<entry key="/home" value-ref="homeController" />
-				<entry key="/register" value-ref="registerController" />
-				<entry key="/login" value-ref="loginController" />
-				<entry key="/forgot-password" value-ref="forgotPasswordController" />
 				<entry key="/email-confirm"
 					value-ref="confirmEmailController" />
 				<entry key="/hl"
@@ -195,11 +204,55 @@
 		</property>
 	</bean>
 
-	<!-- The interceptor to check user session. -->
-	<bean id="userLoggedInInterceptor"
-		class="cn.net.openid.jos.web.UserLoggedInInterceptor">
-		<property name="loginPath" value="/login" />
+	<bean id="loginHandlerMapping"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="interceptors">
+			<list>
+				<ref local="loginCaptchaInterceptor" />
+				<ref local="localeChangeInterceptor" />
+				<ref local="themeChangeInterceptor" />
+			</list>
+		</property>
+		<property name="urlMap">
+			<map>
+				<entry key="/login" value-ref="loginController" />
+			</map>
+		</property>
 	</bean>
+
+	<bean id="registerHandlerMapping"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="interceptors">
+			<list>
+				<ref local="registerCaptchaInterceptor" />
+				<ref local="localeChangeInterceptor" />
+				<ref local="themeChangeInterceptor" />
+			</list>
+		</property>
+		<property name="urlMap">
+			<map>
+				<entry key="/register" value-ref="registerController" />
+			</map>
+		</property>
+	</bean>
+
+	<bean id="forgotPasswordHandlerMapping"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="interceptors">
+			<list>
+				<ref local="forgotPasswordCaptchaInterceptor" />
+				<ref local="localeChangeInterceptor" />
+				<ref local="themeChangeInterceptor" />
+			</list>
+		</property>
+		<property name="urlMap">
+			<map>
+				<entry key="/forgot-password"
+					value-ref="forgotPasswordController" />
+			</map>
+		</property>
+	</bean>
+
 	<bean id="secureHandlerMapping"
 		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="interceptors">

@@ -17,8 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 import cn.net.openid.jos.domain.Domain;
 import cn.net.openid.jos.web.AbstractJosSimpleFormController;
 import cn.net.openid.jos.web.MessageCodes;
-import cn.net.openid.jos.web.filter.CaptchaFilter;
 import cn.net.openid.jos.web.form.CaptchaForm;
+import cn.net.openid.jos.web.interceptor.CaptchaInterceptor;
 
 /**
  * @author Sutra Zhou
@@ -98,8 +98,8 @@ public class CaptchaController extends AbstractJosSimpleFormController {
 	protected ModelAndView onSubmit(HttpServletRequest request,
 			HttpServletResponse response, Object command, BindException errors)
 			throws Exception {
-		CaptchaFilter.setHuman(request, true);
-		response.sendRedirect(response.encodeRedirectURL(CaptchaFilter
+		CaptchaInterceptor.setHuman(request, true);
+		response.sendRedirect(response.encodeRedirectURL(CaptchaInterceptor
 				.getFrom(request)));
 		return null;
 	}

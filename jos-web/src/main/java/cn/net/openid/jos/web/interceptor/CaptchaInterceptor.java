@@ -1,29 +1,27 @@
 /**
  * Created on 2008-9-2 上午04:49:36
  */
-package cn.net.openid.jos.web.filter;
+package cn.net.openid.jos.web.interceptor;
 
-import java.io.IOException;
-
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import cn.net.openid.jos.domain.Domain;
+import cn.net.openid.jos.web.filter.DomainFilter;
 
 /**
  * @author Sutra Zhou
  * 
  */
-public class CaptchaFilter extends OncePerRequestServiceFilter {
-	private static final String HUMAN_SESSION_NAME = CaptchaFilter.class
+public class CaptchaInterceptor extends HandlerInterceptorAdapter {
+	private static final String HUMAN_SESSION_NAME = CaptchaInterceptor.class
 			.getName()
 			+ "IS_HUMAN";
-	private static final String FROM_SESSION_NAME = CaptchaFilter.class
+	private static final String FROM_SESSION_NAME = CaptchaInterceptor.class
 			.getName()
 			+ "FROM";
 
@@ -65,24 +63,27 @@ public class CaptchaFilter extends OncePerRequestServiceFilter {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * org.springframework.web.filter.OncePerRequestFilter#doFilterInternal(
-	 * javax.servlet.http.HttpServletRequest,
-	 * javax.servlet.http.HttpServletResponse, javax.servlet.FilterChain)
+	 * org.springframework.web.servlet.handler.HandlerInterceptorAdapter#preHandle
+	 * (javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse, java.lang.Object)
 	 */
 	@Override
-	protected void doFilterInternal(HttpServletRequest request,
-			HttpServletResponse response, FilterChain filterChain)
-			throws ServletException, IOException {
+	public boolean preHandle(HttpServletRequest request,
+			HttpServletResponse response, Object handler) throws Exception {
+		boolean ret;
+
 		Domain domain = DomainFilter.getDomain(request);
 		boolean captcha = domain.getBooleanAttribute("captcha");
 		if (!captcha || isHuman(request)) {
-			filterChain.doFilter(request, response);
+			ret = true;
 		} else {
 			setFrom(request, request.getRequestURI());
 			response.sendRedirect(response.encodeRedirectURL(request
 					.getContextPath()
 					+ "/captcha"));
+			ret = false;
 		}
-	}
 
+		return ret;
+	}
 }
