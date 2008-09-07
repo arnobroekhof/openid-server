@@ -1,6 +1,7 @@
 #set($springXhtmlCompliant = true)
+<fieldset>
 #springBind("userSession.user")
-<h3>Using Your Own OpenID URL</h3>
+<legend>#springMessageText("user.message.usingYourOwnOpenIDURL" "Using Your Own OpenID URL")</legend>
 <p>
 	#springMessage("message.yourOpenid")
 </p>
@@ -22,3 +23,4 @@
 #josMessageEscaped("message.yourOpenid.2" false)
 </p>
 #end
+</fieldset>
