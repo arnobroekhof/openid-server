@@ -133,6 +133,7 @@
 		<load-on-startup>30</load-on-startup>
 	</servlet>
 
+	<!--
 	<servlet>
 		<servlet-name>sitemesh-velocity</servlet-name>
 		<servlet-class>
@@ -140,6 +141,7 @@
 		</servlet-class>
 		<load-on-startup>10</load-on-startup>
 	</servlet>
+	-->
 
 
 	<!-- ================ FILTER MAPPING ================ -->
@@ -197,7 +199,10 @@
 	<!-- ================ SERVLET MAPPING ================ -->
 
 	<servlet-mapping>
+		<!--
 		<servlet-name>sitemesh-velocity</servlet-name>
+		-->
+		<servlet-name>jos</servlet-name>
 		<url-pattern>*.vm</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>

@@ -172,6 +172,11 @@
 		<property name="localeResolver" ref="localeResolver" />
 	</bean>
 
+	<bean id="mainDecoratorController"
+		class="cn.net.openid.jos.web.sitemesh.DecoratorController">
+		<property name="view" value="decorators/main" />
+	</bean>
+
 
 	<!-- ================ INTERCEPTOR DEFINITIONS ================ -->
 
@@ -201,6 +206,7 @@
 		</property>
 		<property name="urlMap">
 			<map>
+				<entry key="/WEB-INF/view/velocity/decorators/main.vm" value-ref="mainDecoratorController" />
 				<entry key="/index.do" value-ref="homeController" />
 				<entry key="/home.do" value-ref="homeController" />
 				<entry key="/email-confirm.do"

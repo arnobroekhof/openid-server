@@ -11,12 +11,16 @@
 	<url>http://openid.net.cn</url>
 	<dependencies>
 		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
+			<groupId>opensymphony</groupId>
+			<artifactId>sitemesh</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.openid4java</groupId>
