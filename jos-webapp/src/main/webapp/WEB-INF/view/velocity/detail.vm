@@ -7,6 +7,12 @@
 <pre>
 <a href="$!{status.value.identifier}">$!{status.value.identifier}</a>
 </pre>
+
+#if(!$request.getParameter("advanced"))
+	<div style="text-align: right;">
+		<a href="#josUrl("/home?advanced=true")">#springMessage("button.advanced")</a>
+	</div>
+#else
 <p>
 #josMessageEscaped("message.yourOpenid.1" false)
 <pre>
@@ -15,3 +21,4 @@
 </pre>
 #josMessageEscaped("message.yourOpenid.2" false)
 </p>
+#end
