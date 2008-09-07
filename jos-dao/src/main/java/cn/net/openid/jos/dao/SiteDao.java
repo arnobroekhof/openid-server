@@ -17,6 +17,8 @@ public interface SiteDao {
 
 	List<Site> getSites(User user);
 
+	List<Site> getSites(User user, int top);
+
 	void insertSite(Site site);
 
 	void updateSite(Site site);

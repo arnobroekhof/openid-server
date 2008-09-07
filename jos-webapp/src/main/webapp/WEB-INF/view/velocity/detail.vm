@@ -24,3 +24,11 @@
 </p>
 #end
 </fieldset>
+<fieldset>
+	<legend>#springMessageText("title.topSites" "Top Sites")</legend>
+	<ul>
+		#foreach($site in $topSites)
+		<li><a href="$site.realm.url">$site.realm.url</a></li>
+		#end
+	</ul>
+</fieldset>

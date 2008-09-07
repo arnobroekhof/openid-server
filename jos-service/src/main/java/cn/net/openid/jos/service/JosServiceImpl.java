@@ -872,6 +872,17 @@ public class JosServiceImpl implements JosService {
 	 * (non-Javadoc)
 	 * 
 	 * @see
+	 * cn.net.openid.jos.service.JosService#getSites(cn.net.openid.jos.domain
+	 * .User, int)
+	 */
+	public List<Site> getSites(User user, int top) {
+		return siteDao.getSites(user, top);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
 	 * cn.net.openid.jos.service.JosService#getSite(cn.net.openid.jos.domain
 	 * .User, java.lang.String)
 	 */

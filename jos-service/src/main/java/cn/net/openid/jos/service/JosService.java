@@ -160,6 +160,8 @@ public interface JosService {
 
 	Collection<Site> getSites(User user);
 
+	Collection<Site> getSites(User user, int top);
+
 	Persona getPersona(User user, String id);
 
 	Collection<Persona> getPersonas(User user);

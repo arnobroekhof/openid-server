@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.net.openid.jos.web.AbstractJosController;
+import cn.net.openid.jos.web.UserSession;
 
 /**
  * @author Sutra Zhou
@@ -19,8 +20,9 @@ public class HomeController extends AbstractJosController {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.springframework.web.servlet.mvc.Controller#handleRequest(javax.servlet.http.HttpServletRequest,
-	 *      javax.servlet.http.HttpServletResponse)
+	 * @see
+	 * org.springframework.web.servlet.mvc.Controller#handleRequest(javax.servlet
+	 * .http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	public ModelAndView handleRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -38,6 +40,12 @@ public class HomeController extends AbstractJosController {
 					.getContextPath()
 					+ redirectPath));
 		}
-		return new ModelAndView("home");
+		ModelAndView modelAndView = new ModelAndView("home");
+		UserSession userSession = this.getUserSession(request);
+		if (userSession.isLoggedIn()) {
+			modelAndView.addObject("topSites", this.getJosService().getSites(
+					this.getUser(request), 10));
+		}
+		return modelAndView;
 	}
 }

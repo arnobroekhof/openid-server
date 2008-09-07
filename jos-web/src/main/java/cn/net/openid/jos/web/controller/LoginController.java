@@ -88,6 +88,12 @@ public class LoginController extends AbstractJosSimpleFormController {
 					serverManager, checkIdRequest).checkId();
 		}
 		CaptchaInterceptor.setHuman(request, false);
+
+		if (userSession.isLoggedIn()) {
+			request.setAttribute("topSites", this.getJosService().getSites(
+					this.getUser(request), 10));
+		}
+
 		return super.onSubmit(request, response, command, errors);
 	}
 
