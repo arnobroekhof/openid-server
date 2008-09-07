@@ -8,10 +8,10 @@
 <a href="$!{status.value.identifier}">$!{status.value.identifier}</a>
 </pre>
 <p>
-#josMessage("message.yourOpenid.1")
+#josMessageEscaped("message.yourOpenid.1" false)
 <pre>
 &lt;link rel="openid2.provider openid.server" href="${userSession.user.domain.runtime.openidServerUrl}" /&gt;
 &lt;link rel="openid2.local_id openid.delegate" href="$!{userSession.user.identifier}" /&gt;
 </pre>
-#josMessage("message.yourOpenid.2")
+#josMessageEscaped("message.yourOpenid.2" false)
 </p>
