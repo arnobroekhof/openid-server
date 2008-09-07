@@ -4,8 +4,6 @@
 		<title>#springMessage("openid") - #springMessage("email.title.confirming")</title>
 	</head>
 	<body>
-	<div>
-		#parse("header.vm")
 		<fieldset>
 		<legend>#springMessage("email.title.confirming")</legend>
 			<form action="#josUrl("/email-confirm")" method="post">
@@ -17,7 +15,5 @@
 				</div>
 			</form>
 		</fieldset>
-		#parse("footer.vm")
-	</div>
-</body>
+	</body>
 </html>

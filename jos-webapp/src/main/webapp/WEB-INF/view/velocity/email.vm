@@ -4,8 +4,6 @@
 		<title>#springMessage("openid") - #springMessage("email.title")</title>
 	</head>
 	<body>
-	<div>
-		#parse("header.vm")
 		<fieldset><legend>#springMessage("email.title")</legend>
 		#if ($unconfirmedEmails.size() > 0)
 		<p>#springMessage("email.message.unconfirmed.header")</p>
@@ -37,7 +35,5 @@
 			<button type="submit">#springMessage("email.button.sendInstructions")</button>
 		</form>
 		</fieldset>
-		#parse("footer.vm")
-	</div>
-</body>
+	</body>
 </html>

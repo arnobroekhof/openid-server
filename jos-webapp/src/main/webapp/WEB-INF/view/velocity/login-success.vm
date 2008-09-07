@@ -4,11 +4,7 @@
 		<title>#springMessage("openid") - #springMessage("login")</title>
 	</head>
 	<body>
-	<div>
-		#parse("header.vm")
 		#springMessage("message.login.success")
 		#parse("detail.vm")
-		#parse("footer.vm")
-	</div>
-</body>
+	</body>
 </html>

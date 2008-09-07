@@ -26,8 +26,6 @@
 		</script>
 	</head>
 	<body>
-	<div>
-		#parse("header.vm")
 		<fieldset>
 			<legend>#springMessage("register")</legend>
 			<form action="#josUrl("/register")" method="post" onsubmit="return chkFrm()">
@@ -89,7 +87,5 @@
 				//-->
 			</script>
 		</fieldset>
-		#parse("footer.vm")
-	</div>
-</body>
+	</body>
 </html>

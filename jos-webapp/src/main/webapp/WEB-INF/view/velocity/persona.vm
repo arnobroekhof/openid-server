@@ -8,8 +8,6 @@
 		<script type="text/javascript" src="#springUrl('/jscalendar/lang/calendar-en.js')"></script>
 	</head>
 	<body>
-	<div>
-		#parse("header.vm")
 		<fieldset>
 		<legend>#springMessage("persona.title.persona")</legend>
 			<form action="#josUrl("/persona#if($token && $token != '')?token=$!token#end")" method="post">
@@ -134,7 +132,5 @@
 				</table>
 			</form>
 		</fieldset>
-		#parse("footer.vm")
-	</div>
-</body>
+	</body>
 </html>

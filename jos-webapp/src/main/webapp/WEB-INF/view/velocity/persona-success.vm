@@ -4,15 +4,11 @@
 		<title>#springMessage("openid") - #springMessage("persona.title.persona")</title>
 	</head>
 	<body>
-	<div>
-		#parse("header.vm")
 		#springMessage("persona.message.modifySuccess")
 		#if($token && $token != "")
 			<a href="#josUrl("/approving#if($token && $token != '')?token=$!token#end")">#springMessage("persona.message.backToApproving")</a>
 		#else
 			<a href="#josUrl("/personas#if($token && $token != '')?token=$!token#end")">#springMessage("persona.message.backToPersonas")</a>
 		#end
-		#parse("footer.vm")
-	</div>
-</body>
+	</body>
 </html>

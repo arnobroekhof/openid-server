@@ -4,8 +4,6 @@
 		<title>#springMessage("openid") - #springMessage("site.title.sites")</title>
 	</head>
 	<body>
-	<div>
-		#parse("header.vm")
 		<fieldset>
 			<legend>#springMessage("site.title.sites")</legend>
 			<form method="post">
@@ -57,7 +55,5 @@
 			</table>
 			</form>
 		</fieldset>
-		#parse("footer.vm")
-	</div>
-</body>
+	</body>
 </html>

@@ -4,8 +4,6 @@
 		<title>#springMessage("openid") - #springMessage("login")</title>
 	</head>
 	<body>
-	<div>
-		#parse("header.vm")
 		<fieldset>
 			<legend>#springMessage("login.other")</legend>
 			<form action="#josUrl("/index.login")" method="post">
@@ -53,7 +51,5 @@
 				</table>
 			</form>
 		</fieldset>
-		#parse("footer.vm")
-	</div>
-</body>
+	</body>
 </html>

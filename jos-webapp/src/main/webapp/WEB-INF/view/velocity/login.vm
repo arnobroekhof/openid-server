@@ -4,8 +4,6 @@
 		<title>#springMessage("openid") - #springMessage("login")</title>
 	</head>
 	<body>
-	<div>
-		#parse("header.vm")
 		<fieldset>
 			<legend>#springMessage("login")</legend>
 			<form action="#josUrl("/login#if($token && $token != '')?token=$!token#end")" method="post">
@@ -60,7 +58,5 @@
 				//-->
 			</script>
 		</fieldset>
-		#parse("footer.vm")
-	</div>
-</body>
+	</body>
 </html>

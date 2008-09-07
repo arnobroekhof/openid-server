@@ -11,8 +11,6 @@
 		</style>
 	</head>
 	<body>
-	<div>
-		#parse("header.vm")
 		<fieldset>
 			<legend>#springMessageText("approving.title" "OpenID Verification")</legend>
 			<div>
@@ -102,7 +100,5 @@
 				<button type="submit" name="deny">#springMessageText("button.deny" "Deny")</button>
 			</form>
 		</fieldset>
-		#parse("footer.vm")
-	</div>
-</body>
+	</body>
 </html>

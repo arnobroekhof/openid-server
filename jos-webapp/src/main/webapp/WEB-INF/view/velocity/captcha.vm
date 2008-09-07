@@ -4,8 +4,6 @@
 		<title>#springMessage("openid") - #springMessage("register")</title>
 	</head>
 	<body>
-	<div>
-		#parse("header.vm")
 		<fieldset>
 			<legend>#springMessage("captcha.title")</legend>
 			<form action="#josUrl("/captcha")" method="post">
@@ -15,7 +13,5 @@
 				<button type="submit">#springMessage("button.continue")</button>
 			</form>
 		</fieldset>
-		#parse("footer.vm")
-	</div>
-</body>
+	</body>
 </html>

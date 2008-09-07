@@ -4,7 +4,6 @@
 		<title>附加属性</title>
 	</head>
 	<body>
-		#parse("header.vm")
 		<form action="#josUrl("/edit-attribute")" method="post">
 			#springBind("attribute.id")
 			<input type="hidden" name="${status.expression}" value="$!{status.value}" />
@@ -14,6 +13,5 @@
 			</ul>
 			<input type="submit" value="Save" />
 		</form>
-		#parse("footer.vm")
 	</body>
 </html>

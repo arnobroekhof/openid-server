@@ -17,6 +17,10 @@
 		$head
 	</head>
 	<body>
-		$body
+		<div id="main">
+			#parse("header.vm")
+			$body
+			#parse("footer.vm")
+		</div>
 	</body>
 </html>

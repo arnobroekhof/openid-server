@@ -13,8 +13,6 @@
 		</script>
 	</head>
 	<body>
-	<div>
-		#parse("header.vm")
 		<fieldset>
 			<legend>#springMessage("persona.title.personas")</legend>
 			<form method="post">
@@ -73,7 +71,5 @@
 			#end
 			</form>
 		</fieldset>
-		#parse("footer.vm")
-	</div>
-</body>
+	</body>
 </html>
