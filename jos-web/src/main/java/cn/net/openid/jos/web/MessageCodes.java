@@ -31,8 +31,10 @@ public class MessageCodes {
 	}
 
 	public static class Password {
+		private static final String PREFIX = "password.";
+
 		public static class Title {
-			private static final String PREFIX = "password.title.";
+			private static final String PREFIX = Password.PREFIX + "title.";
 
 			public static final String DEFAULT_PASSWORD = PREFIX
 					+ "defaultPassword";
@@ -43,6 +45,26 @@ public class MessageCodes {
 
 			public static final String USERNAME_OR_EMAIL_ADDRESS_INCORRECT = PREFIX
 					+ "usernameOrEmailAddressIncorrect";
+		}
+	}
+
+	public static class Email {
+		private static final String PREFIX = "email.";
+
+		public static class Error {
+			private static final String PREFIX = Email.PREFIX + "error.";
+
+			public static final String ADDRESS = PREFIX + "address";
+		}
+	}
+
+	public static class Persona {
+		private static final String PREFIX = "persona.";
+
+		public static class Error {
+			private static final String PREFIX = Persona.PREFIX + ".error.";
+
+			public static final String DOB = PREFIX + ".dob";
 		}
 	}
 

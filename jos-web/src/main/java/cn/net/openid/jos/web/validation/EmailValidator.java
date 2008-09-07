@@ -10,15 +10,16 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import cn.net.openid.jos.domain.Email;
+import cn.net.openid.jos.web.MessageCodes;
 
 /**
  * @author Sutra Zhou
  */
 public class EmailValidator implements Validator {
-	private Pattern pattern;
+	private Pattern emailAddressPattern;
 
-	public void setPattern(String pattern) {
-		this.pattern = Pattern.compile(pattern);
+	public void setEmailAddressPattern(String emailAddressPattern) {
+		this.emailAddressPattern = Pattern.compile(emailAddressPattern);
 	}
 
 	/*
@@ -35,15 +36,15 @@ public class EmailValidator implements Validator {
 	 * (non-Javadoc)
 	 * 
 	 * @see org.springframework.validation.Validator#validate(java.lang.Object,
-	 *      org.springframework.validation.Errors)
+	 * org.springframework.validation.Errors)
 	 */
 	public void validate(Object target, Errors errors) {
 		Email email = (Email) target;
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "address",
 				"required", "Field is required.");
 		if (!errors.hasFieldErrors("address")
-				&& !pattern.matcher(email.getAddress()).matches()) {
-			errors.rejectValue("address", "email.error.address",
+				&& !emailAddressPattern.matcher(email.getAddress()).matches()) {
+			errors.rejectValue("address", MessageCodes.Email.Error.ADDRESS,
 					new String[] { email.getAddress() },
 					"\"{0}\" is not a valid e-mail address.");
 		}

@@ -6,6 +6,7 @@
 		<property name="locations">
 			<list>
 				<value>WEB-INF/config/jdbc.properties</value>
+				<value>WEB-INF/config/jos.xml</value>
 			</list>
 		</property>
 	</bean>
@@ -129,11 +130,12 @@
 	<!-- ================ VALIDATOR DEFINITIONS ================ -->
 
 	<bean id="personaValidator"
-		class="cn.net.openid.jos.web.validation.PersonaValidator" />
+		class="cn.net.openid.jos.web.validation.PersonaValidator">
+		<property name="emailAddressPattern" value="${email.address.pattern}" />
+	</bean>
 	<bean id="emailValidator"
 		class="cn.net.openid.jos.web.validation.EmailValidator">
-		<property name="pattern"
-			value="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" />
+		<property name="emailAddressPattern" value="${email.address.pattern}" />
 	</bean>
 	<bean id="registerFormValidator"
 		class="cn.net.openid.jos.web.validation.RegisterFormValidator">
