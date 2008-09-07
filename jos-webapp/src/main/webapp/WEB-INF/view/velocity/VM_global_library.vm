@@ -25,3 +25,12 @@
  * adding the context root for the web application.
  *#
 #macro( josUrl $relativeUrl )$response.encodeURL("#springUrl(${relativeUrl})")#end
+
+#**
+ * josMessage
+ *
+ * Macro to translate a message code into a message.
+ *#
+#macro( josMessageArgs 				$code $args )		$springMacroRequestContext.getMessage($code, $args)#end
+
+#macro( josMessageTextArgs 			$code $args $text )	$springMacroRequestContext.getMessage($code, $args, $text)#end

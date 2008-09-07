@@ -9,7 +9,7 @@
 			<form action="#josUrl("/login#if($token && $token != '')?token=$!token#end")" method="post">
 
 				#if($token && $token != "" && $approvingRequest && $approvingRequest.authRequest)
-					#springMessageText("approving.mustSignIn.1" "You must sign in to authenticate to ")$!{approvingRequest.authRequest.realm}#springMessageText("approving.mustSignIn.2" " as ")$!{approvingRequest.authRequest.identity}#springMessageText("approving.mustSignIn.3" ".")
+					#josMessageTextArgs("approving.mustSignIn" [$!{approvingRequest.authRequest.realm}, $!{approvingRequest.authRequest.identity}] "You must sign in to authenticate to {0} as {1}.")
 				#end
 
 				<table>

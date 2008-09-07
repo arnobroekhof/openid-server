@@ -8,10 +8,10 @@
 <a href="$!{status.value.identifier}">$!{status.value.identifier}</a>
 </pre>
 <p>
-#springMessage("message.yourOpenid.1")
+#josMessage("message.yourOpenid.1")
 <pre>
 &lt;link rel="openid2.provider openid.server" href="${userSession.user.domain.runtime.openidServerUrl}" /&gt;
 &lt;link rel="openid2.local_id openid.delegate" href="$!{userSession.user.identifier}" /&gt;
 </pre>
-#springMessage("message.yourOpenid.2")
+#josMessage("message.yourOpenid.2")
 </p>
