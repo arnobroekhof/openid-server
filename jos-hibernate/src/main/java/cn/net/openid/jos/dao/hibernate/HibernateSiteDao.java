@@ -34,7 +34,12 @@ public class HibernateSiteDao extends BaseHibernateEntityDao<Site> implements
 	 */
 	public Collection<Site> getTopSites(User user, int maxResults) {
 		this.getHibernateTemplate().setMaxResults(maxResults);
-		return find("from Site where user = ? order by approvals desc", user);
+		try {
+			return find("from Site where user = ? order by approvals desc",
+					user);
+		} finally {
+			this.getHibernateTemplate().setMaxResults(0);
+		}
 	}
 
 	/*
@@ -46,7 +51,12 @@ public class HibernateSiteDao extends BaseHibernateEntityDao<Site> implements
 	 */
 	public Collection<Site> getLatestSites(User user, int maxResults) {
 		this.getHibernateTemplate().setMaxResults(maxResults);
-		return find("from Site where user = ? order by lastAttempt desc", user);
+		try {
+			return find("from Site where user = ? order by lastAttempt desc",
+					user);
+		} finally {
+			this.getHibernateTemplate().setMaxResults(0);
+		}
 	}
 
 	/*
