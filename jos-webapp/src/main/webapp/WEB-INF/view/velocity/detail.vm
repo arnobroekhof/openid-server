@@ -24,11 +24,21 @@
 </p>
 #end
 </fieldset>
+
 <fieldset>
-	<legend>#springMessageText("title.topSites" "Top Sites")</legend>
+	<legend>#springMessageText("title.topSites" "Top Sites You Visited")</legend>
 	<ul>
 		#foreach($site in $topSites)
 		<li><a href="$site.realm.url">$site.realm.url</a></li>
+		#end
+	</ul>
+</fieldset>
+
+<fieldset>
+	<legend>#springMessageText("title.recentRealms" "Recent Sites They Visited")</legend>
+	<ul>
+		#foreach($realm in $recentRealms)
+		<li><a href="$realm.url">$realm.url</a></li>
 		#end
 	</ul>
 </fieldset>

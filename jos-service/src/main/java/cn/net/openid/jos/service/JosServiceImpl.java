@@ -11,7 +11,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -864,7 +863,7 @@ public class JosServiceImpl implements JosService {
 	 * cn.net.openid.jos.service.JosService#getSites(cn.net.openid.jos.domain
 	 * .User)
 	 */
-	public List<Site> getSites(User user) {
+	public Collection<Site> getSites(User user) {
 		return siteDao.getSites(user);
 	}
 
@@ -872,11 +871,20 @@ public class JosServiceImpl implements JosService {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * cn.net.openid.jos.service.JosService#getSites(cn.net.openid.jos.domain
+	 * cn.net.openid.jos.service.JosService#getTopSites(cn.net.openid.jos.domain
 	 * .User, int)
 	 */
-	public List<Site> getSites(User user, int top) {
-		return siteDao.getSites(user, top);
+	public Collection<Site> getTopSites(User user, int maxResults) {
+		return siteDao.getTopSites(user, maxResults);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.jos.service.JosService#getRecentRealms(int)
+	 */
+	public Collection<Realm> getRecentRealms(int maxResults) {
+		return realmDao.getRecentRealms(maxResults);
 	}
 
 	/*

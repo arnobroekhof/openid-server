@@ -43,8 +43,10 @@ public class HomeController extends AbstractJosController {
 		ModelAndView modelAndView = new ModelAndView("home");
 		UserSession userSession = this.getUserSession(request);
 		if (userSession.isLoggedIn()) {
-			modelAndView.addObject("topSites", this.getJosService().getSites(
-					this.getUser(request), 10));
+			modelAndView.addObject("topSites", this.getJosService()
+					.getTopSites(this.getUser(request), 10));
+			modelAndView.addObject("recentRealms", this.getJosService()
+					.getRecentRealms(10));
 		}
 		return modelAndView;
 	}

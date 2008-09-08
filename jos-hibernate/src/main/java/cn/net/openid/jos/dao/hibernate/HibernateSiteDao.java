@@ -3,7 +3,7 @@
  */
 package cn.net.openid.jos.dao.hibernate;
 
-import java.util.List;
+import java.util.Collection;
 
 import cn.net.openid.jos.dao.SiteDao;
 import cn.net.openid.jos.domain.Site;
@@ -21,12 +21,19 @@ public class HibernateSiteDao extends BaseHibernateEntityDao<Site> implements
 	 * @see
 	 * cn.net.openid.jos.dao.SiteDao#getSites(cn.net.openid.jos.domain.User)
 	 */
-	public List<Site> getSites(User user) {
+	public Collection<Site> getSites(User user) {
 		return find("from Site where user.id = ?", user.getId());
 	}
 
-	public List<Site> getSites(User user, int top) {
-		this.getHibernateTemplate().setMaxResults(top);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * cn.net.openid.jos.dao.SiteDao#getTopSites(cn.net.openid.jos.domain.User,
+	 * int)
+	 */
+	public Collection<Site> getTopSites(User user, int maxResults) {
+		this.getHibernateTemplate().setMaxResults(maxResults);
 		return find("from Site where user = ? order by approvals desc", user);
 	}
 

@@ -3,6 +3,8 @@
  */
 package cn.net.openid.jos.dao;
 
+import java.util.Collection;
+
 import cn.net.openid.jos.domain.Realm;
 
 /**
@@ -11,6 +13,8 @@ import cn.net.openid.jos.domain.Realm;
  */
 public interface RealmDao {
 	Realm getRealmByUrl(String url);
+
+	Collection<Realm> getRecentRealms(int maxResults);
 
 	void insertRealm(Realm realm);
 }

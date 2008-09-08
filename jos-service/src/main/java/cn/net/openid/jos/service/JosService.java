@@ -17,6 +17,7 @@ import cn.net.openid.jos.domain.Email;
 import cn.net.openid.jos.domain.EmailConfirmationInfo;
 import cn.net.openid.jos.domain.Password;
 import cn.net.openid.jos.domain.Persona;
+import cn.net.openid.jos.domain.Realm;
 import cn.net.openid.jos.domain.Site;
 import cn.net.openid.jos.domain.User;
 import cn.net.openid.jos.service.exception.EmailConfirmationInfoNotFoundException;
@@ -107,7 +108,7 @@ public interface JosService {
 
 	void deletePasswords(User user, String[] passwordIds)
 			throws LastPasswordException;
-	
+
 	Password generateSingleUsePassword(User user, Email email);
 
 	/**
@@ -160,7 +161,9 @@ public interface JosService {
 
 	Collection<Site> getSites(User user);
 
-	Collection<Site> getSites(User user, int top);
+	Collection<Site> getTopSites(User user, int maxResults);
+
+	Collection<Realm> getRecentRealms(int maxResults);
 
 	Persona getPersona(User user, String id);
 

@@ -90,8 +90,10 @@ public class LoginController extends AbstractJosSimpleFormController {
 		CaptchaInterceptor.setHuman(request, false);
 
 		if (userSession.isLoggedIn()) {
-			request.setAttribute("topSites", this.getJosService().getSites(
+			request.setAttribute("topSites", this.getJosService().getTopSites(
 					this.getUser(request), 10));
+			request.setAttribute("recentRealms", this.getJosService()
+					.getRecentRealms(10));
 		}
 
 		return super.onSubmit(request, response, command, errors);
