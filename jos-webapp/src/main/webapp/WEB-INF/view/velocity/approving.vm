@@ -14,14 +14,14 @@
 		<fieldset>
 			<legend>#springMessageText("approving.title" "OpenID Verification")</legend>
 			<div>
-				#josMessageTextArgs("approving" ["<span><code>$!command.authRequest.returnTo</code></span>", "<span><code>$!command.authRequest.identity</code></span>"] "A site identifying itself as {0} has asked us for confirmation that {1} is your identity URL. ")
+				#josMessageTextArgsEscaped("approving" ["<span><code>$!command.authRequest.returnTo</code></span>", "<span><code>$!command.authRequest.identity</code></span>"] "A site identifying itself as {0} has asked us for confirmation that {1} is your identity URL. " false)
 			</div>
 			#if($personas)
 			<div>
 				#springMessageText("approving.additionalInformation.1" "The site also asked for additional information. ")
 				#springMessageText("approving.additionalInformation.2" "It did not provide a link to the policy on data it collects. ")
 				##springMessageText("approving.additionalInformation.3" "You can find the their policy about the data it collected on this page. ")
-				#josMessageTextArgs("approving.additionalInformation.4" ["<code>$!command.authRequest.realm</code>"] "This is the persona we're going to send to {0}: ") 
+				#josMessageTextArgsEscaped("approving.additionalInformation.4" ["<code>$!command.authRequest.realm</code>"] "This is the persona we're going to send to {0}: " false) 
 			</div>
 			#end
 			<form action="#josUrl("/approving")" method="post">

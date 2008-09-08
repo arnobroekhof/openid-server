@@ -19,6 +19,15 @@ public interface SiteDao {
 
 	Collection<Site> getTopSites(User user, int maxResults);
 
+	/**
+	 * Get latest sites that I logged on.
+	 * 
+	 * @param user
+	 * @param maxResults
+	 * @return
+	 */
+	Collection<Site> getLatestSites(User user, int maxResults);
+
 	void insertSite(Site site);
 
 	void updateSite(Site site);

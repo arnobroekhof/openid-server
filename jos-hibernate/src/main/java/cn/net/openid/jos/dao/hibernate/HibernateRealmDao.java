@@ -18,7 +18,7 @@ public class HibernateRealmDao extends BaseHibernateEntityDao<Realm> implements
 		return findUnique("from Realm where url = ?", url);
 	}
 
-	public Collection<Realm> getRecentRealms(int maxResults) {
+	public Collection<Realm> getLatestRealms(int maxResults) {
 		this.getHibernateTemplate().setMaxResults(maxResults);
 		return find("from Realm order by creationDate desc");
 	}

@@ -881,10 +881,21 @@ public class JosServiceImpl implements JosService {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see
+	 * cn.net.openid.jos.service.JosService#getLatestSites(cn.net.openid.jos
+	 * .domain.User, int)
+	 */
+	public Collection<Site> getLatestSites(User user, int maxResults) {
+		return siteDao.getLatestSites(user, maxResults);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see cn.net.openid.jos.service.JosService#getRecentRealms(int)
 	 */
-	public Collection<Realm> getRecentRealms(int maxResults) {
-		return realmDao.getRecentRealms(maxResults);
+	public Collection<Realm> getLatestRealms(int maxResults) {
+		return realmDao.getLatestRealms(maxResults);
 	}
 
 	/*

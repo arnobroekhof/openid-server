@@ -14,7 +14,7 @@ import cn.net.openid.jos.domain.Realm;
 public interface RealmDao {
 	Realm getRealmByUrl(String url);
 
-	Collection<Realm> getRecentRealms(int maxResults);
+	Collection<Realm> getLatestRealms(int maxResults);
 
 	void insertRealm(Realm realm);
 }

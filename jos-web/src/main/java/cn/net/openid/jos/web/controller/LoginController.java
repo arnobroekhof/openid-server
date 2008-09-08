@@ -92,8 +92,10 @@ public class LoginController extends AbstractJosSimpleFormController {
 		if (userSession.isLoggedIn()) {
 			request.setAttribute("topSites", this.getJosService().getTopSites(
 					this.getUser(request), 10));
-			request.setAttribute("recentRealms", this.getJosService()
-					.getRecentRealms(10));
+			request.setAttribute("latestSites", this.getJosService()
+					.getLatestSites(this.getUser(request), 10));
+			request.setAttribute("latestRealms", this.getJosService()
+					.getLatestRealms(10));
 		}
 
 		return super.onSubmit(request, response, command, errors);

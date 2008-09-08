@@ -31,8 +31,11 @@
  *
  * Macro to translate a message code into a message.
  *#
-#macro( josMessageArgs $code $args )$springMacroRequestContext.getMessage($code, $args)#end
-
-#macro( josMessageTextArgs $code $args $text )$springMacroRequestContext.getMessage($code, $args, $text)#end
-
+#macro( josMessage $code)$springMacroRequestContext.getMessage($code)#end
 #macro( josMessageEscaped $code $htmlEscape )$springMacroRequestContext.getMessage($code, null, $htmlEscape)#end
+
+#macro( josMessageArgs $code $args )$springMacroRequestContext.getMessage($code, $args)#end
+#macro( josMessageArgsEscaped $code $args $htmlEscape )$springMacroRequestContext.getMessage($code, $args.toArray(), $htmlEscape)#end
+
+#macro( josMessageTextArgs $code $args $text )$springMacroRequestContext.getMessage($code, $args.toArray(), $text)#end
+#macro( josMessageTextArgsEscaped $code $args $text $htmlEscape )$springMacroRequestContext.getMessage($code, $args.toArray(), $text, $htmlEscape)#end

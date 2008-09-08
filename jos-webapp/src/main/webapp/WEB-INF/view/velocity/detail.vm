@@ -26,7 +26,7 @@
 </fieldset>
 
 <fieldset>
-	<legend>#springMessageText("title.topSites" "Top Sites You Visited")</legend>
+	<legend>#springMessageText("title.latestSites" "Latest Sites I Logged on")</legend>
 	<ul>
 		#foreach($site in $topSites)
 		<li><a href="$site.realm.url">$site.realm.url</a></li>
@@ -35,9 +35,18 @@
 </fieldset>
 
 <fieldset>
-	<legend>#springMessageText("title.recentRealms" "Recent Sites They Visited")</legend>
+	<legend>#springMessageText("title.topSites" "Top Sites I Logged on")</legend>
 	<ul>
-		#foreach($realm in $recentRealms)
+		#foreach($site in $topSites)
+		<li><a href="$site.realm.url">$site.realm.url</a></li>
+		#end
+	</ul>
+</fieldset>
+
+<fieldset>
+	<legend title="#springMessageText("title.latestRealms.tip" "The newest additions")">#springMessageText("title.latestRealms" "Latest Sites")</legend>
+	<ul>
+		#foreach($realm in $latestRealms)
 		<li><a href="$realm.url">$realm.url</a></li>
 		#end
 	</ul>

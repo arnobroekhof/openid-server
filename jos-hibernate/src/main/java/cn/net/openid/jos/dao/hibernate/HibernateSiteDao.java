@@ -40,6 +40,18 @@ public class HibernateSiteDao extends BaseHibernateEntityDao<Site> implements
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see
+	 * cn.net.openid.jos.dao.SiteDao#getLatestSites(cn.net.openid.jos.domain
+	 * .User, int)
+	 */
+	public Collection<Site> getLatestSites(User user, int maxResults) {
+		this.getHibernateTemplate().setMaxResults(maxResults);
+		return find("from Site where user = ? order by lastAttempt desc", user);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see cn.net.openid.jos.dao.SiteDao#getSite(cn.net.openid.jos.domain.User,
 	 * java.lang.String)
 	 */

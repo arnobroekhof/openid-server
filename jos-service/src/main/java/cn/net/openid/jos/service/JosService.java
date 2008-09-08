@@ -163,7 +163,16 @@ public interface JosService {
 
 	Collection<Site> getTopSites(User user, int maxResults);
 
-	Collection<Realm> getRecentRealms(int maxResults);
+	/**
+	 * Get latest sites that I logged on.
+	 * 
+	 * @param user
+	 * @param maxResults
+	 * @return
+	 */
+	Collection<Site> getLatestSites(User user, int maxResults);
+
+	Collection<Realm> getLatestRealms(int maxResults);
 
 	Persona getPersona(User user, String id);
 
