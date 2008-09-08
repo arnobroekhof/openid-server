@@ -28,7 +28,7 @@
 <fieldset>
 	<legend>#springMessageText("title.latestSites" "Latest Sites I Logged on")</legend>
 	<ul>
-		#foreach($site in $topSites)
+		#foreach($site in $latestSites)
 		<li><a href="$site.realm.url">$site.realm.url</a></li>
 		#end
 	</ul>
