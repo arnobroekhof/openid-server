@@ -8,11 +8,9 @@ import java.lang.reflect.ParameterizedType;
 import java.sql.SQLException;
 import java.util.List;
 
-import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.criterion.Criterion;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
@@ -62,6 +60,33 @@ public abstract class BaseHibernateEntityDao<T> extends HibernateDaoSupport {
 	}
 
 	/**
+	 * 使用hql 语句进行操作
+	 * 
+	 * @param queryString
+	 * @param firstResult
+	 * @param maxResults
+	 * @return List
+	 */
+	@SuppressWarnings("unchecked")
+	protected List<T> find(final String queryString, final int firstResult,
+			final int maxResults, final Object... values) {
+		return getHibernateTemplate().executeFind(new HibernateCallback() {
+			public Object doInHibernate(Session session)
+					throws HibernateException, SQLException {
+				Query query = session.createQuery(queryString);
+				query.setFirstResult(firstResult);
+				query.setMaxResults(maxResults);
+				if (values != null) {
+					for (int i = 0, l = values.length; i < l; i++) {
+						query.setParameter(i, values[i]);
+					}
+				}
+				return query.list();
+			}
+		});
+	}
+
+	/**
 	 * Find a single row. If 0 row found, return null; if more than 1 rows
 	 * found, throw an IncorrectResultSizeDataAccessException.
 	 * 
@@ -100,55 +125,5 @@ public abstract class BaseHibernateEntityDao<T> extends HibernateDaoSupport {
 	protected long count(String queryString, Object... values) {
 		return ((Number) getHibernateTemplate().find(queryString, values)
 				.get(0)).longValue();
-	}
-
-	/**
-	 * 使用hql 语句进行操作
-	 * 
-	 * @param hql
-	 * @param offset
-	 * @param length
-	 * @return List
-	 */
-	@SuppressWarnings("unchecked")
-	protected List<T> getListForPage(final String hql, final int offset,
-			final int length) {
-		return getHibernateTemplate().executeFind(new HibernateCallback() {
-			public Object doInHibernate(Session session)
-					throws HibernateException, SQLException {
-				Query query = session.createQuery(hql);
-				query.setFirstResult(offset);
-				query.setMaxResults(length);
-				List list = query.list();
-				return list;
-			}
-		});
-	}
-
-	/**
-	 * 使用criterion进行操作
-	 * 
-	 * @param arg
-	 * @param criterions
-	 * @param offset
-	 * @param length
-	 * @return List
-	 */
-	@SuppressWarnings("unchecked")
-	protected List<T> getListForPage(final Criterion[] criterions,
-			final int offset, final int length) {
-		return getHibernateTemplate().executeFind(new HibernateCallback() {
-			public Object doInHibernate(Session session)
-					throws HibernateException, SQLException {
-				Criteria criteria = session.createCriteria(entityClass);
-				// 循环遍历添加约束条件
-				for (int i = 0, l = criterions.length; i < l; i++) {
-					criteria.add(criterions[i]);
-				}
-				criteria.setFirstResult(offset);
-				criteria.setMaxResults(length);
-				return criteria.list();
-			}
-		});
 	}
 }

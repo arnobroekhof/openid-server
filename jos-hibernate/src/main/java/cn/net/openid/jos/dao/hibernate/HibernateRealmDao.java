@@ -19,7 +19,7 @@ public class HibernateRealmDao extends BaseHibernateEntityDao<Realm> implements
 	}
 
 	public Collection<Realm> getLatestRealms(int maxResults) {
-		return this.getListForPage("from Realm order by creationDate desc", 0,
+		return this.find("from Realm order by creationDate desc", 0,
 				maxResults);
 	}
 

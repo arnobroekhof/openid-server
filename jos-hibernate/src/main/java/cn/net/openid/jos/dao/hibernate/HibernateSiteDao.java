@@ -33,13 +33,8 @@ public class HibernateSiteDao extends BaseHibernateEntityDao<Site> implements
 	 * int)
 	 */
 	public Collection<Site> getTopSites(User user, int maxResults) {
-		this.getHibernateTemplate().setMaxResults(maxResults);
-		try {
-			return find("from Site where user = ? order by approvals desc",
-					user);
-		} finally {
-			this.getHibernateTemplate().setMaxResults(0);
-		}
+		return find("from Site where user = ? order by approvals desc", 0,
+				maxResults, user);
 	}
 
 	/*
@@ -50,13 +45,8 @@ public class HibernateSiteDao extends BaseHibernateEntityDao<Site> implements
 	 * .User, int)
 	 */
 	public Collection<Site> getLatestSites(User user, int maxResults) {
-		this.getHibernateTemplate().setMaxResults(maxResults);
-		try {
-			return find("from Site where user = ? order by lastAttempt desc",
-					user);
-		} finally {
-			this.getHibernateTemplate().setMaxResults(0);
-		}
+		return find("from Site where user = ? order by lastAttempt desc", 0,
+				maxResults, user);
 	}
 
 	/*
@@ -66,8 +56,8 @@ public class HibernateSiteDao extends BaseHibernateEntityDao<Site> implements
 	 * java.lang.String)
 	 */
 	public Site getSite(User user, String realmUrl) {
-		return findUnique("from Site where user.id = ? and realm.url = ?", user
-				.getId(), realmUrl);
+		return findUnique("from Site where user = ? and realm.url = ?", user,
+				realmUrl);
 	}
 
 	/*
@@ -100,8 +90,7 @@ public class HibernateSiteDao extends BaseHibernateEntityDao<Site> implements
 	public void updateAlwaysApprove(User user, String realmId,
 			boolean alwaysApprove) {
 		Site site = this.findUnique(
-				"from Site where user.id = ? and realm.id = ?", user.getId(),
-				realmId);
+				"from Site where user = ? and realm.id = ?", user, realmId);
 		if (site != null) {
 			site.setAlwaysApprove(alwaysApprove);
 			this.getHibernateTemplate().update(site);
