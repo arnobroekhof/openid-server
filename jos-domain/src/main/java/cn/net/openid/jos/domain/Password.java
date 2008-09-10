@@ -3,6 +3,8 @@
  */
 package cn.net.openid.jos.domain;
 
+import java.util.Date;
+
 /**
  * @author Sutra Zhou
  * 
@@ -21,6 +23,7 @@ public class Password extends BaseEntity {
 	private String plaintext;
 	private String shaHex;
 	private long usedTimes;
+	private Date lastUsedDate = new Date();
 	private int maximumServiceTimes = INFINITE_SERVICE_TIMES;
 
 	/**
@@ -109,6 +112,21 @@ public class Password extends BaseEntity {
 	 */
 	public void setUsedTimes(long usedTimes) {
 		this.usedTimes = usedTimes;
+	}
+
+	/**
+	 * @return the lastUsedDate
+	 */
+	public Date getLastUsedDate() {
+		return lastUsedDate;
+	}
+
+	/**
+	 * @param lastUsedDate
+	 *            the lastUsedDate to set
+	 */
+	public void setLastUsedDate(Date lastUsedDate) {
+		this.lastUsedDate = lastUsedDate;
 	}
 
 	/**

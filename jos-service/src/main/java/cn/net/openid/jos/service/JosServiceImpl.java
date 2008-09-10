@@ -453,6 +453,7 @@ public class JosServiceImpl implements JosService {
 					&& password.getShaHex().equalsIgnoreCase(passwordShaHex)) {
 				foundPassword = true;
 				password.setUsedTimes(password.getUsedTimes() + 1);
+				password.setLastUsedDate(new Date());
 				passwordDao.updatePassword(password);
 				break;
 			}
