@@ -1,9 +1,45 @@
 #set($springXhtmlCompliant = true)
 <div id="footer">
+	## Copyright
 	#if($domain.configuration.get("inceptionYear") && $domain.getIntAttribute("inceptionYear") != $date.year)
 		#set($copyrightYears = "$domain.getIntAttribute('inceptionYear')-$date.year")
 	#else
 		#set($copyrightYears = $date.year)
 	#end
-	#springMessage("message.copyright") &copy; $!copyrightYears, <a href="$!domain.configuration.get("organization.url")">$!domain.configuration.get("organization.name")</a>
+
+	#set($copyright = "#springMessage('message.copyright') &copy; $!copyrightYears")
+
+
+	#* Organization *#
+
+	## Organization url
+	#set($organizationUrl = $domain.configuration.get("organization.url"))
+	#if($organizationUrl && $organizationUrl.startsWith("/"))
+		#set($organizationUrl = "#josUrl($organizationUrl)")
+	#end
+
+	## Organization name
+	#set($organizationName = $domain.configuration.get("organization.name"))
+	#if(!$organizationName)
+		#set($organizationName = $organizationUrl)
+	#end
+
+	## Print the footer
+	#if($organizationUrl)
+		$copyright, <a href="$organizationUrl">$organizationName</a>
+	#elseif($organizationName)
+		$copyright, $organizationName
+	#else
+		$copyright
+	#end
+
+
+	## Privacy
+	#set($privacyUrl = $domain.configuration.get("privacy.url"))
+	#if($privacyUrl && $privacyUrl.startsWith("/"))
+		#set($privacyUrl = "#josUrl($privacyUrl)")
+	#end
+	#if($privacyUrl)
+		- <a href="$privacyUrl">#springMessage("title.privacy")</a>
+	#end
 </div>
