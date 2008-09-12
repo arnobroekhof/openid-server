@@ -3,7 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN">
 	<head>
-		<title>OpenID</title>
+		<title>404 Not Found</title>
 		<meta http-equiv="Content-Type"
 			content="application/xhtml-xml; charset=UTF-8" />
 		<meta name="robots" content="all" />
@@ -13,14 +13,13 @@
 	<body>
 		<div>
 			<h1>
-				Unresolved domain
+				Not Found
 			</h1>
 			<p>
-				It looks that the domain you visited is undefined.
+				The requested URL <%--=request.getRequestURI()--%> was not found on this server.
 			</p>
 			<div>
-				If you're the administrator, you can 
-				<a href="<c:url value="/domain-configure/" />">configure this domain</a> now.
+				Go <a href="<c:url value="/" />">home</a> now.
 			</div>
 		</div>
 	</body>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<%@include file="taglibs.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml11.dtd">
-<%@include file="taglibs.jsp" %>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN">
 	<head>
 		<title>OpenID</title>
@@ -12,10 +12,9 @@
 	</head>
 	<body>
 		<div>
-			<h2>
+			<h1>
 				OpenID is Unavailable
-			</h2>
-
+			</h1>
 			<p>
 				There was a fatal error initializing the OpenID application context.
 				This is almost always because of an error in the Spring bean
