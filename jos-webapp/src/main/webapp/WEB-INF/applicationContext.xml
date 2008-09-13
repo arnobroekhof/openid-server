@@ -54,6 +54,8 @@
 						<value>zh_CN</value>
 					</set>
 				</property>
+				<property name="configuratorPassword"
+					value="${domain.configurator.password}" />
 			</bean>
 		</property>
 		<property name="postInterceptors">

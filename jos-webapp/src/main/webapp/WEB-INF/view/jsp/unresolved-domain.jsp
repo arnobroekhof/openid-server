@@ -20,7 +20,7 @@
 			</p>
 			<div>
 				If you're the administrator, you can 
-				<a href="<c:url value="/domain-configure/" />">configure this domain</a> now.
+				<a href="<c:url value="/domain-configurator" />">configure this domain</a> now.
 			</div>
 		</div>
 	</body>

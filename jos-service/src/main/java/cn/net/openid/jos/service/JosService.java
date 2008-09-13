@@ -69,6 +69,8 @@ public interface JosService {
 
 	void insertDomain(Domain domain);
 
+	boolean checkConfiguratorPassword(String input);
+
 	User getUser(String id);
 
 	User getUser(Domain domain, String username);

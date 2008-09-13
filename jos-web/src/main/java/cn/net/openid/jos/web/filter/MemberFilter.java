@@ -37,7 +37,10 @@ public class MemberFilter extends OncePerRequestServiceFilter {
 		domain = DomainFilter.getDomain(request);
 
 		log.debug("Parse username from the request.");
-		String username = getService().parseUsername(domain, request);
+		String username = null;
+		if (domain != null) {
+			username = getService().parseUsername(domain, request);
+		}
 
 		if (log.isDebugEnabled()) {
 			log.debug(String.format("%1$s@%2$s", username, domain));

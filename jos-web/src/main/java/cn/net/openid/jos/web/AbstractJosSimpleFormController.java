@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import cn.net.openid.jos.domain.Domain;
@@ -21,7 +20,7 @@ import cn.net.openid.jos.web.filter.DomainFilter;
  */
 public abstract class AbstractJosSimpleFormController extends
 		SimpleFormController {
-	protected final Log log = LogFactory.getLog(getClass());
+	protected final Log log = super.logger;
 
 	private JosService josService;
 

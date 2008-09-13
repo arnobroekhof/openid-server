@@ -1,0 +1,9 @@
+<title>Domain Configurator</title>
+<form method="post">
+<fieldset>
+	<legend>Login</legend>
+	Password:
+	<input type="password" name="password" />
+	<button type="submit">Login</button>
+</fieldset>
+</form>

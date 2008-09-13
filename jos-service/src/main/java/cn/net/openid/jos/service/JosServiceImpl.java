@@ -61,7 +61,11 @@ public class JosServiceImpl implements JosService {
 
 	private final Map<Domain, ServerManager> serverManagers = new HashMap<Domain, ServerManager>();
 
+	private String configuratorPassword;
 	private Collection<Locale> availableLocales;
+	private PasswordGenerator passwordGenerator;
+
+	/* DAOs */
 
 	private DomainDao domainDao;
 	private UserDao userDao;
@@ -73,11 +77,19 @@ public class JosServiceImpl implements JosService {
 	private RealmDao realmDao;
 	private SiteDao siteDao;
 	private PersonaDao personaDao;
-	private PasswordGenerator passwordGenerator;
 
 	public JosServiceImpl() {
 		this.availableLocales = Collections.unmodifiableCollection(Arrays
 				.asList(Locale.getAvailableLocales()));
+	}
+
+	/**
+	 * @param configuratorPassword
+	 *            the configuratorPassword to set
+	 */
+	public void setConfiguratorPassword(String configuratorPassword) {
+		this.configuratorPassword = StringUtils
+				.trimToNull(configuratorPassword);
 	}
 
 	/**
@@ -403,6 +415,21 @@ public class JosServiceImpl implements JosService {
 	 */
 	public void insertDomain(Domain domain) {
 		domainDao.insertDomain(domain);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * cn.net.openid.jos.service.JosService#checkConfiguratorPassword(String)
+	 */
+	public boolean checkConfiguratorPassword(String input) {
+		if (StringUtils.isBlank(this.configuratorPassword)) {
+			log.debug("password is blank, login is not allowed.");
+			return false;
+		} else {
+			return this.configuratorPassword.equals(input);
+		}
 	}
 
 	/*

@@ -15,6 +15,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import cn.net.openid.jos.domain.Domain;
+import cn.net.openid.jos.service.exception.UnresolvedDomainException;
 
 /**
  * @author Sutra Zhou
@@ -50,6 +51,22 @@ public class DomainFilter extends OncePerRequestServiceFilter {
 		return domain;
 	}
 
+	public static boolean skip(HttpServletRequest request) {
+		String uri = request.getRequestURI();
+		if (uri.matches("(robots\\.txt)|(.*\\.(css|ico|png|gif))")) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public static boolean isDomainConfigurator(HttpServletRequest request) {
+		String uri = request.getRequestURI();
+		String ctx = request.getContextPath();
+		return uri.startsWith(ctx + "/domain-configurator")
+				|| uri.startsWith(ctx + "/hl");
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -63,12 +80,24 @@ public class DomainFilter extends OncePerRequestServiceFilter {
 			HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		log.debug("Begin of domain filter.");
+		if (!skip(request)) {
+			try {
+				this.parseDomain(request);
+			} catch (UnresolvedDomainException e) {
+				if (!isDomainConfigurator(request)) {
+					throw e;
+				}
+			}
+		}
+		filterChain.doFilter(request, response);
+		log.debug("End of domain filter.");
+	}
+
+	private void parseDomain(HttpServletRequest request) {
 		if (getDomain(request) == null) {
 			Domain domain = getService().parseDomain(request);
 			this.setDomain(request, domain);
 		}
-		filterChain.doFilter(request, response);
-		log.debug("End of domain filter.");
 	}
 
 	private void setDomain(HttpServletRequest request, Domain domain) {

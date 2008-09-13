@@ -172,6 +172,21 @@
 		<property name="localeResolver" ref="localeResolver" />
 	</bean>
 
+
+	<!-- ================ Domain Configurator ================ -->
+	<bean id="domainConfiguratorLoginController"
+		class="cn.net.openid.jos.web.controller.DomainConfiguratorLoginController"
+		parent="abstractJosSimpleFormController">
+		<property name="formView" value="domain-configurator-login" />
+	</bean>
+	<bean id="domainConfiguratorController"
+		class="cn.net.openid.jos.web.controller.DomainConfiguratorController"
+		parent="abstractJosSimpleFormController">
+		<property name="formView" value="domain-configurator" />
+		<property name="successView" value="domain-configurator-success" />
+	</bean>
+
+	<!-- ================ Decorator controller: sitemesh ================ -->
 	<bean id="mainDecoratorController"
 		class="cn.net.openid.jos.web.sitemesh.DecoratorController">
 		<property name="view" value="decorators/main" />
@@ -191,6 +206,10 @@
 		class="cn.net.openid.jos.web.interceptor.CaptchaInterceptor" />
 	<bean id="forgotPasswordCaptchaInterceptor"
 		class="cn.net.openid.jos.web.interceptor.CaptchaInterceptor" />
+	<bean id="domainConfiguratorInterceptor"
+		class="cn.net.openid.jos.web.interceptor.DomainConfiguratorInterceptor">
+		<property name="loginPath" value="/domain-configurator-login" />
+	</bean>
 
 
 	<!-- ================ MAPPING DEFINITIONS ================ -->
@@ -215,6 +234,8 @@
 					value-ref="humanLanguageSelectionController" />
 				<entry key="/server.do" value-ref="serverController" />
 				<entry key="/captcha.do" value-ref="captchaController" />
+				<entry key="/domain-configurator-login.do"
+					value-ref="domainConfiguratorLoginController" />
 			</map>
 		</property>
 	</bean>
@@ -304,6 +325,21 @@
 		</property>
 	</bean>
 
+	<!-- Domain configurator url map -->
+	<bean id="domainConfiguratorHandlerMapping"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="interceptors">
+			<list>
+				<ref local="domainConfiguratorInterceptor" />
+			</list>
+		</property>
+		<property name="urlMap">
+			<map>
+				<entry key="/domain-configurator.do"
+					value-ref="domainConfiguratorController" />
+			</map>
+		</property>
+	</bean>
 
 	<!-- ================ MESSAGE SOURCE DEFINITION ================ -->
 

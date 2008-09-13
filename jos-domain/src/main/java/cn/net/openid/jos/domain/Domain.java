@@ -276,7 +276,7 @@ public class Domain extends BaseEntity {
 	private int type;
 	private String serverHost;
 	private String memberPath;
-	private UsernameConfiguration usernameConfiguration;
+	private UsernameConfiguration usernameConfiguration = new UsernameConfiguration();
 	private Map<String, String> configuration;
 	private transient DomainRuntime runtime = new DomainRuntime();
 
@@ -354,6 +354,7 @@ public class Domain extends BaseEntity {
 	public void setUsernameConfiguration(
 			UsernameConfiguration usernameConfiguration) {
 		this.usernameConfiguration = usernameConfiguration;
+		usernameConfiguration.setDomain(this);
 	}
 
 	/**
@@ -407,6 +408,7 @@ public class Domain extends BaseEntity {
 		default:
 			break;
 		}
+
 		return sb.toString();
 	}
 
@@ -429,6 +431,7 @@ public class Domain extends BaseEntity {
 		default:
 			break;
 		}
+
 		return sb.toString();
 	}
 

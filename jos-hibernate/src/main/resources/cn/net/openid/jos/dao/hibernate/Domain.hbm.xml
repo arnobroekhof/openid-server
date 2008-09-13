@@ -10,7 +10,7 @@
 		<property name="type" not-null="true" update="false" column="domain_type" />
 		<property name="serverHost" update="false" column="domain_server_host" />
 		<property name="memberPath" update="false" column="domain_member_path" />
-		<one-to-one name="usernameConfiguration" cascade="all" />
+		<one-to-one name="usernameConfiguration" lazy="false" cascade="all" />
 		<property name="creationDate" type="timestamp" not-null="true"
 			update="false" column="domain_creation_date" />
 		<map name="configuration"

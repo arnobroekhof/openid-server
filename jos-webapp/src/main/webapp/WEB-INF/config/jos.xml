@@ -3,4 +3,6 @@
 <properties version="1.0">
 	<comment>Configuration for Java OpenID Server.</comment>
 	<entry key="email.address.pattern"><![CDATA[\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*]]></entry>
+	<!-- Keep blank that no body can login. -->
+	<entry key="domain.configurator.password"></entry>
 </properties>
