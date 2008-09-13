@@ -30,7 +30,7 @@ public class LogoutController extends AbstractJosController {
 			HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession(false);
 		if (session != null) {
-			this.getUserSession(session).setLoggedIn(false);
+			session.invalidate();
 		}
 		return new ModelAndView("logout");
 	}

@@ -34,7 +34,7 @@ public class MemberFilter extends OncePerRequestServiceFilter {
 			throws ServletException, IOException {
 		log.debug("Begin of member filter.");
 		Domain domain = null;
-		domain = DomainFilter.getDomain(request);
+		domain = DomainFilter.getDomain(request.getSession(false));
 
 		log.debug("Parse username from the request.");
 		String username = null;

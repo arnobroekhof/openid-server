@@ -40,29 +40,27 @@ public class DomainFilter extends OncePerRequestServiceFilter {
 	}
 
 	/**
-	 * Get domain from the session/request.
+	 * Get domain from <code>request.getSession(false)</code>.
 	 * 
 	 * @param request
 	 *            the HTTP request
-	 * @return the domain in the session or request, null if session is null or
-	 *         attribute is not exists in session and request.
+	 * @return the domain in the session, null if session is null or not found.
+	 * @see DomainFilter#getDomain(HttpSession)
 	 */
 	public static Domain getDomain(HttpServletRequest request) {
-		Domain domain = null;
-		HttpSession session = request.getSession(false);
-		if (session != null) {
-			domain = (Domain) request.getSession().getAttribute(
-					DOMAIN_ATTRIBUTE_NAME);
-		}
-		if (domain == null) {
-			domain = (Domain) request.getAttribute(DOMAIN_ATTRIBUTE_NAME);
-		}
-		if (log.isDebugEnabled()) {
-			if (domain != null) {
-				log.debug(domain + ": " + domain.getUsernameConfiguration());
-			}
-		}
-		return domain;
+		return getDomain(request.getSession(false));
+	}
+
+	/**
+	 * Get domain from the session/request.
+	 * 
+	 * @param session
+	 *            the HTTP session
+	 * @return the domain in the session, null if session is null or not found.
+	 */
+	public static Domain getDomain(HttpSession session) {
+		return session != null ? (Domain) session
+				.getAttribute(DOMAIN_ATTRIBUTE_NAME) : null;
 	}
 
 	/*
@@ -80,6 +78,9 @@ public class DomainFilter extends OncePerRequestServiceFilter {
 		log.debug("Begin of domain filter.");
 		if (!skip(request)) {
 			this.parseDomain(request);
+
+			// Put domain to request.
+			this.setDomain(request, getDomain(request.getSession(false)));
 		} else if (log.isDebugEnabled()) {
 			log.debug("Skipped domain parsing.");
 		}
@@ -98,21 +99,19 @@ public class DomainFilter extends OncePerRequestServiceFilter {
 	}
 
 	private void parseDomain(HttpServletRequest request) {
-		if (getDomain(request) == null) {
+		if (getDomain(request.getSession(false)) == null) {
 			Domain domain = getService().parseDomain(request);
-			this.setDomain(request, domain);
+			this.setDomain(request.getSession(), domain);
 		}
 	}
 
-	private void setDomain(HttpServletRequest request, Domain domain) {
+	private void setDomain(HttpSession session, Domain domain) {
 		log.debug("Put domain info into session.");
-		HttpSession session = request.getSession(true);
 		session.setAttribute(DOMAIN_ATTRIBUTE_NAME, domain);
+	}
 
+	private void setDomain(HttpServletRequest request, Domain domain) {
 		log.debug("Put domain info into request.");
 		request.setAttribute(DOMAIN_ATTRIBUTE_NAME, domain);
-		if (log.isDebugEnabled()) {
-			log.debug(domain + "" + domain.getUsernameConfiguration());
-		}
 	}
 }
