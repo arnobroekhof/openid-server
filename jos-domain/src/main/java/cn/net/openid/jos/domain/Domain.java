@@ -402,7 +402,7 @@ public class Domain extends BaseEntity {
 			sb.append(baseUrl.getProtocol()).append("://");
 			sb.append(getName());
 			appendPort(sb, baseUrl);
-			sb.append(baseUrl.getPath()).append("/");
+			sb.append(baseUrl.getPath());
 			appendMemberPath(sb);
 			break;
 		default:

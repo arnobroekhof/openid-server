@@ -43,6 +43,46 @@ public class DomainTest {
 
 	/**
 	 * Test method for
+	 * {@link cn.net.openid.jos.domain.Domain#getIdentifierPrefix()}.
+	 * 
+	 * @throws MalformedURLException
+	 */
+	@Test
+	public void testGetIdentifierPrefixSubdirectory()
+			throws MalformedURLException {
+		URL url = new URL("http://example1.com/jos-webapp/");
+		domain.getRuntime().setServerBaseUrl(url);
+		domain.setName("example1.com");
+		domain.setType(Domain.TYPE_SUBDIRECTORY);
+		assertEquals("http://example1.com/jos-webapp/", domain
+				.getIdentifierPrefix());
+
+		domain.setMemberPath("abc");
+		assertEquals("http://example1.com/jos-webapp/abc/", domain
+				.getIdentifierPrefix());
+	}
+
+	/**
+	 * Test method for
+	 * {@link cn.net.openid.jos.domain.Domain#getIdentifierPrefix()}.
+	 * 
+	 * @throws MalformedURLException
+	 */
+	@Test
+	public void testGetIdentifierPrefixSubdirectoryRoot()
+			throws MalformedURLException {
+		URL url = new URL("http://example1.com/");
+		domain.getRuntime().setServerBaseUrl(url);
+		domain.setName("example1.com");
+		domain.setType(Domain.TYPE_SUBDIRECTORY);
+		assertEquals("http://example1.com/", domain.getIdentifierPrefix());
+
+		domain.setMemberPath("abc");
+		assertEquals("http://example1.com/abc/", domain.getIdentifierPrefix());
+	}
+
+	/**
+	 * Test method for
 	 * {@link cn.net.openid.jos.domain.Domain#getIdentifierSuffix()}.
 	 * 
 	 * @throws MalformedURLException
