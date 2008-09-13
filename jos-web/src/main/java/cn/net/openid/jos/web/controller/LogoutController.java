@@ -8,7 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.Controller;
+
+import cn.net.openid.jos.web.AbstractJosController;
 
 /**
  * Clean up the session of current session.
@@ -16,19 +17,20 @@ import org.springframework.web.servlet.mvc.Controller;
  * @author Sutra Zhou
  * 
  */
-public class LogoutController implements Controller {
+public class LogoutController extends AbstractJosController {
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.springframework.web.servlet.mvc.Controller#handleRequest(javax.servlet.http.HttpServletRequest,
-	 *      javax.servlet.http.HttpServletResponse)
+	 * @see
+	 * org.springframework.web.servlet.mvc.Controller#handleRequest(javax.servlet
+	 * .http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	public ModelAndView handleRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession(false);
 		if (session != null) {
-			session.invalidate();
+			this.getUserSession(session).setLoggedIn(false);
 		}
 		return new ModelAndView("logout");
 	}

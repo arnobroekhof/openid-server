@@ -7,7 +7,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -56,8 +55,7 @@ public class LoginController extends AbstractJosSimpleFormController {
 			// Comment as this logic has moved to JosService.
 			// user.setDomain(this.getDomain(request));
 
-			HttpSession session = request.getSession();
-			UserSession userSession = getUserSession(session);
+			UserSession userSession = getUserSession(request);
 			userSession.setUser(user);
 			userSession.setLoggedIn(true);
 		}
