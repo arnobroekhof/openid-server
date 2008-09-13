@@ -8,8 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.ModelAndView;
-
-import cn.net.openid.jos.web.AbstractJosController;
+import org.springframework.web.servlet.mvc.Controller;
 
 /**
  * Clean up the session of current session.
@@ -17,7 +16,7 @@ import cn.net.openid.jos.web.AbstractJosController;
  * @author Sutra Zhou
  * 
  */
-public class LogoutController extends AbstractJosController {
+public class LogoutController implements Controller {
 
 	/*
 	 * (non-Javadoc)
