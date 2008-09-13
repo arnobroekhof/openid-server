@@ -63,6 +63,7 @@ public class JosServiceImpl implements JosService {
 
 	private String configuratorPassword;
 	private Collection<Locale> availableLocales;
+	private Pattern systemReservedWordPattern;
 	private PasswordGenerator passwordGenerator;
 
 	/* DAOs */
@@ -90,6 +91,15 @@ public class JosServiceImpl implements JosService {
 	public void setConfiguratorPassword(String configuratorPassword) {
 		this.configuratorPassword = StringUtils
 				.trimToNull(configuratorPassword);
+	}
+
+	/**
+	 * @param systemReservedWordPattern
+	 *            the systemReservedWordPattern to set
+	 */
+	public void setSystemReservedWordPattern(String systemReservedWordPattern) {
+		this.systemReservedWordPattern = Pattern
+				.compile(systemReservedWordPattern.trim());
 	}
 
 	/**
@@ -195,6 +205,10 @@ public class JosServiceImpl implements JosService {
 
 	public Collection<Locale> getAvailableLocales() {
 		return this.availableLocales;
+	}
+
+	public boolean isSystemReservedWord(String word) {
+		return this.systemReservedWordPattern.matcher(word).matches();
 	}
 
 	private synchronized ServerManager newServerManager(Domain domain) {

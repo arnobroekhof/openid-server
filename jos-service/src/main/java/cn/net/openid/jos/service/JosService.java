@@ -37,6 +37,8 @@ public interface JosService {
 	 */
 	Collection<Locale> getAvailableLocales();
 
+	boolean isSystemReservedWord(String word);
+
 	ServerManager getServerManager(Domain domain);
 
 	/**

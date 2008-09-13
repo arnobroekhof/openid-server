@@ -17,7 +17,7 @@ public class DomainFilterTest {
 	@Test
 	public void testPattern() {
 		Pattern p = Pattern
-				.compile("^/(robots\\.txt|.*\\.(css|js|ico|png|gif)|domain\\-configurator|domain\\-configurator\\-login|hl)(;jsessionid=.*)?$");
+				.compile("^/(robots\\.txt|.*\\.(css|js|ico|png|gif)|domain-configurator|domain-configurator-login|hl)(;jsessionid=.*)?$");
 
 		assertTrue(p.matcher("/robots.txt").matches());
 		assertTrue(p.matcher("/robots.txt;jsessionid=abc123").matches());

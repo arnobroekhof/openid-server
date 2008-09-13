@@ -47,6 +47,7 @@ public class MemberFilter extends OncePerRequestServiceFilter {
 					domain));
 		}
 		if (username == null
+				|| this.getService().isSystemReservedWord(username)
 				|| !domain.getUsernameConfiguration().isUsername(username)
 				|| domain.getUsernameConfiguration().isUnallowable(username)) {
 			log.debug("The url is not matches.");
