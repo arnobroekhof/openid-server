@@ -21,7 +21,6 @@ import cn.net.openid.jos.web.AbstractJosSimpleFormController;
  */
 public class DomainConfiguratorController extends
 		AbstractJosSimpleFormController {
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -33,8 +32,10 @@ public class DomainConfiguratorController extends
 	protected Object formBackingObject(HttpServletRequest request)
 			throws Exception {
 		Map<Integer, String> types = new LinkedHashMap<Integer, String>();
-		types.put(1, "Sub domain");
-		types.put(2, "Sub directory");
+		types.put(Domain.TYPE_SUBDOMAIN, getMessageSourceAccessor().getMessage(
+				"domain.title.type.subdomain"));
+		types.put(Domain.TYPE_SUBDIRECTORY, getMessageSourceAccessor()
+				.getMessage("domain.title.type.subdirectory"));
 		request.setAttribute("types", types);
 
 		Domain domain = new Domain();
@@ -46,7 +47,11 @@ public class DomainConfiguratorController extends
 			domain.setServerHost("www");
 		}
 		domain.setName(name);
-		domain.setType(Domain.TYPE_SUBDOMAIN);
+		if (!host.equals("localhost")) {
+			domain.setType(Domain.TYPE_SUBDOMAIN);
+		} else {
+			domain.setType(Domain.TYPE_SUBDIRECTORY);
+		}
 		UsernameConfiguration uc = new UsernameConfiguration();
 		domain.setUsernameConfiguration(uc);
 		uc.setRegex("[a-z]{1,16}");

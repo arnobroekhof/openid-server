@@ -1,6 +1,6 @@
 #set($springXhtmlCompliant = true)
 <div id="header">
-	<div id="logo"><img src="openid-logo.png" alt="OpenID" /></div>
+	<div id="logo"><img src="#josUrl("/resources/images/openid-logo.png")" alt="OpenID" /></div>
 	<div id="navbar">
 		<ul>
 			#if(!${userSession.loggedIn})

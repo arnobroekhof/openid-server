@@ -1,3 +1,41 @@
+#**
+ * josMessage
+ *
+ * Macro to translate a message code into a message.
+ *#
+#macro( josMessage $code)$springMacroRequestContext.getMessage($code)#end
+#macro( josMessageEscaped $code $htmlEscape )$springMacroRequestContext.getMessage($code, null, $htmlEscape)#end
+
+#macro( josMessageArgs $code $args )$springMacroRequestContext.getMessage($code, $args)#end
+#macro( josMessageArgsEscaped $code $args $htmlEscape )$springMacroRequestContext.getMessage($code, $args.toArray(), $htmlEscape)#end
+
+#macro( josMessageTextArgs $code $args $text )$springMacroRequestContext.getMessage($code, $args.toArray(), $text)#end
+#macro( josMessageTextArgsEscaped $code $args $text $htmlEscape )$springMacroRequestContext.getMessage($code, $args.toArray(), $text, $htmlEscape)#end
+
+#**
+ * josUrl
+ *
+ * Takes a relative URL and makes it absolute from the server root by
+ * adding the context root for the web application.
+ *#
+#macro( josUrl $relativeUrl )$response.encodeURL("#springUrl(${relativeUrl})")#end
+
+#**
+ * josFormSingleSelect
+ *
+ * Show a selectbox (dropdown) input element allowing a single value to be chosen
+ * from a list of options.
+ *
+ * The null check for $status.value leverages Velocity's 'quiet' notation rather
+ * than the more common #if($status.value) since this method evaluates to the
+ * boolean 'false' if the content of $status.value is the String "false" - not
+ * what we want.
+ *
+ * @param path the name of the field to bind to
+ * @param options a map (value=label) of all the available options
+ * @param attributes any additional attributes for the element (such as class
+ *    or CSS styles or size
+*#
 #macro( josFormSingleSelect $path $opts $optgroups $attributes )
 	#springBind($path)
 	#set($selected = false)
@@ -42,25 +80,3 @@
 		<label for="${status.expression}_$velocityCount">${options.get($option)}</label> ${separator}
 	#end
 #end
-
-#**
- * josUrl
- *
- * Takes a relative URL and makes it absolute from the server root by
- * adding the context root for the web application.
- *#
-#macro( josUrl $relativeUrl )$response.encodeURL("#springUrl(${relativeUrl})")#end
-
-#**
- * josMessage
- *
- * Macro to translate a message code into a message.
- *#
-#macro( josMessage $code)$springMacroRequestContext.getMessage($code)#end
-#macro( josMessageEscaped $code $htmlEscape )$springMacroRequestContext.getMessage($code, null, $htmlEscape)#end
-
-#macro( josMessageArgs $code $args )$springMacroRequestContext.getMessage($code, $args)#end
-#macro( josMessageArgsEscaped $code $args $htmlEscape )$springMacroRequestContext.getMessage($code, $args.toArray(), $htmlEscape)#end
-
-#macro( josMessageTextArgs $code $args $text )$springMacroRequestContext.getMessage($code, $args.toArray(), $text)#end
-#macro( josMessageTextArgsEscaped $code $args $text $htmlEscape )$springMacroRequestContext.getMessage($code, $args.toArray(), $text, $htmlEscape)#end

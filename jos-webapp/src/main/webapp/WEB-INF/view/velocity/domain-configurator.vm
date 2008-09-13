@@ -1,53 +1,40 @@
-<title>Domain Configurator</title>
-<style type="text/css">
-dd {
-	margin-left: 30px;
-}
-input {
-	width: 100%;
-}
-
-#identifierPatternDiv {
-	width: 100%;
-	margin: 5px 0px;
-	padding: 5px 0px;
-}
-#identifierPatternDiv label {
-}
-#openid_identifier_pattern {
-	width: 100%;
-	display: inline;
-	border: 1px solid #e8e2ed;
-	background-color: #e8f2fe;
-	margin-left: 0.5em;
-	margin: 5px;
-	padding: 5px;
-}
-.username {
-	font-weight: bold;
-}
-</style>
+<html>
+<head>
+<title>
+	#springMessageText("domain.title.configurator" "Domain configurator")
+</title>
+<link rel="stylesheet" type="text/css" media="screen"
+	href="#josUrl("/resources/styles/domain-configurator.css")" />
+<script type="text/javascript"
+	src="#josUrl("/resources/scripts/domain-configurator.js")">
+</script>
+</head>
+<body>
 <form method="post">
 #springFormHiddenInput("command.id" "")
 <fieldset>
-	<legend>Base Settings</legend>
-	<div id="identifierPatternDiv"><label>#springMessageText("domain.label.identifierPattern" "OpenID Identifier Pattern:")</label><div id="openid_identifier_pattern"></div></div>
+	<legend>
+		#springMessageText("domain.title.baseSettings" "Base settings")
+	</legend>
+	<div id="identifierPatternDiv"><label>#springMessageText("domain.label.identifierPattern" "OpenID identifier pattern:")</label><div id="openid_identifier_pattern"></div></div>
 	<dl>
-		<dt>#springMessageText("domain.label.name" "Name:")</dt>
-		<dd>#springFormInput("command.name" "onkeyup='showIdPattern()'")</dd>
-
 		<dt>#springMessageText("domain.label.type" "Type:")</dt>
-		<dd>#josFormRadioButtons("command.type" $types "" "onchange='showIdPattern()'")</dd>
+		<dd>#josFormRadioButtons("command.type" $types "" "onchange='showIdentifierPattern()'")</dd>
 
-		<dt>#springMessageText("domain.label.serverHost" "Server Host:")</dt>
-		<dd>#springFormInput("command.serverHost" "onkeyup='showIdPattern()'")</dd>
+		<dt>#springMessageText("domain.label.name" "Name:")</dt>
+		<dd>#springFormInput("command.name" "onkeyup='showIdentifierPattern()'")</dd>
 
-		<dt>#springMessageText("domain.label.memberPath" "Member Path:")</dt>
-		<dd>#springFormInput("command.memberPath" "onkeyup='showIdPattern()'")</dd>
+		<dt>#springMessageText("domain.label.serverHost" "Server host:")</dt>
+		<dd>#springFormInput("command.serverHost" "onkeyup='showIdentifierPattern()'")</dd>
+
+		<dt>#springMessageText("domain.label.memberPath" "Member path:")</dt>
+		<dd>#springFormInput("command.memberPath" "onkeyup='showIdentifierPattern()'")</dd>
 	</dl>
 </fieldset>
 <fieldset>
-	<legend>Username Configuration</legend>
+	<legend>
+		#springMessageText("domain.title.usernameConfiguration" "Username configuration")
+	</legend>
 	<dl>
 		<dt>#springMessageText("domain.label.usernameConfiguration.regex" "Username pattern:")</dt>
 		<dd>#springFormInput("command.usernameConfiguration.regex" "")</dd>
@@ -62,81 +49,8 @@ input {
 
 <script type="text/javascript">
 <!--
-var TYPE_SUBDOMAIN = 1;
-var TYPE_SUBDIRECTORY = 2;
-
-var idPatternDiv = document.getElementById("openid_identifier_pattern");
-var nameObj = document.getElementById("name");
-var memberPathObj = document.getElementById("memberPath");
-
-function getType() {
-	var v;
-	if (document.getElementById("type_" + TYPE_SUBDOMAIN).checked) {
-		v = TYPE_SUBDOMAIN;
-	} else if (document.getElementById("type_" + TYPE_SUBDIRECTORY).checked) {
-		v = TYPE_SUBDIRECTORY;
-	}
-	return v;
-}
-
-function appendPort() {
-	var v = document.location.port;
-	if (v !== "") {
-		return ":" + v;
-	} else {
-		return "";
-	}
-}
-
-function appendMemberPath() {
-	var v = memberPathObj.value;
-	if (v !== "") {
-		return v + "/";
-	} else {
-		return "";
-	}
-}
-
-function getIdentifierPrefix() {
-	var p = "";
-
-	switch (getType()) {
-	case TYPE_SUBDOMAIN:
-		p += document.location.protocol + "//";
-		break;
-	case TYPE_SUBDIRECTORY:
-		p += document.location.protocol + "//";
-		p += nameObj.value;
-		p += appendPort();
-		p += "/"
-		p += appendMemberPath();
-		break;
-	}
-
-	return p;
-}
-
-function getIdentifierSuffix() {
-	var s = "";
-
-	switch (getType()) {
-	case TYPE_SUBDOMAIN:
-		s += "." + nameObj.value;
-		s += appendPort();
-		s += document.location.pathname.replace("domain-configurator", "");
-		s += appendMemberPath();
-		break;
-	case TYPE_SUBDIRECTORY:
-		break;
-	}
-
-	return s;
-}
-
-function showIdPattern() {
-	idPatternDiv.innerHTML = getIdentifierPrefix() + "<span class='username'>username</span>" + getIdentifierSuffix();
-}
-
-showIdPattern();
+showIdentifierPattern();
 //-->
 </script>
+</body>
+</html>

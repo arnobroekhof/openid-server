@@ -350,6 +350,7 @@
 				<value>messages-custom</value>
 				<value>cn.net.openid.jos.web.messages</value>
 				<value>cn.net.openid.jos.web.buttons</value>
+				<value>cn.net.openid.jos.web.domain</value>
 				<value>cn.net.openid.jos.web.user</value>
 				<value>cn.net.openid.jos.web.email</value>
 				<value>cn.net.openid.jos.web.password</value>

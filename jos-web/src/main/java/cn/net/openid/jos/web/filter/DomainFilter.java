@@ -4,6 +4,7 @@
 package cn.net.openid.jos.web.filter;
 
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -15,15 +16,28 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import cn.net.openid.jos.domain.Domain;
-import cn.net.openid.jos.service.exception.UnresolvedDomainException;
 
 /**
+ * Domain filter. Parse domain information from request URL, and put into
+ * session and request.
+ * 
  * @author Sutra Zhou
  * 
  */
 public class DomainFilter extends OncePerRequestServiceFilter {
 	private static final Log log = LogFactory.getLog(DomainFilter.class);
 	private static final String DOMAIN_ATTRIBUTE_NAME = "domain";
+
+	private Pattern skipPattern;
+
+	/**
+	 * @param skipPattern
+	 *            the skipPattern to set
+	 */
+	public void setSkipPattern(String skipPattern) {
+		log.debug("skipPattern setted: " + skipPattern.trim());
+		this.skipPattern = Pattern.compile(skipPattern.trim());
+	}
 
 	/**
 	 * Get domain from the session/request.
@@ -51,22 +65,6 @@ public class DomainFilter extends OncePerRequestServiceFilter {
 		return domain;
 	}
 
-	public static boolean skip(HttpServletRequest request) {
-		String uri = request.getRequestURI();
-		if (uri.matches("(robots\\.txt)|(.*\\.(css|ico|png|gif))")) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public static boolean isDomainConfigurator(HttpServletRequest request) {
-		String uri = request.getRequestURI();
-		String ctx = request.getContextPath();
-		return uri.startsWith(ctx + "/domain-configurator")
-				|| uri.startsWith(ctx + "/hl");
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -81,16 +79,22 @@ public class DomainFilter extends OncePerRequestServiceFilter {
 			throws ServletException, IOException {
 		log.debug("Begin of domain filter.");
 		if (!skip(request)) {
-			try {
-				this.parseDomain(request);
-			} catch (UnresolvedDomainException e) {
-				if (!isDomainConfigurator(request)) {
-					throw e;
-				}
-			}
+			this.parseDomain(request);
+		} else if (log.isDebugEnabled()) {
+			log.debug("Skipped domain parsing.");
 		}
 		filterChain.doFilter(request, response);
 		log.debug("End of domain filter.");
+	}
+
+	private boolean skip(HttpServletRequest request) {
+		String path = request.getRequestURI().substring(
+				request.getContextPath().length());
+		if (this.skipPattern.matcher(path).matches()) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	private void parseDomain(HttpServletRequest request) {

@@ -43,9 +43,12 @@ public class MemberFilter extends OncePerRequestServiceFilter {
 		}
 
 		if (log.isDebugEnabled()) {
-			log.debug(String.format("%1$s@%2$s", username, domain));
+			log.debug(String.format("username@domain: %1$s@%2$s", username,
+					domain));
 		}
-		if (username == null) {
+		if (username == null
+				|| !domain.getUsernameConfiguration().isUsername(username)
+				|| domain.getUsernameConfiguration().isUnallowable(username)) {
 			log.debug("The url is not matches.");
 			filterChain.doFilter(request, response);
 		} else {

@@ -293,8 +293,8 @@ public class JosServiceImpl implements JosService {
 			break;
 		case Domain.TYPE_SUBDIRECTORY:
 			String uri = request.getRequestURI();
-			username = parseUsernameFromSubdirectory(domain.getMemberPath(),
-					uri);
+			username = parseUsernameFromSubdirectory(request.getContextPath(),
+					domain.getMemberPath(), uri);
 			break;
 		default:
 			break;
@@ -359,16 +359,18 @@ public class JosServiceImpl implements JosService {
 	/**
 	 * Parse username from the request URI.
 	 * 
+	 * @param contextPath
+	 *            the contenxt path of the HTTP request
 	 * @param memberPath
 	 *            the memberPath of the domain
 	 * @param requestURI
 	 *            the request URI
 	 * @return the username
 	 */
-	private String parseUsernameFromSubdirectory(String memberPath,
-			String requestURI) {
-		int memberPathLength = memberPath == null ? 0 : memberPath.length();
-		return requestURI.substring(memberPathLength + 1);
+	private String parseUsernameFromSubdirectory(String contextPath,
+			String memberPath, String requestURI) {
+		int memberPathLength = memberPath == null ? 0 : memberPath.length() + 1;
+		return requestURI.substring(contextPath.length() + memberPathLength);
 	}
 
 	/*

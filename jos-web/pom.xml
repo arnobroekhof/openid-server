@@ -32,6 +32,10 @@
 			<version>0.0.7</version>
 		</dependency>
 		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>${groupId}</groupId>
 			<artifactId>jos-service</artifactId>
 			<version>${version}</version>

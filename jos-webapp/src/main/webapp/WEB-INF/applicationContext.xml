@@ -154,7 +154,9 @@
 	</bean>
 	<bean id="domainFilter"
 		class="cn.net.openid.jos.web.filter.DomainFilter"
-		parent="oncePerRequestServiceFilter" />
+		parent="oncePerRequestServiceFilter">
+		<property name="skipPattern" value="${domain.filter.skip.pattern}" />
+	</bean>
 	<bean id="memberFilter"
 		class="cn.net.openid.jos.web.filter.MemberFilter"
 		parent="oncePerRequestServiceFilter" />
