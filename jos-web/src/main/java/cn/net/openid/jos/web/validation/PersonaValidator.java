@@ -48,7 +48,7 @@ public class PersonaValidator implements Validator {
 	private Pattern emailAddressPattern;
 
 	public void setEmailAddressPattern(String emailAddressPattern) {
-		this.emailAddressPattern = Pattern.compile(emailAddressPattern);
+		this.emailAddressPattern = Pattern.compile(emailAddressPattern.trim());
 	}
 
 	/*
@@ -103,7 +103,7 @@ public class PersonaValidator implements Validator {
 		}
 
 		// dob check.
-		if (!StringUtils.isNotEmpty(persona.getDob())) {
+		if (StringUtils.isNotEmpty(persona.getDob())) {
 			Matcher matcher = dobPattern.matcher(persona.getDob());
 			if (matcher.matches()) {
 
