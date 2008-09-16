@@ -1,3 +1,22 @@
+ * 2008-09-?? - jos 1.2.0 released
+ [http://openid-server.googlecode.com/svn/tags/jos-1.2.0/INSTALL Quick Install Guide]
+
+ New features:
+  * Forgot password - generate a single-use password through register-email.
+  * Password used times counting, last used date recording.
+  * Domain configurator for adding new domain.
+  * Add domain settings: inceptionYear, organization.name, orgnaization.url, privacy.url, defaultLocale.
+  * Latest sites I logged on.
+  * Top sites I logged on.
+  * Latest sites of all users.
+  * Add i18n-pt(Portuguese	).
+ Bugfixes and minor changes:
+  * Use DecoratorController instead of VelocityDecoratorServlet.
+  * Fix getIdentifierPrefix for subdirectory which returns double slashes.
+  * Fix HTML validation errors: doctype and accesskey.
+  * Add system reserved words, these words can't be registered by user.
+  * Move all css, images, js to directory "resources".
+
  * 2008-09-01 - jos 1.1.0 released
  [http://openid-server.googlecode.com/svn/tags/jos-1.1.0/INSTALL Quick Install Guide]
 
