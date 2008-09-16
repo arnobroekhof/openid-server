@@ -15,7 +15,7 @@
 				</span>
 				<button type="submit" name="login" accesskey="L">#springMessage("button.login")</button>
 				##<input type="submit" name="index.login" value="#springMessage("login.other")" accesskey="A" />
-				<button type="submit" name="register" accessky="R">#springMessage("button.register")</button>
+				<button type="submit" name="register" accesskey="R">#springMessage("button.register")</button>
 			</div>
 		</form>
 		<script type="text/javascript">
