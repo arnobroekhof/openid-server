@@ -2,10 +2,10 @@
 <html>
 	<head>
 		<title>#springMessage("openid") - #springMessage("persona.title.persona")</title>
-		<link rel="stylesheet" type="text/css" media="all" href="#springUrl('/jscalendar/skins/aqua/theme.css')" title="Aqua" />
-		<script type="text/javascript" src="#springUrl('/jscalendar/calendar_stripped.js')"></script>
-		<script type="text/javascript" src="#springUrl('/jscalendar/calendar-setup_stripped.js')"></script>
-		<script type="text/javascript" src="#springUrl('/jscalendar/lang/calendar-en.js')"></script>
+		<link rel="stylesheet" type="text/css" media="all" href="#springUrl('/resources/jscalendar/skins/aqua/theme.css')" title="Aqua" />
+		<script type="text/javascript" src="#springUrl('/resources/jscalendar/calendar_stripped.js')"></script>
+		<script type="text/javascript" src="#springUrl('/resources/jscalendar/calendar-setup_stripped.js')"></script>
+		<script type="text/javascript" src="#springUrl('/resources/jscalendar/lang/calendar-en.js')"></script>
 	</head>
 	<body>
 		<fieldset>
@@ -56,7 +56,7 @@
 						</td>
 						<td>
 							#springFormInput("persona.dob" "")
-							<img src="jscalendar/img.gif" id="f_trigger_c" style="border: 1px solid red; cursor: pointer;" title="Date selector" onmouseover="this.style.background='red';" onmouseout="this.style.background=''" />
+							<img src="#josUrl("/resources/jscalendar/img.gif")" id="f_trigger_c" style="border: 1px solid red; cursor: pointer;" title="Date selector" onmouseover="this.style.background='red';" onmouseout="this.style.background=''" />
 <script type="text/javascript">
     Calendar.setup({
         inputField     :    "dob",     // id of the input field

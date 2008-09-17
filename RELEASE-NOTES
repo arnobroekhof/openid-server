@@ -9,7 +9,7 @@
   * Latest sites I logged on.
   * Top sites I logged on.
   * Latest sites of all users.
-  * Add i18n-pt(Portuguese	).
+  * Add i18n-pt(Portuguese).
  Bugfixes and minor changes:
   * Use DecoratorController instead of VelocityDecoratorServlet.
   * Fix getIdentifierPrefix for subdirectory which returns double slashes.

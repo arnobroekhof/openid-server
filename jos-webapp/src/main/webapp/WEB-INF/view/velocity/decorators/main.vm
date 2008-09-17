@@ -12,7 +12,7 @@
 		<link rel="icon" href="$base/favicon.ico" type="image/x-icon" />
 		<link rel="shortcut icon" href="$response.encodeURL("$base/favicon.ico")" type="image/x-icon" />
 		<link rel="stylesheet" type="text/css" media="screen"
-			href="$response.encodeURL("$base/resources/styles/jos.css")" title="OpenID" />
+			href="$response.encodeURL("$base/resources/styles/jos.css")" />
 		#if($domain)
 		<link rel="stylesheet" type="text/css" media="screen"
 			href="$response.encodeURL("$base/${domain.id}.css")" />
