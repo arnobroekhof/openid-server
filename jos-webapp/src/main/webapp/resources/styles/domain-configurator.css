@@ -1,8 +1,8 @@
 /* Style for domain configurator*/
-
 dd {
 	margin-left: 30px;
 }
+
 input {
 	width: 100%;
 }
@@ -12,8 +12,11 @@ input {
 	margin: 5px 0px;
 	padding: 5px 0px;
 }
+
 #identifierPatternDiv label {
+	
 }
+
 #openid_identifier_pattern {
 	width: 100%;
 	display: inline;
@@ -23,6 +26,19 @@ input {
 	margin: 5px;
 	padding: 5px;
 }
+
 .username {
 	font-weight: bold;
+}
+
+#extendedConfiguration input {
+	border-width: 0px 0px 1px 0px;
+}
+
+#extendedConfiguration input[name="key"] {
+	width: 30%;
+}
+
+#extendedConfiguration input[name="value"] {
+	width: 65%;
 }

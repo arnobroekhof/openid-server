@@ -71,7 +71,10 @@ public class RegisterFormValidator implements Validator {
 		}
 
 		// Is username reserved?
-		if (this.josService.isSystemReservedWord(form.getUser().getUsername())
+		if (StringUtils.equalsIgnoreCase(form.getUser().getDomain()
+				.getServerHost(), form.getUser().getUsername())
+				|| this.josService.isSystemReservedWord(form.getUser()
+						.getUsername())
 				|| form.getUser().getDomain().getUsernameConfiguration()
 						.isReserved((form.getUser().getUsername()))) {
 			errors.rejectValue("user.username",

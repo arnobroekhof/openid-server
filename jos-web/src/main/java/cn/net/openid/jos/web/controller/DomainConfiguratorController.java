@@ -9,6 +9,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
+
 import cn.net.openid.jos.domain.Domain;
 import cn.net.openid.jos.domain.UsernameConfiguration;
 import cn.net.openid.jos.web.AbstractJosSimpleFormController;
@@ -56,9 +58,34 @@ public class DomainConfiguratorController extends
 		domain.setUsernameConfiguration(uc);
 		uc.setRegex("[a-z]{1,16}");
 		uc.setReservedRegex("root|admin|administrator");
-		String s = "w+|home|server|approve.*|approving|register|login|logout|email.*|password.*|persona.*|site.*|attribute.*|hl|member|news|jos|mail|smtp|pop3|pop|.*fuck.*";
+		String s = "member|news|jos|mail|smtp|pop3|pop|.*fuck.*";
 		uc.setUnallowableRegex(s);
 		return domain;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.springframework.web.servlet.mvc.BaseCommandController#onBind(javax
+	 * .servlet.http.HttpServletRequest, java.lang.Object)
+	 */
+	@Override
+	protected void onBind(HttpServletRequest request, Object command)
+			throws Exception {
+		super.onBind(request, command);
+		Domain domain = (Domain) command;
+		String[] keys = request.getParameterValues("key");
+		String[] values = request.getParameterValues("value");
+		int l = keys.length;
+		Map<String, String> configuration = new LinkedHashMap<String, String>(l);
+		for (int i = 0; i < l; i++) {
+			if (StringUtils.isNotEmpty(keys[i])
+					&& StringUtils.isNotEmpty(values[i])) {
+				configuration.put(keys[i], values[i]);
+			}
+		}
+		domain.setConfiguration(configuration);
 	}
 
 	/*
