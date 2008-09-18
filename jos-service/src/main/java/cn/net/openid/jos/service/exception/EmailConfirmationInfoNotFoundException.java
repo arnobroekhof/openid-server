@@ -1,7 +1,7 @@
 /**
  * Created on 2008-5-29 上午01:43:28
  */
-package cn.net.openid.jos.service;
+package cn.net.openid.jos.service.exception;
 
 /**
  * @author Sutra Zhou

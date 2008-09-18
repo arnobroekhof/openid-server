@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<%@include file="taglibs.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN">
 	<head>
@@ -11,14 +12,16 @@
 	</head>
 	<body>
 		<div>
-			<h2>
+			<h1>
 				OpenID is Unavailable
-			</h2>
-
+			</h1>
 			<p>
 				A general exception occurred while trying to access OpenID. Please
 				notify your system administrator.
 			</p>
+			<div>
+				Go <a href="<c:url value="/" />">home</a> now.
+			</div>
 		</div>
 	</body>
 </html>

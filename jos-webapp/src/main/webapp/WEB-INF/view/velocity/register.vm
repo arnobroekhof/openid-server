@@ -26,12 +26,10 @@
 		</script>
 	</head>
 	<body>
-	<div>
-		#parse("header.vm")
 		<fieldset>
 			<legend>#springMessage("register")</legend>
-			<form action="register" method="post" onsubmit="return chkFrm()">
-				<table>
+			<form action="#josUrl("/register")" method="post" onsubmit="return chkFrm()">
+				<table summary="Username">
 					#springBind("command.user.username")
 					<tr>
 						<td class="label">
@@ -47,7 +45,7 @@
 						</td>
 					</tr>
 				</table>
-				<table>
+				<table summary="Password">
 					#springBind("command.password")
 					<tr>
 						<td class="label">
@@ -62,12 +60,14 @@
 					<tr>
 						<td class="label">
 							<label for="confirmingPassword">#springMessage("password.label.confirmingPassword")</label>
-					  </td>
+						</td>
 						<td>
 							#springFormPasswordInput("command.confirmingPassword" "")
 							#springShowErrors("" "error")
 						</td>
 					</tr>
+				</table>
+				<table summary="Submit">
 					<tr>
 						<td class="label">&nbsp;</td>
 						<td>
@@ -87,7 +87,5 @@
 				//-->
 			</script>
 		</fieldset>
-		#parse("footer.vm")
-	</div>
-</body>
+	</body>
 </html>

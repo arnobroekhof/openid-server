@@ -15,7 +15,8 @@ import cn.net.openid.jos.domain.User;
  */
 public class HibernatePasswordDao extends BaseHibernateEntityDao<Password>
 		implements PasswordDao {
-	private static final String GET_PASSWORD_COUNT_QUERY_STRING = "select count(*) from Password where user.id = ?";
+	private static final String GET_INFINITE_PASSWORD_COUNT_QUERY_STRING = "select count(*) from Password where user = ? and maximumServiceTimes = "
+			+ Password.INFINITE_SERVICE_TIMES;
 
 	/*
 	 * （非 Javadoc）
@@ -44,8 +45,8 @@ public class HibernatePasswordDao extends BaseHibernateEntityDao<Password>
 	 * cn.net.openid.jos.dao.PasswordDao#getPasswordCount(cn.net.openid.jos.
 	 * domain.User)
 	 */
-	public long getPasswordCount(User user) {
-		return count(GET_PASSWORD_COUNT_QUERY_STRING, user.getId());
+	public long getInfinitePasswordCount(User user) {
+		return count(GET_INFINITE_PASSWORD_COUNT_QUERY_STRING, user);
 	}
 
 	/*

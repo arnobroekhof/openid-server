@@ -1,26 +1,26 @@
 #set($springXhtmlCompliant = true)
 <div id="header">
-	<div id="logo"><img src="openid-logo.png" alt="OpenID" /></div>
+	<div id="logo"><img src="#josUrl("/resources/images/openid-logo.png")" alt="OpenID" /></div>
 	<div id="navbar">
 		<ul>
 			#if(!${userSession.loggedIn})
-			<li><a href="#springUrl('/')" title="#springMessage("home.tip")">#springMessage("home")</a></li>
-			<li><a href="login" title="#springMessage("login")">#springMessage("login")</a></li>
-			<li><a href="register" title="#springMessage("register.tip")">#springMessage("register")</a></li>
+			<li><a href="#josUrl('/')" title="#springMessage("home.tip")">#springMessage("home")</a></li>
+			<li><a href="#josUrl('/login')" title="#springMessage("login")">#springMessage("login")</a></li>
+			<li><a href="#josUrl('/register')" title="#springMessage("register.tip")">#springMessage("register")</a></li>
 			#else
-			<li><a href="#springUrl('/')" title="#springMessage("home.tip")">#springMessage("home")</a></li>
-			<li><a href="email" title="#springMessage("email.title.tip")">#springMessage("email.title")</a></li>
-			<li><a href="passwords" title="#springMessage("password.title.password")">#springMessage("password.title.passwords")</a></li>
-			<li><a href="personas" title="#springMessage("persona.title.persona")">#springMessage("persona.title.personas")</a></li>
-			<li><a href="attribute-value" title="Attribute">附加属性</a></li>
-			<li><a href="sites" title="#springMessage("site.title.tip")">#springMessage("site.title.sites")</a></li>
-			<li><a href="logout" title="#springMessage("logout.tip")">#springMessage("logout")</a></li>
+			<li><a href="#josUrl('/')" title="#springMessage("home.tip")">#springMessage("home")</a></li>
+			<li><a href="#josUrl('/email')" title="#springMessage("email.title.tip")">#springMessage("email.title")</a></li>
+			<li><a href="#josUrl('/passwords')" title="#springMessage("password.title.password")">#springMessage("password.title.passwords")</a></li>
+			<li><a href="#josUrl('/personas')" title="#springMessage("persona.title.persona")">#springMessage("persona.title.personas")</a></li>
+			<li><a href="#josUrl('/attribute-value')" title="Attribute">附加属性</a></li>
+			<li><a href="#josUrl('/sites')" title="#springMessage("site.title.tip")">#springMessage("site.title.sites")</a></li>
+			<li><a href="#josUrl('/logout')" title="#springMessage("logout.tip")">#springMessage("logout")</a></li>
 			#end
 			<li><a href="http://openid.net.cn" title="#springMessage("about.tip")">#springMessage("about")</a></li>
 		</ul>
 	</div>
 	<div id="hl">
-		<ul>#foreach($l in $userAgentLocales)<li><a href="?hl=$l#if($!request.getParameter('self'))&amp;self=$!request.getParameter('self')#end">$l.getDisplayName($l)</a></li>#end<li class="last-child"><a href="hl#if($!request.getParameter('self'))?self=$!request.getParameter('self')#end" title="#springMessageText('button.moreLanguages' 'More languages')">»</a></li></ul>
+		<ul>#foreach($l in $userAgentLocales)<li><a href="?hl=$l#if($!request.getParameter('self'))&amp;self=$!request.getParameter('self')#end">$l.getDisplayName($l)</a></li>#end<li class="last-child"><a href="#josUrl("/hl#if($!request.getParameter('self'))?self=$!request.getParameter('self')#end")" title="#springMessageText('button.moreLanguages' 'More languages')">»</a></li></ul>
 	</div>
 </div>
 <div id="welcome">

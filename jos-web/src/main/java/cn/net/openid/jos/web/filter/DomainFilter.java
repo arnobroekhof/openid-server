@@ -4,6 +4,7 @@
 package cn.net.openid.jos.web.filter;
 
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -17,6 +18,9 @@ import org.apache.commons.logging.LogFactory;
 import cn.net.openid.jos.domain.Domain;
 
 /**
+ * Domain filter. Parse domain information from request URL, and put into
+ * session and request.
+ * 
  * @author Sutra Zhou
  * 
  */
@@ -24,30 +28,39 @@ public class DomainFilter extends OncePerRequestServiceFilter {
 	private static final Log log = LogFactory.getLog(DomainFilter.class);
 	private static final String DOMAIN_ATTRIBUTE_NAME = "domain";
 
+	private Pattern skipPattern;
+
 	/**
-	 * Get domain from the session/request.
+	 * @param skipPattern
+	 *            the skipPattern to set
+	 */
+	public void setSkipPattern(String skipPattern) {
+		log.debug("skipPattern setted: " + skipPattern.trim());
+		this.skipPattern = Pattern.compile(skipPattern.trim());
+	}
+
+	/**
+	 * Get domain from <code>request.getSession(false)</code>.
 	 * 
 	 * @param request
 	 *            the HTTP request
-	 * @return the domain in the session or request, null if session is null or
-	 *         attribute is not exists in session and request.
+	 * @return the domain in the session, null if session is null or not found.
+	 * @see DomainFilter#getDomain(HttpSession)
 	 */
 	public static Domain getDomain(HttpServletRequest request) {
-		Domain domain = null;
-		HttpSession session = request.getSession(false);
-		if (session != null) {
-			domain = (Domain) request.getSession().getAttribute(
-					DOMAIN_ATTRIBUTE_NAME);
-		}
-		if (domain == null) {
-			domain = (Domain) request.getAttribute(DOMAIN_ATTRIBUTE_NAME);
-		}
-		if (log.isDebugEnabled()) {
-			if (domain != null) {
-				log.debug(domain + ": " + domain.getUsernameConfiguration());
-			}
-		}
-		return domain;
+		return getDomain(request.getSession(false));
+	}
+
+	/**
+	 * Get domain from the session/request.
+	 * 
+	 * @param session
+	 *            the HTTP session
+	 * @return the domain in the session, null if session is null or not found.
+	 */
+	public static Domain getDomain(HttpSession session) {
+		return session != null ? (Domain) session
+				.getAttribute(DOMAIN_ATTRIBUTE_NAME) : null;
 	}
 
 	/*
@@ -63,23 +76,42 @@ public class DomainFilter extends OncePerRequestServiceFilter {
 			HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		log.debug("Begin of domain filter.");
-		if (getDomain(request) == null) {
-			Domain domain = getService().parseDomain(request);
-			this.setDomain(request, domain);
+		if (!skip(request)) {
+			this.parseDomain(request);
+
+			// Put domain to request.
+			this.setDomain(request, getDomain(request.getSession(false)));
+		} else if (log.isDebugEnabled()) {
+			log.debug("Skipped domain parsing.");
 		}
 		filterChain.doFilter(request, response);
 		log.debug("End of domain filter.");
 	}
 
-	private void setDomain(HttpServletRequest request, Domain domain) {
-		log.debug("Put domain info into session.");
-		HttpSession session = request.getSession(true);
-		session.setAttribute(DOMAIN_ATTRIBUTE_NAME, domain);
+	private boolean skip(HttpServletRequest request) {
+		String path = request.getRequestURI().substring(
+				request.getContextPath().length());
+		if (this.skipPattern.matcher(path).matches()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
+	private void parseDomain(HttpServletRequest request) {
+		if (getDomain(request.getSession(false)) == null) {
+			Domain domain = getService().parseDomain(request);
+			this.setDomain(request.getSession(), domain);
+		}
+	}
+
+	private void setDomain(HttpSession session, Domain domain) {
+		log.debug("Put domain info into session.");
+		session.setAttribute(DOMAIN_ATTRIBUTE_NAME, domain);
+	}
+
+	private void setDomain(HttpServletRequest request, Domain domain) {
 		log.debug("Put domain info into request.");
 		request.setAttribute(DOMAIN_ATTRIBUTE_NAME, domain);
-		if (log.isDebugEnabled()) {
-			log.debug(domain + "" + domain.getUsernameConfiguration());
-		}
 	}
 }

@@ -4,8 +4,6 @@
 		<title>#springMessage("openid") - #springMessage("site.title.sites")</title>
 	</head>
 	<body>
-	<div>
-		#parse("header.vm")
 		<fieldset>
 			<legend>#springMessage("site.title.sites")</legend>
 			<form method="post">
@@ -35,7 +33,7 @@
 							#end
 						</td>
 						<td>
-							<a href="persona?id=$!{esc.html($!{site.persona.id})}">
+							<a href="#josUrl("/persona?id=$!{esc.html($!{site.persona.id})}")">
 								$!{esc.html($!{site.persona.name})}
 							</a>
 						</td>
@@ -57,7 +55,5 @@
 			</table>
 			</form>
 		</fieldset>
-		#parse("footer.vm")
-	</div>
-</body>
+	</body>
 </html>

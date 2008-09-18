@@ -3,11 +3,8 @@
  */
 package cn.net.openid.jos.web.filter;
 
-import javax.servlet.ServletException;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import cn.net.openid.jos.service.JosService;
@@ -21,18 +18,12 @@ public abstract class OncePerRequestServiceFilter extends OncePerRequestFilter {
 
 	private JosService service;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.springframework.web.filter.GenericFilterBean #initFilterBean()
+	/**
+	 * @param service
+	 *            the service to set
 	 */
-	@Override
-	protected void initFilterBean() throws ServletException {
-		super.initFilterBean();
-		this.service = (JosService) WebApplicationContextUtils
-				.getWebApplicationContext(this.getServletContext()).getBean(
-						"josService");
-
+	public void setService(JosService service) {
+		this.service = service;
 	}
 
 	protected JosService getService() {

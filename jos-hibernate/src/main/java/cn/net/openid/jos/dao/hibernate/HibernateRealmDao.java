@@ -3,6 +3,8 @@
  */
 package cn.net.openid.jos.dao.hibernate;
 
+import java.util.Collection;
+
 import cn.net.openid.jos.dao.RealmDao;
 import cn.net.openid.jos.domain.Realm;
 
@@ -16,10 +18,17 @@ public class HibernateRealmDao extends BaseHibernateEntityDao<Realm> implements
 		return findUnique("from Realm where url = ?", url);
 	}
 
+	public Collection<Realm> getLatestRealms(int maxResults) {
+		return this.find("from Realm order by creationDate desc", 0,
+				maxResults);
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.net.openid.jos.dao.RealmDao#insertRealm(cn.net.openid.jos.domain.Realm)
+	 * @see
+	 * cn.net.openid.jos.dao.RealmDao#insertRealm(cn.net.openid.jos.domain.Realm
+	 * )
 	 */
 	public void insertRealm(Realm realm) {
 		getHibernateTemplate().save(realm);

@@ -1,6 +1,9 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
 		  "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 <beans>
+
+	<!-- ================ CONTROLLER DEFINITIONS ================ -->
+
 	<bean id="abstractJosController"
 		class="cn.net.openid.jos.web.AbstractJosController" abstract="true">
 		<property name="josService" ref="josService" />
@@ -11,7 +14,7 @@
 		abstract="true">
 		<property name="josService" ref="josService" />
 	</bean>
-
+	
 	<bean id="serverController"
 		class="cn.net.openid.jos.web.controller.ServerController"
 		parent="abstractJosController">
@@ -95,6 +98,14 @@
 		<property name="formView" value="password" />
 		<property name="successView" value="password-success" />
 	</bean>
+	<bean id="forgotPasswordController"
+		class="cn.net.openid.jos.web.controller.ForgotPasswordController"
+		parent="abstractJosSimpleFormController">
+		<property name="commandClass"
+			value="cn.net.openid.jos.domain.Email" />
+		<property name="formView" value="forgot-password" />
+		<property name="successView" value="forgot-password-success" />
+	</bean>
 
 	<!-- Persona. -->
 	<bean id="personasController"
@@ -153,6 +164,56 @@
 		<property name="localeResolver" ref="localeResolver" />
 	</bean>
 
+	<bean id="captchaController"
+		class="cn.net.openid.jos.web.controller.CaptchaController"
+		parent="abstractJosSimpleFormController">
+		<property name="commandClass" value="cn.net.openid.jos.web.form.CaptchaForm" />
+		<property name="formView" value="captcha" />
+		<property name="localeResolver" ref="localeResolver" />
+	</bean>
+
+
+	<!-- ================ Domain Configurator ================ -->
+	<bean id="domainConfiguratorLoginController"
+		class="cn.net.openid.jos.web.controller.DomainConfiguratorLoginController"
+		parent="abstractJosSimpleFormController">
+		<property name="formView" value="domain-configurator-login" />
+	</bean>
+	<bean id="domainConfiguratorController"
+		class="cn.net.openid.jos.web.controller.DomainConfiguratorController"
+		parent="abstractJosSimpleFormController">
+		<property name="formView" value="domain-configurator" />
+		<property name="successView" value="domain-configurator-success" />
+	</bean>
+
+	<!-- ================ Decorator controller: sitemesh ================ -->
+	<bean id="mainDecoratorController"
+		class="cn.net.openid.jos.web.sitemesh.DecoratorController">
+		<property name="view" value="decorators/main" />
+	</bean>
+
+
+	<!-- ================ INTERCEPTOR DEFINITIONS ================ -->
+
+	<!-- The interceptor to check user session. -->
+	<bean id="userLoggedInInterceptor"
+		class="cn.net.openid.jos.web.interceptor.UserLoggedInInterceptor">
+		<property name="loginPath" value="/login" />
+	</bean>
+	<bean id="loginCaptchaInterceptor"
+		class="cn.net.openid.jos.web.interceptor.CaptchaInterceptor" />
+	<bean id="registerCaptchaInterceptor"
+		class="cn.net.openid.jos.web.interceptor.CaptchaInterceptor" />
+	<bean id="forgotPasswordCaptchaInterceptor"
+		class="cn.net.openid.jos.web.interceptor.CaptchaInterceptor" />
+	<bean id="domainConfiguratorInterceptor"
+		class="cn.net.openid.jos.web.interceptor.DomainConfiguratorInterceptor">
+		<property name="loginPath" value="/domain-configurator-login" />
+	</bean>
+
+
+	<!-- ================ MAPPING DEFINITIONS ================ -->
+
 	<!-- The url mappings that can be visited anonymously. -->
 	<bean id="handlerMapping"
 		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
@@ -164,24 +225,70 @@
 		</property>
 		<property name="urlMap">
 			<map>
-				<entry key="/index.html" value-ref="homeController" />
-				<entry key="/home" value-ref="homeController" />
-				<entry key="/register" value-ref="registerController" />
-				<entry key="/login" value-ref="loginController" />
-				<entry key="/email-confirm"
+				<entry key="/WEB-INF/view/velocity/decorators/main.vm" value-ref="mainDecoratorController" />
+				<entry key="/index.do" value-ref="homeController" />
+				<entry key="/home.do" value-ref="homeController" />
+				<entry key="/email-confirm.do"
 					value-ref="confirmEmailController" />
-				<entry key="/hl"
+				<entry key="/hl.do"
 					value-ref="humanLanguageSelectionController" />
-				<entry key="/server" value-ref="serverController" />
+				<entry key="/server.do" value-ref="serverController" />
+				<entry key="/captcha.do" value-ref="captchaController" />
+				<entry key="/domain-configurator-login.do"
+					value-ref="domainConfiguratorLoginController" />
 			</map>
 		</property>
 	</bean>
 
-	<!-- The interceptor to check user session. -->
-	<bean id="userLoggedInInterceptor"
-		class="cn.net.openid.jos.web.UserLoggedInInterceptor">
-		<property name="loginPath" value="/login" />
+	<bean id="loginHandlerMapping"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="interceptors">
+			<list>
+				<ref local="loginCaptchaInterceptor" />
+				<ref local="localeChangeInterceptor" />
+				<ref local="themeChangeInterceptor" />
+			</list>
+		</property>
+		<property name="urlMap">
+			<map>
+				<entry key="/login.do" value-ref="loginController" />
+			</map>
+		</property>
 	</bean>
+
+	<bean id="registerHandlerMapping"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="interceptors">
+			<list>
+				<ref local="registerCaptchaInterceptor" />
+				<ref local="localeChangeInterceptor" />
+				<ref local="themeChangeInterceptor" />
+			</list>
+		</property>
+		<property name="urlMap">
+			<map>
+				<entry key="/register.do" value-ref="registerController" />
+			</map>
+		</property>
+	</bean>
+
+	<bean id="forgotPasswordHandlerMapping"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="interceptors">
+			<list>
+				<ref local="forgotPasswordCaptchaInterceptor" />
+				<ref local="localeChangeInterceptor" />
+				<ref local="themeChangeInterceptor" />
+			</list>
+		</property>
+		<property name="urlMap">
+			<map>
+				<entry key="/forgot-password.do"
+					value-ref="forgotPasswordController" />
+			</map>
+		</property>
+	</bean>
+
 	<bean id="secureHandlerMapping"
 		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="interceptors">
@@ -193,30 +300,49 @@
 		</property>
 		<property name="urlMap">
 			<map>
-				<entry key="/approving" value-ref="approvingController" />
-				<entry key="/logout" value-ref="logoutController" />
-				<entry key="/email" value-ref="emailController" />
-				<entry key="/email-remove"
+				<entry key="/approving.do" value-ref="approvingController" />
+				<entry key="/logout.do" value-ref="logoutController" />
+				<entry key="/email.do" value-ref="emailController" />
+				<entry key="/email-remove.do"
 					value-ref="deleteEmailController" />
-				<entry key="/email-set-primary"
+				<entry key="/email-set-primary.do"
 					value-ref="emailSetPrimaryController" />
-				<entry key="/passwords" value-ref="passwordsController" />
-				<entry key="/password"
+				<entry key="/passwords.do" value-ref="passwordsController" />
+				<entry key="/password.do"
 					value-ref="editPasswordController" />
-				<entry key="/personas" value-ref="personasController" />
-				<entry key="/persona" value-ref="personaController" />
-				<entry key="/attributes"
+				<entry key="/personas.do" value-ref="personasController" />
+				<entry key="/persona.do" value-ref="personaController" />
+				<entry key="/attributes.do"
 					value-ref="attributesController" />
-				<entry key="/edit-attribute"
+				<entry key="/edit-attribute.do"
 					value-ref="editAttributeController" />
-				<entry key="/remove-attribute"
+				<entry key="/remove-attribute.do"
 					value-ref="removeAttributeController" />
-				<entry key="/attribute-value"
+				<entry key="/attribute-value.do"
 					value-ref="attributeValueController" />
-				<entry key="/sites" value-ref="sitesController" />
+				<entry key="/sites.do" value-ref="sitesController" />
 			</map>
 		</property>
 	</bean>
+
+	<!-- Domain configurator url map -->
+	<bean id="domainConfiguratorHandlerMapping"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="interceptors">
+			<list>
+				<ref local="domainConfiguratorInterceptor" />
+			</list>
+		</property>
+		<property name="urlMap">
+			<map>
+				<entry key="/domain-configurator.do"
+					value-ref="domainConfiguratorController" />
+			</map>
+		</property>
+	</bean>
+
+	<!-- ================ MESSAGE SOURCE DEFINITION ================ -->
+
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basenames">
@@ -224,15 +350,21 @@
 				<value>messages-custom</value>
 				<value>cn.net.openid.jos.web.messages</value>
 				<value>cn.net.openid.jos.web.buttons</value>
+				<value>cn.net.openid.jos.web.domain</value>
 				<value>cn.net.openid.jos.web.user</value>
 				<value>cn.net.openid.jos.web.email</value>
 				<value>cn.net.openid.jos.web.password</value>
 				<value>cn.net.openid.jos.web.persona</value>
 				<value>cn.net.openid.jos.web.site</value>
 				<value>cn.net.openid.jos.web.approving</value>
+				<value>cn.net.openid.jos.web.captcha</value>
 			</list>
 		</property>
 	</bean>
+
+
+	<!-- ================ VELOCITY DEFINITION ================ -->
+
 	<bean id="velocityConfigurer"
 		class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
 		<property name="resourceLoaderPath"
@@ -253,12 +385,24 @@
 		</property>
 	</bean>
 
+
+	<!-- ================ LOCALE ================ -->
+
 	<bean id="localeChangeInterceptor"
 		class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
 		<property name="paramName" value="hl" />
 	</bean>
+	<!--
 	<bean id="localeResolver"
 		class="org.springframework.web.servlet.i18n.SessionLocaleResolver" />
+	-->
+	<bean id="localeResolver"
+		class="cn.net.openid.jos.web.i18n.DomainSessionLocaleResolver">
+		<property name="josService" ref="josService" />
+	</bean>
+
+
+	<!-- ================ THEME ================ -->
 
 	<bean id="themeChangeInterceptor"
 		class="org.springframework.web.servlet.theme.ThemeChangeInterceptor" />

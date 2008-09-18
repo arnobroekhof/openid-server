@@ -11,7 +11,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -47,7 +46,11 @@ import cn.net.openid.jos.domain.Persona;
 import cn.net.openid.jos.domain.Realm;
 import cn.net.openid.jos.domain.Site;
 import cn.net.openid.jos.domain.User;
+import cn.net.openid.jos.service.exception.EmailConfirmationInfoNotFoundException;
+import cn.net.openid.jos.service.exception.LastPasswordException;
+import cn.net.openid.jos.service.exception.NoPermissionException;
 import cn.net.openid.jos.service.exception.PersonaInUseException;
+import cn.net.openid.jos.service.exception.UnresolvedDomainException;
 
 /**
  * @author Sutra Zhou
@@ -58,7 +61,12 @@ public class JosServiceImpl implements JosService {
 
 	private final Map<Domain, ServerManager> serverManagers = new HashMap<Domain, ServerManager>();
 
-	private Collection<Locale> availableLanguages;
+	private String configuratorPassword;
+	private Collection<Locale> availableLocales;
+	private Pattern systemReservedWordPattern;
+	private PasswordGenerator passwordGenerator;
+
+	/* DAOs */
 
 	private DomainDao domainDao;
 	private UserDao userDao;
@@ -72,8 +80,26 @@ public class JosServiceImpl implements JosService {
 	private PersonaDao personaDao;
 
 	public JosServiceImpl() {
-		this.availableLanguages = Collections.unmodifiableCollection(Arrays
+		this.availableLocales = Collections.unmodifiableCollection(Arrays
 				.asList(Locale.getAvailableLocales()));
+	}
+
+	/**
+	 * @param configuratorPassword
+	 *            the configuratorPassword to set
+	 */
+	public void setConfiguratorPassword(String configuratorPassword) {
+		this.configuratorPassword = StringUtils
+				.trimToNull(configuratorPassword);
+	}
+
+	/**
+	 * @param systemReservedWordPattern
+	 *            the systemReservedWordPattern to set
+	 */
+	public void setSystemReservedWordPattern(String systemReservedWordPattern) {
+		this.systemReservedWordPattern = Pattern
+				.compile(systemReservedWordPattern.trim());
 	}
 
 	/**
@@ -158,18 +184,31 @@ public class JosServiceImpl implements JosService {
 		this.personaDao = personaDao;
 	}
 
-	public void setAvailableLanguages(Collection<String> availableLanguages) {
-		this.availableLanguages = new LinkedHashSet<Locale>(availableLanguages
-				.size());
-		for (String language : availableLanguages) {
-			this.availableLanguages.add(LocaleUtils.toLocale(language));
-		}
-		this.availableLanguages = Collections
-				.unmodifiableCollection(this.availableLanguages);
+	/**
+	 * 
+	 * @param passwordGenerator
+	 *            the passwordGenerator to set
+	 */
+	public void setPasswordGenerator(PasswordGenerator passwordGenerator) {
+		this.passwordGenerator = passwordGenerator;
 	}
 
-	public Collection<Locale> getAvailableLanguages() {
-		return this.availableLanguages;
+	public void setAvailableLocales(Collection<String> availableLocales) {
+		this.availableLocales = new LinkedHashSet<Locale>(availableLocales
+				.size());
+		for (String language : availableLocales) {
+			this.availableLocales.add(LocaleUtils.toLocale(language));
+		}
+		this.availableLocales = Collections
+				.unmodifiableCollection(this.availableLocales);
+	}
+
+	public Collection<Locale> getAvailableLocales() {
+		return this.availableLocales;
+	}
+
+	public boolean isSystemReservedWord(String word) {
+		return this.systemReservedWordPattern.matcher(word).matches();
 	}
 
 	private synchronized ServerManager newServerManager(Domain domain) {
@@ -268,8 +307,8 @@ public class JosServiceImpl implements JosService {
 			break;
 		case Domain.TYPE_SUBDIRECTORY:
 			String uri = request.getRequestURI();
-			username = parseUsernameFromSubdirectory(domain.getMemberPath(),
-					uri);
+			username = parseUsernameFromSubdirectory(request.getContextPath(),
+					domain.getMemberPath(), uri);
 			break;
 		default:
 			break;
@@ -334,16 +373,18 @@ public class JosServiceImpl implements JosService {
 	/**
 	 * Parse username from the request URI.
 	 * 
+	 * @param contextPath
+	 *            the contenxt path of the HTTP request
 	 * @param memberPath
 	 *            the memberPath of the domain
 	 * @param requestURI
 	 *            the request URI
 	 * @return the username
 	 */
-	private String parseUsernameFromSubdirectory(String memberPath,
-			String requestURI) {
-		int memberPathLength = memberPath == null ? 0 : memberPath.length();
-		return requestURI.substring(memberPathLength + 1);
+	private String parseUsernameFromSubdirectory(String contextPath,
+			String memberPath, String requestURI) {
+		int memberPathLength = memberPath == null ? 0 : memberPath.length() + 1;
+		return requestURI.substring(contextPath.length() + memberPathLength);
 	}
 
 	/*
@@ -395,6 +436,21 @@ public class JosServiceImpl implements JosService {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see
+	 * cn.net.openid.jos.service.JosService#checkConfiguratorPassword(String)
+	 */
+	public boolean checkConfiguratorPassword(String input) {
+		if (StringUtils.isBlank(this.configuratorPassword)) {
+			log.debug("password is blank, login is not allowed.");
+			return false;
+		} else {
+			return this.configuratorPassword.equals(input);
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see cn.net.openid.dao.DaoFacade#getUser(java.lang.String)
 	 */
 	public User getUser(String id) {
@@ -409,17 +465,21 @@ public class JosServiceImpl implements JosService {
 	 * .Domain, java.lang.String)
 	 */
 	public User getUser(Domain domain, String username) {
-		return userDao.getUser(domain, username);
+		User user = userDao.getUser(domain, username);
+		if (user != null) {
+			// Set domain with the runtime domain.
+			user.setDomain(domain);
+		}
+		return user;
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * cn.net.openid.jos.service.JosService#getUser(cn.net.openid.jos.domain
+	 * @see cn.net.openid.jos.service.JosService#login(cn.net.openid.jos.domain
 	 * .Domain, java.lang.String, java.lang.String)
 	 */
-	public User getUser(Domain domain, String username, String passwordPlaintext) {
+	public User login(Domain domain, String username, String passwordPlaintext) {
 		if (StringUtils.isEmpty(username)) {
 			return null;
 		}
@@ -432,8 +492,12 @@ public class JosServiceImpl implements JosService {
 		boolean foundPassword = false;
 		String passwordShaHex = DigestUtils.shaHex(passwordPlaintext);
 		for (Password password : passwords) {
-			if (password.getShaHex().equalsIgnoreCase(passwordShaHex)) {
+			if (password.isUseful()
+					&& password.getShaHex().equalsIgnoreCase(passwordShaHex)) {
 				foundPassword = true;
+				password.setUsedTimes(password.getUsedTimes() + 1);
+				password.setLastUsedDate(new Date());
+				passwordDao.updatePassword(password);
 				break;
 			}
 		}
@@ -493,9 +557,41 @@ public class JosServiceImpl implements JosService {
 				passwordDao.deletePassword(password.getId());
 			}
 		}
-		if (passwordDao.getPasswordCount(user) == 0L) {
+		if (passwordDao.getInfinitePasswordCount(user) == 0L) {
 			throw new LastPasswordException();
 		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * cn.net.openid.jos.service.JosService#generateSingleUsePassword(cn.net
+	 * .openid .jos.domain.User, cn.net.openid.jos.domain.Email)
+	 */
+	public Password generateSingleUsePassword(User user, Email email) {
+		Password ret = null;
+		Collection<Password> passwords = this.getPasswords(user);
+		for (Password password : passwords) {
+			if (password.getMaximumServiceTimes() == 1) {
+				ret = password;
+				break;
+			}
+		}
+
+		if (ret == null) {
+			ret = new Password(user);
+			ret.setMaximumServiceTimes(Password.SINGLE_USE);
+
+			ret.setName(email.getAddress());
+			String passwordPlaintext = new String(this.passwordGenerator
+					.generate(16, 32));
+			ret.setPlaintext(passwordPlaintext);
+			ret.setShaHex(DigestUtils.shaHex(ret.getPlaintext()));
+
+			passwordDao.insertPassword(ret);
+		}
+		return ret;
 	}
 
 	/*
@@ -811,8 +907,39 @@ public class JosServiceImpl implements JosService {
 	 * cn.net.openid.jos.service.JosService#getSites(cn.net.openid.jos.domain
 	 * .User)
 	 */
-	public List<Site> getSites(User user) {
+	public Collection<Site> getSites(User user) {
 		return siteDao.getSites(user);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * cn.net.openid.jos.service.JosService#getTopSites(cn.net.openid.jos.domain
+	 * .User, int)
+	 */
+	public Collection<Site> getTopSites(User user, int maxResults) {
+		return siteDao.getTopSites(user, maxResults);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * cn.net.openid.jos.service.JosService#getLatestSites(cn.net.openid.jos
+	 * .domain.User, int)
+	 */
+	public Collection<Site> getLatestSites(User user, int maxResults) {
+		return siteDao.getLatestSites(user, maxResults);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.net.openid.jos.service.JosService#getRecentRealms(int)
+	 */
+	public Collection<Realm> getLatestRealms(int maxResults) {
+		return realmDao.getLatestRealms(maxResults);
 	}
 
 	/*

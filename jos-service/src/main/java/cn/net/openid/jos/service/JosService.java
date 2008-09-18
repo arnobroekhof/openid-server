@@ -17,9 +17,13 @@ import cn.net.openid.jos.domain.Email;
 import cn.net.openid.jos.domain.EmailConfirmationInfo;
 import cn.net.openid.jos.domain.Password;
 import cn.net.openid.jos.domain.Persona;
+import cn.net.openid.jos.domain.Realm;
 import cn.net.openid.jos.domain.Site;
 import cn.net.openid.jos.domain.User;
+import cn.net.openid.jos.service.exception.EmailConfirmationInfoNotFoundException;
+import cn.net.openid.jos.service.exception.LastPasswordException;
 import cn.net.openid.jos.service.exception.PersonaInUseException;
+import cn.net.openid.jos.service.exception.UnresolvedDomainException;
 
 /**
  * @author Sutra Zhou
@@ -27,11 +31,13 @@ import cn.net.openid.jos.service.exception.PersonaInUseException;
  */
 public interface JosService {
 	/**
-	 * Get all available languages.
+	 * Get all available locales.
 	 * 
-	 * @return a collection of available languages.
+	 * @return a collection of available locales.
 	 */
-	Collection<Locale> getAvailableLanguages();
+	Collection<Locale> getAvailableLocales();
+
+	boolean isSystemReservedWord(String word);
 
 	ServerManager getServerManager(Domain domain);
 
@@ -65,11 +71,13 @@ public interface JosService {
 
 	void insertDomain(Domain domain);
 
+	boolean checkConfiguratorPassword(String input);
+
 	User getUser(String id);
 
 	User getUser(Domain domain, String username);
 
-	User getUser(Domain domain, String username, String passwordPlaintext);
+	User login(Domain domain, String username, String passwordPlaintext);
 
 	/**
 	 * Generate a random string for EmailConfiratmionInfo.
@@ -104,6 +112,8 @@ public interface JosService {
 
 	void deletePasswords(User user, String[] passwordIds)
 			throws LastPasswordException;
+
+	Password generateSingleUsePassword(User user, Email email);
 
 	/**
 	 * 该方法的事务处理由Spring的事务处理保证。
@@ -154,6 +164,19 @@ public interface JosService {
 	Site getSite(User user, String realmUrl);
 
 	Collection<Site> getSites(User user);
+
+	Collection<Site> getTopSites(User user, int maxResults);
+
+	/**
+	 * Get latest sites that I logged on.
+	 * 
+	 * @param user
+	 * @param maxResults
+	 * @return
+	 */
+	Collection<Site> getLatestSites(User user, int maxResults);
+
+	Collection<Realm> getLatestRealms(int maxResults);
 
 	Persona getPersona(User user, String id);
 

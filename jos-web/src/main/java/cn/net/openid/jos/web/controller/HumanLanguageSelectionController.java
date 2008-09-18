@@ -32,7 +32,7 @@ public class HumanLanguageSelectionController extends AbstractJosController {
 	public ModelAndView handleRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		request.setAttribute("locales", this.getJosService()
-				.getAvailableLanguages());
+				.getAvailableLocales());
 		request.setAttribute("locale", this.localeResolver
 				.resolveLocale(request));
 		return modelAndView;

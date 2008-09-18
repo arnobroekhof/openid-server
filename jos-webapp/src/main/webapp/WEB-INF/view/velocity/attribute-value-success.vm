@@ -4,11 +4,7 @@
 		<title>#springMessage("openid") - #springMessage("profile")</title>
 	</head>
 	<body>
-	<div>
-		#parse("header.vm")
 		附加属性修改成功
 		<a href="attribute-value">返回附加属性</a>
-		#parse("footer.vm")
-	</div>
 </body>
 </html>

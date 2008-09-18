@@ -17,6 +17,7 @@
 			/WEB-INF/config/applicationContext-mail.xml
 		</param-value>
 	</context-param>
+
 	<context-param>
 		<description>
 			设置默认的HTML转码行为。参看 spring_ref 2.0 的 14.4.5.2 章节。
@@ -25,11 +26,6 @@
 		<param-value>true</param-value>
 	</context-param>
 
-	<!-- Java OpenID Server. -->
-	<context-param>
-		<param-name>josServiceBeanName</param-name>
-		<param-value>josService</param-value>
-	</context-param>
 
 	<!-- Spring. -->
 	<listener>
@@ -37,6 +33,9 @@
 			org.springframework.web.context.ContextLoaderListener
 		</listener-class>
 	</listener>
+
+
+	<!-- ================ FILTER DEFINITIONS ================ -->
 
 	<!-- Character Encoding. -->
 	<filter>
@@ -56,6 +55,14 @@
 		<filter-class>org.springframework.web.filter.CommonsRequestLoggingFilter</filter-class>
 	</filter>
 	<filter>
+		<filter-name>UrlRewriteFilter</filter-name>
+		<filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
+		<init-param>
+			<param-name>logLevel</param-name>
+			<param-value>WARN</param-value>
+		</init-param>
+	</filter>
+	<filter>
 		<filter-name>openSessionInViewFilter</filter-name>
 		<filter-class>
 			org.springframework.orm.hibernate3.support.OpenSessionInViewFilter
@@ -66,21 +73,31 @@
 	<filter>
 		<display-name>Domain Filter</display-name>
 		<filter-name>Domain Filter</filter-name>
-		<filter-class>cn.net.openid.jos.web.filter.DomainFilter</filter-class>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+		<init-param>
+			<param-name>targetBeanName</param-name>
+			<param-value>domainFilter</param-value>
+		</init-param>
 	</filter>
 
 	<!-- Java OpenID Server Member URL. -->
 	<filter>
 		<display-name>Member Filter</display-name>
 		<filter-name>Member Filter</filter-name>
-		<filter-class>cn.net.openid.jos.web.filter.MemberFilter</filter-class>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+		<init-param>
+			<param-name>targetBeanName</param-name>
+			<param-value>memberFilter</param-value>
+		</init-param>
 	</filter>
 	<filter>
 		<display-name>User Agent Locales Filter</display-name>
 		<filter-name>User Agent Locales Filter</filter-name>
-		<filter-class>
-			cn.net.openid.jos.web.filter.UserAgentLocalesFilter
-		</filter-class>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+		<init-param>
+			<param-name>targetBeanName</param-name>
+			<param-value>userAgentLocalesFilter</param-value>
+		</init-param>
 	</filter>
 	<filter>
 		<display-name>Approving Request Filter</display-name>
@@ -96,6 +113,9 @@
 			com.opensymphony.module.sitemesh.filter.PageFilter
 		</filter-class>
 	</filter>
+
+
+	<!-- ================ SERVLET DEFINITIONS ================ -->
 
 	<servlet>
 		<servlet-name>jos</servlet-name>
@@ -115,6 +135,7 @@
 		<load-on-startup>30</load-on-startup>
 	</servlet>
 
+	<!--
 	<servlet>
 		<servlet-name>sitemesh-velocity</servlet-name>
 		<servlet-class>
@@ -122,6 +143,10 @@
 		</servlet-class>
 		<load-on-startup>10</load-on-startup>
 	</servlet>
+	-->
+
+
+	<!-- ================ FILTER MAPPING ================ -->
 
 	<filter-mapping>
 		<filter-name>Set Character Encoding Filter</filter-name>
@@ -134,14 +159,24 @@
 	<filter-mapping>
 		<filter-name>openSessionInViewFilter</filter-name>
 		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>Domain Filter</filter-name>
 		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>Member Filter</filter-name>
 		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>UrlRewriteFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>User Agent Locales Filter</filter-name>
@@ -152,107 +187,50 @@
 	<filter-mapping>
 		<filter-name>Approving Request Filter</filter-name>
 		<servlet-name>jos</servlet-name>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>sitemesh</filter-name>
-		<url-pattern>/</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>sitemesh</filter-name>
 		<servlet-name>jos</servlet-name>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
 	</filter-mapping>
+
+
+	<!-- ================ SERVLET MAPPING ================ -->
+
 	<servlet-mapping>
+		<!--
 		<servlet-name>sitemesh-velocity</servlet-name>
+		-->
+		<servlet-name>jos</servlet-name>
 		<url-pattern>*.vm</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>jos</servlet-name>
-		<url-pattern>/server</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>jos</servlet-name>
-		<url-pattern>/approving</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>jos</servlet-name>
-		<url-pattern>/index.html</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>jos</servlet-name>
-		<url-pattern>/home</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>jos</servlet-name>
-		<url-pattern>/register</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>jos</servlet-name>
-		<url-pattern>/login</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>jos</servlet-name>
-		<url-pattern>/logout</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>jos</servlet-name>
-		<url-pattern>/email</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>jos</servlet-name>
-		<url-pattern>/email-remove</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>jos</servlet-name>
-		<url-pattern>/email-confirm</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>jos</servlet-name>
-		<url-pattern>/email-set-primary</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>jos</servlet-name>
-		<url-pattern>/passwords</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>jos</servlet-name>
-		<url-pattern>/password</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>jos</servlet-name>
-		<url-pattern>/personas</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>jos</servlet-name>
-		<url-pattern>/persona</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>jos</servlet-name>
-		<url-pattern>/sites</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>jos</servlet-name>
-		<url-pattern>/attributes</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>jos</servlet-name>
-		<url-pattern>/edit-attribute</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>jos</servlet-name>
-		<url-pattern>/remove-attribute</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>jos</servlet-name>
-		<url-pattern>/attribute-value</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>jos</servlet-name>
-		<url-pattern>/hl</url-pattern>
+		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>member</servlet-name>
 		<url-pattern>/member/*</url-pattern>
 	</servlet-mapping>
+
+
+	<!-- ================ SECURITY SETTINGS ================ -->
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>*.do and member.jsp</web-resource-name>
+			<description>Disable access to *.do and member.jsp directly.</description>
+			<url-pattern>*.do</url-pattern>
+			<url-pattern>/member.jsp</url-pattern>
+		</web-resource-collection>
+		<auth-constraint />
+	</security-constraint>
+
+
+	<!-- ================ ERROR PAGE DEFINTIONS ================ -->
 
 	<error-page>
 		<exception-type>
@@ -266,12 +244,12 @@
 		<location>/WEB-INF/view/jsp/errors.jsp</location>
 	</error-page>
 	<error-page>
-		<exception-type>cn.net.openid.jos.service.UnresolvedDomainException</exception-type>
+		<exception-type>cn.net.openid.jos.service.exception.UnresolvedDomainException</exception-type>
 		<location>/WEB-INF/view/jsp/unresolved-domain.jsp</location>
 	</error-page>
 
 	<error-page>
 		<error-code>404</error-code>
-		<location>/</location>
+		<location>/WEB-INF/view/jsp/404.jsp</location>
 	</error-page>
 </web-app>

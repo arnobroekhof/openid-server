@@ -5,9 +5,14 @@ package cn.net.openid.jos.dao.hibernate;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
+import java.sql.SQLException;
 import java.util.List;
 
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
+import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
@@ -34,7 +39,7 @@ public abstract class BaseHibernateEntityDao<T> extends HibernateDaoSupport {
 	 * @return the persistent instance, or null if not found
 	 */
 	@SuppressWarnings("unchecked")
-	public T get(Serializable id) {
+	protected T get(Serializable id) {
 		T o = (T) getHibernateTemplate().get(entityClass, id);
 		return o;
 	}
@@ -50,8 +55,35 @@ public abstract class BaseHibernateEntityDao<T> extends HibernateDaoSupport {
 	 * @return a List containing the results of the query execution
 	 */
 	@SuppressWarnings("unchecked")
-	public List<T> find(String queryString, Object... values) {
+	protected List<T> find(String queryString, Object... values) {
 		return (List<T>) getHibernateTemplate().find(queryString, values);
+	}
+
+	/**
+	 * 使用hql 语句进行操作
+	 * 
+	 * @param queryString
+	 * @param firstResult
+	 * @param maxResults
+	 * @return List
+	 */
+	@SuppressWarnings("unchecked")
+	protected List<T> find(final String queryString, final int firstResult,
+			final int maxResults, final Object... values) {
+		return getHibernateTemplate().executeFind(new HibernateCallback() {
+			public Object doInHibernate(Session session)
+					throws HibernateException, SQLException {
+				Query query = session.createQuery(queryString);
+				query.setFirstResult(firstResult);
+				query.setMaxResults(maxResults);
+				if (values != null) {
+					for (int i = 0, l = values.length; i < l; i++) {
+						query.setParameter(i, values[i]);
+					}
+				}
+				return query.list();
+			}
+		});
 	}
 
 	/**
@@ -66,7 +98,7 @@ public abstract class BaseHibernateEntityDao<T> extends HibernateDaoSupport {
 	 * @throws IncorrectResultSizeDataAccessException
 	 *             in case of more than 1 rows found
 	 */
-	public T findUnique(String queryString, Object... values)
+	protected T findUnique(String queryString, Object... values)
 			throws IncorrectResultSizeDataAccessException {
 		List<T> list = this.find(queryString, values);
 		int size = list.size();
@@ -90,7 +122,7 @@ public abstract class BaseHibernateEntityDao<T> extends HibernateDaoSupport {
 	 *            the values of the parameters
 	 * @return the count
 	 */
-	public long count(String queryString, Object... values) {
+	protected long count(String queryString, Object... values) {
 		return ((Number) getHibernateTemplate().find(queryString, values)
 				.get(0)).longValue();
 	}

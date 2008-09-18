@@ -1,17 +1,53 @@
 #set($springXhtmlCompliant = true)
+<fieldset>
 #springBind("userSession.user")
-<h3>Using Your Own OpenID URL</h3>
+<legend>#springMessageText("user.message.usingYourOwnOpenIDURL" "Using Your Own OpenID URL")</legend>
 <p>
 	#springMessage("message.yourOpenid")
 </p>
 <pre>
 <a href="$!{status.value.identifier}">$!{status.value.identifier}</a>
 </pre>
+
+#if(!$request.getParameter("advanced"))
+	<div style="text-align: right;">
+		<a href="#josUrl("/home?advanced=true")">#springMessage("button.advanced")</a>
+	</div>
+#else
 <p>
-#springMessage("message.yourOpenid.1")
+#josMessageEscaped("message.yourOpenid.1" false)
 <pre>
 &lt;link rel="openid2.provider openid.server" href="${userSession.user.domain.runtime.openidServerUrl}" /&gt;
 &lt;link rel="openid2.local_id openid.delegate" href="$!{userSession.user.identifier}" /&gt;
 </pre>
-#springMessage("message.yourOpenid.2")
+#josMessageEscaped("message.yourOpenid.2" false)
 </p>
+#end
+</fieldset>
+
+<fieldset>
+	<legend>#springMessageText("title.latestSites" "Latest Sites I Logged on")</legend>
+	<ul>
+		#foreach($site in $latestSites)
+		<li><a href="$site.realm.url">$site.realm.url</a></li>
+		#end
+	</ul>
+</fieldset>
+
+<fieldset>
+	<legend>#springMessageText("title.topSites" "Top Sites I Logged on")</legend>
+	<ul>
+		#foreach($site in $topSites)
+		<li><a href="$site.realm.url">$site.realm.url</a></li>
+		#end
+	</ul>
+</fieldset>
+
+<fieldset>
+	<legend title="#springMessageText("title.latestRealms.tip" "The newest additions")">#springMessageText("title.latestRealms" "Latest Sites")</legend>
+	<ul>
+		#foreach($realm in $latestRealms)
+		<li><a href="$realm.url">$realm.url</a></li>
+		#end
+	</ul>
+</fieldset>

@@ -10,6 +10,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+import cn.net.openid.jos.service.JosService;
 import cn.net.openid.jos.web.MessageCodes;
 import cn.net.openid.jos.web.form.RegisterForm;
 
@@ -20,6 +21,16 @@ import cn.net.openid.jos.web.form.RegisterForm;
 public class RegisterFormValidator implements Validator {
 	private static final Log log = LogFactory
 			.getLog(RegisterFormValidator.class);
+
+	private JosService josService;
+
+	/**
+	 * @param josService
+	 *            the josService to set
+	 */
+	public void setJosService(JosService josService) {
+		this.josService = josService;
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -60,8 +71,12 @@ public class RegisterFormValidator implements Validator {
 		}
 
 		// Is username reserved?
-		if (form.getUser().getDomain().getUsernameConfiguration().isReserved(
-				(form.getUser().getUsername()))) {
+		if (StringUtils.equalsIgnoreCase(form.getUser().getDomain()
+				.getServerHost(), form.getUser().getUsername())
+				|| this.josService.isSystemReservedWord(form.getUser()
+						.getUsername())
+				|| form.getUser().getDomain().getUsernameConfiguration()
+						.isReserved((form.getUser().getUsername()))) {
 			errors.rejectValue("user.username",
 					MessageCodes.User.Error.USERNAME_RESERVED);
 		}

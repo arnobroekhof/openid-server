@@ -17,6 +17,7 @@ import cn.net.openid.jos.domain.User;
 import cn.net.openid.jos.web.AbstractJosSimpleFormController;
 import cn.net.openid.jos.web.MessageCodes;
 import cn.net.openid.jos.web.form.RegisterForm;
+import cn.net.openid.jos.web.interceptor.CaptchaInterceptor;
 
 /**
  * @author Sutra Zhou
@@ -86,6 +87,11 @@ public class RegisterController extends AbstractJosSimpleFormController {
 		}
 
 		super.onBindAndValidate(request, command, errors);
+
+		// Register success, remove the human flag.
+		if (!errors.hasErrors()) {
+			CaptchaInterceptor.setHuman(request, false);
+		}
 	}
 
 	/*

@@ -3,12 +3,16 @@
  */
 package cn.net.openid.jos.domain;
 
+import java.util.Date;
 
 /**
  * @author Sutra Zhou
  * 
  */
 public class Password extends BaseEntity {
+	public static final int INFINITE_SERVICE_TIMES = -1;
+	public static final int SINGLE_USE = 1;
+
 	/**
 	 * 
 	 */
@@ -18,6 +22,9 @@ public class Password extends BaseEntity {
 	private String name;
 	private String plaintext;
 	private String shaHex;
+	private long usedTimes;
+	private Date lastUsedDate = new Date();
+	private int maximumServiceTimes = INFINITE_SERVICE_TIMES;
 
 	/**
 	 * 
@@ -90,6 +97,56 @@ public class Password extends BaseEntity {
 	 */
 	public void setShaHex(String shaHex) {
 		this.shaHex = shaHex;
+	}
+
+	/**
+	 * @return the usedTimes
+	 */
+	public long getUsedTimes() {
+		return usedTimes;
+	}
+
+	/**
+	 * @param usedTimes
+	 *            the usedTimes to set
+	 */
+	public void setUsedTimes(long usedTimes) {
+		this.usedTimes = usedTimes;
+	}
+
+	/**
+	 * @return the lastUsedDate
+	 */
+	public Date getLastUsedDate() {
+		return lastUsedDate;
+	}
+
+	/**
+	 * @param lastUsedDate
+	 *            the lastUsedDate to set
+	 */
+	public void setLastUsedDate(Date lastUsedDate) {
+		this.lastUsedDate = lastUsedDate;
+	}
+
+	/**
+	 * @return the maximumServiceTimes
+	 */
+	public int getMaximumServiceTimes() {
+		return maximumServiceTimes;
+	}
+
+	/**
+	 * @param maximumServiceTimes
+	 *            the maximumServiceTimes to set
+	 */
+	public void setMaximumServiceTimes(int maximumServiceTimes) {
+		this.maximumServiceTimes = maximumServiceTimes;
+	}
+
+	public boolean isUseful() {
+		return this.getMaximumServiceTimes() == Password.INFINITE_SERVICE_TIMES ? true
+				: this.getUsedTimes() < this.getMaximumServiceTimes();
 	}
 
 	/*

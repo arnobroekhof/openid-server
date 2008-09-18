@@ -4,8 +4,10 @@
 package cn.net.openid.jos.domain;
 
 import java.net.URL;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.NumberUtils;
 
 /**
  * Virtual domain model.
@@ -274,7 +276,8 @@ public class Domain extends BaseEntity {
 	private int type;
 	private String serverHost;
 	private String memberPath;
-	private UsernameConfiguration usernameConfiguration;
+	private UsernameConfiguration usernameConfiguration = new UsernameConfiguration();
+	private Map<String, String> configuration;
 	private transient DomainRuntime runtime = new DomainRuntime();
 
 	/**
@@ -351,6 +354,22 @@ public class Domain extends BaseEntity {
 	public void setUsernameConfiguration(
 			UsernameConfiguration usernameConfiguration) {
 		this.usernameConfiguration = usernameConfiguration;
+		usernameConfiguration.setDomain(this);
+	}
+
+	/**
+	 * @return the configuration
+	 */
+	public Map<String, String> getConfiguration() {
+		return configuration;
+	}
+
+	/**
+	 * @param configuration
+	 *            the configuration to set
+	 */
+	public void setConfiguration(Map<String, String> configuration) {
+		this.configuration = configuration;
 	}
 
 	/**
@@ -383,12 +402,13 @@ public class Domain extends BaseEntity {
 			sb.append(baseUrl.getProtocol()).append("://");
 			sb.append(getName());
 			appendPort(sb, baseUrl);
-			sb.append(baseUrl.getPath()).append("/");
+			sb.append(baseUrl.getPath());
 			appendMemberPath(sb);
 			break;
 		default:
 			break;
 		}
+
 		return sb.toString();
 	}
 
@@ -411,7 +431,17 @@ public class Domain extends BaseEntity {
 		default:
 			break;
 		}
+
 		return sb.toString();
+	}
+
+	public boolean getBooleanAttribute(String attributeName) {
+		String attributeValue = this.getConfiguration().get(attributeName);
+		return Boolean.parseBoolean(attributeValue);
+	}
+
+	public int getIntAttribute(String attributeName) {
+		return NumberUtils.toInt(this.getConfiguration().get(attributeName));
 	}
 
 	/*

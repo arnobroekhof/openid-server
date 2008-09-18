@@ -34,15 +34,23 @@ public class MemberFilter extends OncePerRequestServiceFilter {
 			throws ServletException, IOException {
 		log.debug("Begin of member filter.");
 		Domain domain = null;
-		domain = DomainFilter.getDomain(request);
+		domain = DomainFilter.getDomain(request.getSession(false));
 
 		log.debug("Parse username from the request.");
-		String username = getService().parseUsername(domain, request);
+		String username = null;
+		if (domain != null) {
+			username = getService().parseUsername(domain, request);
+		}
 
 		if (log.isDebugEnabled()) {
-			log.debug(String.format("%1$s@%2$s", username, domain));
+			log.debug(String.format("username@domain: %1$s@%2$s", username,
+					domain));
 		}
-		if (username == null) {
+		if (username == null
+				|| this.getService().isSystemReservedWord(username)
+				|| username.equalsIgnoreCase(domain.getServerHost())
+				|| !domain.getUsernameConfiguration().isUsername(username)
+				|| domain.getUsernameConfiguration().isUnallowable(username)) {
 			log.debug("The url is not matches.");
 			filterChain.doFilter(request, response);
 		} else {

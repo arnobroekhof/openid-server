@@ -4,7 +4,6 @@
 		<title>附加属性</title>
 	</head>
 	<body>
-		#parse("header.vm")
 		<table>
 		#foreach($attribute in $attributes)
 			<tr>
@@ -20,6 +19,5 @@
 		#end
 		</table>
 		<a href="edit-attribute">新增一个属性</a>
-		#parse("footer.vm")
 	</body>
 </html>

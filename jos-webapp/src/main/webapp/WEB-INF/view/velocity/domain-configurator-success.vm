@@ -1,0 +1,2 @@
+<title>Domain Configurator</title>
+#josMessageTextArgs("domain.message.configuredSuccessfully" [$command.name] "Domain {0} configured successfully.")

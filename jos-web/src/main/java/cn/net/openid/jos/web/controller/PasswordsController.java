@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.net.openid.jos.domain.User;
-import cn.net.openid.jos.service.LastPasswordException;
+import cn.net.openid.jos.service.exception.LastPasswordException;
 import cn.net.openid.jos.web.AbstractJosController;
 
 /**

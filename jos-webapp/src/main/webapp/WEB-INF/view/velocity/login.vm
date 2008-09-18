@@ -4,26 +4,24 @@
 		<title>#springMessage("openid") - #springMessage("login")</title>
 	</head>
 	<body>
-	<div>
-		#parse("header.vm")
 		<fieldset>
 			<legend>#springMessage("login")</legend>
-			<form action="login#if($token && $token != '')?token=$!token#end" method="post">
+			<form action="#josUrl("/login#if($token && $token != '')?token=$!token#end")" method="post">
 
 				#if($token && $token != "" && $approvingRequest && $approvingRequest.authRequest)
-					#springMessageText("approving.mustSignIn.1" "You must sign in to authenticate to ")$!{approvingRequest.authRequest.realm}#springMessageText("approving.mustSignIn.2" " as ")$!{approvingRequest.authRequest.identity}#springMessageText("approving.mustSignIn.3" ".")
+					#josMessageTextArgs("approving.mustSignIn" [$!{approvingRequest.authRequest.realm}, $!{approvingRequest.authRequest.identity}] "You must sign in to authenticate to {0} as {1}.")
 				#end
 
 				<table>
 					#springBind("command.username")
 					<tr>
 						<td class="label">
-							<label for="username">OpenID：</label>
+							<label for="username">#springMessage("label.openid")</label>
 						</td>
 						<td>
 							<span class="identifier">
 							${domain.identifierPrefix}
-							#springFormInput("command.username" 'size="16"')
+							#springFormInput("command.username" "")
 							${domain.identifierSuffix}
 							</span>
 							#springShowErrors("" "error")
@@ -44,6 +42,7 @@
 						<td>
 							<button type="submit">#springMessage("button.login")</button>
 							##<a href="index.login" title="#springMessage('login.other')">#springMessage("login.other")</a>
+							<a href="#josUrl("/forgot-password")">#springMessage("password.title.forgot")</a>
 						</td>
 					</tr>
 				</table>
@@ -59,7 +58,5 @@
 				//-->
 			</script>
 		</fieldset>
-		#parse("footer.vm")
-	</div>
-</body>
+	</body>
 </html>

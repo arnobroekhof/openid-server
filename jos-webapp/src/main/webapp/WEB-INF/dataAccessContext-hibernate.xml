@@ -32,18 +32,38 @@
 		<property name="hibernateProperties" ref="hibernateProperties" />
 		<property name="mappingLocations">
 			<list>
+				<!--
+					Avoid to use wildcard as it will cause
+					org.hibernate.DuplicateMappingException
+					when duplicate jos-hibernate-*.jar found in the classpath
 				<value>
 					classpath*:/cn/net/openid/jos/dao/hibernate/*.xml
 				</value>
+				-->
+				<value>classpath:/cn/net/openid/jos/dao/hibernate/Attribute.hbm.xml</value>
+				<value>classpath:/cn/net/openid/jos/dao/hibernate/AttributeValue.hbm.xml</value>
+				<value>classpath:/cn/net/openid/jos/dao/hibernate/Domain.hbm.xml</value>
+				<value>classpath:/cn/net/openid/jos/dao/hibernate/Email.hbm.xml</value>
+				<value>classpath:/cn/net/openid/jos/dao/hibernate/EmailConfirmationInfo.hbm.xml</value>
+				<value>classpath:/cn/net/openid/jos/dao/hibernate/Password.hbm.xml</value>
+				<value>classpath:/cn/net/openid/jos/dao/hibernate/Persona.hbm.xml</value>
+				<value>classpath:/cn/net/openid/jos/dao/hibernate/Realm.hbm.xml</value>
+				<value>classpath:/cn/net/openid/jos/dao/hibernate/Site.hbm.xml</value>
+				<value>classpath:/cn/net/openid/jos/dao/hibernate/User.hbm.xml</value>
+				<value>classpath:/cn/net/openid/jos/dao/hibernate/UsernameConfiguration.hbm.xml</value>
 			</list>
 		</property>
 	</bean>
+
+
+	<!-- ================ DAO DEFINITIONS ================ -->
 
 	<bean id="baseDao"
 		class="cn.net.openid.jos.dao.hibernate.BaseHibernateEntityDao"
 		abstract="true">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
+
 	<bean id="domainDao"
 		class="cn.net.openid.jos.dao.hibernate.HibernateDomainDao"
 		parent="baseDao" />

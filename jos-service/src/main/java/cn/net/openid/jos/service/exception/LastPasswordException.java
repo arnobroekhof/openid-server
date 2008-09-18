@@ -1,7 +1,7 @@
 /**
  * Created on 2008-6-16 上午12:55:27
  */
-package cn.net.openid.jos.service;
+package cn.net.openid.jos.service.exception;
 
 /**
  * This is an exception that is thrown whenever an attempt is made to delete the

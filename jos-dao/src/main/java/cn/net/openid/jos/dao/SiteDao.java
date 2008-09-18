@@ -3,7 +3,7 @@
  */
 package cn.net.openid.jos.dao;
 
-import java.util.List;
+import java.util.Collection;
 
 import cn.net.openid.jos.domain.Site;
 import cn.net.openid.jos.domain.User;
@@ -15,7 +15,18 @@ import cn.net.openid.jos.domain.User;
 public interface SiteDao {
 	Site getSite(User user, String realmUrl);
 
-	List<Site> getSites(User user);
+	Collection<Site> getSites(User user);
+
+	Collection<Site> getTopSites(User user, int maxResults);
+
+	/**
+	 * Get latest sites that I logged on.
+	 * 
+	 * @param user
+	 * @param maxResults
+	 * @return
+	 */
+	Collection<Site> getLatestSites(User user, int maxResults);
 
 	void insertSite(Site site);
 

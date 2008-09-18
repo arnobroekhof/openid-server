@@ -4,13 +4,9 @@
 		<title>#springMessage("openid") - #springMessage("email.title.confirming")</title>
 	</head>
 	<body>
-	<div>
-		#parse("header.vm")
 		<div>
 			#springMessage("email.message.confirmed")
-			<a href="email">#springMessage("email.button.backToEmail")</a>
+			<a href="#josUrl("/email")">#springMessage("email.button.backToEmail")</a>
 		</div>
-		#parse("footer.vm")
-	</div>
-</body>
+	</body>
 </html>

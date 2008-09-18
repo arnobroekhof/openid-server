@@ -7,7 +7,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -25,6 +24,7 @@ import cn.net.openid.jos.web.ApprovingRequestProcessor;
 import cn.net.openid.jos.web.MessageCodes;
 import cn.net.openid.jos.web.UserSession;
 import cn.net.openid.jos.web.form.LoginForm;
+import cn.net.openid.jos.web.interceptor.CaptchaInterceptor;
 
 /**
  * @author Sutra Zhou
@@ -46,17 +46,16 @@ public class LoginController extends AbstractJosSimpleFormController {
 	protected void onBindAndValidate(HttpServletRequest request,
 			Object command, BindException errors) throws Exception {
 		LoginForm lf = (LoginForm) command;
-		User user = getJosService().getUser(this.getDomain(request),
+		User user = getJosService().login(this.getDomain(request),
 				lf.getUsername(), lf.getPassword());
 		if (user == null) {
-			errors
-					.rejectValue("username",
-							MessageCodes.User.Error.LOGIN_FAILED);
+			String errorCode = MessageCodes.User.Error.LOGIN_FAILED;
+			errors.rejectValue("username", errorCode);
 		} else {
-			user.setDomain(this.getDomain(request));
+			// Comment as this logic has moved to JosService.
+			// user.setDomain(this.getDomain(request));
 
-			HttpSession session = request.getSession();
-			UserSession userSession = getUserSession(session);
+			UserSession userSession = getUserSession(request);
 			userSession.setUser(user);
 			userSession.setLoggedIn(true);
 		}
@@ -86,6 +85,17 @@ public class LoginController extends AbstractJosSimpleFormController {
 			new ApprovingRequestProcessor(request, response, getJosService(),
 					serverManager, checkIdRequest).checkId();
 		}
+		CaptchaInterceptor.setHuman(request, false);
+
+		if (userSession.isLoggedIn()) {
+			request.setAttribute("topSites", this.getJosService().getTopSites(
+					this.getUser(request), 10));
+			request.setAttribute("latestSites", this.getJosService()
+					.getLatestSites(this.getUser(request), 10));
+			request.setAttribute("latestRealms", this.getJosService()
+					.getLatestRealms(10));
+		}
+
 		return super.onSubmit(request, response, command, errors);
 	}
 

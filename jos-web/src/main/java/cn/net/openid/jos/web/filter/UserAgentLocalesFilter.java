@@ -79,7 +79,7 @@ public class UserAgentLocalesFilter extends OncePerRequestServiceFilter {
 		while (localesEnum.hasMoreElements()) {
 			localesCollection.add(localesEnum.nextElement());
 		}
-		localesCollection.retainAll(this.getService().getAvailableLanguages());
+		localesCollection.retainAll(this.getService().getAvailableLocales());
 		return localesCollection;
 	}
 }

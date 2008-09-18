@@ -4,8 +4,7 @@
 		<title>附加属性</title>
 	</head>
 	<body>
-		#parse("header.vm")
-		<form action="attribute-value" method="post">
+		<form action="#josUrl("/attribute-value")" method="post">
 		<table>
 		#foreach($attributeValue in $command)
 			<tr>
@@ -18,6 +17,5 @@
 		</table>
 		<button type="submit">Save</button>
 		</form>
-		#parse("footer.vm")
 	</body>
 </html>

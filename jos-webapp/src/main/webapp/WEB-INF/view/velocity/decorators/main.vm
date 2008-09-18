@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+	"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="$request.getAttribute("org.springframework.web.servlet.DispatcherServlet.LOCALE_RESOLVER").resolveLocale($request).language">
 	<head>
 		<title>$title</title>
 		<meta http-equiv="Content-Type"
@@ -9,14 +10,20 @@
 		<meta name="keywords" content="openid" />
 		<meta name="description" content="OpenID Provider" />
 		<link rel="icon" href="$base/favicon.ico" type="image/x-icon" />
-		<link rel="shortcut icon" href="$base/favicon.ico" type="image/x-icon" />
+		<link rel="shortcut icon" href="$response.encodeURL("$base/favicon.ico")" type="image/x-icon" />
 		<link rel="stylesheet" type="text/css" media="screen"
-			href="$base/openid.css" />
+			href="$response.encodeURL("$base/resources/styles/jos.css")" />
+		#if($domain)
 		<link rel="stylesheet" type="text/css" media="screen"
-			href="$base/${domain.id}.css" />
+			href="$response.encodeURL("$base/${domain.id}.css")" />
+		#end
 		$head
 	</head>
 	<body>
-		$body
+		<div id="main">
+			#parse("header.vm")
+			$body
+			#parse("footer.vm")
+		</div>
 	</body>
 </html>

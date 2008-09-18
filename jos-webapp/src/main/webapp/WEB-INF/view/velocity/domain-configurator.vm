@@ -1,0 +1,75 @@
+<html>
+<head>
+<title>
+	#springMessageText("domain.title.configurator" "Domain configurator")
+</title>
+<link rel="stylesheet" type="text/css" media="screen"
+	href="#josUrl("/resources/styles/domain-configurator.css")" />
+<script type="text/javascript"
+	src="#josUrl("/resources/scripts/domain-configurator.js")">
+</script>
+</head>
+<body>
+<form method="post">
+#springFormHiddenInput("command.id" "")
+
+## Base settings
+<fieldset>
+	<legend>
+		#springMessageText("domain.title.baseSettings" "Base settings")
+	</legend>
+	<div id="identifierPatternDiv"><label>#springMessageText("domain.label.identifierPattern" "OpenID identifier pattern:")</label><div id="openid_identifier_pattern"></div></div>
+	<dl>
+		<dt>#springMessageText("domain.label.type" "Type:")</dt>
+		<dd>#josFormRadioButtons("command.type" $types "" "onchange='changeDomainType(parseInt(this.value, 10));showIdentifierPattern()'")</dd>
+
+		<dt>#springMessageText("domain.label.name" "Name:")</dt>
+		<dd>#springFormInput("command.name" "onkeyup='showIdentifierPattern()'")</dd>
+
+		<dt>#springMessageText("domain.label.serverHost" "Server host:")</dt>
+		<dd>#springFormInput("command.serverHost" "onkeyup='showIdentifierPattern()'")</dd>
+
+		<dt>#springMessageText("domain.label.memberPath" "Member path:")</dt>
+		<dd>#springFormInput("command.memberPath" "onkeyup='showIdentifierPattern()'")</dd>
+	</dl>
+</fieldset>
+
+## Username configuration
+<fieldset>
+	<legend>
+		#springMessageText("domain.title.usernameConfiguration" "Username configuration")
+	</legend>
+	<dl>
+		<dt>#springMessageText("domain.label.usernameConfiguration.regex" "Username pattern:")</dt>
+		<dd>#springFormInput("command.usernameConfiguration.regex" "")</dd>
+		<dt>#springMessageText("domain.label.usernameConfiguration.reservedRegex" "Reserved username pattern:")</dt>
+		<dd>#springFormInput("command.usernameConfiguration.reservedRegex" "")</dd>
+		<dt>#springMessageText("domain.label.usernameConfiguration.unallowableRegex" "Unallowable username pattern:")</dt>
+		<dd>#springFormInput("command.usernameConfiguration.unallowableRegex" "")</dd>
+	</dl>
+</fieldset>
+
+## Extended configuration
+<fieldset id="extendedConfiguration">
+	<legend>
+		#springMessageText("domain.title.configuration" "Domain extended configuration(Optional)")
+	</legend>
+	#set($keys = ["inceptionYear", "organization.url", "organization.name", "privacy.url", "defaultLocale"])
+	<ul>
+		#foreach($key in $keys)
+		<li><input type="text" name="key" value="$key" />:<input type="text" name="value" /></li>
+		#end
+	</ul>
+</fieldset>
+
+<button type="submit">#springMessageText("button.addDomain" "Add domain")</button>
+</form>
+
+<script type="text/javascript">
+<!--
+changeDomainType(getType());
+showIdentifierPattern();
+//-->
+</script>
+</body>
+</html>

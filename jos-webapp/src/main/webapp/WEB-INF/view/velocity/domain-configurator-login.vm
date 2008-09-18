@@ -1,0 +1,14 @@
+<title>#springMessageText("domain.title.configurator" "Domain Configurator")</title>
+<form method="post">
+<fieldset>
+	<legend>#springMessage("login")</legend>
+	#springMessageText("domain.label.configurator.password" "Password:")
+	<input type="password" name="password" id="password" />
+	<script type="text/javascript">
+	<!--
+	document.getElementById("password").focus();
+	//->
+	</script>
+	<button type="submit">#springMessageText("button.login" "Login")</button>
+</fieldset>
+</form>

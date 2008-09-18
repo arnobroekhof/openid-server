@@ -10,7 +10,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 
-import cn.net.openid.jos.service.EmailConfirmationInfoNotFoundException;
+import cn.net.openid.jos.service.exception.EmailConfirmationInfoNotFoundException;
 import cn.net.openid.jos.web.AbstractJosSimpleFormController;
 import cn.net.openid.jos.web.form.ConfirmEmailForm;
 

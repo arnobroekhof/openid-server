@@ -1,0 +1,44 @@
+/* Style for domain configurator*/
+dd {
+	margin-left: 30px;
+}
+
+input {
+	width: 100%;
+}
+
+#identifierPatternDiv {
+	width: 100%;
+	margin: 5px 0px;
+	padding: 5px 0px;
+}
+
+#identifierPatternDiv label {
+	
+}
+
+#openid_identifier_pattern {
+	width: 100%;
+	display: inline;
+	border: 1px solid #e8e2ed;
+	background-color: #e8f2fe;
+	margin-left: 0.5em;
+	margin: 5px;
+	padding: 5px;
+}
+
+.username {
+	font-weight: bold;
+}
+
+#extendedConfiguration input {
+	border-width: 0px 0px 1px 0px;
+}
+
+#extendedConfiguration input[name="key"] {
+	width: 30%;
+}
+
+#extendedConfiguration input[name="value"] {
+	width: 65%;
+}
