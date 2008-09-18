@@ -106,3 +106,37 @@ function showIdentifierPattern() {
 	document.getElementById("openid_identifier_pattern").innerHTML = getIdentifierPrefix()
 			+ "<span class='username'>username</span>" + getIdentifierSuffix();
 }
+
+var oldNameValue = oldServerHostValue = "";
+/**
+ * When domain type changed, invoke this.
+ */
+function changeDomainType(domainType) {
+	var disabled = false;
+	switch (domainType) {
+	case TYPE_SUBDOMAIN:
+		disabled = false;
+		break;
+	case TYPE_SUBDIRECTORY:
+		disabled = true;
+		break;
+	}
+	var nameObject = document.getElementById("name");
+	var serverHostObject = document.getElementById("serverHost");
+	if (disabled) {
+		oldNameValue = nameObject.value;
+		oldServerHostValue = serverHostObject.value;
+		serverHostObject.value = "";
+		serverHostObject.style.backgroundColor = "#EEE";
+		if (document.location.hostname !== nameObject.value) {
+			nameObject.value = document.location.hostname;
+		}
+	} else {
+		serverHostObject.value = oldServerHostValue;
+		serverHostObject.style.backgroundColor = "";
+		if (nameObject.value !== oldNameValue) {
+			nameObject.value = oldNameValue;
+		}
+	}
+	serverHostObject.disabled = disabled;
+}

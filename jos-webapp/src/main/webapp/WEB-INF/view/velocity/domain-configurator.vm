@@ -21,7 +21,7 @@
 	<div id="identifierPatternDiv"><label>#springMessageText("domain.label.identifierPattern" "OpenID identifier pattern:")</label><div id="openid_identifier_pattern"></div></div>
 	<dl>
 		<dt>#springMessageText("domain.label.type" "Type:")</dt>
-		<dd>#josFormRadioButtons("command.type" $types "" "onchange='showIdentifierPattern()'")</dd>
+		<dd>#josFormRadioButtons("command.type" $types "" "onchange='changeDomainType(parseInt(this.value, 10));showIdentifierPattern()'")</dd>
 
 		<dt>#springMessageText("domain.label.name" "Name:")</dt>
 		<dd>#springFormInput("command.name" "onkeyup='showIdentifierPattern()'")</dd>
@@ -67,6 +67,7 @@
 
 <script type="text/javascript">
 <!--
+changeDomainType(getType());
 showIdentifierPattern();
 //-->
 </script>
