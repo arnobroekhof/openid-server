@@ -27,7 +27,7 @@ Quick Install Guide
 2. Download JavaScript Calendar and install it
     The calendar is for persona modification page.
     Download from http://www.dynarch.com/projects/calendar/
-    Unpack to directory /jscalendar/ in the webapp
+    Unpack to directory /resources/jscalendar/ in the webapp
 
 3. Package the files as a war(optional).
 
