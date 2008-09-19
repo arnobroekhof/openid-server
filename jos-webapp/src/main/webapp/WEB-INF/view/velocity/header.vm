@@ -30,7 +30,7 @@
 	 #end
 </div>
 <div id="description">
-	#springMessage("description")
+	#josMessageEscaped("description" false)
 </div>
 #if($userSession && $userSession.approvingRequests.size() > 0)
 <div id="approving-tip">
