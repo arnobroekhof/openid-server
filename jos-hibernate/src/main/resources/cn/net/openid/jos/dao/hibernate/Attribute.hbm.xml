@@ -7,6 +7,12 @@
 			column="attribute_id">
 			<generator class="uuid" />
 		</id>
+		<many-to-one name="persona" column="attribute_persona_id" />
 		<property name="alias" length="32" column="attribute_alias" />
+		<property name="type" length="255" column="attribute_type_uri" />
+		<bag name="values" table="jos_attribute_value">
+			<key column="attribute_id" />
+			<element type="string" column="attribute_value" />
+		</bag>
 	</class>
 </hibernate-mapping>

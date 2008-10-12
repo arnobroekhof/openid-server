@@ -3,6 +3,8 @@
  */
 package cn.net.openid.jos.domain;
 
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Sutra Zhou
@@ -13,7 +15,26 @@ public class Attribute extends BaseEntity {
 	 * 
 	 */
 	private static final long serialVersionUID = 2109982803475487846L;
+
+	private Persona persona;
 	private String alias;
+	private String type;
+	private List<String> values = new ArrayList<String>();
+
+	/**
+	 * @return the persona
+	 */
+	public Persona getPersona() {
+		return persona;
+	}
+
+	/**
+	 * @param persona
+	 *            the persona to set
+	 */
+	public void setPersona(Persona persona) {
+		this.persona = persona;
+	}
 
 	/**
 	 * @return the alias
@@ -28,6 +49,36 @@ public class Attribute extends BaseEntity {
 	 */
 	public void setAlias(String alias) {
 		this.alias = alias;
+	}
+
+	/**
+	 * @return the type
+	 */
+	public String getType() {
+		return type;
+	}
+
+	/**
+	 * @param type
+	 *            the type to set
+	 */
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	/**
+	 * @return the values
+	 */
+	public List<String> getValues() {
+		return values;
+	}
+
+	/**
+	 * @param values
+	 *            the values to set
+	 */
+	public void setValues(List<String> values) {
+		this.values = values;
 	}
 
 	/*

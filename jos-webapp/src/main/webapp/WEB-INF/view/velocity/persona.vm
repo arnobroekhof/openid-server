@@ -119,6 +119,21 @@
 							#springShowErrors("" "error")
 						</td>
 					</tr>
+				</table>
+				<table>
+					#springBindEscaped("persona.attributes" false)
+					#foreach($attribute in $status.value)
+						<tr>
+							<td class="label"><a href="${attribute.type}">$attribute.alias</a>:</td>
+							<td>
+								#foreach($value in $attribute.values)
+									<input type="text" id="attributes.${velocityCount}" name="attributes" value="$!{value}" /><br />
+								#end
+							</td>
+						</tr>
+					#end
+				</table>
+				<table>
 					<tr>
 						<td class="label">&nbsp;</td>
 						<td>

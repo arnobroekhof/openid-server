@@ -6,6 +6,7 @@ package cn.net.openid.jos.domain;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Sutra Zhou
@@ -68,11 +69,20 @@ public class Persona extends BaseEntity {
 	private String language;
 
 	/**
-	 * ASCII string from <a
+	 * ASCII string from <aprivate Map<String, Attribute> attributes;
 	 * href="http://www.twinsun.com/tz/tz-link.htm">TimeZone database</a> For
 	 * example, "Europe/Paris" or "America/Los_Angeles".
 	 */
 	private String timezone;
+
+	/**
+	 * Attributes.
+	 * 
+	 * @see <a
+	 *      href="http://openid.net/specs/openid-attribute-exchange-1_0.html">OpenID
+	 *      Attribute Exchange 1.0</a>
+	 */
+	private Set<Attribute> attributes;
 
 	/**
 	 * 
@@ -254,6 +264,21 @@ public class Persona extends BaseEntity {
 	 */
 	public void setTimezone(String timezone) {
 		this.timezone = timezone;
+	}
+
+	/**
+	 * @return the attributes
+	 */
+	public Set<Attribute> getAttributes() {
+		return attributes;
+	}
+
+	/**
+	 * @param attributes
+	 *            the attributes to set
+	 */
+	public void setAttributes(Set<Attribute> attributes) {
+		this.attributes = attributes;
 	}
 
 	public void setLocale(Locale locale) {

@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 /**
  * @author Sutra Zhou
- * 
+ * @deprecated Non use from 2008-10-13, if it is non use 2 year later, delete me.
  */
 public class AttributeValue implements Serializable {
 	/**

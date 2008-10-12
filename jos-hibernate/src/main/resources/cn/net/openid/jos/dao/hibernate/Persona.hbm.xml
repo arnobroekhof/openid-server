@@ -21,6 +21,10 @@
 		<property name="country" length="2" column="persona_country" />
 		<property name="language" length="2" column="persona_language" />
 		<property name="timezone" length="32" column="persona_timezone" />
+		<set name="attributes">
+			<key column="attribute_persona_id" />
+			<one-to-many class="Attribute" />
+		</set>
 		<property name="creationDate" type="timestamp" not-null="true"
 			column="persona_creation_date" />
 	</class>

@@ -41,7 +41,10 @@
 				</value>
 				-->
 				<value>classpath:/cn/net/openid/jos/dao/hibernate/Attribute.hbm.xml</value>
+				<!--
+				Non use from 2008-10-13, if it is non use 2 year later, delete me.
 				<value>classpath:/cn/net/openid/jos/dao/hibernate/AttributeValue.hbm.xml</value>
+				-->
 				<value>classpath:/cn/net/openid/jos/dao/hibernate/Domain.hbm.xml</value>
 				<value>classpath:/cn/net/openid/jos/dao/hibernate/Email.hbm.xml</value>
 				<value>classpath:/cn/net/openid/jos/dao/hibernate/EmailConfirmationInfo.hbm.xml</value>
