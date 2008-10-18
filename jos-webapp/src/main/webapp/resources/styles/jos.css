@@ -9,10 +9,18 @@
 	padding: 0;
 }
 
+img {
+	border: 0;
+}
+
 a {
 	text-decoration: none;
 	/* background-color: #fff; */
 	color: #ff5600;
+}
+
+td {
+	vertical-align: top;
 }
 
 a:hover {
@@ -243,4 +251,43 @@ tr.useless {
 
 #approving-tip li.current {
 	list-style: disc;
+}
+
+/* Persona attribute */
+div.attribute {
+	margin: 10px 0;
+}
+
+div.attribute td.label {
+	width: 250px;
+}
+
+div.attribute td.handler {
+	padding-left: 0px;
+}
+
+div.attribute td.value img.value {
+	width: 8px;
+	height: 8px;
+}
+
+div.attribute td.handler img.attribute {
+	width: 12px;
+	height: 12px;
+}
+
+div.attribute a {
+	background-color: #fff;
+}
+
+div.attribute ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+div.attribute input.alias,div.attribute input.type {
+	width: 80%;
+	border-width: 0 0 1px 0;
+	text-align: right;
 }

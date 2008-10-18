@@ -130,7 +130,7 @@ public class UsernameConfiguration extends BaseEntity {
 	 * 
 	 * @param username
 	 * @return true if the username is permissible as the username in this
-	 *         domain username configuation.
+	 *         domain username configuration.
 	 */
 	public boolean isUsername(String username) {
 		return this.getPattern() != null ? this.getPattern().matcher(username)

@@ -4,8 +4,10 @@
 package cn.net.openid.jos.web.controller;
 
 import java.util.Collection;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -15,12 +17,14 @@ import java.util.TimeZone;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.net.openid.jos.domain.Attribute;
 import cn.net.openid.jos.domain.Persona;
 import cn.net.openid.jos.domain.User;
 import cn.net.openid.jos.service.TimeZoneOffsetFormat;
@@ -97,8 +101,23 @@ public class PersonaController extends AbstractJosSimpleFormController {
 	protected void onBindAndValidate(HttpServletRequest request,
 			Object command, BindException errors) throws Exception {
 		Persona persona = (Persona) command;
+
+		persona.clearAttribute();
+		addAttributes(persona, request);
+
 		if (log.isDebugEnabled()) {
+			log.debug("isSessionForm: " + isSessionForm());
 			log.debug("persona dob: " + persona.getDob());
+			log.debug("---- attibutes ----");
+			log.debug("attribute count: " + persona.getAttributes().size());
+			for (Iterator<Attribute> iterator = persona.getAttributes()
+					.iterator(); iterator.hasNext();) {
+				Attribute attribute = iterator.next();
+				log.debug(String.format("%1$s(%2$s)=%3$s",
+						attribute.getAlias(), attribute.getType(), attribute
+								.getValues()));
+			}
+
 		}
 		super.onBindAndValidate(request, command, errors);
 	}
@@ -253,4 +272,37 @@ public class PersonaController extends AbstractJosSimpleFormController {
 		return super.onSubmit(request, response, command, errors);
 	}
 
+	/**
+	 * Add attributes from request to persona.
+	 * 
+	 * @param persona
+	 *            the persona
+	 * @param request
+	 *            the HTTP servlet request
+	 */
+	@SuppressWarnings("unchecked")
+	private static void addAttributes(Persona persona,
+			HttpServletRequest request) {
+		String id, alias, type;
+		String[] values;
+		Attribute attribute;
+		for (Enumeration<String> names = request.getParameterNames(); names
+				.hasMoreElements();) {
+			String name = names.nextElement();
+			if (name.startsWith("alias.")) {
+				id = name.substring("alias.".length());
+				alias = request.getParameter("alias." + id);
+				type = request.getParameter("type." + id);
+				values = request.getParameterValues("value." + id);
+				while (values.length != (values = (String[]) ArrayUtils
+						.removeElement(values, StringUtils.EMPTY)).length)
+					;
+				if (StringUtils.isNotEmpty(alias)
+						&& !ArrayUtils.isEmpty(values)) {
+					attribute = new Attribute(persona, alias, type, values);
+					persona.addAttribute(attribute);
+				}
+			}
+		}
+	}
 }

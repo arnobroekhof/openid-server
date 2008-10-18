@@ -7,10 +7,12 @@
 			column="attribute_id">
 			<generator class="uuid" />
 		</id>
-		<many-to-one name="persona" column="attribute_persona_id" />
-		<property name="alias" length="32" column="attribute_alias" />
+		<properties name="personaAttributes" unique="true">
+			<many-to-one name="persona" not-null="true" column="attribute_persona_id" cascade="all" />
+			<property name="alias" not-null="true" length="32" column="attribute_alias" />
+		</properties>
 		<property name="type" length="255" column="attribute_type_uri" />
-		<bag name="values" table="jos_attribute_value">
+		<bag name="values" table="jos_attribute_value" inverse="false" cascade="all" fetch="join" lazy="false">
 			<key column="attribute_id" />
 			<element type="string" column="attribute_value" />
 		</bag>

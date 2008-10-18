@@ -12,7 +12,7 @@
 			<li><a href="#josUrl('/email')" title="#springMessage("email.title.tip")">#springMessage("email.title")</a></li>
 			<li><a href="#josUrl('/passwords')" title="#springMessage("password.title.password")">#springMessage("password.title.passwords")</a></li>
 			<li><a href="#josUrl('/personas')" title="#springMessage("persona.title.persona")">#springMessage("persona.title.personas")</a></li>
-			<li><a href="#josUrl('/attribute-value')" title="Attribute">附加属性</a></li>
+			##<li><a href="#josUrl('/attribute-value')" title="Attribute">附加属性</a></li>
 			<li><a href="#josUrl('/sites')" title="#springMessage("site.title.tip")">#springMessage("site.title.sites")</a></li>
 			<li><a href="#josUrl('/logout')" title="#springMessage("logout.tip")">#springMessage("logout")</a></li>
 			#end

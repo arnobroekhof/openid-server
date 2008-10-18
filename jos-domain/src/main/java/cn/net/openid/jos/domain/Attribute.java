@@ -4,6 +4,7 @@
 package cn.net.openid.jos.domain;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -19,7 +20,52 @@ public class Attribute extends BaseEntity {
 	private Persona persona;
 	private String alias;
 	private String type;
-	private List<String> values = new ArrayList<String>();
+	private List<String> values;
+
+	/**
+	 * Initializes an attribute.
+	 */
+	public Attribute() {
+		this((Persona) null, (String) null, (String) null,
+				new ArrayList<String>());
+	}
+
+	/**
+	 * Initializes an attribute.
+	 * 
+	 * @param persona
+	 *            the persona
+	 * @param alias
+	 *            the alias
+	 * @param type
+	 *            the type uri
+	 * @param values
+	 *            the values
+	 */
+	public Attribute(Persona persona, String alias, String type,
+			List<String> values) {
+		super();
+		this.persona = persona;
+		this.alias = alias;
+		this.type = type;
+		this.values = values;
+	}
+
+	/**
+	 * Initializes an attribute.
+	 * 
+	 * @param persona
+	 *            the persona
+	 * @param alias
+	 *            the alias
+	 * @param type
+	 *            the type uri
+	 * @param values
+	 *            the values
+	 */
+	public Attribute(Persona persona, String alias, String type, String[] values) {
+		this(persona, alias, type, Arrays.asList(values));
+	}
 
 	/**
 	 * @return the persona
@@ -81,6 +127,10 @@ public class Attribute extends BaseEntity {
 		this.values = values;
 	}
 
+	public void addValue(String value) {
+		this.values.add(value);
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -90,7 +140,8 @@ public class Attribute extends BaseEntity {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
+		result = prime * result
+				+ ((getAlias() == null) ? 0 : getAlias().hashCode());
 		return result;
 	}
 
@@ -108,10 +159,10 @@ public class Attribute extends BaseEntity {
 		if (!(obj instanceof Attribute))
 			return false;
 		final Attribute other = (Attribute) obj;
-		if (getId() == null) {
-			if (other.getId() != null)
+		if (getAlias() == null) {
+			if (other.getAlias() != null)
 				return false;
-		} else if (!getId().equals(other.getId()))
+		} else if (!getAlias().equals(other.getAlias()))
 			return false;
 		return true;
 	}

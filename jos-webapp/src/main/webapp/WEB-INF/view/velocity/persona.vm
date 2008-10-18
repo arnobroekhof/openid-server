@@ -6,6 +6,8 @@
 		<script type="text/javascript" src="#springUrl('/resources/jscalendar/calendar_stripped.js')"></script>
 		<script type="text/javascript" src="#springUrl('/resources/jscalendar/calendar-setup_stripped.js')"></script>
 		<script type="text/javascript" src="#springUrl('/resources/jscalendar/lang/calendar-en.js')"></script>
+		<script type="text/javascript" src="#springUrl('/resources/scripts/jquery-1.2.6.min.js')"></script>
+		<script type="text/javascript" src="#springUrl('/resources/scripts/persona.js')"></script>
 	</head>
 	<body>
 		<fieldset>
@@ -120,19 +122,83 @@
 						</td>
 					</tr>
 				</table>
-				<table>
-					#springBindEscaped("persona.attributes" false)
-					#foreach($attribute in $status.value)
+				#springBindEscaped("persona.attributes" false)
+				#foreach($attribute in $status.value)
+					<div class="attribute">
+						<table>
+							#set($id = $velocityCount)
+							<tr>
+								<td class="label">
+									<input type="text" name="alias.${id}" value="$!attribute.alias" class="alias" />
+									<input type="text" name="type.${id}" value="$!attribute.type" class="type" />
+								</td>
+								<td class="value">
+									<ul>
+										#foreach($value in $attribute.values)
+											<li>
+												<input type="text" id="attributes.$id" name="value.$id" value="$!value" class="value" />
+												<a href="#" onclick="personaAddAttributeValue(this);return false;">
+													<img src="#springUrl('/resources/images/plus.gif')" class="value" />
+												</a>
+												<a href="#" onclick="personaRemoveAttributeValue(this);return false;">
+													<img src="#springUrl('/resources/images/minus.gif')" class="value" />
+												</a>
+											</li>
+										#end
+										<li>
+											<input type="text" id="attributes.$id" name="value.$id" class="value" />
+											<a href="#" onclick="personaAddAttributeValue(this);return false;">
+												<img src="#springUrl('/resources/images/plus.gif')" class="value" />
+											</a>
+											<a href="#" onclick="personaRemoveAttributeValue(this);return false;">
+												<img src="#springUrl('/resources/images/minus.gif')" class="value" />
+											</a>
+										</li>
+									</ul>
+								</td>
+								<td class="handler">
+									<a href="#" onclick="personaAddAttribute(this);return false;">
+										<img src="#springUrl('/resources/images/plus.gif')" class="attribute" />
+									</a>
+									<a href="#" onclick="personaRemoveAttribute(this);return false;">
+										<img src="#springUrl('/resources/images/minus.gif')" class="attribute" />
+									</a>
+								</td>
+							</tr>
+						</table>
+					</div>
+				#end
+				<div class="attribute">
+					<table>
 						<tr>
-							<td class="label"><a href="${attribute.type}">$attribute.alias</a>:</td>
-							<td>
-								#foreach($value in $attribute.values)
-									<input type="text" id="attributes.${velocityCount}" name="attributes" value="$!{value}" /><br />
-								#end
+							<td class="label">
+								<input type="text" name="alias.0" class="alias" />
+								<input type="text" name="type.0" class="type" />
+							</td>
+							<td class="value">
+								<ul>
+									<li>
+										<input type="text" id="attributes.0" name="value.0" class="value" />
+										<a href="#" onclick="personaAddAttributeValue(this);return false;">
+											<img src="#springUrl('/resources/images/plus.gif')" class="value" />
+										</a>
+										<a href="#" onclick="personaRemoveAttributeValue(this);return false;">
+											<img src="#springUrl('/resources/images/minus.gif')" class="value" />
+										</a>
+									</li>
+								</ul>
+							</td>
+							<td class="handler">
+								<a href="#" onclick="personaAddAttribute(this);return false;">
+									<img src="#springUrl('/resources/images/plus.gif')" class="attribute" />
+								</a>
+								<a href="#" onclick="personaRemoveAttribute(this);return false;">
+									<img src="#springUrl('/resources/images/minus.gif')" class="attribute" />
+								</a>
 							</td>
 						</tr>
-					#end
-				</table>
+					</table>
+				</div>
 				<table>
 					<tr>
 						<td class="label">&nbsp;</td>
