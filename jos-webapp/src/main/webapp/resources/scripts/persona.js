@@ -24,10 +24,23 @@ function nextRandomId() {
 function personaAddAttribute(handler) {
 	var attribute = $(handler).parent().parent();
 	var newAttribute = attribute.clone();
-	var id = nextRandomId();
-	$("input[name^='alias']", newAttribute).attr("name", "alias." + id);
-	$("input[name^='type']", newAttribute).attr("name", "type." + id);
-	$("input[name^='value']", newAttribute).attr("name", "value." + id);
+	var key = nextRandomId();
+
+	var attributeId = $("input[name^='attribute.id']", newAttribute);
+	var attributeAlias = $("input[name^='attribute.alias']", newAttribute);
+	var attributeType = $("input[name^='attribute.type']", newAttribute);
+	var attributeValue = $("input[name^='attribute.value']", newAttribute);
+
+	attributeId.attr("name", "attribute.id" + key);
+	attributeAlias.attr("name", "attribute.alias." + key);
+	attributeType.attr("name", "attribute.type." + key);
+	attributeValue.attr("name", "attribute.value." + key);
+
+	attributeId.val("");
+	attributeAlias.val("");
+	attributeType.val("");
+	attributeValue.val("");
+
 	attribute.after(newAttribute);
 }
 
@@ -50,7 +63,9 @@ function personaRemoveAttribute(handler) {
  */
 function personaAddAttributeValue(handler) {
 	var value = $(handler).parent();
-	value.after(value.clone());
+	var newValue = value.clone();
+	$("input", newValue).val("");
+	value.after(newValue);
 }
 
 /**

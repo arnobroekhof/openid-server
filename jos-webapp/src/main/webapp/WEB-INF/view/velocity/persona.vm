@@ -126,17 +126,18 @@
 				#foreach($attribute in $status.value)
 					<div class="attribute">
 						<table>
-							#set($id = $velocityCount)
+							#set($key = $velocityCount)
 							<tr>
 								<td class="label">
-									<input type="text" name="alias.${id}" value="$!attribute.alias" class="alias" />
-									<input type="text" name="type.${id}" value="$!attribute.type" class="type" />
+									<input type="hidden" name="attribute.id.$key" value="$!attribute.id" />
+									<input type="text" name="attribute.alias.$key" value="$!attribute.alias" class="alias" />
+									<input type="text" name="attribute.type.$key" value="$!attribute.type" class="type" />
 								</td>
 								<td class="value">
 									<ul>
 										#foreach($value in $attribute.values)
 											<li>
-												<input type="text" id="attributes.$id" name="value.$id" value="$!value" class="value" />
+												<input type="text" name="attribute.value.$key" value="$!value" class="value" />
 												<a href="#" onclick="personaAddAttributeValue(this);return false;">
 													<img src="#springUrl('/resources/images/plus.gif')" class="value" />
 												</a>
@@ -146,7 +147,7 @@
 											</li>
 										#end
 										<li>
-											<input type="text" id="attributes.$id" name="value.$id" class="value" />
+											<input type="text" name="attribute.value.$key" class="value" />
 											<a href="#" onclick="personaAddAttributeValue(this);return false;">
 												<img src="#springUrl('/resources/images/plus.gif')" class="value" />
 											</a>
@@ -172,13 +173,14 @@
 					<table>
 						<tr>
 							<td class="label">
-								<input type="text" name="alias.0" class="alias" />
-								<input type="text" name="type.0" class="type" />
+								<input type="hidden" name="attribute.id.0" value="" />
+								<input type="text" name="attribute.alias.0" class="alias" />
+								<input type="text" name="attribute.type.0" class="type" />
 							</td>
 							<td class="value">
 								<ul>
 									<li>
-										<input type="text" id="attributes.0" name="value.0" class="value" />
+										<input type="text" name="attribute.value.0" class="value" />
 										<a href="#" onclick="personaAddAttributeValue(this);return false;">
 											<img src="#springUrl('/resources/images/plus.gif')" class="value" />
 										</a>

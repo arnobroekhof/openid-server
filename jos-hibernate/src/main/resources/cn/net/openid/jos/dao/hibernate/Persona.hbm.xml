@@ -7,7 +7,8 @@
 			column="persona_id">
 			<generator class="uuid" />
 		</id>
-		<many-to-one name="user" column="persona_user_id" fetch="join" lazy="false" />
+		<many-to-one name="user" column="persona_user_id" fetch="join"
+			lazy="false" />
 		<property name="name" length="255" not-null="true"
 			column="persona_name" />
 		<property name="nickname" length="255"
@@ -21,7 +22,8 @@
 		<property name="country" length="2" column="persona_country" />
 		<property name="language" length="2" column="persona_language" />
 		<property name="timezone" length="32" column="persona_timezone" />
-		<set name="attributes" inverse="false" cascade="all" fetch="join" lazy="false">
+		<set name="attributes" inverse="true" cascade="all-delete-orphan"
+			fetch="join" lazy="false">
 			<key column="attribute_persona_id" />
 			<one-to-many class="Attribute" />
 		</set>

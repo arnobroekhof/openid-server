@@ -140,8 +140,7 @@ public class Attribute extends BaseEntity {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((getAlias() == null) ? 0 : getAlias().hashCode());
+		result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
 		return result;
 	}
 
@@ -159,10 +158,10 @@ public class Attribute extends BaseEntity {
 		if (!(obj instanceof Attribute))
 			return false;
 		final Attribute other = (Attribute) obj;
-		if (getAlias() == null) {
-			if (other.getAlias() != null)
+		if (getId() == null) {
+			if (other.getId() != null)
 				return false;
-		} else if (!getAlias().equals(other.getAlias()))
+		} else if (!getId().equals(other.getId()))
 			return false;
 		return true;
 	}

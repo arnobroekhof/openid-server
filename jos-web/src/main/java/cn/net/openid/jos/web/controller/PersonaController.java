@@ -19,6 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.LocaleResolver;
@@ -36,6 +38,8 @@ import cn.net.openid.jos.web.filter.UserAgentLocalesFilter;
  * 
  */
 public class PersonaController extends AbstractJosSimpleFormController {
+	private static final Log log = LogFactory.getLog(PersonaController.class);
+
 	private TimeZoneOffsetFormat offsetFormat = new TimeZoneOffsetFormat();
 	private LocaleResolver localeResolver;
 
@@ -283,24 +287,34 @@ public class PersonaController extends AbstractJosSimpleFormController {
 	@SuppressWarnings("unchecked")
 	private static void addAttributes(Persona persona,
 			HttpServletRequest request) {
-		String id, alias, type;
+		String key, id, alias, type;
 		String[] values;
-		Attribute attribute;
 		for (Enumeration<String> names = request.getParameterNames(); names
 				.hasMoreElements();) {
 			String name = names.nextElement();
-			if (name.startsWith("alias.")) {
-				id = name.substring("alias.".length());
-				alias = request.getParameter("alias." + id);
-				type = request.getParameter("type." + id);
-				values = request.getParameterValues("value." + id);
+			if (name.startsWith("attribute.alias.")) {
+				key = name.substring("attribute.alias.".length());
+				id = request.getParameter("attribute.id." + key);
+				alias = request.getParameter("attribute.alias." + key);
+				type = request.getParameter("attribute.type." + key);
+				values = request.getParameterValues("attribute.value." + key);
 				while (values.length != (values = (String[]) ArrayUtils
 						.removeElement(values, StringUtils.EMPTY)).length)
 					;
 				if (StringUtils.isNotEmpty(alias)
 						&& !ArrayUtils.isEmpty(values)) {
-					attribute = new Attribute(persona, alias, type, values);
+					Attribute attribute = new Attribute(persona, alias, type,
+							values);
+					if (StringUtils.isNotEmpty(id)) {
+						attribute.setId(id);
+					}
 					persona.addAttribute(attribute);
+					if (log.isDebugEnabled()) {
+						log.debug(String.format(
+								"id: %1$s, alias: %2$s, values: %3$s.",
+								attribute.getId(), attribute.getAlias(),
+								attribute.getValues()));
+					}
 				}
 			}
 		}

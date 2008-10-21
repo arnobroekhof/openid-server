@@ -115,6 +115,7 @@
 	<bean id="personaController"
 		class="cn.net.openid.jos.web.controller.PersonaController"
 		parent="abstractJosSimpleFormController">
+		<property name="sessionForm" value="true" />
 		<property name="commandName" value="persona" />
 		<property name="commandClass"
 			value="cn.net.openid.jos.domain.Persona" />
