@@ -400,6 +400,12 @@
 	<bean id="localeResolver"
 		class="cn.net.openid.jos.web.i18n.DomainSessionLocaleResolver">
 		<property name="josService" ref="josService" />
+		<!-- Uncomment the following line to enable
+			the default locale of all domains
+			that ignore the user-agent preference language setting -->
+		<!--
+		<property name="defaultLocale" value="en_US" />
+		-->
 	</bean>
 
 
