@@ -1,11 +1,18 @@
-Java OpenID Server (jos)
+Java OpenID Server (JOS)
 
-jos-domain/	: Domain objects.
-jos-dao/	: Data Access Objects.
-jos-hibernate/	: DAO implementation with hibernate3.
-jos-service/	: Service layer.
-jos-web/	: Web classes.
-jos-webapp/	: Web resources, such as jsp, js, images.
-jos-tools/	: Tools, such as database migration.
-jos-i18n/	: Internationalization.
-doc/		: Documents.
+BUILD           : Build instructions.
+CREDITS	        : List of code and documentation maintainers and
+                  contributors, and others that we thanks to.
+INSTALL         : Installation instructions.
+LICENSE         : JOS license (BSD).
+README          : This file.
+RELEASE-NOTES   : Version highlight changes.
+jos-domain/     : Domain objects.
+jos-dao/        : Data Access Objects.
+jos-hibernate/  : DAO implementation with hibernate3.
+jos-service/    : Service layer.
+jos-web/        : Web classes.
+jos-webapp/     : Web resources, such as jsp, js, images.
+jos-tools/      : Tools, such as database migration.
+jos-i18n/       : Internationalization.
+doc/            : Documents.
