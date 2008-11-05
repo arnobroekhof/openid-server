@@ -1,5 +1,5 @@
 /**
- * Created on 2008-3-5 下午10:36:17
+ * Created on 2008-3-5 22:36:17
  */
 package cn.net.openid.jos.dao;
 

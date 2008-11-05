@@ -1,5 +1,5 @@
 /**
- * Created on 2008-5-29 上午01:43:28
+ * Created on 2008-5-29 01:43:28
  */
 package cn.net.openid.jos.service.exception;
 

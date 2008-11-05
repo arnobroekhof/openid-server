@@ -1,5 +1,5 @@
 /**
- * Created on 2008-8-6 上午12:16:34
+ * Created on 2008-8-6 12:16:34
  */
 package cn.net.openid.jos.web.filter;
 

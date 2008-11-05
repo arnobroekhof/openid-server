@@ -1,5 +1,5 @@
 /**
- * Created on 2008-3-10 下午10:58:02
+ * Created on 2008-3-10 22:58:02
  */
 package cn.net.openid.jos.dao.hibernate;
 

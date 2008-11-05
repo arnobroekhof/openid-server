@@ -1,5 +1,5 @@
 /**
- * Created on 2008-8-18 上午12:30:45
+ * Created on 2008-8-18 12:30:45
  */
 package cn.net.openid.jos.domain;
 

@@ -1,5 +1,5 @@
 /**
- * Created on 2008-6-1 上午07:38:42
+ * Created on 2008-6-1 07:38:42
  */
 package cn.net.openid.jos.tools.dbupgraders.v1_0_alpha1_v1_0_alpha2;
 

@@ -1,5 +1,5 @@
 /**
- * Created on 2008-9-2 上午04:49:36
+ * Created on 2008-9-2 04:49:36
  */
 package cn.net.openid.jos.web.interceptor;
 

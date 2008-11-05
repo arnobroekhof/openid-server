@@ -1,5 +1,5 @@
 /**
- * Created on 2008-9-15 上午02:00:03
+ * Created on 2008-9-15 02:00:03
  */
 package cn.net.openid.jos.web.validation;
 

@@ -1,5 +1,5 @@
 /**
- * Created on 2008-9-3 上午02:17:45
+ * Created on 2008-9-3 02:17:45
  */
 package cn.net.openid.jos.web.i18n;
 

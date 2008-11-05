@@ -1,5 +1,5 @@
 /**
- * Created on 2006-10-16 上午12:39:17
+ * Created on 2006-10-16 12:39:17
  */
 package cn.net.openid.jos.service;
 

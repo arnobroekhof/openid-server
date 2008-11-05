@@ -1,5 +1,5 @@
 /**
- * Created on 2008-9-7 上午08:59:10
+ * Created on 2008-9-7 08:59:10
  */
 package cn.net.openid.jos.web.sitemesh;
 

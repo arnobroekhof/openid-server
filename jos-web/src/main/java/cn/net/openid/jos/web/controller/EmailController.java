@@ -1,5 +1,5 @@
 /**
- * Created on 2008-3-10 下午11:04:50
+ * Created on 2008-3-10 23:04:50
  */
 package cn.net.openid.jos.web.controller;
 
