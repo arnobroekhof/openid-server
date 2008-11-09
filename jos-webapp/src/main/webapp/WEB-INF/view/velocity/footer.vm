@@ -13,7 +13,7 @@
 	#* Organization *#
 
 	## Organization url
-	#if($domain)
+	#if($domain && $domain.configuration.get("organization.url"))
 		#set($organizationUrl = $domain.configuration.get("organization.url"))
 	#end
 	#if($organizationUrl && $organizationUrl.startsWith("/"))
@@ -21,8 +21,8 @@
 	#end
 
 	## Organization name
-	#if($domain)
-		#set($organizationName = $!domain.configuration.get("organization.name"))
+	#if($domain && $domain.configuration.get("organization.name"))
+		#set($organizationName = $domain.configuration.get("organization.name"))
 	#end
 	#if(!$organizationName && $organizationUrl)
 		#set($organizationName = $organizationUrl)
@@ -39,7 +39,7 @@
 
 
 	## Privacy
-	#if($domain)
+	#if($domain && $domain.configuration.get("privacy.url"))
 		#set($privacyUrl = $domain.configuration.get("privacy.url"))
 	#end
 	#if($privacyUrl && $privacyUrl.startsWith("/"))
