@@ -5,6 +5,8 @@ package cn.net.openid.jos.web.validation;
 
 import java.util.regex.Pattern;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -16,10 +18,15 @@ import cn.net.openid.jos.web.MessageCodes;
  * @author Sutra Zhou
  */
 public class EmailValidator implements Validator {
+	private static final Log log = LogFactory.getLog(EmailValidator.class);
 	private Pattern emailAddressPattern;
 
 	public void setEmailAddressPattern(String emailAddressPattern) {
-		this.emailAddressPattern = Pattern.compile(emailAddressPattern);
+		this.emailAddressPattern = Pattern.compile(emailAddressPattern.trim());
+		if (log.isDebugEnabled()) {
+			log.debug("setEmailAddressPattern, emailAddressPattern.pattern: "
+					+ this.emailAddressPattern.pattern());
+		}
 	}
 
 	/*
