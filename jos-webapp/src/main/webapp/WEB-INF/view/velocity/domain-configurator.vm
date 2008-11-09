@@ -1,3 +1,4 @@
+#set($springXhtmlCompliant = true)
 <html>
 <head>
 <title>
@@ -10,7 +11,8 @@
 </script>
 </head>
 <body>
-<form method="post">
+<form method="post" action="#josUrl("/domain-configurator")">
+<div>
 #springFormHiddenInput("command.id" "")
 
 ## Base settings
@@ -18,7 +20,7 @@
 	<legend>
 		#springMessageText("domain.title.baseSettings" "Base settings")
 	</legend>
-	<div id="identifierPatternDiv"><label>#springMessageText("domain.label.identifierPattern" "OpenID identifier pattern:")</label><div id="openid_identifier_pattern"></div></div>
+	<div id="identifierPatternDiv"><label>#springMessageText("domain.label.identifierPattern" "OpenID Identifier pattern:")</label><div id="openid_identifier_pattern"></div></div>
 	<dl>
 		<dt>#springMessageText("domain.label.type" "Type:")</dt>
 		<dd>#josFormRadioButtons("command.type" $types "" "onchange='changeDomainType(parseInt(this.value, 10));showIdentifierPattern()'")</dd>
@@ -63,6 +65,7 @@
 </fieldset>
 
 <button type="submit">#springMessageText("button.addDomain" "Add domain")</button>
+</div>
 </form>
 
 <script type="text/javascript">
