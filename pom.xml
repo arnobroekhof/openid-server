@@ -68,6 +68,10 @@
 			<layout>default</layout>
 		</repository>
 		<repository>
+			<id>taneshanet</id>
+			<url>http://tanesha.net/maven2</url>
+		</repository>
+		<repository>
 			<id>alchim.snapshots</id>
 			<name>Achim Repository Snapshots</name>
 			<url>http://alchim.sf.net/download/snapshots</url>
@@ -214,6 +218,13 @@
 				<groupId>velocity-tools</groupId>
 				<artifactId>velocity-tools-view</artifactId>
 				<version>1.2</version>
+			</dependency>
+
+			<!-- http://tanesha.net/projects/recaptcha4j/ -->
+			<dependency>
+				<groupId>net.tanesha.recaptcha4j</groupId>
+				<artifactId>recaptcha4j</artifactId>
+				<version>0.0.7</version>
 			</dependency>
 
 			<!-- Transaction -->

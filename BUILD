@@ -3,7 +3,7 @@ We use Maven(http://maven.apache.org/) to manage JOS.
 
 I. Before build
 0. As we are using openid4java-0.9.5-SNAPSHOT now, you should checkout and
-   installopenid4java from its svn manually:
+   install openid4java from its svn manually:
 	svn checkout http://openid4java.googlecode.com/svn/trunk/ openid4java-read-only
 	cd openid4java-read-only/maven2
 	mvn install
