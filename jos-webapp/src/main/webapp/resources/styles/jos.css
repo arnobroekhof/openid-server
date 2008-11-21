@@ -1,38 +1,26 @@
 /******************************************************************************
  * Global.
  ******************************************************************************/
-* {
-	font-size: 14px;
-	font-family: Arial, verdana, sans-serif, Tahoma;
-}
-
 img {
 	border: 0;
-}
-
-a {
-	text-decoration: none;
-	/* background-color: #fff; */
-	color: #ff5600;
 }
 
 td {
 	vertical-align: top;
 }
 
-a:hover {
-	text-decoration: underline;
-	background-color: yellow;
+a {
+	text-decoration: none;
 	color: #ff5600;
 }
 
+a:hover {
+	text-decoration: underline;
+	color: red;
+}
+
 body {
-	font-family: sans-serif;
-	border: 10px solid #cdcdcd;
 	margin: 0;
-	padding: 15px 50px 30px 50px;
-	background: white;
-	color: #000;
 }
 
 p {
@@ -155,6 +143,14 @@ tr.useless {
 /******************************************************************************
  * Id.
  ******************************************************************************/
+#main {
+	border: 10px solid #cdcdcd;
+	margin: 0;
+	padding: 15px 50px 20px 50px;
+	background: white;
+	color: #000;
+}
+
 #header {
 	
 }
@@ -168,6 +164,11 @@ tr.useless {
 	border-top: 1px solid #AAA;
 	margin-top: 50px;
 	padding: 10px;
+}
+
+#poweredBy {
+	text-align: right;
+	margin-top: 4px;
 }
 
 #navbar {

@@ -24,6 +24,9 @@
 			#parse("header.vm")
 			$body
 			#parse("footer.vm")
+			<div id="poweredBy">
+				<a href="http://code.google.com/p/openid-server/"><img src="#josUrl("/resources/images/logos/powered-by.png")" alt="Powered by JOS" /></a>
+			</div>
 		</div>
 	</body>
 </html>
