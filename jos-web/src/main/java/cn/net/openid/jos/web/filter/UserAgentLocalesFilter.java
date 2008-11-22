@@ -4,8 +4,8 @@
 package cn.net.openid.jos.web.filter;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Locale;
 
@@ -75,10 +75,7 @@ public class UserAgentLocalesFilter extends OncePerRequestServiceFilter {
 	@SuppressWarnings("unchecked")
 	private Collection<Locale> getLocales(HttpServletRequest request) {
 		Enumeration<Locale> localesEnum = request.getLocales();
-		Collection<Locale> localesCollection = new ArrayList<Locale>();
-		while (localesEnum.hasMoreElements()) {
-			localesCollection.add(localesEnum.nextElement());
-		}
+		Collection<Locale> localesCollection = Collections.list(localesEnum);
 		localesCollection.retainAll(this.getService().getAvailableLocales());
 		return localesCollection;
 	}
