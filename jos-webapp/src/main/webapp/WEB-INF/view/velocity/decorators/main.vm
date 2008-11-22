@@ -15,7 +15,7 @@
 			href="$response.encodeURL("$base/resources/styles/jos.css")" />
 		#if($domain)
 		<link rel="stylesheet" type="text/css" media="screen"
-			href="$response.encodeURL("$base/${domain.id}.css")" />
+			href="$response.encodeURL("$base/resources/custom/${domain.name}.css")" />
 		#end
 		$head
 	</head>
