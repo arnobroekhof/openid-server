@@ -9,7 +9,7 @@
 		</id>
 		<properties name="personaAttributes" unique="true">
 			<many-to-one name="persona" not-null="true"
-				column="attribute_persona_id" cascade="all" />
+				column="attribute_persona_id" cascade="none" />
 			<property name="alias" not-null="true" length="32"
 				column="attribute_alias" />
 		</properties>
