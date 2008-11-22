@@ -1,3 +1,15 @@
+ * 2008-??-?? - jos 1.2.1 released
+ [http://openid-server.googlecode.com/svn/tags/jos-1.2.1/INSTALL Quick Install Guide]
+
+ Upgrade note:
+  * drop table jos_attribute_value;
+    drop table jos_attribute;
+ New features:
+  * Extended attributes modification for persona.
+ Bugfixes:
+  * Trim email pattern of email address validator for email addition.
+
+
  * 2008-09-18 - jos 1.2.0 released
  [http://openid-server.googlecode.com/svn/tags/jos-1.2.0/INSTALL Quick Install Guide]
 
@@ -17,6 +29,7 @@
   * Add system reserved words, these words can't be registered by user.
   * Move all css, images, js to directory "resources".
 
+
  * 2008-09-01 - jos 1.1.0 released
  [http://openid-server.googlecode.com/svn/tags/jos-1.1.0/INSTALL Quick Install Guide]
 
@@ -27,6 +40,7 @@
   * Some i18n messages in Japanese.
   * Delete some javascript that go out of use.
   * Upgrade springframework from 2.5.4 to 2.5.5.
+
 
  * 2008-08-23 - jos 1.1.0-beta released
  [http://openid-server.googlecode.com/svn/tags/jos-1.1.0-beta/INSTALL Quick Install Guide]
@@ -39,6 +53,7 @@
   * Fix exception if deleting a persona which is in use.
   * Fix mistake of sending additional information to RP even if the RP does not request this.
 
+
  * 2008-08-11 - jos 1.0.0 released
  [http://openid-server.googlecode.com/svn/tags/jos-1.0.0/INSTALL Quick Install Guide]
 
@@ -50,5 +65,6 @@
   * Multi-password support and passwords management.
   * Multi-persona support and personas management.
   * Sites management.
+
 
  * 2008-07-24 - jos 1.0.0-beta released
