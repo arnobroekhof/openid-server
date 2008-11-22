@@ -278,7 +278,7 @@ public class Domain extends BaseEntity {
 	private String memberPath;
 	private UsernameConfiguration usernameConfiguration = new UsernameConfiguration();
 	private Map<String, String> configuration;
-	private transient DomainRuntime runtime = new DomainRuntime();
+	private DomainRuntime runtime = new DomainRuntime();
 
 	/**
 	 * @return the name
