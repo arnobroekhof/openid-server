@@ -34,6 +34,8 @@ import cn.net.openid.jos.web.AbstractJosSimpleFormController;
 import cn.net.openid.jos.web.filter.UserAgentLocalesFilter;
 
 /**
+ * The controller to add/modify a persona.
+ * 
  * @author Sutra Zhou
  * 
  */
@@ -298,9 +300,12 @@ public class PersonaController extends AbstractJosSimpleFormController {
 				alias = request.getParameter("attribute.alias." + key);
 				type = request.getParameter("attribute.type." + key);
 				values = request.getParameterValues("attribute.value." + key);
+
+				// Remove all empty strings.
 				while (values.length != (values = (String[]) ArrayUtils
 						.removeElement(values, StringUtils.EMPTY)).length)
 					;
+
 				if (StringUtils.isNotEmpty(alias)
 						&& !ArrayUtils.isEmpty(values)) {
 					Attribute attribute = new Attribute(persona, alias, type,
