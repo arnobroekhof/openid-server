@@ -59,8 +59,19 @@ public class DomainFilter extends OncePerRequestServiceFilter {
 	 * @return the domain in the session, null if session is null or not found.
 	 */
 	public static Domain getDomain(HttpSession session) {
-		return session != null ? (Domain) session
-				.getAttribute(DOMAIN_ATTRIBUTE_NAME) : null;
+		return session != null ? checkRuntime((Domain) session
+				.getAttribute(DOMAIN_ATTRIBUTE_NAME)) : null;
+	}
+
+	/**
+	 * Check the domain runtime.
+	 * 
+	 * @param domain
+	 *            the domain to check runtime
+	 * @return null if runtime is null, else itself.
+	 */
+	private static Domain checkRuntime(Domain domain) {
+		return domain.getRuntime() != null ? domain : null;
 	}
 
 	/*
