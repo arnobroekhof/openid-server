@@ -65,10 +65,19 @@ public class DomainFilter extends OncePerRequestServiceFilter {
 
 	/**
 	 * Check the domain runtime.
+	 * <p>
+	 * As {@link Domain#getRuntime()} is transient, we should check if it is
+	 * null before using. Otherwise, if the <code>domain</code> is restored from
+	 * a stream, the {@link Domain#getRuntime()} will be null. For example, <a
+	 * href="http://tomcat.apache.org/">Apache Tomcat</a> usually write the
+	 * objects in HTTP sessions while stopping though serialization mechanism,
+	 * and restore them while re-starting.
+	 * </p>
 	 * 
 	 * @param domain
 	 *            the domain to check runtime
 	 * @return null if runtime is null, else itself.
+	 * @see java.io.Serializable
 	 */
 	private static Domain checkRuntime(Domain domain) {
 		return domain.getRuntime() != null ? domain : null;
