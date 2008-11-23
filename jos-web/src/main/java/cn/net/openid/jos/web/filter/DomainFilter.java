@@ -80,7 +80,7 @@ public class DomainFilter extends OncePerRequestServiceFilter {
 	 * @see java.io.Serializable
 	 */
 	private static Domain checkRuntime(Domain domain) {
-		return domain.getRuntime() != null ? domain : null;
+		return (domain != null && domain.getRuntime() != null) ? domain : null;
 	}
 
 	/*
