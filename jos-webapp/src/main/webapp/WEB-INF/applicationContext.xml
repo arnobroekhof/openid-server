@@ -42,9 +42,11 @@
 				<property name="emailConfirmationInfoDao"
 					ref="emailConfirmationInfoDao" />
 				<property name="personaDao" ref="personaDao" />
+				<!--
 				<property name="attributeDao" ref="attributeDao" />
 				<property name="attributeValueDao"
 					ref="attributeValueDao" />
+				-->
 				<property name="realmDao" ref="realmDao" />
 				<property name="siteDao" ref="siteDao" />
 				<property name="passwordGenerator" ref="passwordGenerator" />

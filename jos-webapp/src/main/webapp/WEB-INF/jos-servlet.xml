@@ -126,6 +126,7 @@
 	</bean>
 
 	<!-- Attribute -->
+	<!--
 	<bean id="attributesController"
 		class="cn.net.openid.jos.web.controller.AttributesController"
 		parent="abstractJosController">
@@ -152,6 +153,7 @@
 		<property name="formView" value="attribute-value" />
 		<property name="successView" value="attribute-value-success" />
 	</bean>
+	-->
 
 	<bean id="sitesController"
 		class="cn.net.openid.jos.web.controller.SitesController"
@@ -313,6 +315,7 @@
 					value-ref="editPasswordController" />
 				<entry key="/personas.do" value-ref="personasController" />
 				<entry key="/persona.do" value-ref="personaController" />
+				<!--
 				<entry key="/attributes.do"
 					value-ref="attributesController" />
 				<entry key="/edit-attribute.do"
@@ -321,6 +324,7 @@
 					value-ref="removeAttributeController" />
 				<entry key="/attribute-value.do"
 					value-ref="attributeValueController" />
+				-->
 				<entry key="/sites.do" value-ref="sitesController" />
 			</map>
 		</property>

@@ -8,7 +8,7 @@
 		<to>/home.do</to>
 	</rule>
 	<rule>
-		<from>^/(server|captcha|approving|index|home|register|login|logout|email|email-remove|email-confirm|email-set-primary|passwords|password|forgot-password|personas|persona|sites|attributs|edit-attribute|remove-attribute|attribute-value|hl|domain-configurator|domain-configurator-login)(;jsessionid=.*)?$</from>
+		<from>^/(server|captcha|approving|index|home|register|login|logout|email|email-remove|email-confirm|email-set-primary|passwords|password|forgot-password|personas|persona|sites|hl|domain-configurator|domain-configurator-login)(;jsessionid=.*)?$</from>
 		<to>/$1.do</to>
 	</rule>
 </urlrewrite>
