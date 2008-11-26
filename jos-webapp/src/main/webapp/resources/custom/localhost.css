@@ -1,0 +1,9 @@
+* {
+	font-size: 14px;
+	font-family: Arial, verdana, sans-serif, Tahoma;
+}
+
+#logo {
+	background: url("../images/openid-logo.png") no-repeat 50% 50%;
+	padding-top: 90px;
+}
