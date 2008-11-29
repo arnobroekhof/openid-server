@@ -36,7 +36,7 @@
 <div id="approving-tip">
 	#if($userSession.approvingRequests.size() == 1)
 		#springMessageText("approving.request" "Your approving authentiation request: ")
-		#foreach($approvingRequest in $userSession.approvingRequests)<a href="approving?token=$approvingRequest.token">$approvingRequest.authRequest.returnTo</a>#end.
+		#foreach($approvingRequest in $userSession.approvingRequests)<a href="approving?token=$approvingRequest.token">$approvingRequest.authRequest.returnTo</a>#end#springMessageText("punctuation.fullStop" ".")
 	#else
 	#springMessageText("approving.requests" "Your approving authentication requests: ")
 	<ul>
