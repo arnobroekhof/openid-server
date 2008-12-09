@@ -4,7 +4,7 @@
 	<div id="navbar">
 		<ul>
 			#if(!${userSession.loggedIn})
-			<li><a href="#josUrl('/')" title="#springMessage("home.tip")">#springMessage("home")</a></li>
+			<li><a href="#josUrl('/home')" title="#springMessage("home.tip")">#springMessage("home")</a></li>
 			<li><a href="#josUrl('/login')" title="#springMessage("login")">#springMessage("login")</a></li>
 			<li><a href="#josUrl('/register')" title="#springMessage("register.tip")">#springMessage("register")</a></li>
 			#else
