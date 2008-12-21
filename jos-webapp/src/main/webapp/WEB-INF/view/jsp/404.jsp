@@ -5,7 +5,7 @@
 	<head>
 		<title>404 Not Found</title>
 		<meta http-equiv="Content-Type"
-			content="application/xhtml-xml; charset=UTF-8" />
+			content="application/xhtml+xml; charset=UTF-8" />
 		<meta name="robots" content="all" />
 		<meta name="keywords" content="openid" />
 		<meta name="description" content="OpenID Provider" />
