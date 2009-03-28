@@ -6,18 +6,10 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>cn.net.openid.jos</groupId>
-		<artifactId>jos</artifactId>
+		<artifactId>jos-i18n</artifactId>
 		<version>1.2-SNAPSHOT</version>
 	</parent>
-	<artifactId>jos-i18n</artifactId>
-	<packaging>pom</packaging>
-	<name>Java OpenID Server - Internationalization</name>
-	<modules>
-		<!-- Sort alphabetically  -->
-		<module>jos-i18n-en_US</module>
-		<module>jos-i18n-ja</module>
-		<module>jos-i18n-pt</module>
-		<module>jos-i18n-zh_CN</module>
-		<module>jos-i18n-zh_HK</module>
-	</modules>
+	<artifactId>jos-i18n-zh_HK</artifactId>
+	<packaging>jar</packaging>
+	<name>Java OpenID Server - Internationalization - zh_CN</name>
 </project>

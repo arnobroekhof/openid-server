@@ -181,5 +181,10 @@
 			<artifactId>jos-i18n-zh_CN</artifactId>
 			<version>${version}</version>
 		</dependency>
+		<dependency>
+			<groupId>${groupId}</groupId>
+			<artifactId>jos-i18n-zh_HK</artifactId>
+			<version>${version}</version>
+		</dependency>
 	</dependencies>
 </project>

@@ -60,6 +60,34 @@
 			</plugin>
 		</plugins>
 	</build>
+	<reporting>
+		<plugins>
+			<plugin>
+				<artifactId>maven-site-plugin</artifactId>
+				<configuration>
+					<inputEncoding>UTF-8</inputEncoding>
+					<outputEncoding>UTF-8</outputEncoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<encoding>UTF-8</encoding>
+					<docencoding>UTF-8</docencoding>
+					<charset>UTF-8</charset>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
+				<version>1.2</version>
+			</plugin>
+		</plugins>
+	</reporting>
 	<repositories>
 		<repository>
 			<id>maven2-repository.dev.java.net</id>
@@ -269,25 +297,6 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-	<reporting>
-		<plugins>
-			<plugin>
-				<artifactId>maven-site-plugin</artifactId>
-				<configuration>
-					<inputEncoding>UTF-8</inputEncoding>
-					<outputEncoding>UTF-8</outputEncoding>
-				</configuration>
-			</plugin>
-			<plugin>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<configuration>
-					<encoding>UTF-8</encoding>
-					<docencoding>UTF-8</docencoding>
-					<charset>UTF-8</charset>
-				</configuration>
-			</plugin>
-		</plugins>
-	</reporting>
 	<scm>
 		<connection>scm:svn:http://openid-server.googlecode.com/svn/trunk/</connection>
 		<developerConnection>scm:svn:https://openid-server.googlecode.com/svn/trunk</developerConnection>

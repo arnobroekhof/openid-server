@@ -56,6 +56,7 @@
 						<value>ja</value>
 						<value>pt</value>
 						<value>zh_CN</value>
+						<value>zh_HK</value>
 					</set>
 				</property>
 				<property name="configuratorPassword"
