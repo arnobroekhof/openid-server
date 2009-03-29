@@ -18,6 +18,8 @@ public class Password extends BaseEntity {
 	 */
 	private static final long serialVersionUID = 7141923018810122892L;
 
+	private static final int PRIME = 31;
+
 	private User user = new User();
 	private String name;
 	private String plaintext;
@@ -118,7 +120,7 @@ public class Password extends BaseEntity {
 	 * @return the lastUsedDate
 	 */
 	public Date getLastUsedDate() {
-		return lastUsedDate;
+		return cloneDate(lastUsedDate);
 	}
 
 	/**
@@ -126,7 +128,7 @@ public class Password extends BaseEntity {
 	 *            the lastUsedDate to set
 	 */
 	public void setLastUsedDate(Date lastUsedDate) {
-		this.lastUsedDate = lastUsedDate;
+		this.lastUsedDate = cloneDate(lastUsedDate);
 	}
 
 	/**
@@ -156,9 +158,8 @@ public class Password extends BaseEntity {
 	 */
 	@Override
 	public int hashCode() {
-		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
+		result = PRIME * result + ((getId() == null) ? 0 : getId().hashCode());
 		return result;
 	}
 

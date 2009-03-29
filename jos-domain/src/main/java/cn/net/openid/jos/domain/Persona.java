@@ -19,6 +19,8 @@ public class Persona extends BaseEntity {
 	 */
 	private static final long serialVersionUID = 1223541515197309353L;
 
+	private static final int PRIME = 31;
+
 	private User user = new User();
 	private String name;
 
@@ -320,9 +322,8 @@ public class Persona extends BaseEntity {
 	 */
 	@Override
 	public int hashCode() {
-		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
+		result = PRIME * result + ((getId() == null) ? 0 : getId().hashCode());
 		return result;
 	}
 

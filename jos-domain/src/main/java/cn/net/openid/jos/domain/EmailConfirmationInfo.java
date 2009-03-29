@@ -16,6 +16,8 @@ public class EmailConfirmationInfo extends BaseEntity {
 	 */
 	private static final long serialVersionUID = -1421672591504003924L;
 
+	private static final int PRIME = 31;
+
 	private Email email = new Email();
 	private String confirmationCode;
 	private boolean sent;
@@ -94,7 +96,7 @@ public class EmailConfirmationInfo extends BaseEntity {
 	 * @return the sentDate
 	 */
 	public Date getSentDate() {
-		return sentDate;
+		return cloneDate(sentDate);
 	}
 
 	/**
@@ -102,7 +104,7 @@ public class EmailConfirmationInfo extends BaseEntity {
 	 *            the sentDate to set
 	 */
 	public void setSentDate(Date sentDate) {
-		this.sentDate = sentDate;
+		this.sentDate = cloneDate(sentDate);
 	}
 
 	/**
@@ -116,7 +118,7 @@ public class EmailConfirmationInfo extends BaseEntity {
 	 * @return the confirmedDate
 	 */
 	public Date getConfirmedDate() {
-		return confirmedDate;
+		return cloneDate(confirmedDate);
 	}
 
 	/**
@@ -124,7 +126,7 @@ public class EmailConfirmationInfo extends BaseEntity {
 	 *            the confirmedDate to set
 	 */
 	public void setConfirmedDate(Date confirmedDate) {
-		this.confirmedDate = confirmedDate;
+		this.confirmedDate = cloneDate(confirmedDate);
 	}
 
 	/**
@@ -142,9 +144,8 @@ public class EmailConfirmationInfo extends BaseEntity {
 	 */
 	@Override
 	public int hashCode() {
-		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
+		result = PRIME * result + ((getId() == null) ? 0 : getId().hashCode());
 		return result;
 	}
 

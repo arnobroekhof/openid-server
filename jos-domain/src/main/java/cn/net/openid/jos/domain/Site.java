@@ -3,19 +3,20 @@
  */
 package cn.net.openid.jos.domain;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @author Sutra Zhou
  * 
  */
-public class Site implements Serializable {
+public class Site extends BaseEntity {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 4706047050803190505L;
+
+	private static final int PRIME = 31;
 
 	private User user = new User();
 	private Realm realm = new Realm();
@@ -23,7 +24,6 @@ public class Site implements Serializable {
 	private Persona persona = new Persona();
 	private Date lastAttempt = new Date();
 	private int approvals;
-	private Date creationDate = new Date();
 
 	/**
 	 * @return alwaysApprove
@@ -59,7 +59,7 @@ public class Site implements Serializable {
 	 * @return lastAttempt
 	 */
 	public Date getLastAttempt() {
-		return lastAttempt;
+		return cloneDate(lastAttempt);
 	}
 
 	/**
@@ -67,7 +67,7 @@ public class Site implements Serializable {
 	 *            要设置的 lastAttempt
 	 */
 	public void setLastAttempt(Date lastAttempt) {
-		this.lastAttempt = lastAttempt;
+		this.lastAttempt = cloneDate(lastAttempt);
 	}
 
 	/**
@@ -115,21 +115,6 @@ public class Site implements Serializable {
 		this.user = user;
 	}
 
-	/**
-	 * @return the creationDate
-	 */
-	public Date getCreationDate() {
-		return creationDate;
-	}
-
-	/**
-	 * @param creationDate
-	 *            the creationDate to set
-	 */
-	public void setCreationDate(Date creationDate) {
-		this.creationDate = creationDate;
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -137,10 +122,9 @@ public class Site implements Serializable {
 	 */
 	@Override
 	public int hashCode() {
-		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((getRealm() == null) ? 0 : getRealm().hashCode());
-		result = prime * result + ((getUser() == null) ? 0 : getUser().hashCode());
+		result = PRIME * result + ((getRealm() == null) ? 0 : getRealm().hashCode());
+		result = PRIME * result + ((getUser() == null) ? 0 : getUser().hashCode());
 		return result;
 	}
 

@@ -15,6 +15,8 @@ public class Email extends BaseEntity {
 	 */
 	private static final long serialVersionUID = 6706127085088356027L;
 
+	private static final int PRIME = 31;
+
 	private User user = new User();
 	private String address;
 	private Locale locale = Locale.getDefault();
@@ -120,9 +122,8 @@ public class Email extends BaseEntity {
 	 */
 	@Override
 	public int hashCode() {
-		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
+		result = PRIME * result + ((getId() == null) ? 0 : getId().hashCode());
 		return result;
 	}
 

@@ -259,6 +259,8 @@ public class Domain extends BaseEntity {
 	 */
 	private static final long serialVersionUID = 7341781651134648946L;
 
+	private static final int PRIME = 31;
+
 	/**
 	 * Username as a subdomain.
 	 */
@@ -451,9 +453,8 @@ public class Domain extends BaseEntity {
 	 */
 	@Override
 	public int hashCode() {
-		final int prime = 31;
 		int result = 1;
-		result = prime * result
+		result = PRIME * result
 				+ ((getName() == null) ? 0 : getName().hashCode());
 		return result;
 	}

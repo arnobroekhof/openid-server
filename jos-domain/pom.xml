@@ -9,6 +9,9 @@
 	<artifactId>jos-domain</artifactId>
 	<packaging>jar</packaging>
 	<name>Java OpenID Server - Domain Objects</name>
+	<reporting>
+		<outputDirectory>../target/site/${project.artifactId}/</outputDirectory>
+	</reporting>
 	<dependencies>
 		<dependency>
 			<groupId>commons-lang</groupId>

@@ -17,6 +17,8 @@ public class Attribute extends BaseEntity {
 	 */
 	private static final long serialVersionUID = 2109982803475487846L;
 
+	private static final int PRIME = 31;
+
 	private Persona persona;
 	private String alias;
 	private String type;
@@ -138,9 +140,8 @@ public class Attribute extends BaseEntity {
 	 */
 	@Override
 	public int hashCode() {
-		final int prime = 31;
 		int result = 1;
-		result = prime * result
+		result = PRIME * result
 				+ ((getAlias() == null) ? 0 : getAlias().hashCode());
 		return result;
 	}

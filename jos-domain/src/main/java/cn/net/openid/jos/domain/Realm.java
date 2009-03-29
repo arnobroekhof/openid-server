@@ -14,6 +14,8 @@ public class Realm extends BaseEntity {
 	 */
 	private static final long serialVersionUID = -2093184402739527161L;
 
+	private static final int PRIME = 31;
+
 	private String url;
 
 	/**
@@ -38,9 +40,8 @@ public class Realm extends BaseEntity {
 	 */
 	@Override
 	public int hashCode() {
-		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((getUrl() == null) ? 0 : getUrl().hashCode());
+		result = PRIME * result + ((getUrl() == null) ? 0 : getUrl().hashCode());
 		return result;
 	}
 

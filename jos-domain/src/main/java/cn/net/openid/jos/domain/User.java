@@ -15,6 +15,8 @@ public class User extends BaseEntity {
 	 */
 	private static final long serialVersionUID = -6219139356897428716L;
 
+	private static final int PRIME = 31;
+
 	private String username;
 	private Domain domain = new Domain();
 
@@ -73,11 +75,10 @@ public class User extends BaseEntity {
 	 */
 	@Override
 	public int hashCode() {
-		final int prime = 31;
 		int result = 1;
-		result = prime * result
+		result = PRIME * result
 				+ ((getDomain() == null) ? 0 : getDomain().hashCode());
-		result = prime * result
+		result = PRIME * result
 				+ ((getUsername() == null) ? 0 : getUsername().hashCode());
 		return result;
 	}
