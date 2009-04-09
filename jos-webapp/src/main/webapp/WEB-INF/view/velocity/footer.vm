@@ -48,4 +48,12 @@
 	#if($privacyUrl)
 		- <a href="$privacyUrl">#springMessage("title.privacy")</a>
 	#end
+
+	## http://www.miibeian.gov.cn/
+	#if($domain && $domain.configuration.get("beian.number"))
+		#set($beianNumber = $domain.configuration.get("beian.number"))
+	#end
+	#if($beianNumber)
+		- <a href="$domain.configuration.get("beian.url")">$beianNumber</a>
+	#end
 </div>
