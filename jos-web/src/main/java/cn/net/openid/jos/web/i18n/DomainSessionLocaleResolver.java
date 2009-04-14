@@ -41,11 +41,8 @@ public class DomainSessionLocaleResolver extends SessionLocaleResolver {
 		this.josService = josService;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seeorg.springframework.web.servlet.i18n.SessionLocaleResolver#
-	 * determineDefaultLocale(javax.servlet.http.HttpServletRequest)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	protected Locale determineDefaultLocale(HttpServletRequest request) {
