@@ -50,10 +50,10 @@
 	#end
 
 	## http://www.miibeian.gov.cn/
-	#if($domain && $domain.configuration.get("beian.number"))
-		#set($beianNumber = $domain.configuration.get("beian.number"))
+	#if($domain && $domain.configuration.get("beian.number.${springMacroRequestContext.locale}"))
+		#set($beianNumber = $domain.configuration.get("beian.number.${springMacroRequestContext.locale}"))
 	#end
 	#if($beianNumber)
-		- <a href="$domain.configuration.get("beian.url")">$beianNumber</a>
+		- <a href="$domain.configuration.get("beian.url.${springMacroRequestContext.locale}")">$beianNumber</a>
 	#end
 </div>
