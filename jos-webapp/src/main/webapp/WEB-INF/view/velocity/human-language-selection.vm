@@ -20,7 +20,7 @@
 						#if("$!self" == "each")
 							$l.getDisplayName($l)
 						#else
-							$l.getDisplayName($locale)
+							$l.getDisplayName(${springMacroRequestContext.locale})
 						#end
 					</a>
 				</li>

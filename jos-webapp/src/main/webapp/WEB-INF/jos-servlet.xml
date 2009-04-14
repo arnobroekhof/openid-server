@@ -14,7 +14,7 @@
 		abstract="true">
 		<property name="josService" ref="josService" />
 	</bean>
-	
+
 	<bean id="serverController"
 		class="cn.net.openid.jos.web.controller.ServerController"
 		parent="abstractJosController">
@@ -164,7 +164,6 @@
 		class="cn.net.openid.jos.web.controller.HumanLanguageSelectionController"
 		parent="abstractJosController">
 		<property name="formView" value="human-language-selection" />
-		<property name="localeResolver" ref="localeResolver" />
 	</bean>
 
 	<bean id="captchaController"
