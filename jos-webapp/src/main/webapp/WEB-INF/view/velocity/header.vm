@@ -8,7 +8,7 @@
 			<li><a href="#josUrl('/login')" title="#springMessage("login")">#springMessage("login")</a></li>
 			<li><a href="#josUrl('/register')" title="#springMessage("register.tip")">#springMessage("register")</a></li>
 			#else
-			<li><a href="#josUrl('/')" title="#springMessage("home.tip")">#springMessage("home")</a></li>
+			<li><a href="#josUrl('/home')" title="#springMessage("home.tip")">#springMessage("home")</a></li>
 			<li><a href="#josUrl('/email')" title="#springMessage("email.title.tip")">#springMessage("email.title")</a></li>
 			<li><a href="#josUrl('/passwords')" title="#springMessage("password.title.password")">#springMessage("password.title.passwords")</a></li>
 			<li><a href="#josUrl('/personas')" title="#springMessage("persona.title.persona")">#springMessage("persona.title.personas")</a></li>
