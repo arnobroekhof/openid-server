@@ -566,10 +566,10 @@ public class JosServiceImpl implements JosService {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * cn.net.openid.jos.service.JosService#generateSingleUsePassword(cn.net
+	 * cn.net.openid.jos.service.JosService#generateOneTimePassword(cn.net
 	 * .openid .jos.domain.User, cn.net.openid.jos.domain.Email)
 	 */
-	public Password generateSingleUsePassword(User user, Email email) {
+	public Password generateOneTimePassword(User user, Email email) {
 		Password ret = null;
 		Collection<Password> passwords = this.getPasswords(user);
 		for (Password password : passwords) {

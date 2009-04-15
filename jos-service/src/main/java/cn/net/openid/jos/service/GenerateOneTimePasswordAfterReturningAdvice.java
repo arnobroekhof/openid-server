@@ -14,7 +14,7 @@ import cn.net.openid.jos.domain.Password;
  * @author Sutra Zhou
  * 
  */
-public class GenerateSingleUsePasswordAfterReturningAdvice implements
+public class GenerateOneTimePasswordAfterReturningAdvice implements
 		AfterReturningAdvice {
 	private PasswordSendTaskExecutor passwordSendTaskExecutor;
 

@@ -54,7 +54,7 @@ public class ForgotPasswordController extends AbstractJosSimpleFormController {
 						&& e.getAddress().equals(email.getAddress())) {
 					ok = true;
 					e.setUser(user);
-					this.getJosService().generateSingleUsePassword(user, e);
+					this.getJosService().generateOneTimePassword(user, e);
 					break;
 				}
 			}
