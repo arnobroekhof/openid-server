@@ -57,6 +57,7 @@
 						<value>pt</value>
 						<value>zh_CN</value>
 						<value>zh_HK</value>
+						<value>zh_TW</value>
 					</set>
 				</property>
 				<property name="configuratorPassword"

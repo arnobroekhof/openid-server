@@ -19,5 +19,6 @@
 		<module>jos-i18n-pt</module>
 		<module>jos-i18n-zh_CN</module>
 		<module>jos-i18n-zh_HK</module>
+		<module>jos-i18n-zh_TW</module>
 	</modules>
 </project>
