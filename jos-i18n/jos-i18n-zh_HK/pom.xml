@@ -11,5 +11,5 @@
 	</parent>
 	<artifactId>jos-i18n-zh_HK</artifactId>
 	<packaging>jar</packaging>
-	<name>Java OpenID Server - Internationalization - zh_CN</name>
+	<name>Java OpenID Server - Internationalization - zh_HK</name>
 </project>
