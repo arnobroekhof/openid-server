@@ -49,11 +49,18 @@
 		- <a href="$privacyUrl">#springMessage("title.privacy")</a>
 	#end
 
-	## http://www.miibeian.gov.cn/
+	## Print the beian number and its link.
+	## This is for cn only, see http://www.miibeian.gov.cn/ for details.
 	#if($domain && $domain.configuration.get("beian.number.${springMacroRequestContext.locale}"))
 		#set($beianNumber = $domain.configuration.get("beian.number.${springMacroRequestContext.locale}"))
 	#end
 	#if($beianNumber)
-		- <a href="$domain.configuration.get("beian.url.${springMacroRequestContext.locale}")">$beianNumber</a>
+		## About rel="nofollow":
+		## "Nofollow" provides a way for webmasters to tell search engines
+		## "Don't follow links on this page" or "Don't follow this specific link."
+		## For details please see:
+		## en:		http://www.google.com/support/webmasters/bin/answer.py?hl=en&answer=96569
+		## zh-CN:	http://www.google.com/support/webmasters/bin/answer.py?hl=cn&answer=96569
+		- <a href="$domain.configuration.get("beian.url.${springMacroRequestContext.locale}")" rel="nofollow">$beianNumber</a>
 	#end
 </div>
