@@ -14,9 +14,13 @@
 	<name>Java OpenID Server - Internationalization</name>
 	<modules>
 		<!-- Sort alphabetically  -->
+		<module>jos-i18n-ba</module>
 		<module>jos-i18n-en_US</module>
+		<module>jos-i18n-hr</module>
 		<module>jos-i18n-ja</module>
+<!--		<module>jos-i18n-mk</module> -->
 		<module>jos-i18n-pt</module>
+		<module>jos-i18n-rs</module>
 		<module>jos-i18n-zh_CN</module>
 		<module>jos-i18n-zh_HK</module>
 		<module>jos-i18n-zh_TW</module>
