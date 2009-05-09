@@ -9,9 +9,9 @@
 		<artifactId>jos-i18n</artifactId>
 		<version>1.2-SNAPSHOT</version>
 	</parent>
-	<artifactId>jos-i18n-hr</artifactId>
+	<artifactId>jos-i18n-ba</artifactId>
 	<packaging>jar</packaging>
-	<name>Java OpenID Server - Internationalization - hr</name>
+	<name>Java OpenID Server - Internationalization - ba</name>
 	<developers>
 		<developer>
 			<name>Predrag Stojadinović</name>

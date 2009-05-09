@@ -163,7 +163,17 @@
 		<!-- Internationalization -->
 		<dependency>
 			<groupId>${groupId}</groupId>
+			<artifactId>jos-i18n-ba</artifactId>
+			<version>${version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${groupId}</groupId>
 			<artifactId>jos-i18n-en_US</artifactId>
+			<version>${version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${groupId}</groupId>
+			<artifactId>jos-i18n-hr</artifactId>
 			<version>${version}</version>
 		</dependency>
 		<dependency>
@@ -174,6 +184,11 @@
 		<dependency>
 			<groupId>${groupId}</groupId>
 			<artifactId>jos-i18n-pt</artifactId>
+			<version>${version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${groupId}</groupId>
+			<artifactId>jos-i18n-sr</artifactId>
 			<version>${version}</version>
 		</dependency>
 		<dependency>

@@ -52,9 +52,12 @@
 				<property name="passwordGenerator" ref="passwordGenerator" />
 				<property name="availableLocales">
 					<set>
+						<value>ba</value>
 						<value>en_US</value>
+						<value>hr</value>
 						<value>ja</value>
 						<value>pt</value>
+						<value>sr</value>
 						<value>zh_CN</value>
 						<value>zh_HK</value>
 						<value>zh_TW</value>
