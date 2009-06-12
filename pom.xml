@@ -78,6 +78,10 @@
 				</configuration>
 			</plugin>
 			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>taglist-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-checkstyle-plugin</artifactId>
 				<configuration>
@@ -89,12 +93,31 @@
 				<artifactId>findbugs-maven-plugin</artifactId>
 			</plugin>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<configuration>
+					<sourceEncoding>UTF-8</sourceEncoding>
+					<source>1.5</source>
+					<targetJdk>1.5</targetJdk>
+					<linkXRef>false</linkXRef>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>jdepend-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>javancss-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</reporting>
 	<repositories>
+		<repository>
+			<id>maven.net.cn</id>
+			<name>Maven China Mirror</name>
+			<url>http://maven.net.cn/content/groups/public</url>
+		</repository>
 		<repository>
 			<id>maven2-repository.dev.java.net</id>
 			<name>Java.net Repository for Maven</name>
@@ -106,9 +129,8 @@
 			<url>http://tanesha.net/maven2</url>
 		</repository>
 		<repository>
-			<id>alchim.snapshots</id>
-			<name>Achim Repository Snapshots</name>
-			<url>http://alchim.sf.net/download/snapshots</url>
+			<id>openid4java</id>
+			<url>http://openid4java.googlecode.com/svn/maven-repo/</url>
 			<snapshots />
 		</repository>
 	</repositories>
