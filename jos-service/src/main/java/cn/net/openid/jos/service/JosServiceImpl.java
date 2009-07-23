@@ -573,7 +573,8 @@ public class JosServiceImpl implements JosService {
 		Password ret = null;
 		Collection<Password> passwords = this.getPasswords(user);
 		for (Password password : passwords) {
-			if (password.getMaximumServiceTimes() == 1) {
+			if (password.isUseful()
+					&& password.getMaximumServiceTimes() == Password.ONE_TIME) {
 				ret = password;
 				break;
 			}
