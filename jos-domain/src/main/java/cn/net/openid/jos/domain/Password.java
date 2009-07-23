@@ -11,7 +11,7 @@ import java.util.Date;
  */
 public class Password extends BaseEntity {
 	public static final int INFINITE_SERVICE_TIMES = -1;
-	public static final int SINGLE_USE = 1;
+	public static final int ONE_TIME = 1;
 
 	/**
 	 * 

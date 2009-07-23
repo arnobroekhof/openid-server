@@ -17,7 +17,7 @@ import cn.net.openid.jos.domain.Email;
 import cn.net.openid.jos.domain.Password;
 
 /**
- * Send single-use password to email.
+ * Send one-time password to email.
  * 
  * @author Sutra Zhou
  * 
@@ -67,7 +67,7 @@ public class PasswordSendTaskExecutor {
 			log.debug("Current locale: " + currentLocale);
 			log.debug("Sending mail to: " + this.email.getAddress());
 			ResourceBundle emailConfirmationResources = ResourceBundle
-					.getBundle("single-use-password", currentLocale);
+					.getBundle("one-time-password", currentLocale);
 
 			SimpleMailMessage simpleMessage = new SimpleMailMessage();
 			simpleMessage.setTo(this.email.getAddress());

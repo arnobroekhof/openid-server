@@ -137,11 +137,6 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
-		<repository>
-			<id>openid4java</id>
-			<url>http://openid4java.googlecode.com/svn/maven-repo</url>
-			<snapshots />
-		</repository>
 	</repositories>
 	<dependencyManagement>
 		<dependencies>
@@ -222,7 +217,7 @@
 			<dependency>
 				<groupId>org.openid4java</groupId>
 				<artifactId>openid4java-server</artifactId>
-				<version>0.9.5-SNAPSHOT</version>
+				<version>0.9.5</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>

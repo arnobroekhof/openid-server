@@ -581,7 +581,7 @@ public class JosServiceImpl implements JosService {
 
 		if (ret == null) {
 			ret = new Password(user);
-			ret.setMaximumServiceTimes(Password.SINGLE_USE);
+			ret.setMaximumServiceTimes(Password.ONE_TIME);
 
 			ret.setName(email.getAddress());
 			String passwordPlaintext = new String(this.passwordGenerator
