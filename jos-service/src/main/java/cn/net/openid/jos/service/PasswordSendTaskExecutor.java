@@ -57,10 +57,8 @@ public class PasswordSendTaskExecutor {
 			this.password = password;
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.lang.Runnable#run()
+		/**
+		 * {@inheritDoc}
 		 */
 		public void run() {
 			Locale currentLocale = email.getLocale();

@@ -44,8 +44,8 @@ public class Attribute extends BaseEntity {
 	 * @param values
 	 *            the values
 	 */
-	public Attribute(Persona persona, String alias, String type,
-			List<String> values) {
+	public Attribute(final Persona persona, final String alias,
+			final String type, final List<String> values) {
 		super();
 		this.persona = persona;
 		this.alias = alias;
@@ -65,7 +65,8 @@ public class Attribute extends BaseEntity {
 	 * @param values
 	 *            the values
 	 */
-	public Attribute(Persona persona, String alias, String type, String[] values) {
+	public Attribute(final Persona persona, final String alias,
+			final String type, final String[] values) {
 		this(persona, alias, type, Arrays.asList(values));
 	}
 

@@ -21,13 +21,17 @@ import org.apache.commons.lang.math.NumberUtils;
  * <tr>
  * <td>server base url:</td>
  * <td>
- * <code>http(s)://[&lt;serverHost&gt;.]&lt;your-domain&gt;[:&lt;port&gt;]contextPath/</code>
+ * <code>
+ * http(s)://[&lt;serverHost&gt;.]&lt;your-domain&gt;[:&lt;port&gt;]contextPath/
+ * </code>
  * </td>
  * </tr>
  * <tr>
  * <td>identifier:</td>
  * <td>
- * <code>http(s)://&lt;username&gt;.&lt;your-domain&gt;[:&lt;port&gt;]contextPath/[&lt;memberPath&gt;/]</code>
+ * <code>
+ * http(s)://&lt;username&gt;.&lt;your-domain&gt;[:&lt;port&gt;]contextPath/[&lt;memberPath&gt;/]
+ * </code>
  * </td>
  * </tr>
  * </table>
@@ -134,13 +138,17 @@ import org.apache.commons.lang.math.NumberUtils;
  * <tr>
  * <td>server base url:</td>
  * <td>
- * <code>http(s)://[&lt;serverHost&gt;.]&lt;your-domain&gt;[:&lt;port&gt;]contextPath/</code>
+ * <code>
+ * http(s)://[&lt;serverHost&gt;.]&lt;your-domain&gt;[:&lt;port&gt;]contextPath/
+ * </code>
  * </td>
  * </tr>
  * <tr>
  * <td>identifier:</td>
  * <td>
- * <code>http(s)://&lt;your-domain&gt;[:&lt;port&gt;]contextPath/[&lt;memberPath&gt;/]&lt;username&gt;</code>
+ * <code>
+ * http(s)://&lt;your-domain&gt;[:&lt;port&gt;]contextPath/[&lt;memberPath&gt;/]&lt;username&gt;
+ * </code>
  * </td>
  * </tr>
  * </table>
@@ -251,7 +259,6 @@ import org.apache.commons.lang.math.NumberUtils;
  * </ol>
  * 
  * @author Sutra Zhou
- * 
  */
 public class Domain extends BaseEntity {
 	/**
@@ -259,6 +266,9 @@ public class Domain extends BaseEntity {
 	 */
 	private static final long serialVersionUID = 7341781651134648946L;
 
+	/**
+	 * The prime value for {@code #hashCode()}.
+	 */
 	private static final int PRIME = 31;
 
 	/**
@@ -275,11 +285,30 @@ public class Domain extends BaseEntity {
 	 * your-domain.
 	 */
 	private String name;
+	/**
+	 * Domain type.
+	 */
 	private int type;
+	/**
+	 * The server host of the domain.
+	 */
 	private String serverHost;
+	/**
+	 * Member page path.
+	 */
 	private String memberPath;
-	private UsernameConfiguration usernameConfiguration = new UsernameConfiguration();
+	/**
+	 * Username configuration.
+	 */
+	private UsernameConfiguration usernameConfiguration =
+		new UsernameConfiguration();
+	/**
+	 * Extended configuration.
+	 */
 	private Map<String, String> configuration;
+	/**
+	 * Domain runtime inforation.
+	 */
 	private transient DomainRuntime runtime = new DomainRuntime();
 
 	/**
@@ -293,7 +322,7 @@ public class Domain extends BaseEntity {
 	 * @param name
 	 *            the name to set
 	 */
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
@@ -308,7 +337,7 @@ public class Domain extends BaseEntity {
 	 * @param type
 	 *            the type to set
 	 */
-	public void setType(int type) {
+	public void setType(final int type) {
 		this.type = type;
 	}
 
@@ -323,7 +352,7 @@ public class Domain extends BaseEntity {
 	 * @param serverHost
 	 *            the serverHost to set
 	 */
-	public void setServerHost(String serverHost) {
+	public void setServerHost(final String serverHost) {
 		this.serverHost = serverHost;
 	}
 
@@ -338,7 +367,7 @@ public class Domain extends BaseEntity {
 	 * @param memberPath
 	 *            the memberPath to set
 	 */
-	public void setMemberPath(String memberPath) {
+	public void setMemberPath(final String memberPath) {
 		this.memberPath = memberPath;
 	}
 
@@ -354,7 +383,7 @@ public class Domain extends BaseEntity {
 	 *            the usernameConfiguration to set
 	 */
 	public void setUsernameConfiguration(
-			UsernameConfiguration usernameConfiguration) {
+			final UsernameConfiguration usernameConfiguration) {
 		this.usernameConfiguration = usernameConfiguration;
 		usernameConfiguration.setDomain(this);
 	}
@@ -370,7 +399,7 @@ public class Domain extends BaseEntity {
 	 * @param configuration
 	 *            the configuration to set
 	 */
-	public void setConfiguration(Map<String, String> configuration) {
+	public void setConfiguration(final Map<String, String> configuration) {
 		this.configuration = configuration;
 	}
 
@@ -385,7 +414,7 @@ public class Domain extends BaseEntity {
 	 * @param runtime
 	 *            the runtime to set
 	 */
-	public void setRuntime(DomainRuntime runtime) {
+	public void setRuntime(final DomainRuntime runtime) {
 		this.runtime = runtime;
 	}
 
@@ -437,19 +466,31 @@ public class Domain extends BaseEntity {
 		return sb.toString();
 	}
 
-	public boolean getBooleanAttribute(String attributeName) {
+	/**
+	 * Get boolean value of an extended attribute.
+	 * 
+	 * @param attributeName
+	 *            the attribute name
+	 * @return boolean value of the attribute
+	 */
+	public boolean getBooleanAttribute(final String attributeName) {
 		String attributeValue = this.getConfiguration().get(attributeName);
 		return Boolean.parseBoolean(attributeValue);
 	}
 
-	public int getIntAttribute(String attributeName) {
+	/**
+	 * Get int value of an extended attribute.
+	 * 
+	 * @param attributeName
+	 *            the attribute name
+	 * @return int value of the attribute
+	 */
+	public int getIntAttribute(final String attributeName) {
 		return NumberUtils.toInt(this.getConfiguration().get(attributeName));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public int hashCode() {
@@ -459,32 +500,33 @@ public class Domain extends BaseEntity {
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
+	public boolean equals(final Object obj) {
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (!(obj instanceof Domain))
+		}
+		if (!(obj instanceof Domain)) {
 			return false;
+		}
 		Domain other = (Domain) obj;
 		if (getName() == null) {
-			if (other.getName() != null)
+			if (other.getName() != null) {
 				return false;
-		} else if (!getName().equals(other.getName()))
+			}
+		} else if (!getName().equals(other.getName())) {
 			return false;
+		}
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public String toString() {
@@ -495,9 +537,11 @@ public class Domain extends BaseEntity {
 	 * Append the port, if the port is not the default port.
 	 * 
 	 * @param sb
+	 *            the {@code StringBuilder} to appended to
 	 * @param serverBaseUrl
+	 *            the base url of the server
 	 */
-	private void appendPort(StringBuilder sb, URL serverBaseUrl) {
+	private void appendPort(final StringBuilder sb, final URL serverBaseUrl) {
 		int port = serverBaseUrl.getPort();
 		if (port != -1 && port != serverBaseUrl.getDefaultPort()) {
 			sb.append(':').append(port);
@@ -508,8 +552,9 @@ public class Domain extends BaseEntity {
 	 * Append member path if the memberPath is not empty.
 	 * 
 	 * @param sb
+	 *            the {@code StringBuilder} to appended to
 	 */
-	private void appendMemberPath(StringBuilder sb) {
+	private void appendMemberPath(final StringBuilder sb) {
 		if (!StringUtils.isEmpty(this.getMemberPath())) {
 			sb.append(this.getMemberPath()).append('/');
 		}

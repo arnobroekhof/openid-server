@@ -18,6 +18,9 @@ public abstract class BaseEntity extends IdentifiableBase implements
 	 */
 	private static final long serialVersionUID = 2802905382443023069L;
 
+	/**
+	 * The creation date of this entity.
+	 */
 	private Date creationDate = new Date();
 
 	/**
@@ -31,7 +34,7 @@ public abstract class BaseEntity extends IdentifiableBase implements
 	 * @param creationDate
 	 *            the creationDate to set
 	 */
-	public void setCreationDate(Date creationDate) {
+	public void setCreationDate(final Date creationDate) {
 		this.creationDate = cloneDate(creationDate);
 	}
 
@@ -42,7 +45,7 @@ public abstract class BaseEntity extends IdentifiableBase implements
 	 *            the date to clone
 	 * @return null if the <code>date</code> is null, otherwise the cloned date.
 	 */
-	protected static final Date cloneDate(Date date) {
+	protected static final Date cloneDate(final Date date) {
 		if (date == null) {
 			return null;
 		} else {
