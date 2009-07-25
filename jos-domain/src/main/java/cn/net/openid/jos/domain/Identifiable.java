@@ -15,13 +15,14 @@ public interface Identifiable {
 	 * Set the identity of this entity.
 	 * 
 	 * @param id
+	 *            the id to set
 	 */
 	void setId(String id);
 
 	/**
 	 * Return the identity of this entity.
 	 * 
-	 * @return
+	 * @return the id
 	 */
 	String getId();
 }

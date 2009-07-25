@@ -15,13 +15,35 @@ public class Email extends BaseEntity {
 	 */
 	private static final long serialVersionUID = 6706127085088356027L;
 
+	/**
+	 * The prime value for {@code #hashCode()}.
+	 */
 	private static final int PRIME = 31;
 
+	/**
+	 * The owner of the email.
+	 */
 	private User user = new User();
+	/**
+	 * Email address.
+	 */
 	private String address;
+	/**
+	 * The locale of messages that the email owner prefer to received via this
+	 * email address.
+	 */
 	private Locale locale = Locale.getDefault();
+	/**
+	 * Is this the primary email address of the owner?
+	 */
 	private boolean primary;
+	/**
+	 * Is this email address confirmed by owner via email.
+	 */
 	private boolean confirmed;
+	/**
+	 * Email address confirmation information.
+	 */
 	private EmailConfirmationInfo emailConfirmationInfo;
 
 	/**
@@ -33,9 +55,9 @@ public class Email extends BaseEntity {
 
 	/**
 	 * @param user
-	 *            要设置的 user
+	 *            the user to set
 	 */
-	public void setUser(User user) {
+	public void setUser(final User user) {
 		this.user = user;
 	}
 
@@ -48,10 +70,10 @@ public class Email extends BaseEntity {
 
 	/**
 	 * @param address
-	 *            要设置的 address
+	 *            the address to set
 	 */
-	public void setAddress(String emailAddress) {
-		this.address = emailAddress;
+	public void setAddress(final String address) {
+		this.address = address;
 	}
 
 	/**
@@ -65,7 +87,7 @@ public class Email extends BaseEntity {
 	 * @param locale
 	 *            the locale to set
 	 */
-	public void setLocale(Locale locale) {
+	public void setLocale(final Locale locale) {
 		this.locale = locale;
 	}
 
@@ -78,9 +100,9 @@ public class Email extends BaseEntity {
 
 	/**
 	 * @param confirmed
-	 *            要设置的 confirmed
+	 *            the confirmed to set
 	 */
-	public void setConfirmed(boolean confirmed) {
+	public void setConfirmed(final boolean confirmed) {
 		this.confirmed = confirmed;
 	}
 
@@ -93,9 +115,9 @@ public class Email extends BaseEntity {
 
 	/**
 	 * @param primary
-	 *            要设置的 primary
+	 *            the primary to set
 	 */
-	public void setPrimary(boolean primary) {
+	public void setPrimary(final boolean primary) {
 		this.primary = primary;
 	}
 
@@ -111,14 +133,12 @@ public class Email extends BaseEntity {
 	 *            the emailConfirmationInfo to set
 	 */
 	public void setEmailConfirmationInfo(
-			EmailConfirmationInfo emailConfirmationInfo) {
+			final EmailConfirmationInfo emailConfirmationInfo) {
 		this.emailConfirmationInfo = emailConfirmationInfo;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public int hashCode() {
@@ -127,25 +147,28 @@ public class Email extends BaseEntity {
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
+	public boolean equals(final Object obj) {
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (!(obj instanceof Email))
+		}
+		if (!(obj instanceof Email)) {
 			return false;
+		}
 		final Email other = (Email) obj;
 		if (getId() == null) {
-			if (other.getId() != null)
+			if (other.getId() != null) {
 				return false;
-		} else if (!getId().equals(other.getId()))
+			}
+		} else if (!getId().equals(other.getId())) {
 			return false;
+		}
 		return true;
 	}
 

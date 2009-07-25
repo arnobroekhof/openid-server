@@ -10,11 +10,21 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * @author Sutra Zhou
- * 
  */
 public class DomainRuntime {
-	public static URL buildServerBaseUrl(Domain domain, URL requestUrl,
-			String requestContextPath) {
+	/**
+	 * Build server base URL.
+	 * 
+	 * @param domain
+	 *            the domain
+	 * @param requestUrl
+	 *            the HTTP request URL
+	 * @param requestContextPath
+	 *            the HTTP request context path
+	 * @return the base URL of the server
+	 */
+	public static URL buildServerBaseUrl(final Domain domain,
+			final URL requestUrl, final String requestContextPath) {
 		StringBuilder sb = new StringBuilder();
 		if (!StringUtils.isEmpty(domain.getServerHost())) {
 			sb.append(domain.getServerHost()).append('.');
@@ -29,7 +39,13 @@ public class DomainRuntime {
 		}
 	}
 
+	/**
+	 * Server base URL.
+	 */
 	private URL serverBaseUrl;
+	/**
+	 * OpenID Server URL.
+	 */
 	private URL openidServerUrl;
 
 	/**
@@ -43,7 +59,7 @@ public class DomainRuntime {
 	 * @param serverBaseUrl
 	 *            the serverBaseUrl to set
 	 */
-	public void setServerBaseUrl(URL serverBaseUrl) {
+	public void setServerBaseUrl(final URL serverBaseUrl) {
 		this.serverBaseUrl = serverBaseUrl;
 	}
 
@@ -58,7 +74,7 @@ public class DomainRuntime {
 	 * @param openidServerUrl
 	 *            the openidServerUrl to set
 	 */
-	public void setOpenidServerUrl(URL openidServerUrl) {
+	public void setOpenidServerUrl(final URL openidServerUrl) {
 		this.openidServerUrl = openidServerUrl;
 	}
 

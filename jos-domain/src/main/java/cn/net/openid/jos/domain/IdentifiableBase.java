@@ -8,23 +8,22 @@ package cn.net.openid.jos.domain;
  * 
  */
 public abstract class IdentifiableBase implements Identifiable {
+	/**
+	 * The ID.
+	 */
 	private String id;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see cn.net.openid.jos.Identifiable#getId()
+	/**
+	 * {@inheritDoc}
 	 */
 	public String getId() {
 		return id;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see cn.net.openid.jos.Identifiable#setId(java.lang.String)
+	/**
+	 * {@inheritDoc}
 	 */
-	public void setId(String id) {
+	public void setId(final String id) {
 		this.id = id;
 	}
 
