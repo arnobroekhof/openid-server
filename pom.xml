@@ -326,4 +326,20 @@
 		<developerConnection>scm:svn:https://openid-server.googlecode.com/svn/trunk</developerConnection>
 		<url>http://code.google.com/p/openid-server/source/browse/</url>
 	</scm>
+	<distributionManagement>
+		<repository>
+			<id>jos-releases</id>
+			<name>Java OpenID Server Repository</name>
+			<url>
+				http://maven.net.cn/content/repositories/jos/
+			</url>
+		</repository>
+		<snapshotRepository>
+			<id>jos-snapshots</id>
+			<name>Java OpenID Server Snapshot Repository</name>
+			<url>
+				http://maven.net.cn/content/repositories/jos-snapshots
+			</url>
+		</snapshotRepository>
+	</distributionManagement>
 </project>
