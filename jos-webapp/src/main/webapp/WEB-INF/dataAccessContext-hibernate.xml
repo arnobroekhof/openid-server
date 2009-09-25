@@ -4,26 +4,50 @@
 	<bean id="hibernateProperties"
 		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
 		<property name="properties">
-			<props>
-				<prop key="hibernate.dialect">
-					${hibernate.dialect}
-				</prop>
-				<prop key="hibernate.show_sql">
-					${hibernate.show_sql}
-				</prop>
-				<prop key="hibernate.hbm2ddl.auto">
-					${hibernate.hbm2ddl.auto}
-				</prop>
-				<prop key="jdbc.fetch_size">50</prop>
-				<prop key="jdbc.batch_size">25</prop>
-				<prop key="hibernate.cache.use_query_cache">true</prop>
-				<prop key="hibernate.cache.provider_class">
-					org.hibernate.cache.EhCacheProvider
-				</prop>
-				<prop key="hibernate.query.substitutions">
-					true 1,false 0
-				</prop>
-			</props>
+			<map>
+				<entry key="hibernate.dialect">
+					<bean class="org.springframework.jndi.JndiObjectFactoryBean">
+						<property name="jndiName">
+							<value>java:comp/env/hibernate.dialect</value>
+						</property>
+					</bean>
+				</entry> 
+				<entry key="hibernate.hbm2ddl.auto">
+					<bean class="org.springframework.jndi.JndiObjectFactoryBean">
+						<property name="jndiName">
+							<value>java:comp/env/hibernate.hbm2ddl.auto</value>
+						</property>
+					</bean>
+				</entry>
+				<entry key="hibernate.show_sql">
+					<bean class="org.springframework.jndi.JndiObjectFactoryBean">
+						<property name="jndiName">
+							<value>java:comp/env/hibernate.show_sql</value>
+						</property>
+					</bean>
+				</entry>
+				<entry key="jdbc.fetch_size">
+					<bean class="org.springframework.jndi.JndiObjectFactoryBean">
+						<property name="jndiName">
+							<value>java:comp/env/jdbc.fetch_size</value>
+						</property>
+					</bean>
+				</entry>
+				<entry key="jdbc.batch_size">
+					<bean class="org.springframework.jndi.JndiObjectFactoryBean">
+						<property name="jndiName">
+							<value>java:comp/env/jdbc.batch_size</value>
+						</property>
+					</bean>
+				</entry>
+				<entry key="hibernate.cache.use_query_cache"><value>true</value></entry>
+				<entry key="hibernate.cache.provider_class">
+					<value>org.hibernate.cache.EhCacheProvider</value>
+				</entry>
+				<entry key="hibernate.query.substitutions">
+					<value>true 1,false 0</value>
+				</entry>
+			</map>
 		</property>
 	</bean>
 	<bean id="sessionFactory"

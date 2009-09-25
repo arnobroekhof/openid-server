@@ -272,4 +272,49 @@
 		<res-type>javax.mail.Session</res-type>
 		<res-auth>Container</res-auth>
 	</resource-ref>
+
+
+	<!-- ================ HIBERNATE SETTINGS ================ -->
+
+	<resource-env-ref>
+		<resource-env-ref-name>hibernate.dialect</resource-env-ref-name>
+		<resource-env-ref-type>java.lang.String</resource-env-ref-type>
+	</resource-env-ref>
+
+	<env-entry>
+		<env-entry-name>hibernate.hbm2ddl.auto</env-entry-name>
+		<env-entry-type>java.lang.String</env-entry-type>
+		<env-entry-value>false</env-entry-value>
+	</env-entry>
+	<env-entry>
+		<env-entry-name>hibernate.show_sql</env-entry-name>
+		<env-entry-type>java.lang.String</env-entry-type>
+		<env-entry-value>false</env-entry-value>
+	</env-entry>
+	<env-entry>
+		<env-entry-name>jdbc.fetch_size</env-entry-name>
+		<env-entry-type>java.lang.String</env-entry-type>
+		<env-entry-value>50</env-entry-value>
+	</env-entry>
+	<env-entry>
+		<env-entry-name>jdbc.batch_size</env-entry-name>
+		<env-entry-type>java.lang.String</env-entry-type>
+		<env-entry-value>25</env-entry-value>
+	</env-entry>
+
+
+	<env-entry>
+		<description>
+			The password for domain configurator. Keep value "BLANK" then no
+			body can login.
+		</description>
+		<env-entry-name>domain.configurator.password</env-entry-name>
+		<env-entry-type>java.lang.String</env-entry-type>
+		<env-entry-value>BLANK</env-entry-value>
+	</env-entry>
+	<env-entry>
+		<env-entry-name>email.address.pattern</env-entry-name>
+		<env-entry-type>java.lang.String</env-entry-type>
+		<env-entry-value><![CDATA[\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*]]></env-entry-value>
+	</env-entry>
 </web-app>

@@ -36,4 +36,46 @@
 			</New>
 		</Arg>
 	</New>
+
+	<!-- ================ HIBERNATE SETTINGS ================ -->
+	<New class="org.mortbay.jetty.plus.naming.EnvEntry">
+		<Arg>hibernate.dialect</Arg>
+		<Arg type="java.lang.String">org.hibernate.dialect.PostgreSQLDialect</Arg>
+	</New>
+	<New class="org.mortbay.jetty.plus.naming.EnvEntry">
+		<Arg>hibernate.hbm2ddl.auto</Arg>
+		<Arg type="java.lang.String">true</Arg>
+		<Arg type="boolean">true</Arg>
+	</New>
+	<New class="org.mortbay.jetty.plus.naming.EnvEntry">
+		<Arg>hibernate.show_sql</Arg>
+		<Arg type="java.lang.String">false</Arg>
+		<Arg type="boolean">true</Arg>
+	</New>
+	<New class="org.mortbay.jetty.plus.naming.EnvEntry">
+		<Arg>jdbc.fetch_size</Arg>
+		<Arg type="java.lang.String">50</Arg>
+		<Arg type="boolean">true</Arg>
+	</New>
+	<New class="org.mortbay.jetty.plus.naming.EnvEntry">
+		<Arg>jdbc.batch_size</Arg>
+		<Arg type="java.lang.String">25</Arg>
+		<Arg type="boolean">true</Arg>
+	</New>
+
+	<!-- 
+		The password for domain configurator. Keep value "BLANK" then no
+		body can login.
+	-->
+	<New class="org.mortbay.jetty.plus.naming.EnvEntry">
+		<Arg>domain.configurator.password</Arg>
+		<Arg type="java.lang.String">BLANK</Arg>
+		<Arg type="boolean">true</Arg>
+	</New>
+
+	<New class="org.mortbay.jetty.plus.naming.EnvEntry">
+		<Arg>email.address.pattern</Arg>
+		<Arg type="java.lang.String">aaa</Arg>
+		<Arg type="boolean">true</Arg>
+	</New>
 </Configure>

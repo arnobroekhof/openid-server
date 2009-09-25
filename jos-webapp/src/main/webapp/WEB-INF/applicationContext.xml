@@ -5,7 +5,6 @@
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
-				<value>WEB-INF/config/jdbc.properties</value>
 				<value>WEB-INF/config/jos.xml</value>
 			</list>
 		</property>
@@ -63,8 +62,13 @@
 						<value>zh_TW</value>
 					</set>
 				</property>
-				<property name="configuratorPassword"
-					value="${domain.configurator.password}" />
+				<property name="configuratorPassword">
+					<bean class="org.springframework.jndi.JndiObjectFactoryBean">
+						<property name="jndiName">
+							<value>java:comp/env/domain.configurator.password</value>
+						</property>
+					</bean>
+				</property>
 			</bean>
 		</property>
 		<property name="postInterceptors">
@@ -140,13 +144,23 @@
 
 	<!-- ================ VALIDATOR DEFINITIONS ================ -->
 
+	<bean id="email.address.pattern" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName">
+			<value>java:comp/env/email.address.pattern</value>
+		</property>
+	</bean>
+
 	<bean id="personaValidator"
 		class="cn.net.openid.jos.web.validation.PersonaValidator">
-		<property name="emailAddressPattern" value="${email.address.pattern}" />
+		<property name="emailAddressPattern">
+			<ref local="email.address.pattern" />
+		</property>
 	</bean>
 	<bean id="emailValidator"
 		class="cn.net.openid.jos.web.validation.EmailValidator">
-		<property name="emailAddressPattern" value="${email.address.pattern}" />
+		<property name="emailAddressPattern">
+			<ref local="email.address.pattern" />
+		</property>
 	</bean>
 	<bean id="registerFormValidator"
 		class="cn.net.openid.jos.web.validation.RegisterFormValidator">

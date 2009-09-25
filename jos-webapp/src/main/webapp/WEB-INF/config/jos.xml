@@ -6,15 +6,7 @@
 	<entry key="system.reserved.word.pattern">
 		<![CDATA[robots\.txt|resources|server|captcha|approving|index|home|register|login|logout|email|email-remove|email-confirm|email-set-primary|passwords|password|forgot-password|personas|persona|sites|attributs|edit-attribute|remove-attribute|attribute-value|hl|domain-configurator|domain-configurator-login]]>
 	</entry>
-	<entry key="email.address.pattern">
-		<![CDATA[\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*]]>
-	</entry>
 	<entry key="domain.filter.skip.pattern">
 		<![CDATA[^/(robots\.txt|.*\.(css|js|ico|png|gif)|domain-configurator|domain-configurator-login|hl)(;jsessionid=.*)?$]]>
 	</entry>
-	<!--
-		The password for domain configurator. Keep blank that no body can
-		login.
-	-->
-	<entry key="domain.configurator.password">CHANGE ME</entry>
 </properties>
