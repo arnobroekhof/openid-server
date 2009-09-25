@@ -1,19 +1,8 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
 		  "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 <beans>
-	<bean id="innerDataSource" class="org.enhydra.jdbc.standard.StandardXADataSource"
-		destroy-method="shutdown">
-		<property name="transactionManager" ref="jotm" />
-		<property name="driverName" value="${jdbc.driverClassName}" />
-		<property name="url" value="${jdbc.url}" />
-		<property name="user" value="${jdbc.username}" />
-		<property name="password" value="${jdbc.password}" />
-	</bean>
-	<bean id="dataSource" class="org.enhydra.jdbc.pool.StandardXAPoolDataSource"
-		destroy-method="shutdown">
-		<property name="dataSource" ref="innerDataSource" />
-		<property name="user" value="${jdbc.username}" />
-		<property name="password" value="${jdbc.password}" />
-		<property name="maxSize" value="10" />
+	<bean id="dataSource"
+		class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:comp/env/jdbc/jos" />
 	</bean>
 </beans>

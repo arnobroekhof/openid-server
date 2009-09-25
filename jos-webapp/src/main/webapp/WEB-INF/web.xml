@@ -258,4 +258,18 @@
 		<error-code>404</error-code>
 		<location>/WEB-INF/view/jsp/404.jsp</location>
 	</error-page>
+
+
+	<!-- ================ RESOURCE REFERENCE DEFINTIONS ================ -->
+
+	<resource-ref>
+		<res-ref-name>jdbc/jos</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+	</resource-ref>
+	<resource-ref>
+		<res-ref-name>mail/Session</res-ref-name>
+		<res-type>javax.mail.Session</res-type>
+		<res-auth>Container</res-auth>
+	</resource-ref>
 </web-app>
