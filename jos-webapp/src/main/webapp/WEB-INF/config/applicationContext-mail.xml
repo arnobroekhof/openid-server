@@ -3,10 +3,14 @@
 <beans>
 	<bean id="mailSession"
 		class="org.springframework.jndi.JndiObjectFactoryBean">
-		<property name="jndiName" value="java:comp/env/mail/Session" />
+		<property name="jndiName">
+			<value>java:comp/env/mail/Session</value>
+		</property>
 	</bean>
 	<bean id="mailSender"
 		class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<property name="session" ref="mailSession" />
+		<property name="session">
+			<ref local="mailSession"/>
+		</property>
 	</bean>
 </beans>
