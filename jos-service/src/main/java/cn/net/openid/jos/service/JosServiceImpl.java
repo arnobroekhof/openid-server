@@ -89,8 +89,13 @@ public class JosServiceImpl implements JosService {
 	 *            the configuratorPassword to set
 	 */
 	public void setConfiguratorPassword(String configuratorPassword) {
-		this.configuratorPassword = StringUtils
+		String s = StringUtils
 				.trimToNull(configuratorPassword);
+		if ("BLANK".equals(s) || StringUtils.isBlank(s)) {
+			this.configuratorPassword = null;
+		} else {
+			this.configuratorPassword = s;
+		}
 	}
 
 	/**
