@@ -490,7 +490,7 @@ public class JosServiceImpl implements JosService {
 		boolean foundPassword = false;
 		String passwordShaHex = DigestUtils.shaHex(passwordPlaintext);
 		for (Password password : passwords) {
-			if (password.isUseful()
+			if (password.isUsable()
 					&& password.getShaHex().equalsIgnoreCase(passwordShaHex)) {
 				foundPassword = true;
 				password.setUsedTimes(password.getUsedTimes() + 1);
@@ -571,7 +571,7 @@ public class JosServiceImpl implements JosService {
 		Password ret = null;
 		Collection<Password> passwords = this.getPasswords(user);
 		for (Password password : passwords) {
-			if (password.isUseful()
+			if (password.isUsable()
 					&& password.getMaximumServiceTimes() == Password.ONE_TIME) {
 				ret = password;
 				break;

@@ -16,33 +16,58 @@ public class EmailConfirmationInfo extends BaseEntity {
 	 */
 	private static final long serialVersionUID = -1421672591504003924L;
 
+	/**
+	 * The prime value for hash code calculating.
+	 */
 	private static final int PRIME = 31;
 
+	/**
+	 * The email of the confirmation info.
+	 */
 	private Email email = new Email();
+	/**
+	 * The confirmation code.
+	 */
 	private String confirmationCode;
+	/**
+	 * Is the confirmation info has sent to the email.
+	 */
 	private boolean sent;
+	/**
+	 * The confirmation info sending date.
+	 */
 	private Date sentDate;
+	/**
+	 * Is the confirmation info has been confirmed.
+	 */
 	private boolean confirmed;
+	/**
+	 * Confirm date.
+	 */
 	private Date confirmedDate;
 
 	/**
-	 * 
+	 * Construct a default email confirmation info.
 	 */
 	public EmailConfirmationInfo() {
 	}
 
 	/**
 	 * @param email
+	 *            the email
 	 */
-	public EmailConfirmationInfo(Email email) {
+	public EmailConfirmationInfo(final Email email) {
 		this.email = email;
 	}
 
 	/**
 	 * @param email
+	 *            the email
 	 * @param confirmationCode
+	 *            the email confirmation info
 	 */
-	public EmailConfirmationInfo(Email email, String confirmationCode) {
+	public EmailConfirmationInfo(final Email email,
+			final String confirmationCode) {
 		this.email = email;
 		this.confirmationCode = confirmationCode;
 	}
@@ -58,7 +83,7 @@ public class EmailConfirmationInfo extends BaseEntity {
 	 * @param email
 	 *            the email to set
 	 */
-	public void setEmail(Email email) {
+	public void setEmail(final Email email) {
 		this.email = email;
 	}
 
@@ -73,7 +98,7 @@ public class EmailConfirmationInfo extends BaseEntity {
 	 * @param confirmationCode
 	 *            the confirmationCode to set
 	 */
-	public void setConfirmationCode(String confirmationCode) {
+	public void setConfirmationCode(final String confirmationCode) {
 		this.confirmationCode = confirmationCode;
 	}
 
@@ -88,7 +113,7 @@ public class EmailConfirmationInfo extends BaseEntity {
 	 * @param sent
 	 *            the sent to set
 	 */
-	public void setSent(boolean sent) {
+	public void setSent(final boolean sent) {
 		this.sent = sent;
 	}
 
@@ -103,7 +128,7 @@ public class EmailConfirmationInfo extends BaseEntity {
 	 * @param sentDate
 	 *            the sentDate to set
 	 */
-	public void setSentDate(Date sentDate) {
+	public void setSentDate(final Date sentDate) {
 		this.sentDate = cloneDate(sentDate);
 	}
 
@@ -125,7 +150,7 @@ public class EmailConfirmationInfo extends BaseEntity {
 	 * @param confirmedDate
 	 *            the confirmedDate to set
 	 */
-	public void setConfirmedDate(Date confirmedDate) {
+	public void setConfirmedDate(final Date confirmedDate) {
 		this.confirmedDate = cloneDate(confirmedDate);
 	}
 
@@ -133,14 +158,12 @@ public class EmailConfirmationInfo extends BaseEntity {
 	 * @param confirmed
 	 *            the confirmed to set
 	 */
-	public void setConfirmed(boolean confirmed) {
+	public void setConfirmed(final boolean confirmed) {
 		this.confirmed = confirmed;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public int hashCode() {
@@ -149,19 +172,20 @@ public class EmailConfirmationInfo extends BaseEntity {
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (!(obj instanceof EmailConfirmationInfo))
+		}
+		if (!(obj instanceof EmailConfirmationInfo)) {
 			return false;
+		}
 		final EmailConfirmationInfo other = (EmailConfirmationInfo) obj;
 		if (getId() == null) {
 			if (other.getId() != null)

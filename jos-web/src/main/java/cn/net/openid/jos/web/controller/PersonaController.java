@@ -108,7 +108,7 @@ public class PersonaController extends AbstractJosSimpleFormController {
 			Object command, BindException errors) throws Exception {
 		Persona persona = (Persona) command;
 
-		persona.clearAttribute();
+		persona.clearAttributes();
 		addAttributes(persona, request);
 
 		if (log.isDebugEnabled()) {

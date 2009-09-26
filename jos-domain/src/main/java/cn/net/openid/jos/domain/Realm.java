@@ -6,7 +6,6 @@ package cn.net.openid.jos.domain;
 
 /**
  * @author Sutra Zhou
- * 
  */
 public class Realm extends BaseEntity {
 	/**
@@ -14,11 +13,19 @@ public class Realm extends BaseEntity {
 	 */
 	private static final long serialVersionUID = -2093184402739527161L;
 
+	/**
+	 * The prime value for hash code calculating.
+	 */
 	private static final int PRIME = 31;
 
+	/**
+	 * The url of the realm.
+	 */
 	private String url;
 
 	/**
+	 * Get the url.
+	 * 
 	 * @return the url
 	 */
 	public String getUrl() {
@@ -26,6 +33,8 @@ public class Realm extends BaseEntity {
 	}
 
 	/**
+	 * Set the url.
+	 * 
 	 * @param url
 	 *            the url to set
 	 */
@@ -33,10 +42,8 @@ public class Realm extends BaseEntity {
 		this.url = url;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public int hashCode() {
@@ -45,25 +52,28 @@ public class Realm extends BaseEntity {
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (!(obj instanceof Realm))
+		}
+		if (!(obj instanceof Realm)) {
 			return false;
+		}
 		final Realm other = (Realm) obj;
 		if (getUrl() == null) {
-			if (other.getUrl() != null)
+			if (other.getUrl() != null) {
 				return false;
-		} else if (!getUrl().equals(other.getUrl()))
+			}
+		} else if (!getUrl().equals(other.getUrl())) {
 			return false;
+		}
 		return true;
 	}
 

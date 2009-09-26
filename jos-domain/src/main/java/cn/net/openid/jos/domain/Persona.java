@@ -19,9 +19,19 @@ public class Persona extends BaseEntity {
 	 */
 	private static final long serialVersionUID = 1223541515197309353L;
 
+	/**
+	 * The prime value for hash code calculating.
+	 */
 	private static final int PRIME = 31;
 
+	/**
+	 * The owner of the persona.
+	 */
 	private User user = new User();
+
+	/**
+	 * The display name
+	 */
 	private String name;
 
 	/**
@@ -29,6 +39,9 @@ public class Persona extends BaseEntity {
 	 */
 	private String nickname;
 
+	/**
+	 * The email address.
+	 */
 	private String email;
 
 	/**
@@ -59,22 +72,22 @@ public class Persona extends BaseEntity {
 	private String postcode;
 
 	/**
-	 * The End User's country of residence as specified by <a
-	 * href="http://www.iso.org/iso/en/prods-services/iso3166ma/index.html"
-	 * >ISO3166</a>.
+	 * The End User's country of residence as specified by
+	 * <a href="http://www.iso.org/iso/en/prods-services/iso3166ma/index.html">
+	 * ISO3166</a>.
 	 */
 	private String country;
 
 	/**
-	 * End User's preferred language as specified by <a
-	 * href="http://www.w3.org/WAI/ER/IG/ert/iso639.htm">ISO639</a>.
+	 * End User's preferred language as specified by
+	 * <a href="http://www.w3.org/WAI/ER/IG/ert/iso639.htm">ISO639</a>.
 	 */
 	private String language;
 
 	/**
-	 * ASCII string from <aprivate Map<String, Attribute> attributes;
-	 * href="http://www.twinsun.com/tz/tz-link.htm">TimeZone database</a> For
-	 * example, "Europe/Paris" or "America/Los_Angeles".
+	 * ASCII string from
+	 * <a href="http://www.twinsun.com/tz/tz-link.htm">TimeZone database</a>.
+	 * For example, "Europe/Paris" or "America/Los_Angeles".
 	 */
 	private String timezone;
 
@@ -88,188 +101,233 @@ public class Persona extends BaseEntity {
 	private Set<Attribute> attributes = new HashSet<Attribute>();
 
 	/**
-	 * 
+	 * Construct a default persona.
 	 */
 	public Persona() {
 	}
 
 	/**
+	 * Construct a persona for the user.
+	 * 
 	 * @param user
+	 *            the owner of the persona
 	 */
 	public Persona(User user) {
 		this.user = user;
 	}
 
 	/**
-	 * @return user
+	 * Get the user.
+	 * 
+	 * @return user the owner
 	 */
 	public User getUser() {
 		return user;
 	}
 
 	/**
+	 * Set the owner.
+	 * 
 	 * @param user
-	 *            要设置的 user
+	 *            the owner to set
 	 */
 	public void setUser(User user) {
 		this.user = user;
 	}
 
 	/**
-	 * @return country
+	 * Get the country.
+	 * 
+	 * @return country the country
 	 */
 	public String getCountry() {
 		return country;
 	}
 
 	/**
+	 * Set the country.
+	 * 
 	 * @param country
-	 *            要设置的 country
+	 *            the country to set
 	 */
 	public void setCountry(String country) {
 		this.country = country;
 	}
 
 	/**
-	 * @return dob
+	 * Set the date of birth.
+	 * 
+	 * @return dob the date of birth
 	 */
 	public String getDob() {
 		return dob;
 	}
 
 	/**
+	 * Set the date of birth.
+	 * 
 	 * @param dob
-	 *            要设置的 dob
+	 *            the date of birth to set
 	 */
 	public void setDob(String dob) {
 		this.dob = dob;
 	}
 
-	/*
-	 * public void setDob(Date date) { this.dob = DOB_FORMAT.format(date); }
-	 */
-
 	/**
-	 * @return email
+	 * Get the email address.
+	 * 
+	 * @return email the email address
 	 */
 	public String getEmail() {
 		return email;
 	}
 
 	/**
+	 * Set the email address.
+	 * 
 	 * @param email
-	 *            要设置的 email
+	 *            the email address to set
 	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
 	/**
-	 * @return fullname
+	 * Get the full name.
+	 * 
+	 * @return fullname the full name
 	 */
 	public String getFullname() {
 		return fullname;
 	}
 
 	/**
+	 * Set the full name.
+	 * 
 	 * @param fullname
-	 *            要设置的 fullname
+	 *            the full name to set
 	 */
 	public void setFullname(String fullname) {
 		this.fullname = fullname;
 	}
 
 	/**
-	 * @return gender
+	 * Get the gender.
+	 * 
+	 * @return gender the gender
 	 */
 	public String getGender() {
 		return gender;
 	}
 
 	/**
+	 * Set the gender.
+	 * 
 	 * @param gender
-	 *            要设置的 gender
+	 *            the gender to set
 	 */
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
 
 	/**
-	 * @return language
+	 * Get the language.
+	 * 
+	 * @return language the language
 	 */
 	public String getLanguage() {
 		return language;
 	}
 
 	/**
+	 * Set the preferred language.
+	 * 
 	 * @param language
-	 *            要设置的 language
+	 *            the preferred language to set
 	 */
 	public void setLanguage(String language) {
 		this.language = language;
 	}
 
 	/**
-	 * @return name
+	 * Get the display name of the persona.
+	 * 
+	 * @return name the display name of the persona
 	 */
 	public String getName() {
 		return name;
 	}
 
 	/**
+	 * Set the display name of the persona
+	 * 
 	 * @param name
-	 *            要设置的 name
+	 *            the display name of the persona to set
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
 	/**
-	 * @return nickname
+	 * Get the nickname.
+	 * 
+	 * @return nickname the nickname
 	 */
 	public String getNickname() {
 		return nickname;
 	}
 
 	/**
+	 * Set the nickname.
+	 * 
 	 * @param nickname
-	 *            要设置的 nickname
+	 *            the nickname to set
 	 */
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
 
 	/**
-	 * @return postcode
+	 * Get the post code.
+	 * 
+	 * @return postcode the post code
 	 */
 	public String getPostcode() {
 		return postcode;
 	}
 
 	/**
+	 * Set the post code.
+	 * 
 	 * @param postcode
-	 *            要设置的 postcode
+	 *            the post code to set
 	 */
 	public void setPostcode(String postcode) {
 		this.postcode = postcode;
 	}
 
 	/**
-	 * @return timezone
+	 * Get the timezone.
+	 * 
+	 * @return timezone the timezone
 	 */
 	public String getTimezone() {
 		return timezone;
 	}
 
 	/**
+	 * Set the timezone.
+	 * 
 	 * @param timezone
-	 *            要设置的 timezone
+	 *            the timezone to set
 	 */
 	public void setTimezone(String timezone) {
 		this.timezone = timezone;
 	}
 
 	/**
+	 * Get attributes.
+	 * 
 	 * @return the attributes
 	 */
 	public Set<Attribute> getAttributes() {
@@ -277,6 +335,8 @@ public class Persona extends BaseEntity {
 	}
 
 	/**
+	 * Set the attributes.
+	 * 
 	 * @param attributes
 	 *            the attributes to set
 	 */
@@ -284,23 +344,48 @@ public class Persona extends BaseEntity {
 		this.attributes = attributes;
 	}
 
+	/**
+	 * Add attribute.
+	 * 
+	 * @param attribute
+	 *            the attribute to add
+	 */
 	public void addAttribute(Attribute attribute) {
 		this.attributes.add(attribute);
 	}
 
-	public void clearAttribute() {
+	/**
+	 * Clear all attributes.
+	 */
+	public void clearAttributes() {
 		this.attributes.clear();
 	}
 
+	/**
+	 * Set the locale.
+	 * 
+	 * @param locale
+	 *            the locale to set
+	 */
 	public void setLocale(Locale locale) {
 		this.country = locale.getCountry();
 		this.language = locale.getLanguage();
 	}
 
+	/**
+	 * Get the locale.
+	 * 
+	 * @return the locale
+	 */
 	public Locale getLocale() {
 		return new Locale(this.language, this.country);
 	}
 
+	/**
+	 * Convert the persona as a map.
+	 * 
+	 * @return the map contains all properties of the persona.
+	 */
 	public Map<String, String> toMap() {
 		Map<String, String> ret = new HashMap<String, String>();
 		ret.put("nickname", this.getNickname());
@@ -315,10 +400,8 @@ public class Persona extends BaseEntity {
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public int hashCode() {
@@ -327,25 +410,28 @@ public class Persona extends BaseEntity {
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (!(obj instanceof Persona))
+		}
+		if (!(obj instanceof Persona)) {
 			return false;
+		}
 		final Persona other = (Persona) obj;
 		if (getId() == null) {
-			if (other.getId() != null)
+			if (other.getId() != null) {
 				return false;
-		} else if (!getId().equals(other.getId()))
+			}
+		} else if (!getId().equals(other.getId())) {
 			return false;
+		}
 		return true;
 	}
 }

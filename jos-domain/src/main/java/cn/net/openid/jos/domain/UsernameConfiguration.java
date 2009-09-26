@@ -18,15 +18,40 @@ public class UsernameConfiguration extends BaseEntity {
 	 */
 	private static final long serialVersionUID = -422179045234771173L;
 
+	/**
+	 * The domain.
+	 */
 	private Domain domain;
 
 	/* Username patterns */
+	/**
+	 * The regular expression of the username.
+	 */
 	private String regex;
+
+	/**
+	 * The reserved regular expression of the username.
+	 */
 	private String reservedRegex;
+
+	/**
+	 * The unallowedable regular expression of the username.
+	 */
 	private String unallowableRegex;
 
+	/**
+	 * The compiled pattern.
+	 */
 	private Pattern pattern;
+
+	/**
+	 * The compiled reserved pattern.
+	 */
 	private Pattern reservedPattern;
+
+	/**
+	 * The compiled unallowable pattern.
+	 */
 	private Pattern unallowablePattern;
 
 	public UsernameConfiguration() {
@@ -39,6 +64,8 @@ public class UsernameConfiguration extends BaseEntity {
 	}
 
 	/**
+	 * Get the domain.
+	 * 
 	 * @return the domain
 	 */
 	public Domain getDomain() {
@@ -46,6 +73,8 @@ public class UsernameConfiguration extends BaseEntity {
 	}
 
 	/**
+	 * Set the domain.
+	 * 
 	 * @param domain
 	 *            the domain to set
 	 */
@@ -54,15 +83,19 @@ public class UsernameConfiguration extends BaseEntity {
 	}
 
 	/**
-	 * @return the usernameRegex
+	 * Get the regular expression of the username.
+	 * 
+	 * @return the regular expression of the username
 	 */
 	public String getRegex() {
 		return regex;
 	}
 
 	/**
+	 * Set the regular expression of the username.
+	 * 
 	 * @param regex
-	 *            the regex to set
+	 *            the regular expression of the username
 	 */
 	public void setRegex(String regex) {
 		this.regex = regex;
@@ -70,15 +103,19 @@ public class UsernameConfiguration extends BaseEntity {
 	}
 
 	/**
-	 * @return the reservedRegex
+	 * Get the regular expression of the reserved username.
+	 * 
+	 * @return the regular expression of the reserved username
 	 */
 	public String getReservedRegex() {
 		return reservedRegex;
 	}
 
 	/**
+	 * Set the regular expression of the reserved username.
+	 * 
 	 * @param reservedRegex
-	 *            the reservedRegex to set
+	 *            the regular expression of the reserved username
 	 */
 	public void setReservedRegex(String reservedRegex) {
 		this.reservedRegex = reservedRegex;
@@ -87,15 +124,19 @@ public class UsernameConfiguration extends BaseEntity {
 	}
 
 	/**
-	 * @return the unallowableRegex
+	 * Get the regular expression of the unallowable username.
+	 * 
+	 * @return the regular expression of the unabllowable username
 	 */
 	public String getUnallowableRegex() {
 		return unallowableRegex;
 	}
 
 	/**
+	 * Set the regular expression of the unallowable username.
+	 * 
 	 * @param unallowableRegex
-	 *            the unallowableRegex to set
+	 *            the regular expression of the unallowable username
 	 */
 	public void setUnallowableRegex(String unallowableRegex) {
 		this.unallowableRegex = unallowableRegex;
@@ -104,21 +145,27 @@ public class UsernameConfiguration extends BaseEntity {
 	}
 
 	/**
-	 * @return the pattern
+	 * Get the compiled pattern of the username.
+	 * 
+	 * @return the compiled pattern
 	 */
 	public Pattern getPattern() {
 		return pattern;
 	}
 
 	/**
-	 * @return the reservedPattern
+	 * Get the compiled pattern of the reserved username.
+	 * 
+	 * @return the compiled pattern of the reserved username
 	 */
 	public Pattern getReservedPattern() {
 		return reservedPattern;
 	}
 
 	/**
-	 * @return the unallowablePattern
+	 * Get the compiled pattern of the unallowable username.
+	 * 
+	 * @return the compiled pattern of the unallowable username
 	 */
 	public Pattern getUnallowablePattern() {
 		return unallowablePattern;
@@ -161,10 +208,8 @@ public class UsernameConfiguration extends BaseEntity {
 				.getUnallowablePattern().matcher(username).matches() : false;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public String toString() {
