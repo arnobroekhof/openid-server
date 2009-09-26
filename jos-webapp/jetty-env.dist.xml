@@ -75,7 +75,7 @@
 
 	<New class="org.mortbay.jetty.plus.naming.EnvEntry">
 		<Arg>email.address.pattern</Arg>
-		<Arg type="java.lang.String">aaa</Arg>
+		<Arg type="java.lang.String"><![CDATA[\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*]]></Arg>
 		<Arg type="boolean">true</Arg>
 	</New>
 </Configure>
