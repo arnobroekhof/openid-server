@@ -40,6 +40,17 @@
 					<includes>
 						<include>**/*.java</include>
 						<include>**/*.xml</include>
+						<!--
+							Do NOT include *.jsp as it does not determine the
+							xml version line.
+						<include>**/*.jsp</include>
+						-->
+						<include>**/*.vm</include>
+						<!--
+						<include>**/*.css</include>
+						<include>**/*.js</include>
+						<include>**/*.html</include>
+						-->
 					</includes>
 					<excludes>
 						<exclude>doc/**</exclude>
@@ -58,6 +69,12 @@
 						-->
 						<exclude>**/*.properties</exclude>
 						<exclude>**/*.sql</exclude>
+
+						<!--
+							Exclude decorator vm files as it does not determine
+							the xml version line.
+						-->
+						<exclude>**/decorators/*.vm</exclude>
 					</excludes>
 				</configuration>
 				<executions>
