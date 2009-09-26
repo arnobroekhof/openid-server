@@ -37,6 +37,9 @@
 				<configuration>
 					<header>LICENSE</header>
 					<encoding>UTF-8</encoding>
+					<includes>
+						<include>**/*.java</include>
+					</includes>
 					<excludes>
 						<exclude>doc/**</exclude>
 						<exclude>BUILD</exclude>
