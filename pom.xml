@@ -36,8 +36,9 @@
 				<version>1.4.0</version>
 				<configuration>
 					<header>LICENSE</header>
+					<encoding>UTF-8</encoding>
 					<excludes>
-						<exclude>doc/*</exclude>
+						<exclude>doc/**</exclude>
 						<exclude>BUILD</exclude>
 						<exclude>CREDITS</exclude>
 						<exclude>INSTALL</exclude>
@@ -45,6 +46,14 @@
 						<exclude>README</exclude>
 						<exclude>RELEASE-NOTES</exclude>
 						<exclude>checkstyle.xml</exclude>
+						<exclude>**/src/main/webapp/resources/scripts/jquery-1.2.6.min.js</exclude>
+
+						<!--
+							Exclude *.properties and *.sql as mvn license:remove
+							can't remove license block for these two type files.
+						-->
+						<exclude>**/*.properties</exclude>
+						<exclude>**/*.sql</exclude>
 					</excludes>
 				</configuration>
 				<executions>
