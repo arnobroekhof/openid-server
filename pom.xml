@@ -39,6 +39,7 @@
 					<encoding>UTF-8</encoding>
 					<includes>
 						<include>**/*.java</include>
+						<include>**/*.xml</include>
 					</includes>
 					<excludes>
 						<exclude>doc/**</exclude>
