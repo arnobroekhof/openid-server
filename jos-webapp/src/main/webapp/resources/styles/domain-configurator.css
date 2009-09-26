@@ -11,6 +11,7 @@ input[type="text"] {
 	width: 100%;
 	margin: 5px 0px;
 	padding: 5px 0px;
+	display: none;
 }
 
 #identifierPatternDiv label {
@@ -25,6 +26,17 @@ input[type="text"] {
 	margin-left: 0.5em;
 	margin: 5px;
 	padding: 5px;
+}
+
+noscript {
+	clear: both;
+	background: #ffffe1;
+	border: 1px solid #ccc;
+	margin: auto;
+	font-size: 14px;
+	display: block;
+	color: red;
+	font-weight: bold;
 }
 
 .username {

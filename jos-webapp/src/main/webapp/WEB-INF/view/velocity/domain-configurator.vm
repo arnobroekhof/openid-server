@@ -20,7 +20,11 @@
 	<legend>
 		#springMessageText("domain.title.baseSettings" "Base settings")
 	</legend>
-	<div id="identifierPatternDiv"><label>#springMessageText("domain.label.identifierPattern" "OpenID Identifier pattern:")</label><div id="openid_identifier_pattern"></div></div>
+	<div id="identifierPatternDiv">
+		<label>#springMessageText("domain.label.identifierPattern" "OpenID Identifier pattern:")</label>
+		<div id="openid_identifier_pattern"></div>
+	</div>
+	<noscript><div>#springMessageText("domain.identifier.pattern.preview.noscript.error" "Javascript is required.")</div></noscript>
 	<dl>
 		<dt>#springMessageText("domain.label.type" "Type:")</dt>
 		<dd>#josFormRadioButtons("command.type" $types "" "onchange='changeDomainType(parseInt(this.value, 10));showIdentifierPattern()'")</dd>
@@ -56,15 +60,33 @@
 	<legend>
 		#springMessageText("domain.title.configuration" "Domain extended configuration(Optional)")
 	</legend>
-	#set($keys = ["inceptionYear", "organization.url", "organization.name", "privacy.url", "defaultLocale"])
 	<ul>
+		#foreach($attribute in $command.configuration.entrySet())
+		<li>
+			<input type="text" name="key" value="$attribute.key" />:
+			<input type="text" name="value" value="$attribute.value" />
+		</li>
+		#end
+		#set($keys = ["inceptionYear", "organization.url", "organization.name", "privacy.url", "defaultLocale"])
+		#set($keySet = $command.configuration.keySet())
 		#foreach($key in $keys)
-		<li><input type="text" name="key" value="$key" />:<input type="text" name="value" /></li>
+			#if(!$keySet.contains($key))
+			<li>
+				<input type="text" name="key" value="$key" />:
+				<input type="text" name="value" />
+			</li>
+			#end
 		#end
 	</ul>
 </fieldset>
 
-<button type="submit">#springMessageText("button.addDomain" "Add domain")</button>
+<button type="submit">
+#if(!$command.id)
+	#springMessageText("button.addDomain" "Add domain")
+#else
+	#springMessageText("button.modifyDomain" "Modify domain")
+#end
+</button>
 </div>
 </form>
 

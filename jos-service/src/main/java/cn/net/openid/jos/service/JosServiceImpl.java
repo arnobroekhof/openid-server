@@ -401,11 +401,8 @@ public class JosServiceImpl implements JosService {
 		return domainDao.getDomain(id);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.service.JosService#getDomainByName(java.lang.String)
+	/**
+	 * {@inheritDoc}
 	 */
 	public Domain getDomainByName(String name) {
 		return domainDao.getDomainByName(name);
@@ -427,14 +424,10 @@ public class JosServiceImpl implements JosService {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.service.JosService#insertDomain(cn.net.openid.jos.domain
-	 * .Domain)
+	/**
+	 * {@inheritDoc}
 	 */
-	public void insertDomain(Domain domain) {
+	public void saveDomain(Domain domain) {
 		domainDao.insertDomain(domain);
 	}
 

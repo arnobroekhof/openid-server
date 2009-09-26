@@ -105,6 +105,7 @@ function getIdentifierSuffix() {
 function showIdentifierPattern() {
 	document.getElementById("openid_identifier_pattern").innerHTML = getIdentifierPrefix()
 			+ "<span class='username'>username</span>" + getIdentifierSuffix();
+	document.getElementById("identifierPatternDiv").style.display = "inherit";
 }
 
 var oldNameValue = oldServerHostValue = "";

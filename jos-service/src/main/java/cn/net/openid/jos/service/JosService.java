@@ -69,7 +69,7 @@ public interface JosService {
 
 	Domain getDomainByName(String name, int type);
 
-	void insertDomain(Domain domain);
+	void saveDomain(Domain domain);
 
 	boolean checkConfiguratorPassword(String input);
 

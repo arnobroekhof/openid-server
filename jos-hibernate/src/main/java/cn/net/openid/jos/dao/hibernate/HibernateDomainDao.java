@@ -31,14 +31,10 @@ public class HibernateDomainDao extends BaseHibernateEntityDao<Domain>
 		return this.findUnique("from Domain where name = ?", name);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.dao.DomainDao#insertDomain(cn.net.openid.jos.domain
-	 * .Domain)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void insertDomain(Domain domain) {
-		this.getHibernateTemplate().save(domain);
+		this.getHibernateTemplate().saveOrUpdate(domain);
 	}
 }

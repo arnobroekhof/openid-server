@@ -10,6 +10,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import cn.net.openid.jos.domain.Domain;
 import cn.net.openid.jos.domain.UsernameConfiguration;
@@ -19,16 +21,14 @@ import cn.net.openid.jos.web.AbstractJosSimpleFormController;
  * Domain configurator controller.
  * 
  * @author Sutra Zhou
- * 
  */
 public class DomainConfiguratorController extends
 		AbstractJosSimpleFormController {
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.AbstractFormController#formBackingObject
-	 * (javax.servlet.http.HttpServletRequest)
+	private static final Log LOG = LogFactory
+			.getLog(DomainConfiguratorController.class);
+
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	protected Object formBackingObject(HttpServletRequest request)
@@ -40,9 +40,69 @@ public class DomainConfiguratorController extends
 				.getMessage("domain.title.type.subdirectory"));
 		request.setAttribute("types", types);
 
-		Domain domain = new Domain();
 		URL url = new URL(request.getRequestURL().toString());
 		String host = url.getHost();
+		return this.getOrCreateDomain(host);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	protected void onBind(HttpServletRequest request, Object command)
+			throws Exception {
+		super.onBind(request, command);
+		Domain domain = (Domain) command;
+		if (StringUtils.isBlank(domain.getId())) {
+			domain.setId(null);
+		}
+		String[] keys = request.getParameterValues("key");
+		String[] values = request.getParameterValues("value");
+		int l = keys.length;
+		Map<String, String> configuration = new LinkedHashMap<String, String>(l);
+		for (int i = 0; i < l; i++) {
+			if (StringUtils.isNotEmpty(keys[i])
+					&& StringUtils.isNotEmpty(values[i])) {
+				configuration.put(keys[i], values[i]);
+			}
+		}
+		domain.setConfiguration(configuration);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	protected void doSubmitAction(Object command) throws Exception {
+		this.getJosService().saveDomain((Domain) command);
+	}
+
+	/**
+	 * Get stored domain by host or create a new one if not found.
+	 * 
+	 * @param host
+	 *            the host of the request URL.
+	 * @return a stored domain or a new domain
+	 */
+	private Domain getOrCreateDomain(String host) {
+		String name = host;
+		Domain domain = this.getJosService().getDomainByName(name);
+		LOG.debug("Stored domain: " + domain);
+		if (domain == null) {
+			domain = createDomain(host);
+		}
+		return domain;
+	}
+
+	/**
+	 * Create a new domain according to the host.
+	 * 
+	 * @param host
+	 *            the host of the request URL
+	 * @return a new domain
+	 */
+	private Domain createDomain(final String host) {
+		final Domain domain = new Domain();
 		String name = host;
 		if (host.startsWith("www.")) {
 			name = host.substring(4);
@@ -62,42 +122,4 @@ public class DomainConfiguratorController extends
 		uc.setUnallowableRegex(s);
 		return domain;
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.BaseCommandController#onBind(javax
-	 * .servlet.http.HttpServletRequest, java.lang.Object)
-	 */
-	@Override
-	protected void onBind(HttpServletRequest request, Object command)
-			throws Exception {
-		super.onBind(request, command);
-		Domain domain = (Domain) command;
-		String[] keys = request.getParameterValues("key");
-		String[] values = request.getParameterValues("value");
-		int l = keys.length;
-		Map<String, String> configuration = new LinkedHashMap<String, String>(l);
-		for (int i = 0; i < l; i++) {
-			if (StringUtils.isNotEmpty(keys[i])
-					&& StringUtils.isNotEmpty(values[i])) {
-				configuration.put(keys[i], values[i]);
-			}
-		}
-		domain.setConfiguration(configuration);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.SimpleFormController#doSubmitAction
-	 * (java.lang.Object)
-	 */
-	@Override
-	protected void doSubmitAction(Object command) throws Exception {
-		this.getJosService().insertDomain((Domain) command);
-	}
-
 }

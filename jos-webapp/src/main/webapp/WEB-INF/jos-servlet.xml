@@ -184,6 +184,7 @@
 	<bean id="domainConfiguratorController"
 		class="cn.net.openid.jos.web.controller.DomainConfiguratorController"
 		parent="abstractJosSimpleFormController">
+		<property name="sessionForm" value="true" />
 		<property name="formView" value="domain-configurator" />
 		<property name="successView" value="domain-configurator-success" />
 	</bean>
