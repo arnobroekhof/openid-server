@@ -40,16 +40,16 @@
 					<includes>
 						<include>**/*.java</include>
 						<include>**/*.xml</include>
+						<include>**/*.vm</include>
 						<!--
 							Do NOT include *.jsp as it does not determine the
 							xml version line.
 						<include>**/*.jsp</include>
 						-->
-						<include>**/*.vm</include>
 						<!--
+						<include>**/*.html</include>
 						<include>**/*.css</include>
 						<include>**/*.js</include>
-						<include>**/*.html</include>
 						-->
 					</includes>
 					<excludes>
