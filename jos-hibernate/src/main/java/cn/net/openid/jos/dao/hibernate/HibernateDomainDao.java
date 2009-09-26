@@ -34,7 +34,7 @@ public class HibernateDomainDao extends BaseHibernateEntityDao<Domain>
 	/**
 	 * {@inheritDoc}
 	 */
-	public void insertDomain(Domain domain) {
+	public void saveDomain(Domain domain) {
 		this.getHibernateTemplate().saveOrUpdate(domain);
 	}
 }

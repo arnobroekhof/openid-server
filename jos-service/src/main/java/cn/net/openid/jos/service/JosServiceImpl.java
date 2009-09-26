@@ -428,7 +428,7 @@ public class JosServiceImpl implements JosService {
 	 * {@inheritDoc}
 	 */
 	public void saveDomain(Domain domain) {
-		domainDao.insertDomain(domain);
+		domainDao.saveDomain(domain);
 	}
 
 	/*

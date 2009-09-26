@@ -14,5 +14,5 @@ public interface DomainDao {
 
 	Domain getDomainByName(String name);
 
-	void insertDomain(Domain domain);
+	void saveDomain(Domain domain);
 }
