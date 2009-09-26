@@ -36,6 +36,16 @@
 				<version>1.4.0</version>
 				<configuration>
 					<header>LICENSE</header>
+					<excludes>
+						<exclude>doc/*</exclude>
+						<exclude>BUILD</exclude>
+						<exclude>CREDITS</exclude>
+						<exclude>INSTALL</exclude>
+						<exclude>LICENSE</exclude>
+						<exclude>README</exclude>
+						<exclude>RELEASE-NOTES</exclude>
+						<exclude>checkstyle.xml</exclude>
+					</excludes>
 				</configuration>
 				<executions>
 					<execution>
