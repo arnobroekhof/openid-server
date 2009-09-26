@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd">
 <Configure class="org.mortbay.jetty.webapp.WebAppContext">
+
+
 	<!-- ================ DATASOURCE SETTING ================ -->
 
 	<New id="jos" class="org.mortbay.jetty.plus.naming.Resource">
@@ -53,7 +55,7 @@
 	<!--
 	<New class="org.mortbay.jetty.plus.naming.EnvEntry">
 		<Arg>hibernate.hbm2ddl.auto</Arg>
-		<Arg type="java.lang.String">true</Arg>
+		<Arg type="java.lang.String">update</Arg>
 		<Arg type="boolean">true</Arg>
 	</New>
 	<New class="org.mortbay.jetty.plus.naming.EnvEntry">

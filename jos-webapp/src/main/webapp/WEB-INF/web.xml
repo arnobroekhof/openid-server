@@ -284,7 +284,7 @@
 	<env-entry>
 		<env-entry-name>hibernate.hbm2ddl.auto</env-entry-name>
 		<env-entry-type>java.lang.String</env-entry-type>
-		<env-entry-value>false</env-entry-value>
+		<env-entry-value>validate</env-entry-value>
 	</env-entry>
 	<env-entry>
 		<env-entry-name>hibernate.show_sql</env-entry-name>
