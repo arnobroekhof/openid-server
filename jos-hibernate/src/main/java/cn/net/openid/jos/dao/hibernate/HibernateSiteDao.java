@@ -39,85 +39,65 @@ import cn.net.openid.jos.domain.Site;
 import cn.net.openid.jos.domain.User;
 
 /**
- * @author Sutra Zhou
+ * The {@link SiteDao} implementation using <a
+ * href="https://www.hibernate.org/">Hibernate</a>.
  * 
+ * @author Sutra Zhou
  */
 public class HibernateSiteDao extends BaseHibernateEntityDao<Site> implements
 		SiteDao {
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.dao.SiteDao#getSites(cn.net.openid.jos.domain.User)
+	/**
+	 * {@inheritDoc}
 	 */
-	public Collection<Site> getSites(User user) {
+	public Collection<Site> getSites(final User user) {
 		return find("from Site where user.id = ?", user.getId());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.dao.SiteDao#getTopSites(cn.net.openid.jos.domain.User,
-	 * int)
+	/**
+	 * {@inheritDoc}
 	 */
-	public Collection<Site> getTopSites(User user, int maxResults) {
+	public Collection<Site> getTopSites(final User user,
+			final int maxResults) {
 		return find("from Site where user = ? order by approvals desc", 0,
 				maxResults, user);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.dao.SiteDao#getLatestSites(cn.net.openid.jos.domain
-	 * .User, int)
+	/**
+	 * {@inheritDoc}
 	 */
-	public Collection<Site> getLatestSites(User user, int maxResults) {
+	public Collection<Site> getLatestSites(final User user,
+			final int maxResults) {
 		return find("from Site where user = ? order by lastAttempt desc", 0,
 				maxResults, user);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see cn.net.openid.jos.dao.SiteDao#getSite(cn.net.openid.jos.domain.User,
-	 * java.lang.String)
+	/**
+	 * {@inheritDoc}
 	 */
-	public Site getSite(User user, String realmUrl) {
+	public Site getSite(final User user, final String realmUrl) {
 		return findUnique("from Site where user = ? and realm.url = ?", user,
 				realmUrl);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.dao.SiteDao#insertSite(cn.net.openid.jos.domain.Site)
+	/**
+	 * {@inheritDoc}
 	 */
-	public void insertSite(Site site) {
+	public void insertSite(final Site site) {
 		getHibernateTemplate().save(site);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.dao.SiteDao#updateSite(cn.net.openid.jos.domain.Site)
+	/**
+	 * {@inheritDoc}
 	 */
-	public void updateSite(Site site) {
+	public void updateSite(final Site site) {
 		getHibernateTemplate().update(site);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.dao.SiteDao#updateAlwaysApprove(cn.net.openid.jos.domain
-	 * .User, java.lang.String, boolean)
+	/**
+	 * {@inheritDoc}
 	 */
-	public void updateAlwaysApprove(User user, String realmId,
-			boolean alwaysApprove) {
+	public void updateAlwaysApprove(final User user, final String realmId,
+			final boolean alwaysApprove) {
 		Site site = this.findUnique(
 				"from Site where user = ? and realm.id = ?", user, realmId);
 		if (site != null) {

@@ -39,62 +39,53 @@ import cn.net.openid.jos.domain.Persona;
 import cn.net.openid.jos.domain.User;
 
 /**
- * @author Sutra Zhou
+ * The {@link PersonaDao} implementation using <a
+ * href="https://www.hibernate.org/">Hibernate</a>.
  * 
+ * @author Sutra Zhou
  */
 public class HibernatePersonaDao extends BaseHibernateEntityDao<Persona>
 		implements PersonaDao {
 
-	/*
-	 * （非 Javadoc）
-	 * 
-	 * @see org.bestid.dao.PersonaDao#getPersona(java.lang.String)
+	/**
+	 * {@inheritDoc}
 	 */
-	public Persona getPersona(String id) {
+	public Persona getPersona(final String id) {
 		return get(id);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see cn.net.openid.jos.dao.PersonaDao#getPersonas(cn.net.openid.jos.domain.User)
+	/**
+	 * {@inheritDoc}
 	 */
-	public Collection<Persona> getPersonas(User user) {
+	public Collection<Persona> getPersonas(final User user) {
 		return find("from Persona where user.id = ?", user.getId());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see cn.net.openid.jos.dao.PersonaDao#insertPersona(cn.net.openid.jos.domain.Persona)
+	/**
+	 * {@inheritDoc}
 	 */
-	public void insertPersona(Persona persona) {
+	public void insertPersona(final Persona persona) {
 		getHibernateTemplate().save(persona);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see cn.net.openid.jos.dao.PersonaDao#updatePersona(cn.net.openid.jos.domain.Persona)
+	/**
+	 * {@inheritDoc}
 	 */
-	public void updatePersona(Persona persona) {
+	public void updatePersona(final Persona persona) {
 		getHibernateTemplate().update(persona);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see cn.net.openid.jos.dao.PersonaDao#deletePersona(cn.net.openid.jos.domain.Persona)
+	/**
+	 * {@inheritDoc}
 	 */
-	public void deletePersona(Persona persona) {
+	public void deletePersona(final Persona persona) {
 		getHibernateTemplate().delete(persona);
 	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see cn.net.openid.jos.dao.PersonaDao#countSites(cn.net.openid.jos.domain.Persona)
+
+	/**
+	 * {@inheritDoc}
 	 */
-	public long countSites(Persona persona) {
+	public long countSites(final Persona persona) {
 		return count("select count(*) from Site where persona = ?", persona);
 	}
 }

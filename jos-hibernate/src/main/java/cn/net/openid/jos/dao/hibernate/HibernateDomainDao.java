@@ -36,34 +36,32 @@ import cn.net.openid.jos.dao.DomainDao;
 import cn.net.openid.jos.domain.Domain;
 
 /**
- * @author Sutra Zhou
+ * The {@link DomainDao} implementation using <a
+ * href="https://www.hibernate.org/">Hibernate</a>.
  * 
+ * @author Sutra Zhou
  */
 public class HibernateDomainDao extends BaseHibernateEntityDao<Domain>
 		implements DomainDao {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see cn.net.openid.jos.dao.DomainDao#getDomain(java.lang.String)
+	/**
+	 * {@inheritDoc}
 	 */
-	public Domain getDomain(String id) {
+	public Domain getDomain(final String id) {
 		return this.get(id);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see cn.net.openid.jos.dao.DomainDao#getDomainByName(java.lang.String)
+	/**
+	 * {@inheritDoc}
 	 */
-	public Domain getDomainByName(String name) {
+	public Domain getDomainByName(final String name) {
 		return this.findUnique("from Domain where name = ?", name);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public void saveDomain(Domain domain) {
+	public void saveDomain(final Domain domain) {
 		this.getHibernateTemplate().saveOrUpdate(domain);
 	}
 }

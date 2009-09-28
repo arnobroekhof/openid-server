@@ -38,28 +38,32 @@ import cn.net.openid.jos.dao.RealmDao;
 import cn.net.openid.jos.domain.Realm;
 
 /**
- * @author Sutra Zhou
+ * The {@link RealmDao} implementation using <a
+ * href="https://www.hibernate.org/">Hibernate</a>.
  * 
+ * @author Sutra Zhou
  */
 public class HibernateRealmDao extends BaseHibernateEntityDao<Realm> implements
 		RealmDao {
-	public Realm getRealmByUrl(String url) {
+	/**
+	 * {@inheritDoc}
+	 */
+	public Realm getRealmByUrl(final String url) {
 		return findUnique("from Realm where url = ?", url);
 	}
 
-	public Collection<Realm> getLatestRealms(int maxResults) {
+	/**
+	 * {@inheritDoc}
+	 */
+	public Collection<Realm> getLatestRealms(final int maxResults) {
 		return this.find("from Realm order by creationDate desc", 0,
 				maxResults);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.dao.RealmDao#insertRealm(cn.net.openid.jos.domain.Realm
-	 * )
+	/**
+	 * {@inheritDoc}
 	 */
-	public void insertRealm(Realm realm) {
+	public void insertRealm(final Realm realm) {
 		getHibernateTemplate().save(realm);
 	}
 }

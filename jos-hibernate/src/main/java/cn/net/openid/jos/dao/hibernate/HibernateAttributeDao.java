@@ -38,45 +38,39 @@ import cn.net.openid.jos.dao.AttributeDao;
 import cn.net.openid.jos.domain.Attribute;
 
 /**
- * @author Sutra Zhou
+ * The {@link AttributeDao} implementation using <a
+ * href="https://www.hibernate.org/">Hibernate</a>.
  * 
+ * @author Sutra Zhou
  */
 public class HibernateAttributeDao extends BaseHibernateEntityDao<Attribute>
 		implements AttributeDao {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see cn.net.openid.dao.AttributeDao#getAttribute(java.lang.String)
+	/**
+	 * {@inheritDoc}
 	 */
-	public Attribute getAttribute(String id) {
+	public Attribute getAttribute(final String id) {
 		return get(id);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see cn.net.openid.dao.AttributeDao#getAttributes()
+	/**
+	 * {@inheritDoc}
 	 */
 	public Collection<Attribute> getAttributes() {
 		return this.find("from Attribute");
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see cn.net.openid.dao.AttributeDao#saveAttribute(cn.net.openid.domain.Attribute)
+	/**
+	 * {@inheritDoc}
 	 */
-	public void saveAttribute(Attribute attribute) {
+	public void saveAttribute(final Attribute attribute) {
 		this.getHibernateTemplate().saveOrUpdate(attribute);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see cn.net.openid.dao.AttributeDao#deleteAttribute(java.lang.String)
+	/**
+	 * {@inheritDoc}
 	 */
-	public void deleteAttribute(String id) {
+	public void deleteAttribute(final String id) {
 		this.getHibernateTemplate().bulkUpdate(
 				"delete from AttributeValue where attribute.id = ?", id);
 		this.getHibernateTemplate().delete(this.get(id));

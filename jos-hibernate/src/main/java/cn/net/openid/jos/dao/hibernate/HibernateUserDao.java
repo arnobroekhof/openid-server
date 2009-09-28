@@ -37,49 +37,40 @@ import cn.net.openid.jos.domain.Domain;
 import cn.net.openid.jos.domain.User;
 
 /**
- * @author Sutra Zhou
+ * The {@link UserDao} implementation using <a
+ * href="https://www.hibernate.org/">Hibernate</a>.
  * 
+ * @author Sutra Zhou
  */
 public class HibernateUserDao extends BaseHibernateEntityDao<User> implements
 		UserDao {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see cn.net.openid.dao.UserDao#getUser(java.lang.String)
+	/**
+	 * {@inheritDoc}
 	 */
-	public User getUser(String id) {
+	public User getUser(final String id) {
 		return get(id);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.dao.UserDao#getUser(cn.net.openid.jos.domain.Domain,
-	 * java.lang.String)
+	/**
+	 * {@inheritDoc}
 	 */
-	public User getUser(Domain domain, String username) {
+	public User getUser(final Domain domain, final String username) {
 		return findUnique("from User where domain = ? and username = ?",
 				domain, username);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.dao.UserDao#insertUser(cn.net.openid.jos.domain.User)
+	/**
+	 * {@inheritDoc}
 	 */
-	public void insertUser(User user) {
+	public void insertUser(final User user) {
 		getHibernateTemplate().save(user);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see cn.net.openid.dao.UserDao#updateUser(cn.net.openid.User)
+	/**
+	 * {@inheritDoc}
 	 */
-	public void updateUser(User user) {
+	public void updateUser(final User user) {
 		getHibernateTemplate().update(user);
 	}
 

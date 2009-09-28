@@ -39,59 +39,54 @@ import cn.net.openid.jos.domain.Email;
 import cn.net.openid.jos.domain.User;
 
 /**
- * @author Sutra Zhou
+ * The {@link EmailDao} implementation using <a
+ * href="https://www.hibernate.org/">Hibernate</a>.
  * 
+ * @author Sutra Zhou
  */
 public class HibernateEmailDao extends BaseHibernateEntityDao<Email> implements
 		EmailDao {
 
-	/*
-	 * （非 Javadoc）
-	 * 
-	 * @see cn.net.openid.dao.EmailDao#getEmail(java.lang.String)
+	/**
+	 * {@inheritDoc}
 	 */
-	public Email getEmail(String id) {
+	public Email getEmail(final String id) {
 		return get(id);
 	}
 
-	public Email getPrimaryEmail(User user) {
+	/**
+	 * {@inheritDoc}
+	 */
+	public Email getPrimaryEmail(final User user) {
 		return findUnique("from Email where user.id = ? and primary = true",
 				user.getId());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see cn.net.openid.jos.dao.EmailDao#getEmails(cn.net.openid.jos.domain.User)
+	/**
+	 * {@inheritDoc}
 	 */
-	public Collection<Email> getEmails(User user) {
+	public Collection<Email> getEmails(final User user) {
 		return find("from Email where user.id = ?", user.getId());
 	}
 
-	/*
-	 * （非 Javadoc）
-	 * 
-	 * @see cn.net.openid.dao.EmailDao#insertEmail(cn.net.openid.domain.Email)
+	/**
+	 * {@inheritDoc}
 	 */
-	public void insertEmail(Email email) {
+	public void insertEmail(final Email email) {
 		getHibernateTemplate().save(email);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see cn.net.openid.jos.dao.EmailDao#updateEmail(cn.net.openid.jos.domain.Email)
+	/**
+	 * {@inheritDoc}
 	 */
-	public void updateEmail(Email email) {
+	public void updateEmail(final Email email) {
 		getHibernateTemplate().update(email);
 	}
 
-	/*
-	 * （非 Javadoc）
-	 * 
-	 * @see cn.net.openid.dao.EmailDao#deleteEmail(java.lang.String)
+	/**
+	 * {@inheritDoc}
 	 */
-	public void deleteEmail(String id) {
+	public void deleteEmail(final String id) {
 		getSession().delete(this.get(id));
 	}
 

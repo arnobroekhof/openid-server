@@ -39,73 +39,60 @@ import cn.net.openid.jos.domain.Password;
 import cn.net.openid.jos.domain.User;
 
 /**
- * @author Sutra Zhou
+ * The {@link PasswordDao} implementation using <a
+ * href="https://www.hibernate.org/">Hibernate</a>.
  * 
+ * @author Sutra Zhou
  */
 public class HibernatePasswordDao extends BaseHibernateEntityDao<Password>
 		implements PasswordDao {
-	private static final String GET_INFINITE_PASSWORD_COUNT_QUERY_STRING = "select count(*) from Password where user = ? and maximumServiceTimes = "
+	/**
+	 * The HQL query string for getting infinite passwor count.
+	 */
+	private static final String GET_INFINITE_PASSWORD_COUNT_QUERY_STRING
+		= "select count(*) from Password"
+			+ " where user = ? and maximumServiceTimes = "
 			+ Password.INFINITE_SERVICE_TIMES;
 
-	/*
-	 * （非 Javadoc）
-	 * 
-	 * @see org.bestid.dao.PasswordDao#getPassword(java.lang.String)
+	/**
+	 * {@inheritDoc}
 	 */
-	public Password getPassword(String id) {
+	public Password getPassword(final String id) {
 		return get(id);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.dao.PasswordDao#getPasswords(cn.net.openid.jos.domain
-	 * .User)
+	/**
+	 * {@inheritDoc}
 	 */
-	public Collection<Password> getPasswords(User user) {
+	public Collection<Password> getPasswords(final User user) {
 		return find("from Password where user.id = ?", user.getId());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.dao.PasswordDao#getPasswordCount(cn.net.openid.jos.
-	 * domain.User)
+	/**
+	 * {@inheritDoc}
 	 */
-	public long getInfinitePasswordCount(User user) {
+	public long getInfinitePasswordCount(final User user) {
 		return count(GET_INFINITE_PASSWORD_COUNT_QUERY_STRING, user);
 	}
 
-	/*
-	 * （非 Javadoc）
-	 * 
-	 * @see org.bestid.dao.PasswordDao#deletePassword(java.lang.String)
+	/**
+	 * {@inheritDoc}
 	 */
-	public void deletePassword(String id) {
+	public void deletePassword(final String id) {
 		getHibernateTemplate().delete(this.get(id));
 	}
 
-	/*
-	 * （非 Javadoc）
-	 * 
-	 * @see
-	 * cn.net.openid.dao.PasswordDao#insertPassword(cn.net.openid.domain.Password
-	 * )
+	/**
+	 * {@inheritDoc}
 	 */
-	public void insertPassword(Password password) {
+	public void insertPassword(final Password password) {
 		getHibernateTemplate().save(password);
 	}
 
-	/*
-	 * （非 Javadoc）
-	 * 
-	 * @see
-	 * cn.net.openid.dao.PasswordDao#updatePassword(cn.net.openid.domain.Password
-	 * )
+	/**
+	 * {@inheritDoc}
 	 */
-	public void updatePassword(Password password) {
+	public void updatePassword(final Password password) {
 		getHibernateTemplate().update(password);
 	}
 

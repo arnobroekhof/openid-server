@@ -38,20 +38,20 @@ import cn.net.openid.jos.dao.EmailConfirmationInfoDao;
 import cn.net.openid.jos.domain.EmailConfirmationInfo;
 
 /**
- * @author Sutra Zhou
+ * The {@link EmailConfirmationInfoDao} implementation using <a
+ * href="https://www.hibernate.org/">Hibernate</a>.
  * 
+ * @author Sutra Zhou
  */
 public class HibernateEmailConfirmationInfoDao extends
 		BaseHibernateEntityDao<EmailConfirmationInfo> implements
 		EmailConfirmationInfoDao {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see cn.net.openid.jos.dao.EmailConfirmationInfoDao#getEmailConfirmationInfo(java.lang.String)
+	/**
+	 * {@inheritDoc}
 	 */
 	public EmailConfirmationInfo getEmailConfirmationInfo(
-			String confirmationCode) {
+			final String confirmationCode) {
 		List<EmailConfirmationInfo> emailConfirmationInfos = this.find(
 				"from EmailConfirmationInfo where confirmationCode = ?",
 				confirmationCode);
@@ -64,23 +64,19 @@ public class HibernateEmailConfirmationInfoDao extends
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see cn.net.openid.jos.dao.EmailConfirmationInfoDao#insertEmailConfirmationInfo(cn.net.openid.jos.domain.EmailConfirmationInfo)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void insertEmailConfirmationInfo(
-			EmailConfirmationInfo emailConfirmationInfo) {
+			final EmailConfirmationInfo emailConfirmationInfo) {
 		this.getHibernateTemplate().save(emailConfirmationInfo);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see cn.net.openid.jos.dao.EmailConfirmationInfoDao#updateEmailConfirmationInfo(cn.net.openid.jos.domain.EmailConfirmationInfo)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void updateEmailConfirmationInfo(
-			EmailConfirmationInfo emailConfirmationInfo) {
+			final EmailConfirmationInfo emailConfirmationInfo) {
 		this.getHibernateTemplate().update(emailConfirmationInfo);
 	}
 }

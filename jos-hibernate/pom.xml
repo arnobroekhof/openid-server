@@ -12,6 +12,9 @@
 	<artifactId>jos-hibernate</artifactId>
 	<packaging>jar</packaging>
 	<name><![CDATA[Java OpenID Server - Data Access Objects Hibernate Implementation]]></name>
+	<reporting>
+		<outputDirectory>../target/site/${project.artifactId}/</outputDirectory>
+	</reporting>
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>

@@ -34,10 +34,8 @@ package cn.net.openid.jos.dao.hibernate;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
-import java.sql.SQLException;
 import java.util.List;
 
-import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
@@ -45,14 +43,23 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
+ * The base <a href="https://www.hibernate.org/">Hibernate</a> entity DAO.
+ * 
  * @author Sutra Zhou
- * @see <a *
- *      href="http://www.blogjava.net/calvin/archive/2006/04/28/43830.html">
- *      Java5泛型的用法，T.class的获取和为擦拭法站台< /a>
+ * @see <a href="http://www.blogjava.net/calvin/archive/2006/04/28/43830.html">
+ *      Java5泛型的用法，T.class的获取和为擦拭法站台</a>
+ * @param <T>
+ *            the entity type
  */
 public abstract class BaseHibernateEntityDao<T> extends HibernateDaoSupport {
+	/**
+	 * The entity class.
+	 */
 	private Class<T> entityClass;
 
+	/**
+	 * Construct a default {@link BaseHibernateEntityDao}.
+	 */
 	@SuppressWarnings("unchecked")
 	public BaseHibernateEntityDao() {
 		entityClass = (Class<T>) ((ParameterizedType) getClass()
@@ -68,7 +75,7 @@ public abstract class BaseHibernateEntityDao<T> extends HibernateDaoSupport {
 	 * @return the persistent instance, or null if not found
 	 */
 	@SuppressWarnings("unchecked")
-	protected T get(Serializable id) {
+	protected T get(final Serializable id) {
 		T o = (T) getHibernateTemplate().get(entityClass, id);
 		return o;
 	}
@@ -84,24 +91,29 @@ public abstract class BaseHibernateEntityDao<T> extends HibernateDaoSupport {
 	 * @return a List containing the results of the query execution
 	 */
 	@SuppressWarnings("unchecked")
-	protected List<T> find(String queryString, Object... values) {
+	protected List<T> find(final String queryString, final Object... values) {
 		return (List<T>) getHibernateTemplate().find(queryString, values);
 	}
 
 	/**
-	 * 使用hql 语句进行操作
+	 * Execute an HQL query, binding a number of values to "?" parameters in the
+	 * query string.
 	 * 
 	 * @param queryString
+	 *            a query expressed in Hibernate's query language
 	 * @param firstResult
+	 *            the first result index
 	 * @param maxResults
-	 * @return List
+	 *            the maximum result count
+	 * @param values
+	 *            the values of the parameters
+	 * @return List the result list
 	 */
 	@SuppressWarnings("unchecked")
 	protected List<T> find(final String queryString, final int firstResult,
 			final int maxResults, final Object... values) {
 		return getHibernateTemplate().executeFind(new HibernateCallback() {
-			public Object doInHibernate(Session session)
-					throws HibernateException, SQLException {
+			public Object doInHibernate(final Session session) {
 				Query query = session.createQuery(queryString);
 				query.setFirstResult(firstResult);
 				query.setMaxResults(maxResults);
@@ -123,12 +135,10 @@ public abstract class BaseHibernateEntityDao<T> extends HibernateDaoSupport {
 	 *            a query expressed in Hibernate's query language
 	 * @param values
 	 *            the values of the parameters
-	 * @return a single entity or null if 0 row found.
-	 * @throws IncorrectResultSizeDataAccessException
-	 *             in case of more than 1 rows found
+	 * @return a single entity or null if 0 row found. Throws
+	 *         IncorrectResultSizeDataAccessException if more than 1 row found.
 	 */
-	protected T findUnique(String queryString, Object... values)
-			throws IncorrectResultSizeDataAccessException {
+	protected T findUnique(final String queryString, final Object... values) {
 		List<T> list = this.find(queryString, values);
 		int size = list.size();
 		T t;
@@ -151,7 +161,7 @@ public abstract class BaseHibernateEntityDao<T> extends HibernateDaoSupport {
 	 *            the values of the parameters
 	 * @return the count
 	 */
-	protected long count(String queryString, Object... values) {
+	protected long count(final String queryString, final Object... values) {
 		return ((Number) getHibernateTemplate().find(queryString, values)
 				.get(0)).longValue();
 	}
