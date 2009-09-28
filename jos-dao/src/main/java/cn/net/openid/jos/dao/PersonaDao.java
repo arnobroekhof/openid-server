@@ -38,19 +38,62 @@ import cn.net.openid.jos.domain.Persona;
 import cn.net.openid.jos.domain.User;
 
 /**
+ * {@link Persona} Data Access Object.
+ * 
  * @author Sutra Zhou
  * 
  */
 public interface PersonaDao {
+	/**
+	 * Get {@link Persona} by ID.
+	 * 
+	 * @param id
+	 *            the {@link Persona} ID
+	 * @return the {@link Persona} which ID is the specified
+	 */
 	Persona getPersona(String id);
 
+	/**
+	 * Get all {@link Persona} of the specified user.
+	 * 
+	 * @param user
+	 *            the user
+	 * @return all {@link Persona} of the specified user
+	 */
 	Collection<Persona> getPersonas(User user);
 
+	/**
+	 * Insert a new {@link Persona}.
+	 * 
+	 * @param persona
+	 *            the {@link Persona} to insert
+	 */
 	void insertPersona(Persona persona);
 
+	/**
+	 * Update the {@link Persona}.
+	 * 
+	 * @param persona
+	 *            the {@link Persona} to update
+	 */
 	void updatePersona(Persona persona);
 
+	/**
+	 * Delete the {@link Persona}.
+	 * 
+	 * @param persona
+	 *            the {@link Persona} to delete
+	 */
 	void deletePersona(Persona persona);
 
+	/**
+	 * Return the count of the sites which is using the specified
+	 * {@link Persona}.
+	 * 
+	 * @param persona
+	 *            the {@link Persona}
+	 * @return the count of the sites which is using the specified
+	 *         {@link Persona}.
+	 */
 	long countSites(Persona persona);
 }

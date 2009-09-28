@@ -38,19 +38,59 @@ import cn.net.openid.jos.domain.Password;
 import cn.net.openid.jos.domain.User;
 
 /**
- * @author Sutra Zhou
+ * {@link Password} Data Access Object.
  * 
+ * @author Sutra Zhou
  */
 public interface PasswordDao {
+	/**
+	 * Get {@link Password} by ID.
+	 * 
+	 * @param id
+	 *            the {@link Password} ID
+	 * @return the {@link Password}
+	 */
 	Password getPassword(String id);
 
+	/**
+	 * Get all {@link Password} of the specified user.
+	 * 
+	 * @param user
+	 *            the user
+	 * @return all {@link Password} of the specified user
+	 */
 	Collection<Password> getPasswords(User user);
 
+	/**
+	 * Get count of the infinite {@link Password} of the specified user.
+	 * 
+	 * @param user
+	 *            the user
+	 * @return the count of the infinite {@link Password} of the specified user
+	 */
 	long getInfinitePasswordCount(User user);
 
+	/**
+	 * Insert a new {@link Password}.
+	 * 
+	 * @param password
+	 *            the {@link Password} to insert
+	 */
 	void insertPassword(Password password);
 
+	/**
+	 * Update the {@link Password}.
+	 * 
+	 * @param password
+	 *            the {@link Password} to update
+	 */
 	void updatePassword(Password password);
 
+	/**
+	 * Delete the {@link Password}.
+	 * 
+	 * @param id
+	 *            the ID of the {@link Password} that to delete
+	 */
 	void deletePassword(String id);
 }

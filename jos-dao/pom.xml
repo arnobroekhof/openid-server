@@ -12,6 +12,9 @@
 	<artifactId>jos-dao</artifactId>
 	<packaging>jar</packaging>
 	<name>Java OpenID Server - Data Access Objects</name>
+	<reporting>
+		<outputDirectory>../target/site/${project.artifactId}/</outputDirectory>
+	</reporting>
 	<dependencies>
 		<dependency>
 			<groupId>${groupId}</groupId>

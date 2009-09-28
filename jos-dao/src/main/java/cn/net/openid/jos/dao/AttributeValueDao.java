@@ -48,10 +48,12 @@ public interface AttributeValueDao {
 	 * Get attribute value.
 	 * 
 	 * @param user
+	 *            specify the owner
 	 * @param attributeId
+	 *            the attribute ID
 	 * @return return the value of the user with the specified
-	 *         <code>attributeId</code>, if this attribute has multiple
-	 *         values, return the first one(which index is 0).
+	 *         <code>attributeId</code>, if this attribute has multiple values,
+	 *         return the first one(which index is 0).
 	 */
 	String getAttributeValue(User user, String attributeId);
 
@@ -59,9 +61,12 @@ public interface AttributeValueDao {
 	 * Get all attribute values.
 	 * 
 	 * @param user
+	 *            specify the owner
 	 * @param attributeId
+	 *            the attribute ID
 	 * @return return the values of the user with the specified
-	 *         <code>attributeId</code>, sorted by the index({@link AttributeValue#getIndex()}).
+	 *         <code>attributeId</code>, sorted by the index(
+	 *         {@link AttributeValue#getIndex()}).
 	 */
 	Collection<String> getAttributeValues(User user, String attributeId);
 

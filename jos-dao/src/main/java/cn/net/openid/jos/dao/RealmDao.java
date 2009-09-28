@@ -37,13 +37,34 @@ import java.util.Collection;
 import cn.net.openid.jos.domain.Realm;
 
 /**
- * @author Sutra Zhou
+ * {@link Realm} Data Access Object.
  * 
+ * @author Sutra Zhou
  */
 public interface RealmDao {
+	/**
+	 * Get {@link Realm} by the url.
+	 * 
+	 * @param url
+	 *            the url
+	 * @return the {@link Realm} that url is the specified one
+	 */
 	Realm getRealmByUrl(String url);
 
+	/**
+	 * Get the latest realms.
+	 * 
+	 * @param maxResults
+	 *            max results
+	 * @return latest realms
+	 */
 	Collection<Realm> getLatestRealms(int maxResults);
 
+	/**
+	 * Insert a new {@link Realm}.
+	 * 
+	 * @param realm
+	 *            the {@link Realm} to insert
+	 */
 	void insertRealm(Realm realm);
 }

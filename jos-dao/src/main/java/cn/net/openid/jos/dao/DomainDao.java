@@ -35,13 +35,36 @@ package cn.net.openid.jos.dao;
 import cn.net.openid.jos.domain.Domain;
 
 /**
- * @author Sutra Zhou
+ * {@link Domain} Data Access Object.
  * 
+ * @author Sutra Zhou
  */
 public interface DomainDao {
+	/**
+	 * Get domain by ID.
+	 * 
+	 * @param id
+	 *            the domain ID
+	 * @return the domain that ID is the specified
+	 */
 	Domain getDomain(String id);
 
+	/**
+	 * Get domain by the name.
+	 * 
+	 * @param name
+	 *            the domain name
+	 * @return the domain that name is the specified
+	 */
 	Domain getDomainByName(String name);
 
+	/**
+	 * Save domain.
+	 * <p>
+	 * Insert the domain if the {@link Domain#getId()} is null, else update.
+	 * 
+	 * @param domain
+	 *            the domain to save
+	 */
 	void saveDomain(Domain domain);
 }

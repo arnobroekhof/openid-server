@@ -38,19 +38,59 @@ import cn.net.openid.jos.domain.Email;
 import cn.net.openid.jos.domain.User;
 
 /**
- * @author Sutra Zhou
+ * {@link Email} Data Access Object.
  * 
+ * @author Sutra Zhou
  */
 public interface EmailDao {
+	/**
+	 * Get {@link Email} by ID.
+	 * 
+	 * @param id
+	 *            the ID
+	 * @return the {@link Email}
+	 */
 	Email getEmail(String id);
 
+	/**
+	 * Get the primary {@link Email} of the specified user.
+	 * 
+	 * @param user
+	 *            the user
+	 * @return the primary {@link Email} of the specified user
+	 */
 	Email getPrimaryEmail(User user);
 
+	/**
+	 * Get all {@link Email} of the specified user.
+	 * 
+	 * @param user
+	 *            the user
+	 * @return all {@link Email} of the specified user
+	 */
 	Collection<Email> getEmails(User user);
 
+	/**
+	 * Insert a new {@link Email}.
+	 * 
+	 * @param email
+	 *            the {@link Email} to insert
+	 */
 	void insertEmail(Email email);
 
+	/**
+	 * Update the {@link Email}.
+	 * 
+	 * @param email
+	 *            the {@link Email} to update
+	 */
 	void updateEmail(Email email);
 
+	/**
+	 * Delete the {@link Email}.
+	 * 
+	 * @param id
+	 *            the id of the {@link Email} that to delete
+	 */
 	void deleteEmail(String id);
 }

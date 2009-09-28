@@ -36,15 +36,45 @@ import cn.net.openid.jos.domain.Domain;
 import cn.net.openid.jos.domain.User;
 
 /**
- * @author Sutra Zhou
+ * {@link User} Data Access Object.
  * 
+ * @author Sutra Zhou
  */
 public interface UserDao {
+	/**
+	 * Get user by user ID.
+	 * 
+	 * @param id
+	 *            the user ID
+	 * @return the user that ID is the specified one
+	 */
 	User getUser(String id);
 
+	/**
+	 * Get user by {@link Domain} and username.
+	 * 
+	 * @param domain
+	 *            the {@link Domain}
+	 * @param username
+	 *            the username
+	 * @return the user that username is the specified one in the specified
+	 *         {@link Domain}
+	 */
 	User getUser(Domain domain, String username);
 
+	/**
+	 * Insert a new {@link User}.
+	 * 
+	 * @param user
+	 *            the {@link User} to insert
+	 */
 	void insertUser(User user);
 
+	/**
+	 * Update the {@link User}.
+	 * 
+	 * @param user
+	 *            the {@link User} to update
+	 */
 	void updateUser(User user);
 }

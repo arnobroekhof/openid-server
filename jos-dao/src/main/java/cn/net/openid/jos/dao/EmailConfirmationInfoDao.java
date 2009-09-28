@@ -35,13 +35,35 @@ package cn.net.openid.jos.dao;
 import cn.net.openid.jos.domain.EmailConfirmationInfo;
 
 /**
- * @author Sutra Zhou
+ * {@link EmailConfirmationInfo} Data Access Object.
  * 
+ * @author Sutra Zhou
  */
 public interface EmailConfirmationInfoDao {
+	/**
+	 * Get email confirmation info by the confirmation code.
+	 * 
+	 * @param confirmationCode
+	 *            the confirmation code
+	 * @return the email confirmation info that confirmation code is specified
+	 */
 	EmailConfirmationInfo getEmailConfirmationInfo(String confirmationCode);
 
-	void insertEmailConfirmationInfo(EmailConfirmationInfo emailConfirmationInfo);
+	/**
+	 * Insert a new email confirmation info.
+	 * 
+	 * @param emailConfirmationInfo
+	 *            the email confirmation info to insert
+	 */
+	void insertEmailConfirmationInfo(
+			EmailConfirmationInfo emailConfirmationInfo);
 
-	void updateEmailConfirmationInfo(EmailConfirmationInfo emailConfirmationInfo);
+	/**
+	 * Update the email confirmation info.
+	 * 
+	 * @param emailConfirmationInfo
+	 *            the email confirmation info to update
+	 */
+	void updateEmailConfirmationInfo(
+			EmailConfirmationInfo emailConfirmationInfo);
 }

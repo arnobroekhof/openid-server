@@ -37,15 +37,43 @@ import java.util.Collection;
 import cn.net.openid.jos.domain.Attribute;
 
 /**
- * @author Sutra Zhou
+ * {@link Attribute} Data Access Object.
  * 
+ * @author Sutra Zhou
  */
 public interface AttributeDao {
+	/**
+	 * Get attribute by ID.
+	 * 
+	 * @param id
+	 *            the attribute ID
+	 * @return the attribute
+	 */
 	Attribute getAttribute(String id);
 
+	/**
+	 * Get all attributes.
+	 * 
+	 * @return all attributes
+	 */
 	Collection<Attribute> getAttributes();
 
+	/**
+	 * Save an attribute.
+	 * <p>
+	 * Insert if {@link Attribute#getId()} is null, else insert.
+	 * </p>
+	 * 
+	 * @param attribute
+	 *            the attribute to save.
+	 */
 	void saveAttribute(Attribute attribute);
 
+	/**
+	 * Delete the attribute by ID.
+	 * 
+	 * @param id
+	 *            the ID of the attribute which to delete
+	 */
 	void deleteAttribute(String id);
 }

@@ -38,28 +38,79 @@ import cn.net.openid.jos.domain.Site;
 import cn.net.openid.jos.domain.User;
 
 /**
- * @author Sutra Zhou
+ * {@link Site} Data Access Object.
  * 
+ * @author Sutra Zhou
  */
 public interface SiteDao {
+	/**
+	 * Get {@link Site} by {@link User} and {@link Realm} URL.
+	 * 
+	 * @param user
+	 *            the {@link User}
+	 * @param realmUrl
+	 *            the {@link RealmDao} URL
+	 * @return the {@link Site}
+	 */
 	Site getSite(User user, String realmUrl);
 
+	/**
+	 * Get all sites of the specified {@link User}.
+	 * 
+	 * @param user
+	 *            the {@link User}
+	 * @return all sites of the specified {@link User}
+	 */
 	Collection<Site> getSites(User user);
 
+	/**
+	 * Get top visited sites of the specified user.
+	 * 
+	 * @param user
+	 *            the user
+	 * @param maxResults
+	 *            max results
+	 * @return top visited sites of the specified user
+	 */
 	Collection<Site> getTopSites(User user, int maxResults);
 
 	/**
-	 * Get latest sites that I logged on.
+	 * Get latest sites that the specifed user logged on.
 	 * 
 	 * @param user
+	 *            the user
 	 * @param maxResults
-	 * @return
+	 *            max results
+	 * @return latest sites that the user logged on
 	 */
 	Collection<Site> getLatestSites(User user, int maxResults);
 
+	/**
+	 * Insert a new site.
+	 * 
+	 * @param site
+	 *            the site to insert
+	 */
 	void insertSite(Site site);
 
+	/**
+	 * Update the site.
+	 * 
+	 * @param site
+	 *            the site to update
+	 */
 	void updateSite(Site site);
 
+	/**
+	 * Update if the the {@link User} always approve the authentication requests
+	 * from the {@link Realm}.
+	 * 
+	 * @param user
+	 *            the {@link User}
+	 * @param realmId
+	 *            the {@link Reaml} ID
+	 * @param alwaysApprove
+	 *            indicate if always approve
+	 */
 	void updateAlwaysApprove(User user, String realmId, boolean alwaysApprove);
 }
