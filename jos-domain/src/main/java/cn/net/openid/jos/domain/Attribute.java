@@ -37,8 +37,9 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * @author Sutra Zhou
+ * Represents the extended attribute of {@link Persona}.
  * 
+ * @author Sutra Zhou
  */
 public class Attribute extends BaseEntity {
 	/**

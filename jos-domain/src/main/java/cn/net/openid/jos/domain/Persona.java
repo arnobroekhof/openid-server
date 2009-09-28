@@ -39,8 +39,9 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * @author Sutra Zhou
+ * Persona entity. One user may have many personas.
  * 
+ * @author Sutra Zhou
  */
 public class Persona extends BaseEntity {
 	/**
@@ -59,7 +60,7 @@ public class Persona extends BaseEntity {
 	private User user = new User();
 
 	/**
-	 * The display name
+	 * The display name.
 	 */
 	private String name;
 
@@ -124,10 +125,10 @@ public class Persona extends BaseEntity {
 	 * Attributes.
 	 * 
 	 * @see <a
-	 *      href="http://openid.net/specs/openid-attribute-exchange-1_0.html">OpenID
-	 *      Attribute Exchange 1.0</a>
+	 *      href="http://openid.net/specs/openid-attribute-exchange-1_0.html">
+	 *      OpenID Attribute Exchange 1.0</a>
 	 */
-	private Set<Attribute> attributes = new HashSet<Attribute>();
+	private HashSet<Attribute> attributes = new HashSet<Attribute>();
 
 	/**
 	 * Construct a default persona.
@@ -141,7 +142,7 @@ public class Persona extends BaseEntity {
 	 * @param user
 	 *            the owner of the persona
 	 */
-	public Persona(User user) {
+	public Persona(final User user) {
 		this.user = user;
 	}
 
@@ -160,7 +161,7 @@ public class Persona extends BaseEntity {
 	 * @param user
 	 *            the owner to set
 	 */
-	public void setUser(User user) {
+	public void setUser(final User user) {
 		this.user = user;
 	}
 
@@ -179,7 +180,7 @@ public class Persona extends BaseEntity {
 	 * @param country
 	 *            the country to set
 	 */
-	public void setCountry(String country) {
+	public void setCountry(final String country) {
 		this.country = country;
 	}
 
@@ -198,7 +199,7 @@ public class Persona extends BaseEntity {
 	 * @param dob
 	 *            the date of birth to set
 	 */
-	public void setDob(String dob) {
+	public void setDob(final String dob) {
 		this.dob = dob;
 	}
 
@@ -217,7 +218,7 @@ public class Persona extends BaseEntity {
 	 * @param email
 	 *            the email address to set
 	 */
-	public void setEmail(String email) {
+	public void setEmail(final String email) {
 		this.email = email;
 	}
 
@@ -236,7 +237,7 @@ public class Persona extends BaseEntity {
 	 * @param fullname
 	 *            the full name to set
 	 */
-	public void setFullname(String fullname) {
+	public void setFullname(final String fullname) {
 		this.fullname = fullname;
 	}
 
@@ -255,7 +256,7 @@ public class Persona extends BaseEntity {
 	 * @param gender
 	 *            the gender to set
 	 */
-	public void setGender(String gender) {
+	public void setGender(final String gender) {
 		this.gender = gender;
 	}
 
@@ -274,7 +275,7 @@ public class Persona extends BaseEntity {
 	 * @param language
 	 *            the preferred language to set
 	 */
-	public void setLanguage(String language) {
+	public void setLanguage(final String language) {
 		this.language = language;
 	}
 
@@ -288,12 +289,12 @@ public class Persona extends BaseEntity {
 	}
 
 	/**
-	 * Set the display name of the persona
+	 * Set the display name of the persona.
 	 * 
 	 * @param name
 	 *            the display name of the persona to set
 	 */
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
@@ -312,7 +313,7 @@ public class Persona extends BaseEntity {
 	 * @param nickname
 	 *            the nickname to set
 	 */
-	public void setNickname(String nickname) {
+	public void setNickname(final String nickname) {
 		this.nickname = nickname;
 	}
 
@@ -331,7 +332,7 @@ public class Persona extends BaseEntity {
 	 * @param postcode
 	 *            the post code to set
 	 */
-	public void setPostcode(String postcode) {
+	public void setPostcode(final String postcode) {
 		this.postcode = postcode;
 	}
 
@@ -350,7 +351,7 @@ public class Persona extends BaseEntity {
 	 * @param timezone
 	 *            the timezone to set
 	 */
-	public void setTimezone(String timezone) {
+	public void setTimezone(final String timezone) {
 		this.timezone = timezone;
 	}
 
@@ -369,8 +370,8 @@ public class Persona extends BaseEntity {
 	 * @param attributes
 	 *            the attributes to set
 	 */
-	public void setAttributes(Set<Attribute> attributes) {
-		this.attributes = attributes;
+	public void setAttributes(final Set<Attribute> attributes) {
+		this.attributes = new HashSet<Attribute>(attributes);
 	}
 
 	/**
@@ -379,7 +380,7 @@ public class Persona extends BaseEntity {
 	 * @param attribute
 	 *            the attribute to add
 	 */
-	public void addAttribute(Attribute attribute) {
+	public void addAttribute(final Attribute attribute) {
 		this.attributes.add(attribute);
 	}
 
@@ -396,7 +397,7 @@ public class Persona extends BaseEntity {
 	 * @param locale
 	 *            the locale to set
 	 */
-	public void setLocale(Locale locale) {
+	public void setLocale(final Locale locale) {
 		this.country = locale.getCountry();
 		this.language = locale.getLanguage();
 	}
@@ -443,7 +444,7 @@ public class Persona extends BaseEntity {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(final Object obj) {
 		if (this == obj) {
 			return true;
 		}

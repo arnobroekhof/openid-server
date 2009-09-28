@@ -37,8 +37,9 @@ import java.util.regex.Pattern;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
- * @author Sutra Zhou
+ * The username configuration of {@link Domain}.
  * 
+ * @author Sutra Zhou
  */
 public class UsernameConfiguration extends BaseEntity {
 
@@ -83,13 +84,18 @@ public class UsernameConfiguration extends BaseEntity {
 	 */
 	private Pattern unallowablePattern;
 
+	/**
+	 * Construct a default UsernameConfiguration.
+	 */
 	public UsernameConfiguration() {
-		String regex = "[a-z]{1,16}";
-		this.setRegex(regex);
-		regex = "root|toor|wheel|staff|admin|administrator";
-		this.setReservedRegex(regex);
-		regex = "w+|home|server|approve.*|approving|register|login|logout|email.*|password.*|persona.*|site.*|attribute.*|hl|member|news|jos|mail|smtp|pop3|pop|.*fuck.*";
-		this.setUnallowableRegex(regex);
+		String re = "[a-z]{1,16}";
+		this.setRegex(re);
+		re = "root|toor|wheel|staff|admin|administrator";
+		this.setReservedRegex(re);
+		re = "w+|home|server|approve.*|approving|register|login|logout|email.*"
+				+ "|password.*|persona.*|site.*|attribute.*|hl|member|news|jos"
+				+ "|mail|smtp|pop3|pop|.*fuck.*";
+		this.setUnallowableRegex(re);
 	}
 
 	/**
@@ -107,7 +113,7 @@ public class UsernameConfiguration extends BaseEntity {
 	 * @param domain
 	 *            the domain to set
 	 */
-	public void setDomain(Domain domain) {
+	public void setDomain(final Domain domain) {
 		this.domain = domain;
 	}
 
@@ -126,7 +132,7 @@ public class UsernameConfiguration extends BaseEntity {
 	 * @param regex
 	 *            the regular expression of the username
 	 */
-	public void setRegex(String regex) {
+	public void setRegex(final String regex) {
 		this.regex = regex;
 		this.pattern = regex != null ? Pattern.compile(regex) : null;
 	}
@@ -146,7 +152,7 @@ public class UsernameConfiguration extends BaseEntity {
 	 * @param reservedRegex
 	 *            the regular expression of the reserved username
 	 */
-	public void setReservedRegex(String reservedRegex) {
+	public void setReservedRegex(final String reservedRegex) {
 		this.reservedRegex = reservedRegex;
 		this.reservedPattern = reservedRegex != null ? Pattern.compile(
 				reservedRegex, Pattern.CASE_INSENSITIVE) : null;
@@ -167,7 +173,7 @@ public class UsernameConfiguration extends BaseEntity {
 	 * @param unallowableRegex
 	 *            the regular expression of the unallowable username
 	 */
-	public void setUnallowableRegex(String unallowableRegex) {
+	public void setUnallowableRegex(final String unallowableRegex) {
 		this.unallowableRegex = unallowableRegex;
 		this.unallowablePattern = unallowableRegex != null ? Pattern.compile(
 				unallowableRegex, Pattern.CASE_INSENSITIVE) : null;
@@ -205,10 +211,11 @@ public class UsernameConfiguration extends BaseEntity {
 	 * username configuration.
 	 * 
 	 * @param username
+	 *            the username to check
 	 * @return true if the username is permissible as the username in this
 	 *         domain username configuration.
 	 */
-	public boolean isUsername(String username) {
+	public boolean isUsername(final String username) {
 		return this.getPattern() != null ? this.getPattern().matcher(username)
 				.matches() : false;
 	}
@@ -220,7 +227,7 @@ public class UsernameConfiguration extends BaseEntity {
 	 *            the username
 	 * @return true if reserved, otherwise false.
 	 */
-	public boolean isReserved(String username) {
+	public boolean isReserved(final String username) {
 		return this.getReservedPattern() != null ? this.getReservedPattern()
 				.matcher(username).matches() : false;
 	}
@@ -232,7 +239,7 @@ public class UsernameConfiguration extends BaseEntity {
 	 *            the username
 	 * @return true if unallowable, otherwise false.
 	 */
-	public boolean isUnallowable(String username) {
+	public boolean isUnallowable(final String username) {
 		return this.getUnallowablePattern() != null ? this
 				.getUnallowablePattern().matcher(username).matches() : false;
 	}

@@ -32,15 +32,23 @@
  */
 package cn.net.openid.jos.domain;
 
+import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.apache.commons.lang.StringUtils;
 
 /**
+ * Represents {@link Domain} runtime properties.
+ * 
  * @author Sutra Zhou
  */
-public class DomainRuntime {
+public class DomainRuntime implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2165382191028480331L;
+
 	/**
 	 * Build server base URL.
 	 * 

@@ -35,12 +35,12 @@ package cn.net.openid.jos.domain;
 import java.io.Serializable;
 import java.util.Date;
 
-
 /**
- * @author Sutra Zhou
+ * Base entity is an abstract class that contains a {@link #creationDate} field.
  * 
+ * @author Sutra Zhou
  */
-public abstract class BaseEntity extends IdentifiableBase implements
+/* package */abstract class BaseEntity extends IdentifiableBase implements
 		Serializable {
 	/**
 	 * 

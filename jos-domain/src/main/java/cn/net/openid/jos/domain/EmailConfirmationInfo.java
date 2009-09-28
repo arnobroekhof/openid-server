@@ -35,8 +35,9 @@ package cn.net.openid.jos.domain;
 import java.util.Date;
 
 /**
- * @author Sutra Zhou
+ * Email confirmation info entity.
  * 
+ * @author Sutra Zhou
  */
 public class EmailConfirmationInfo extends BaseEntity {
 
@@ -205,7 +206,7 @@ public class EmailConfirmationInfo extends BaseEntity {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(final Object obj) {
 		if (this == obj) {
 			return true;
 		}
@@ -217,10 +218,12 @@ public class EmailConfirmationInfo extends BaseEntity {
 		}
 		final EmailConfirmationInfo other = (EmailConfirmationInfo) obj;
 		if (getId() == null) {
-			if (other.getId() != null)
+			if (other.getId() != null) {
 				return false;
-		} else if (!getId().equals(other.getId()))
+			}
+		} else if (!getId().equals(other.getId())) {
 			return false;
+		}
 		return true;
 	}
 

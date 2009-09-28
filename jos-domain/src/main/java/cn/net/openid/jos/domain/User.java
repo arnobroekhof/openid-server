@@ -34,6 +34,8 @@ package cn.net.openid.jos.domain;
 
 
 /**
+ * End user entity.
+ * 
  * @author Sutra Zhou
  */
 public class User extends BaseEntity {
@@ -72,7 +74,7 @@ public class User extends BaseEntity {
 	 * @param username
 	 *            the username
 	 */
-	public User(Domain domain, String username) {
+	public User(final Domain domain, final String username) {
 		this.domain = domain;
 		this.username = username;
 	}
@@ -92,7 +94,7 @@ public class User extends BaseEntity {
 	 * @param username
 	 *            the username to set
 	 */
-	public void setUsername(String username) {
+	public void setUsername(final String username) {
 		this.username = username;
 	}
 
@@ -111,7 +113,7 @@ public class User extends BaseEntity {
 	 * @param domain
 	 *            the domain to set
 	 */
-	public void setDomain(Domain domain) {
+	public void setDomain(final Domain domain) {
 		this.domain = domain;
 	}
 
@@ -142,7 +144,7 @@ public class User extends BaseEntity {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(final Object obj) {
 		if (this == obj) {
 			return true;
 		}

@@ -338,7 +338,7 @@ public class Domain extends BaseEntity {
 	/**
 	 * Domain runtime inforation.
 	 */
-	private transient DomainRuntime runtime = new DomainRuntime();
+	private DomainRuntime runtime = new DomainRuntime();
 
 	/**
 	 * @return the name

@@ -34,6 +34,8 @@ package cn.net.openid.jos.domain;
 
 
 /**
+ * The realm entity represents the authentication realm.
+ * 
  * @author Sutra Zhou
  */
 public class Realm extends BaseEntity {
@@ -67,7 +69,7 @@ public class Realm extends BaseEntity {
 	 * @param url
 	 *            the url to set
 	 */
-	public void setUrl(String url) {
+	public void setUrl(final String url) {
 		this.url = url;
 	}
 
@@ -77,7 +79,8 @@ public class Realm extends BaseEntity {
 	@Override
 	public int hashCode() {
 		int result = 1;
-		result = PRIME * result + ((getUrl() == null) ? 0 : getUrl().hashCode());
+		result = PRIME * result + ((getUrl() == null)
+				? 0 : getUrl().hashCode());
 		return result;
 	}
 
@@ -85,7 +88,7 @@ public class Realm extends BaseEntity {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(final Object obj) {
 		if (this == obj) {
 			return true;
 		}

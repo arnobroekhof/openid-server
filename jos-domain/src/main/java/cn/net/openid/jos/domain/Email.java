@@ -35,8 +35,9 @@ package cn.net.openid.jos.domain;
 import java.util.Locale;
 
 /**
- * @author Sutra Zhou
+ * Email entity.
  * 
+ * @author Sutra Zhou
  */
 public class Email extends BaseEntity {
 	/**

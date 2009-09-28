@@ -33,10 +33,11 @@
 package cn.net.openid.jos.domain;
 
 /**
- * @author Sutra Zhou
+ * An abstract implementation of {@link Identifiable}.
  * 
+ * @author Sutra Zhou
  */
-public abstract class IdentifiableBase implements Identifiable {
+/* package */abstract class IdentifiableBase implements Identifiable {
 	/**
 	 * The ID.
 	 */

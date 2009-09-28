@@ -35,6 +35,8 @@ package cn.net.openid.jos.domain;
 import java.util.Date;
 
 /**
+ * Password entity.
+ * 
  * @author Sutra Zhou
  */
 public class Password extends BaseEntity {
@@ -104,7 +106,7 @@ public class Password extends BaseEntity {
 	 * @param user
 	 *            the owner
 	 */
-	public Password(User user) {
+	public Password(final User user) {
 		this.user = user;
 	}
 
@@ -123,7 +125,7 @@ public class Password extends BaseEntity {
 	 * @param name
 	 *            the name to set
 	 */
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
@@ -142,7 +144,7 @@ public class Password extends BaseEntity {
 	 * @param plaintext
 	 *            the plaintext to set
 	 */
-	public void setPlaintext(String plaintext) {
+	public void setPlaintext(final String plaintext) {
 		this.plaintext = plaintext;
 	}
 
@@ -161,7 +163,7 @@ public class Password extends BaseEntity {
 	 * @param user
 	 *            the owner to set
 	 */
-	public void setUser(User user) {
+	public void setUser(final User user) {
 		this.user = user;
 	}
 
@@ -180,7 +182,7 @@ public class Password extends BaseEntity {
 	 * @param shaHex
 	 *            the shaHex value to set
 	 */
-	public void setShaHex(String shaHex) {
+	public void setShaHex(final String shaHex) {
 		this.shaHex = shaHex;
 	}
 
@@ -199,7 +201,7 @@ public class Password extends BaseEntity {
 	 * @param usedTimes
 	 *            the usedTimes to set
 	 */
-	public void setUsedTimes(long usedTimes) {
+	public void setUsedTimes(final long usedTimes) {
 		this.usedTimes = usedTimes;
 	}
 
@@ -218,7 +220,7 @@ public class Password extends BaseEntity {
 	 * @param lastUsedDate
 	 *            the lastUsedDate to set
 	 */
-	public void setLastUsedDate(Date lastUsedDate) {
+	public void setLastUsedDate(final Date lastUsedDate) {
 		this.lastUsedDate = cloneDate(lastUsedDate);
 	}
 
@@ -237,7 +239,7 @@ public class Password extends BaseEntity {
 	 * @param maximumServiceTimes
 	 *            the maximumServiceTimes to set
 	 */
-	public void setMaximumServiceTimes(int maximumServiceTimes) {
+	public void setMaximumServiceTimes(final int maximumServiceTimes) {
 		this.maximumServiceTimes = maximumServiceTimes;
 	}
 
@@ -247,7 +249,8 @@ public class Password extends BaseEntity {
 	 * @return true if the password is usable, otherwise false
 	 */
 	public boolean isUsable() {
-		return this.getMaximumServiceTimes() == Password.INFINITE_SERVICE_TIMES ? true
+		return this.getMaximumServiceTimes() == Password.INFINITE_SERVICE_TIMES
+				? true
 				: this.getUsedTimes() < this.getMaximumServiceTimes();
 	}
 
@@ -265,7 +268,7 @@ public class Password extends BaseEntity {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(final Object obj) {
 		if (this == obj) {
 			return true;
 		}

@@ -35,6 +35,8 @@ package cn.net.openid.jos.domain;
 import java.util.Date;
 
 /**
+ * The site entity represents the authentication site.
+ * 
  * @author Sutra Zhou
  */
 public class Site extends BaseEntity {
@@ -94,7 +96,7 @@ public class Site extends BaseEntity {
 	 * @param alwaysApprove
 	 *            the alwaysApprove to set
 	 */
-	public void setAlwaysApprove(boolean alwaysApprove) {
+	public void setAlwaysApprove(final boolean alwaysApprove) {
 		this.alwaysApprove = alwaysApprove;
 	}
 
@@ -113,7 +115,7 @@ public class Site extends BaseEntity {
 	 * @param approvals
 	 *            the approvals to set
 	 */
-	public void setApprovals(int approvals) {
+	public void setApprovals(final int approvals) {
 		this.approvals = approvals;
 	}
 
@@ -132,7 +134,7 @@ public class Site extends BaseEntity {
 	 * @param lastAttempt
 	 *            the last attempt date to set
 	 */
-	public void setLastAttempt(Date lastAttempt) {
+	public void setLastAttempt(final Date lastAttempt) {
 		this.lastAttempt = cloneDate(lastAttempt);
 	}
 
@@ -151,7 +153,7 @@ public class Site extends BaseEntity {
 	 * @param persona
 	 *            the persona to set
 	 */
-	public void setPersona(Persona persona) {
+	public void setPersona(final Persona persona) {
 		this.persona = persona;
 	}
 
@@ -165,12 +167,12 @@ public class Site extends BaseEntity {
 	}
 
 	/**
-	 * Set the realm
+	 * Set the realm.
 	 * 
 	 * @param realm
 	 *            the realm to set
 	 */
-	public void setRealm(Realm realm) {
+	public void setRealm(final Realm realm) {
 		this.realm = realm;
 	}
 
@@ -189,7 +191,7 @@ public class Site extends BaseEntity {
 	 * @param user
 	 *            the owner to set
 	 */
-	public void setUser(User user) {
+	public void setUser(final User user) {
 		this.user = user;
 	}
 
@@ -199,8 +201,10 @@ public class Site extends BaseEntity {
 	@Override
 	public int hashCode() {
 		int result = 1;
-		result = PRIME * result + ((getRealm() == null) ? 0 : getRealm().hashCode());
-		result = PRIME * result + ((getUser() == null) ? 0 : getUser().hashCode());
+		result = PRIME * result + ((getRealm() == null)
+				? 0 : getRealm().hashCode());
+		result = PRIME * result + ((getUser() == null)
+				? 0 : getUser().hashCode());
 		return result;
 	}
 
@@ -208,7 +212,7 @@ public class Site extends BaseEntity {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(final Object obj) {
 		if (this == obj) {
 			return true;
 		}

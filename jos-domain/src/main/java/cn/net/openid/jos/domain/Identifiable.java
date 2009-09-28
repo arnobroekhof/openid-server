@@ -37,7 +37,6 @@ package cn.net.openid.jos.domain;
  * by a string.
  * 
  * @author Sutra Zhou
- * 
  */
 public interface Identifiable {
 	/**
