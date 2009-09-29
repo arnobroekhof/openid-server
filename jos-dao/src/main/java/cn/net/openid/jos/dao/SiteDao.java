@@ -75,7 +75,7 @@ public interface SiteDao {
 	Collection<Site> getTopSites(User user, int maxResults);
 
 	/**
-	 * Get latest sites that the specifed user logged on.
+	 * Get latest sites that the specified user logged on.
 	 * 
 	 * @param user
 	 *            the user

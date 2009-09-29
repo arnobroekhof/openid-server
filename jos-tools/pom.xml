@@ -11,6 +11,9 @@
 	<modules>
 		<module>db-migration</module>
 	</modules>
+	<reporting>
+		<outputDirectory>../target/site/${project.artifactId}/</outputDirectory>
+	</reporting>
 	<dependencyManagement>
 		<dependencies>
 			<dependency>

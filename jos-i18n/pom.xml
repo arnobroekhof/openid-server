@@ -25,4 +25,7 @@
 		<module>jos-i18n-zh_HK</module>
 		<module>jos-i18n-zh_TW</module>
 	</modules>
+	<reporting>
+		<outputDirectory>../target/site/${project.artifactId}/</outputDirectory>
+	</reporting>
 </project>

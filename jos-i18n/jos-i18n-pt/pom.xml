@@ -12,6 +12,9 @@
 	<artifactId>jos-i18n-pt</artifactId>
 	<packaging>jar</packaging>
 	<name>Java OpenID Server - Internationalization - pt</name>
+	<reporting>
+		<outputDirectory>../../target/site/${project.parent.artifactId}/${project.artifactId}/</outputDirectory>
+	</reporting>
 	<developers>
 		<developer>
 			<name>Diana Almeida</name>

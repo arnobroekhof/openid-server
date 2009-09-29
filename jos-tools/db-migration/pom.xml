@@ -12,4 +12,7 @@
 	<modules>
 		<module>1.0-alpha1_1.0-alpha3</module>
 	</modules>
+	<reporting>
+		<outputDirectory>../../target/site/${project.artifactId}/</outputDirectory>
+	</reporting>
 </project>

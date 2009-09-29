@@ -12,6 +12,9 @@
 	<artifactId>jos-i18n-ba</artifactId>
 	<packaging>jar</packaging>
 	<name>Java OpenID Server - Internationalization - ba</name>
+	<reporting>
+		<outputDirectory>../../target/site/${project.parent.artifactId}/${project.artifactId}/</outputDirectory>
+	</reporting>
 	<developers>
 		<developer>
 			<name>Predrag Stojadinović</name>

@@ -12,4 +12,7 @@
 	<artifactId>jos-i18n-ja</artifactId>
 	<packaging>jar</packaging>
 	<name>Java OpenID Server - Internationalization - ja</name>
+	<reporting>
+		<outputDirectory>../../target/site/${project.parent.artifactId}/${project.artifactId}/</outputDirectory>
+	</reporting>
 </project>

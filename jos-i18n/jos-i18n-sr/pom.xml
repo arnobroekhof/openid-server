@@ -12,6 +12,9 @@
 	<artifactId>jos-i18n-sr</artifactId>
 	<packaging>jar</packaging>
 	<name>Java OpenID Server - Internationalization - sr</name>
+	<reporting>
+		<outputDirectory>../../target/site/${project.parent.artifactId}/${project.artifactId}/</outputDirectory>
+	</reporting>
 	<developers>
 		<developer>
 			<name>Predrag Stojadinović</name>

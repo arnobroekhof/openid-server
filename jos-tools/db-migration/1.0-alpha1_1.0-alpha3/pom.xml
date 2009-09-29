@@ -13,6 +13,9 @@
 	<artifactId>1.0-alpha1_1.0-alpha3</artifactId>
 	<packaging>jar</packaging>
 	<name><![CDATA[Java OpenID Server - Tools - Database Migration - 1.0-alpha1 -> 1.0-alpha3]]></name>
+	<reporting>
+		<outputDirectory>../../../target/site/${project.artifactId}/</outputDirectory>
+	</reporting>
 	<dependencies>
 		<dependency>
 			<groupId>commons-lang</groupId>

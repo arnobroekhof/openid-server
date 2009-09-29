@@ -13,6 +13,9 @@
 	<packaging>jar</packaging>
 	<name>Java OpenID Server - Web Classes</name>
 	<url>http://openid.net.cn</url>
+	<reporting>
+		<outputDirectory>../target/site/${project.artifactId}/</outputDirectory>
+	</reporting>
 	<dependencies>
 		<dependency>
 			<groupId>commons-lang</groupId>
