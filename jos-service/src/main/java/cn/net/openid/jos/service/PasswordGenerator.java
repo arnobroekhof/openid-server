@@ -33,9 +33,20 @@
 package cn.net.openid.jos.service;
 
 /**
- * @author Sutra Zhou
+ * Password generator interface.
  * 
+ * @author Sutra Zhou
  */
 public interface PasswordGenerator {
+	/**
+	 * Generate a password that the length between the
+	 * <code>mininumLength</code> and <code>maximumLength</code>.
+	 * 
+	 * @param minimumLength
+	 *            the minimum length
+	 * @param maximumLength
+	 *            the maximum length
+	 * @return the generated password
+	 */
 	char[] generate(int minimumLength, int maximumLength);
 }

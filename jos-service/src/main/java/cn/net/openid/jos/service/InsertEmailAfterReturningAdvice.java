@@ -46,25 +46,30 @@ import cn.net.openid.jos.domain.User;
  * 
  */
 public class InsertEmailAfterReturningAdvice implements AfterReturningAdvice {
-	private EmailConfirmationInfoSendTaskExecutor emailConfirmationInfoSendTaskExecutor;
+	/**
+	 * The email confirmation info send task executor.
+	 */
+	private EmailConfirmationInfoSendTaskExecutor
+		emailConfirmationInfoSendTaskExecutor;
 
 	/**
+	 * Constructor.
+	 * 
 	 * @param emailConfirmationInfoSendTaskExecutor
-	 *            the emailConfirmationInfoSendTaskExecutor to set
+	 *            the emailConfirmationInfoSendTaskExecutor
 	 */
-	public void setEmailConfirmationInfoSendTaskExecutor(
-			EmailConfirmationInfoSendTaskExecutor emailConfirmationInfoSendTaskExecutor) {
-		this.emailConfirmationInfoSendTaskExecutor = emailConfirmationInfoSendTaskExecutor;
+	public InsertEmailAfterReturningAdvice(
+			final EmailConfirmationInfoSendTaskExecutor
+			emailConfirmationInfoSendTaskExecutor) {
+		this.emailConfirmationInfoSendTaskExecutor =
+			emailConfirmationInfoSendTaskExecutor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.springframework.aop.AfterReturningAdvice#afterReturning(java.lang.Object,
-	 *      java.lang.reflect.Method, java.lang.Object[], java.lang.Object)
+	/**
+	 * {@inheritDoc}
 	 */
-	public void afterReturning(Object returnValue, Method method,
-			Object[] args, Object target) throws Throwable {
+	public void afterReturning(final Object returnValue, final Method method,
+			final Object[] args, final Object target) throws Throwable {
 		JosService josService = (JosService) target;
 
 		User user = (User) args[0];

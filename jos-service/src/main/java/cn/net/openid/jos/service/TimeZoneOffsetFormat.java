@@ -35,35 +35,72 @@ package cn.net.openid.jos.service;
 import java.text.DecimalFormat;
 
 /**
- * @author Sutra Zhou
+ * Time zone offset formatter.
  * 
+ * @author Sutra Zhou
  */
 public class TimeZoneOffsetFormat {
-	private static final DecimalFormat hoursNumberFormat = new DecimalFormat(
-			"00");
-	private static final DecimalFormat minutesNumberFormat = new DecimalFormat(
-			"00");
+	/**
+	 * The minutes of one hour.
+	 */
+	private static final int MINUTES_OF_ONE_HOUR = 60;
+
+	/**
+	 * The seconds of one minute.
+	 */
+	private static final int SECONDS_OF_ONE_MINUTE = 60;
+
+	/**
+	 * The milliseconds of one second.
+	 */
+	private static final int MILLISECONDS_OF_ONE_SECOND = 1000;
+
+	/**
+	 * The milliseconds of one minute.
+	 */
+	private static final int MILLISECONDS_OF_ONE_MINUTE =
+		MILLISECONDS_OF_ONE_SECOND * SECONDS_OF_ONE_MINUTE;
+
+	/**
+	 * The formatter to format hours.
+	 */
+	private static final DecimalFormat HOURS_NUMBER_FORMAT =
+		new DecimalFormat("00");
+
+	/**
+	 * The formatter to format minutes.
+	 */
+	private static final DecimalFormat MINUTES_NUMBER_FORMAT =
+		new DecimalFormat("00");
+
 	static {
-		hoursNumberFormat.setPositivePrefix("+");
-		minutesNumberFormat.setNegativePrefix("");
+		HOURS_NUMBER_FORMAT.setPositivePrefix("+");
+		MINUTES_NUMBER_FORMAT.setNegativePrefix("");
 	}
 
-	public String format(int offset) {
+	/**
+	 * Format the offset.
+	 * 
+	 * @param offset
+	 *            the time zone offset in milliseconds
+	 * @return the formatted string
+	 */
+	public String format(final int offset) {
 		if (offset == 0) {
 			return "";
 		}
 
-		int minutes = offset / (1000 * 60);
-		int hours = minutes / 60;
+		int minutes = offset / MILLISECONDS_OF_ONE_MINUTE;
+		int hours = minutes / MINUTES_OF_ONE_HOUR;
 
 		StringBuilder sb = new StringBuilder();
 
-		sb.append(hoursNumberFormat.format(hours));
+		sb.append(HOURS_NUMBER_FORMAT.format(hours));
 
 		sb.append(":");
 
-		minutes = minutes - hours * 60;
-		sb.append(minutesNumberFormat.format(minutes));
+		minutes = minutes - hours * MINUTES_OF_ONE_HOUR;
+		sb.append(MINUTES_NUMBER_FORMAT.format(minutes));
 
 		return sb.toString();
 	}

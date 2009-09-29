@@ -49,39 +49,81 @@ import cn.net.openid.jos.domain.Password;
  * Send one-time password to email.
  * 
  * @author Sutra Zhou
- * 
  */
 public class PasswordSendTaskExecutor {
-	private static final Log log = LogFactory
+	/**
+	 * The logger.
+	 */
+	private static final Log LOG = LogFactory
 			.getLog(PasswordSendTaskExecutor.class);
+
+	/**
+	 * The task executor.
+	 */
 	private TaskExecutor taskExecutor;
+
+	/**
+	 * The mail sender.
+	 */
 	private MailSender mailSender;
 
-	public PasswordSendTaskExecutor(TaskExecutor taskExecutor) {
+	/**
+	 * Constructor a new password send task executor with the task executor.
+	 * 
+	 * @param taskExecutor
+	 *            the task executor
+	 */
+	public PasswordSendTaskExecutor(final TaskExecutor taskExecutor) {
 		this.taskExecutor = taskExecutor;
 	}
 
 	/**
+	 * Set the mail sender.
+	 * 
 	 * @param mailSender
 	 *            the mailSender to set
 	 */
-	public void setMailSender(MailSender mailSender) {
+	public void setMailSender(final MailSender mailSender) {
 		this.mailSender = mailSender;
 	}
 
-	public void sendPassword(Email email, Password password) {
+	/**
+	 * Send the password to the email.
+	 * 
+	 * @param email
+	 *            the email to send to
+	 * @param password
+	 *            the password to send
+	 */
+	public void sendPassword(final Email email, final Password password) {
 		taskExecutor.execute(new PasswordSendTask(email, password));
 	}
 
+	/**
+	 * The password send task.
+	 * 
+	 * @author Sutra Zhou
+	 */
 	private class PasswordSendTask implements Runnable {
+		/**
+		 * The email to send to.
+		 */
 		private Email email;
+
+		/**
+		 * The password to send.
+		 */
 		private Password password;
 
 		/**
+		 * Constructor.
+		 * 
 		 * @param email
+		 *            the email
 		 * @param password
+		 *            the password
 		 */
-		public PasswordSendTask(Email email, Password password) {
+		public PasswordSendTask(final Email email, final Password password) {
 			this.email = email;
 			this.password = password;
 		}
@@ -91,8 +133,8 @@ public class PasswordSendTaskExecutor {
 		 */
 		public void run() {
 			Locale currentLocale = email.getLocale();
-			log.debug("Current locale: " + currentLocale);
-			log.debug("Sending mail to: " + this.email.getAddress());
+			LOG.debug("Current locale: " + currentLocale);
+			LOG.debug("Sending mail to: " + this.email.getAddress());
 			ResourceBundle emailConfirmationResources = ResourceBundle
 					.getBundle("one-time-password", currentLocale);
 

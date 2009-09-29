@@ -12,6 +12,9 @@
 	<artifactId>jos-service</artifactId>
 	<packaging>jar</packaging>
 	<name>Java OpenID Server - Service</name>
+	<reporting>
+		<outputDirectory>../target/site/${project.artifactId}/</outputDirectory>
+	</reporting>
 	<dependencies>
 		<dependency>
 			<groupId>commons-lang</groupId>

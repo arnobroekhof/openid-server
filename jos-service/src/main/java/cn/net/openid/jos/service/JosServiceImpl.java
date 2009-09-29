@@ -75,51 +75,133 @@ import cn.net.openid.jos.domain.Persona;
 import cn.net.openid.jos.domain.Realm;
 import cn.net.openid.jos.domain.Site;
 import cn.net.openid.jos.domain.User;
-import cn.net.openid.jos.service.exception.EmailConfirmationInfoNotFoundException;
+import cn.net.openid.jos.service.exception.
+EmailConfirmationInfoNotFoundException;
 import cn.net.openid.jos.service.exception.LastPasswordException;
 import cn.net.openid.jos.service.exception.NoPermissionException;
 import cn.net.openid.jos.service.exception.PersonaInUseException;
 import cn.net.openid.jos.service.exception.UnresolvedDomainException;
 
 /**
- * @author Sutra Zhou
+ * Service implementation.
  * 
+ * @author Sutra Zhou
  */
 public class JosServiceImpl implements JosService {
-	private static final Log log = LogFactory.getLog(JosServiceImpl.class);
+	/**
+	 * The logger.
+	 */
+	private static final Log LOG = LogFactory.getLog(JosServiceImpl.class);
 
-	private final Map<Domain, ServerManager> serverManagers = new HashMap<Domain, ServerManager>();
+	/**
+	 * Server managers.
+	 */
+	private final Map<Domain, ServerManager> serverManagers =
+		new HashMap<Domain, ServerManager>();
 
+	/**
+	 * The configurator password.
+	 */
 	private String configuratorPassword;
+
+	/**
+	 * The available locales.
+	 */
 	private Collection<Locale> availableLocales;
+
+	/**
+	 * The pattern of the system reserved word.
+	 */
 	private Pattern systemReservedWordPattern;
+
+	/**
+	 * The password generator.
+	 */
 	private PasswordGenerator passwordGenerator;
+
+	/**
+	 * The minimum length of the generated one time password.
+	 */
+	private int oneTimePasswordMinLength;
+
+	/**
+	 * The maximum length of the generated one time password.
+	 */
+	private int oneTimePasswordMaxLength;
+
+	/**
+	 * The length of seed to generate email confirmation code.
+	 */
+	private int emailConfirmationCodeSeedLength;
 
 	/* DAOs */
 
+	/**
+	 * The {@link Domain} DAO.
+	 */
 	private DomainDao domainDao;
+
+	/**
+	 * The {@link User} DAO.
+	 */
 	private UserDao userDao;
+
+	/**
+	 * The {@link Password} DAO.
+	 */
 	private PasswordDao passwordDao;
+
+	/**
+	 * The {@link Email} DAO.
+	 */
 	private EmailDao emailDao;
+
+	/**
+	 * The {@link EmailConfirmationInfo} DAO.
+	 */
 	private EmailConfirmationInfoDao emailConfirmationInfoDao;
+
+	/**
+	 * The {@link Attribute} DAO.
+	 */
 	private AttributeDao attributeDao;
+
+	/**
+	 * The {@link AttributeValue} DAO.
+	 */
 	private AttributeValueDao attributeValueDao;
+
+	/**
+	 * The {@link Realm} DAO.
+	 */
 	private RealmDao realmDao;
+
+	/**
+	 * The {@link Site} DAO.
+	 */
 	private SiteDao siteDao;
+
+	/**
+	 * The {@link Persona} DAO.
+	 */
 	private PersonaDao personaDao;
 
+	/**
+	 * The default constructor.
+	 */
 	public JosServiceImpl() {
 		this.availableLocales = Collections.unmodifiableCollection(Arrays
 				.asList(Locale.getAvailableLocales()));
 	}
 
 	/**
+	 * Set the configurator password.
+	 * 
 	 * @param configuratorPassword
 	 *            the configuratorPassword to set
 	 */
-	public void setConfiguratorPassword(String configuratorPassword) {
-		String s = StringUtils
-				.trimToNull(configuratorPassword);
+	public void setConfiguratorPassword(final String configuratorPassword) {
+		String s = StringUtils.trimToNull(configuratorPassword);
 		if ("BLANK".equals(s) || StringUtils.isBlank(s)) {
 			this.configuratorPassword = null;
 		} else {
@@ -128,61 +210,109 @@ public class JosServiceImpl implements JosService {
 	}
 
 	/**
+	 * Set the regular expression of the pattern of the system wide reserved
+	 * word.
+	 * 
 	 * @param systemReservedWordPattern
 	 *            the systemReservedWordPattern to set
 	 */
-	public void setSystemReservedWordPattern(String systemReservedWordPattern) {
+	public void setSystemReservedWordPattern(
+			final String systemReservedWordPattern) {
 		this.systemReservedWordPattern = Pattern
 				.compile(systemReservedWordPattern.trim());
 	}
 
 	/**
+	 * Set the minimum length of the generated one time password.
+	 * 
+	 * @param oneTimePasswordMinLength
+	 *            the oneTimePasswordMinLength to set
+	 */
+	public void setOneTimePasswordMinLength(
+			final int oneTimePasswordMinLength) {
+		this.oneTimePasswordMinLength = oneTimePasswordMinLength;
+	}
+
+	/**
+	 * Set the maximum length of the generated one time password.
+	 * 
+	 * @param oneTimePasswordMaxLength
+	 *            the oneTimePasswordMaxLength to set
+	 */
+	public void setOneTimePasswordMaxLength(
+			final int oneTimePasswordMaxLength) {
+		this.oneTimePasswordMaxLength = oneTimePasswordMaxLength;
+	}
+
+	/**
+	 * Set the length of seed to generate email confirmation code.
+	 * 
+	 * @param emailConfirmationCodeSeedLength
+	 *            the emailConfirmationCodeSeedLength to set
+	 */
+	public void setEmailConfirmationCodeSeedLength(
+			final int emailConfirmationCodeSeedLength) {
+		this.emailConfirmationCodeSeedLength = emailConfirmationCodeSeedLength;
+	}
+
+	/**
+	 * Set the {@link Domain} DAO.
 	 * 
 	 * @param domainDao
 	 *            the domainDao to set
 	 */
-	public void setDomainDao(DomainDao domainDao) {
+	public void setDomainDao(final DomainDao domainDao) {
 		this.domainDao = domainDao;
 	}
 
 	/**
+	 * Set the {@link User} DAO.
+	 * 
 	 * @param userDao
 	 *            the userDao to set
 	 */
-	public void setUserDao(UserDao userDao) {
+	public void setUserDao(final UserDao userDao) {
 		this.userDao = userDao;
 	}
 
 	/**
+	 * Set the {@link Password} DAO.
+	 * 
 	 * @param passwordDao
 	 *            the passwordDao to set
 	 */
-	public void setPasswordDao(PasswordDao passwordDao) {
+	public void setPasswordDao(final PasswordDao passwordDao) {
 		this.passwordDao = passwordDao;
 	}
 
 	/**
+	 * Set the {@link Email} DAO.
+	 * 
 	 * @param emailDao
-	 *            要设置的 emailDao
+	 *            the {@link Email} DAO to set
 	 */
-	public void setEmailDao(EmailDao emailDao) {
+	public void setEmailDao(final EmailDao emailDao) {
 		this.emailDao = emailDao;
 	}
 
 	/**
+	 * Set the {@link EmailConfirmationInfo} DAO.
+	 * 
 	 * @param emailConfirmationInfoDao
 	 *            the emailConfirmationInfoDao to set
 	 */
 	public void setEmailConfirmationInfoDao(
-			EmailConfirmationInfoDao emailConfirmationInfoDao) {
+			final EmailConfirmationInfoDao emailConfirmationInfoDao) {
 		this.emailConfirmationInfoDao = emailConfirmationInfoDao;
 	}
 
 	/**
+	 * Set the {@link Attribute} DAO.
+	 * 
 	 * @param attributeDao
 	 *            the attributeDao to set
 	 */
-	public void setAttributeDao(AttributeDao attributeDao) {
+	public void setAttributeDao(final AttributeDao attributeDao) {
 		this.attributeDao = attributeDao;
 	}
 
@@ -190,44 +320,59 @@ public class JosServiceImpl implements JosService {
 	 * @param attributeValueDao
 	 *            the attributeValueDao to set
 	 */
-	public void setAttributeValueDao(AttributeValueDao attributeValueDao) {
+	public void setAttributeValueDao(
+			final AttributeValueDao attributeValueDao) {
 		this.attributeValueDao = attributeValueDao;
 	}
 
 	/**
+	 * Set the {@link Realm} DAO.
+	 * 
 	 * @param realmDao
 	 *            the realmDao to set
 	 */
-	public void setRealmDao(RealmDao realmDao) {
+	public void setRealmDao(final RealmDao realmDao) {
 		this.realmDao = realmDao;
 	}
 
 	/**
+	 * Set the {@link Site} DAO.
+	 * 
 	 * @param siteDao
 	 *            the siteDao to set
 	 */
-	public void setSiteDao(SiteDao siteDao) {
+	public void setSiteDao(final SiteDao siteDao) {
 		this.siteDao = siteDao;
 	}
 
 	/**
+	 * Set the {@link Persona} DAO.
+	 * 
 	 * @param personaDao
 	 *            the personaDao to set
 	 */
-	public void setPersonaDao(PersonaDao personaDao) {
+	public void setPersonaDao(final PersonaDao personaDao) {
 		this.personaDao = personaDao;
 	}
 
 	/**
+	 * Set the {@link PasswordGenerator}.
 	 * 
 	 * @param passwordGenerator
 	 *            the passwordGenerator to set
 	 */
-	public void setPasswordGenerator(PasswordGenerator passwordGenerator) {
+	public void setPasswordGenerator(
+			final PasswordGenerator passwordGenerator) {
 		this.passwordGenerator = passwordGenerator;
 	}
 
-	public void setAvailableLocales(Collection<String> availableLocales) {
+	/**
+	 * Set the available locales.
+	 * 
+	 * @param availableLocales
+	 *            the available locales to set
+	 */
+	public void setAvailableLocales(final Collection<String> availableLocales) {
 		this.availableLocales = new LinkedHashSet<Locale>(availableLocales
 				.size());
 		for (String language : availableLocales) {
@@ -237,18 +382,31 @@ public class JosServiceImpl implements JosService {
 				.unmodifiableCollection(this.availableLocales);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public Collection<Locale> getAvailableLocales() {
 		return this.availableLocales;
 	}
 
-	public boolean isSystemReservedWord(String word) {
+	/**
+	 * {@inheritDoc}
+	 */
+	public boolean isSystemReservedWord(final String word) {
 		return this.systemReservedWordPattern.matcher(word).matches();
 	}
 
-	private synchronized ServerManager newServerManager(Domain domain) {
+	/**
+	 * New server manager for the {@link Domain}.
+	 * 
+	 * @param domain
+	 *            the {@link Domain}
+	 * @return the server manager for the {@link Domain}
+	 */
+	private synchronized ServerManager newServerManager(final Domain domain) {
 		ServerManager serverManager = this.serverManagers.get(domain);
 		if (serverManager == null) {
-			log.debug("new a serverManager for " + domain);
+			LOG.debug("new a serverManager for " + domain);
 			serverManager = new ServerManager();
 			serverManager.setOPEndpointUrl(domain.getRuntime()
 					.getOpenidServerUrl().toString());
@@ -257,14 +415,10 @@ public class JosServiceImpl implements JosService {
 		return serverManager;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.service.JosService#getServerManager(cn.net.openid.jos
-	 * .domain.Domain)
+	/**
+	 * {@inheritDoc}
 	 */
-	public ServerManager getServerManager(Domain domain) {
+	public ServerManager getServerManager(final Domain domain) {
 		ServerManager serverManager = this.serverManagers.get(domain);
 		if (serverManager == null) {
 			serverManager = newServerManager(domain);
@@ -272,14 +426,11 @@ public class JosServiceImpl implements JosService {
 		return serverManager;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seecn.net.openid.jos.service.JosService#parseDomain(javax.servlet.http.
-	 * HttpServletRequest)
+	/**
+	 * {@inheritDoc}
 	 */
-	public Domain parseDomain(HttpServletRequest request) {
-		log.debug("parseDomain is called.");
+	public Domain parseDomain(final HttpServletRequest request) {
+		LOG.debug("parseDomain is called.");
 
 		Domain domain = null;
 
@@ -322,15 +473,12 @@ public class JosServiceImpl implements JosService {
 		return domain;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.service.JosService#parseUsername(cn.net.openid.jos.
-	 * domain.Domain, javax.servlet.http.HttpServletRequest)
+	/**
+	 * {@inheritDoc}
 	 */
-	public String parseUsername(Domain domain, HttpServletRequest request) {
-		log.debug("parseUsername is called.");
+	public String parseUsername(final Domain domain,
+			final HttpServletRequest request) {
+		LOG.debug("parseUsername is called.");
 
 		String username = null;
 		switch (domain.getType()) {
@@ -358,7 +506,15 @@ public class JosServiceImpl implements JosService {
 		}
 	}
 
-	private URL buildURLQuietly(String urlString) {
+	/**
+	 * Build URL quietly.
+	 * 
+	 * @param urlString
+	 *            the url string
+	 * @return the URL object from the string, IllegalArgumentException will be
+	 *         thrown if malformed
+	 */
+	private URL buildURLQuietly(final String urlString) {
 		try {
 			return new URL(urlString);
 		} catch (MalformedURLException e) {
@@ -375,7 +531,7 @@ public class JosServiceImpl implements JosService {
 	 *            the input string, can be null
 	 * @return fales if pattern or input is null
 	 */
-	private boolean isMatches(Pattern pattern, String input) {
+	private boolean isMatches(final Pattern pattern, final String input) {
 		if (pattern == null || input == null) {
 			return false;
 		} else {
@@ -386,11 +542,14 @@ public class JosServiceImpl implements JosService {
 	/**
 	 * Parse username from the host.
 	 * 
+	 * @param domainName
+	 *            the domain name
 	 * @param host
-	 *            the host of the URL.
+	 *            the host of the URL
 	 * @return the username, null if the length of domainName and host are equal
 	 */
-	private String parseUsernameFromSubdomain(String domainName, String host) {
+	private String parseUsernameFromSubdomain(final String domainName,
+			final String host) {
 		if (domainName.length() == host.length()) {
 			return null;
 		} else {
@@ -415,36 +574,30 @@ public class JosServiceImpl implements JosService {
 	 *            the request URI
 	 * @return the username
 	 */
-	private String parseUsernameFromSubdirectory(String contextPath,
-			String memberPath, String requestURI) {
+	private String parseUsernameFromSubdirectory(final String contextPath,
+			final String memberPath, final String requestURI) {
 		int memberPathLength = memberPath == null ? 0 : memberPath.length() + 1;
 		return requestURI.substring(contextPath.length() + memberPathLength);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see cn.net.openid.jos.service.JosService#getDomain(java.lang.String)
+	/***
+	 * {@inheritDoc}
 	 */
-	public Domain getDomain(String id) {
+	public Domain getDomain(final String id) {
 		return domainDao.getDomain(id);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public Domain getDomainByName(String name) {
+	public Domain getDomainByName(final String name) {
 		return domainDao.getDomainByName(name);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.service.JosService#getDomainByName(java.lang.String,
-	 * int)
+	/**
+	 * {@inheritDoc}
 	 */
-	public Domain getDomainByName(String name, int type) {
+	public Domain getDomainByName(final String name, final int type) {
 		Domain domain = domainDao.getDomainByName(name);
 		if (domain != null && domain.getType() == type) {
 			return domain;
@@ -456,42 +609,33 @@ public class JosServiceImpl implements JosService {
 	/**
 	 * {@inheritDoc}
 	 */
-	public void saveDomain(Domain domain) {
+	public void saveDomain(final Domain domain) {
 		domainDao.saveDomain(domain);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.service.JosService#checkConfiguratorPassword(String)
+	/**
+	 * {@inheritDoc}
 	 */
-	public boolean checkConfiguratorPassword(String input) {
+	public boolean checkConfiguratorPassword(final String input) {
 		if (StringUtils.isBlank(this.configuratorPassword)) {
-			log.debug("password is blank, login is not allowed.");
+			LOG.debug("password is blank, login is not allowed.");
 			return false;
 		} else {
 			return this.configuratorPassword.equals(input);
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see cn.net.openid.dao.DaoFacade#getUser(java.lang.String)
+	/**
+	 * {@inheritDoc}
 	 */
-	public User getUser(String id) {
+	public User getUser(final String id) {
 		return userDao.getUser(id);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.service.JosService#getUser(cn.net.openid.jos.domain
-	 * .Domain, java.lang.String)
+	/**
+	 * {@inheritDoc}
 	 */
-	public User getUser(Domain domain, String username) {
+	public User getUser(final Domain domain, final String username) {
 		User user = userDao.getUser(domain, username);
 		if (user != null) {
 			// Set domain with the runtime domain.
@@ -500,13 +644,11 @@ public class JosServiceImpl implements JosService {
 		return user;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see cn.net.openid.jos.service.JosService#login(cn.net.openid.jos.domain
-	 * .Domain, java.lang.String, java.lang.String)
+	/**
+	 * {@inheritDoc}
 	 */
-	public User login(Domain domain, String username, String passwordPlaintext) {
+	public User login(final Domain domain, final String username,
+			final String passwordPlaintext) {
 		if (StringUtils.isEmpty(username)) {
 			return null;
 		}
@@ -531,26 +673,19 @@ public class JosServiceImpl implements JosService {
 		return foundPassword ? user : null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see cn.net.openid.dao.DaoFacade#insertUser(cn.net.openid.User,
-	 * cn.net.openid.domain.Password)
+	/**
+	 * {@inheritDoc}
 	 */
-	public void insertUser(User user, Password password) {
+	public void insertUser(final User user, final Password password) {
 		userDao.insertUser(user);
 		passwordDao.insertPassword(password);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.service.JosService#updatePassword(cn.net.openid.jos
-	 * .domain.User, java.lang.String, java.lang.String, java.lang.String)
+	/**
+	 * {@inheritDoc}
 	 */
-	public void updatePassword(User user, String passwordId, String name,
-			String passwordPlaintext) {
+	public void updatePassword(final User user, final String passwordId,
+			final String name, final String passwordPlaintext) {
 		Password password = getPassword(user, passwordId);
 		boolean insert = false;
 		if (password == null) {
@@ -569,15 +704,10 @@ public class JosServiceImpl implements JosService {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.service.JosService#deletePasswords(cn.net.openid.jos
-	 * .domain.User, java.lang.String[])
+	/**
+	 * {@inheritDoc}
 	 */
-	public void deletePasswords(User user, String[] passwordIds)
-			throws LastPasswordException {
+	public void deletePasswords(final User user, final String[] passwordIds) {
 		for (String passwordId : passwordIds) {
 			Password password = passwordDao.getPassword(passwordId);
 			if (password.getUser().equals(user)) {
@@ -589,14 +719,11 @@ public class JosServiceImpl implements JosService {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.service.JosService#generateOneTimePassword(cn.net
-	 * .openid .jos.domain.User, cn.net.openid.jos.domain.Email)
+	/**
+	 * {@inheritDoc}
 	 */
-	public Password generateOneTimePassword(User user, Email email) {
+	public Password generateOneTimePassword(final User user,
+			final Email email) {
 		Password ret = null;
 		Collection<Password> passwords = this.getPasswords(user);
 		for (Password password : passwords) {
@@ -613,7 +740,8 @@ public class JosServiceImpl implements JosService {
 
 			ret.setName(email.getAddress());
 			String passwordPlaintext = new String(this.passwordGenerator
-					.generate(16, 32));
+					.generate(oneTimePasswordMinLength,
+							oneTimePasswordMaxLength));
 			ret.setPlaintext(passwordPlaintext);
 			ret.setShaHex(DigestUtils.shaHex(ret.getPlaintext()));
 
@@ -622,14 +750,10 @@ public class JosServiceImpl implements JosService {
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.service.JosService#deleteEmail(cn.net.openid.jos.domain
-	 * .User, java.lang.String)
+	/**
+	 * {@inheritDoc}
 	 */
-	public void deleteEmail(User user, String id) {
+	public void deleteEmail(final User user, final String id) {
 		Email email = emailDao.getEmail(id);
 		if (email != null && email.getUser().equals(user)) {
 			emailDao.deleteEmail(id);
@@ -638,14 +762,10 @@ public class JosServiceImpl implements JosService {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.service.JosService#setPrimaryEmail(cn.net.openid.jos
-	 * .domain.User, java.lang.String)
+	/**
+	 * {@inheritDoc}
 	 */
-	public void setPrimaryEmail(User user, String id) {
+	public void setPrimaryEmail(final User user, final String id) {
 		Email email = getEmail(user, id);
 		if (email != null) {
 			Email oldPrimaryEmail = emailDao.getPrimaryEmail(user);
@@ -658,37 +778,25 @@ public class JosServiceImpl implements JosService {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.service.JosService#getEmail(cn.net.openid.jos.domain
-	 * .User, java.lang.String)
+	/**
+	 * {@inheritDoc}
 	 */
-	public Email getEmail(User user, String id) {
+	public Email getEmail(final User user, final String id) {
 		Email email = emailDao.getEmail(id);
 		return (email != null && email.getUser().equals(user)) ? email : null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.service.JosService#getEmails(cn.net.openid.jos.domain
-	 * .User)
+	/**
+	 * {@inheritDoc}
 	 */
-	public Collection<Email> getEmails(User user) {
+	public Collection<Email> getEmails(final User user) {
 		return emailDao.getEmails(user);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.service.JosService#insertEmail(cn.net.openid.jos.domain
-	 * .User, cn.net.openid.jos.domain.Email)
+	/**
+	 * {@inheritDoc}
 	 */
-	public void insertEmail(User user, Email email) {
+	public void insertEmail(final User user, final Email email) {
 		if (user.equals(email.getUser())) {
 			emailDao.insertEmail(email);
 		} else {
@@ -696,47 +804,36 @@ public class JosServiceImpl implements JosService {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.service.JosService#generateConfirmationCode(cn.net.
-	 * openid.jos.domain.Email)
+	/**
+	 * {@inheritDoc}
 	 */
-	public String generateConfirmationCode(Email email) {
+	public String generateConfirmationCode(final Email email) {
 		StringBuilder seed = new StringBuilder();
 		seed.append(email.getUser().getId());
 		seed.append(email.getUser().getUsername());
 		seed.append(email.getUser().getCreationDate());
 		seed.append(email.getAddress());
-		seed.append(RandomStringUtils.randomAlphanumeric(40));
+		seed.append(RandomStringUtils
+				.randomAlphanumeric(emailConfirmationCodeSeedLength));
 		seed.append(System.currentTimeMillis());
 		seed.append(System.nanoTime());
 		return DigestUtils.shaHex(seed.toString());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.service.JosService#getEmailConfirmationInfo(java.lang
-	 * .String)
+	/**
+	 * {@inheritDoc}
 	 */
 	public EmailConfirmationInfo getEmailConfirmationInfo(
-			String confirmationCode) {
+			final String confirmationCode) {
 		return emailConfirmationInfoDao
 				.getEmailConfirmationInfo(confirmationCode);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.service.JosService#insertEmailConfirmationInfo(cn.net
-	 * .openid.jos.domain.User, cn.net.openid.jos.domain.EmailConfirmationInfo)
+	/**
+	 * {@inheritDoc}
 	 */
-	public void insertEmailConfirmationInfo(User user,
-			EmailConfirmationInfo emailConfirmationInfo) {
+	public void insertEmailConfirmationInfo(final User user,
+			final EmailConfirmationInfo emailConfirmationInfo) {
 		if (user.equals(emailConfirmationInfo.getEmail().getUser())) {
 			emailConfirmationInfoDao
 					.insertEmailConfirmationInfo(emailConfirmationInfo);
@@ -745,15 +842,11 @@ public class JosServiceImpl implements JosService {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.service.JosService#updateEmailConfirmationInfo(cn.net
-	 * .openid.jos.domain.User, cn.net.openid.jos.domain.EmailConfirmationInfo)
+	/**
+	 * {@inheritDoc}
 	 */
-	public void updateEmailConfirmationInfo(User user,
-			EmailConfirmationInfo emailConfirmationInfo) {
+	public void updateEmailConfirmationInfo(final User user,
+			final EmailConfirmationInfo emailConfirmationInfo) {
 		if (user.equals(emailConfirmationInfo.getEmail().getUser())) {
 			emailConfirmationInfoDao
 					.updateEmailConfirmationInfo(emailConfirmationInfo);
@@ -762,12 +855,15 @@ public class JosServiceImpl implements JosService {
 		}
 	}
 
-	public void confirmEmail(String confirmationCode)
+	/**
+	 * {@inheritDoc}
+	 */
+	public void confirmEmail(final String confirmationCode)
 			throws EmailConfirmationInfoNotFoundException {
 		EmailConfirmationInfo eci = emailConfirmationInfoDao
 				.getEmailConfirmationInfo(confirmationCode);
-		if (log.isDebugEnabled()) {
-			log.debug("email confirmation info: " + eci);
+		if (LOG.isDebugEnabled()) {
+			LOG.debug("email confirmation info: " + eci);
 		}
 		if (eci == null || !eci.isSent() || eci.isConfirmed()) {
 			throw new EmailConfirmationInfoNotFoundException();
@@ -782,79 +878,59 @@ public class JosServiceImpl implements JosService {
 		emailConfirmationInfoDao.updateEmailConfirmationInfo(eci);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.service.JosService#getPasswords(cn.net.openid.jos.domain
-	 * .User)
+	/**
+	 * {@inheritDoc}
 	 */
-	public Collection<Password> getPasswords(User user) {
+	public Collection<Password> getPasswords(final User user) {
 		return passwordDao.getPasswords(user);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.service.JosService#getPassword(cn.net.openid.jos.domain
-	 * .User, java.lang.String)
+	/**
+	 * {@inheritDoc}
 	 */
-	public Password getPassword(User user, String passwordId) {
+	public Password getPassword(final User user, final String passwordId) {
 		Password password = passwordDao.getPassword(passwordId);
 		return (password != null && password.getUser().equals(user)) ? password
 				: null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see cn.net.openid.dao.DaoFacade#getAttribute(java.lang.String)
+	/**
+	 * {@inheritDoc}
 	 */
-	public Attribute getAttribute(String id) {
+	public Attribute getAttribute(final String id) {
 		return attributeDao.getAttribute(id);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see cn.net.openid.dao.DaoFacade#getAttributes()
+	/**
+	 * {@inheritDoc}
 	 */
 	public Collection<Attribute> getAttributes() {
 		return attributeDao.getAttributes();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.dao.DaoFacade#saveAttribute(cn.net.openid.domain.Attribute)
+	/**
+	 * {@inheritDoc}
 	 */
-	public void saveAttribute(Attribute attribute) {
+	public void saveAttribute(final Attribute attribute) {
 		attributeDao.saveAttribute(attribute);
 	}
 
-	public void deleteAttribute(String id) {
+	/**
+	 * {@inheritDoc}
+	 */
+	public void deleteAttribute(final String id) {
 		attributeDao.deleteAttribute(id);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.service.JosService#getUserAttributeValues(cn.net.openid
-	 * .jos.domain.User)
+	/**
+	 * {@inheritDoc}
 	 */
 	public Collection<AttributeValue> getUserAttributeValues(User user) {
 		return attributeValueDao.getUserAttributeValues(user);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.service.JosService#saveAttributeValues(cn.net.openid
-	 * .jos.domain.User, java.util.Collection)
+	/**
+	 * {@inheritDoc}
 	 */
 	public void saveAttributeValues(User user,
 			Collection<AttributeValue> attributeValues) {
@@ -865,43 +941,31 @@ public class JosServiceImpl implements JosService {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.service.JosService#isAlwaysApprove(cn.net.openid.jos
-	 * .domain.User, java.lang.String)
+	/**
+	 * {@inheritDoc}
 	 */
-	public boolean isAlwaysApprove(User user, String realmUrl) {
+	public boolean isAlwaysApprove(final User user, final String realmUrl) {
 		Site site = siteDao.getSite(user, realmUrl);
 		return site == null ? false : site.isAlwaysApprove();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.service.JosService#updateApproval(cn.net.openid.jos
-	 * .domain.User, java.lang.String)
+	/**
+	 * {@inheritDoc}
 	 */
-	public void updateApproval(User user, String realmUrl) {
+	public void updateApproval(final User user, final String realmUrl) {
 		Site site = siteDao.getSite(user, realmUrl);
 		site.setApprovals(site.getApprovals() + 1);
 		siteDao.updateSite(site);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.service.JosService#allow(cn.net.openid.jos.domain.User,
-	 * java.lang.String, cn.net.openid.jos.domain.Persona, boolean)
+	/**
+	 * {@inheritDoc}
 	 */
-	public void allow(User user, String realmUrl, Persona persona,
-			boolean forever) {
-		if (log.isDebugEnabled()) {
-			log.debug("user: " + user);
-			log.debug("realmUrl: " + realmUrl);
+	public void allow(final User user, final String realmUrl,
+			final Persona persona, final boolean forever) {
+		if (LOG.isDebugEnabled()) {
+			LOG.debug("user: " + user);
+			LOG.debug("realmUrl: " + realmUrl);
 		}
 		Site site = siteDao.getSite(user, realmUrl);
 		if (site == null) {
@@ -928,103 +992,70 @@ public class JosServiceImpl implements JosService {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.service.JosService#getSites(cn.net.openid.jos.domain
-	 * .User)
+	/**
+	 * {@inheritDoc}
 	 */
-	public Collection<Site> getSites(User user) {
+	public Collection<Site> getSites(final User user) {
 		return siteDao.getSites(user);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.service.JosService#getTopSites(cn.net.openid.jos.domain
-	 * .User, int)
+	/**
+	 * {@inheritDoc}
 	 */
-	public Collection<Site> getTopSites(User user, int maxResults) {
+	public Collection<Site> getTopSites(final User user, final int maxResults) {
 		return siteDao.getTopSites(user, maxResults);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.service.JosService#getLatestSites(cn.net.openid.jos
-	 * .domain.User, int)
+	/**
+	 * {@inheritDoc}
 	 */
-	public Collection<Site> getLatestSites(User user, int maxResults) {
+	public Collection<Site> getLatestSites(final User user,
+			final int maxResults) {
 		return siteDao.getLatestSites(user, maxResults);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see cn.net.openid.jos.service.JosService#getRecentRealms(int)
+	/**
+	 * {@inheritDoc}
 	 */
-	public Collection<Realm> getLatestRealms(int maxResults) {
+	public Collection<Realm> getLatestRealms(final int maxResults) {
 		return realmDao.getLatestRealms(maxResults);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.service.JosService#getSite(cn.net.openid.jos.domain
-	 * .User, java.lang.String)
+	/**
+	 * {@inheritDoc}
 	 */
-	public Site getSite(User user, String realmUrl) {
+	public Site getSite(final User user, final String realmUrl) {
 		return siteDao.getSite(user, realmUrl);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.service.JosService#updateAlwaysApprove(cn.net.openid
-	 * .jos.domain.User, java.lang.String, boolean)
+	/**
+	 * {@inheritDoc}
 	 */
-	public void updateAlwaysApprove(User user, String realmId,
-			boolean alwaysApprove) {
+	public void updateAlwaysApprove(final User user, final String realmId,
+			final boolean alwaysApprove) {
 		siteDao.updateAlwaysApprove(user, realmId, alwaysApprove);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.service.JosService#getPersona(cn.net.openid.jos.domain
-	 * .User, java.lang.String)
+	/**
+	 * {@inheritDoc}
 	 */
-	public Persona getPersona(User user, String id) {
+	public Persona getPersona(final User user, final String id) {
 		Persona persona = personaDao.getPersona(id);
 		return (persona != null && persona.getUser().equals(user)) ? persona
 				: null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.service.JosService#getPersonas(cn.net.openid.jos.domain
-	 * .User)
+	/**
+	 * {@inheritDoc}
 	 */
-	public Collection<Persona> getPersonas(User user) {
+	public Collection<Persona> getPersonas(final User user) {
 		return personaDao.getPersonas(user);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.service.JosService#insertPersona(cn.net.openid.jos.
-	 * domain.User, cn.net.openid.jos.domain.Persona)
+	/**
+	 * {@inheritDoc}
 	 */
-	public void insertPersona(User user, Persona persona) {
+	public void insertPersona(final User user, final Persona persona) {
 		if (user.equals(persona.getUser())) {
 			personaDao.insertPersona(persona);
 		} else {
@@ -1032,14 +1063,10 @@ public class JosServiceImpl implements JosService {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.service.JosService#updatePersona(cn.net.openid.jos.
-	 * domain.User, cn.net.openid.jos.domain.Persona)
+	/**
+	 * {@inheritDoc}
 	 */
-	public void updatePersona(User user, Persona persona) {
+	public void updatePersona(final User user, final Persona persona) {
 		if (user.equals(persona.getUser())) {
 			personaDao.updatePersona(persona);
 		} else {
@@ -1047,15 +1074,10 @@ public class JosServiceImpl implements JosService {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * cn.net.openid.jos.service.JosService#deletePersonas(cn.net.openid.jos
-	 * .domain.User, java.lang.String[])
+	/**
+	 * {@inheritDoc}
 	 */
-	public void deletePersonas(User user, String[] personaIds)
-			throws PersonaInUseException {
+	public void deletePersonas(final User user, final String[] personaIds) {
 		for (String personaId : personaIds) {
 			Persona persona = getPersona(user, personaId);
 			if (persona != null) {

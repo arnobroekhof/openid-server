@@ -37,7 +37,6 @@ package cn.net.openid.jos.service.exception;
  * operation upon an unresolved domain.
  * 
  * @author Sutra Zhou
- * 
  */
 public class UnresolvedDomainException extends RuntimeException {
 
@@ -47,9 +46,15 @@ public class UnresolvedDomainException extends RuntimeException {
 	private static final long serialVersionUID = 8159796608529077134L;
 
 	/**
+	 * Constructs a new unresolved domain exception with the specified detail
+	 * message. The cause is not initialized, and may subsequently be
+	 * initialized by a call to {@link #initCause}.
+	 * 
 	 * @param message
+	 *            the detail message. The detail message is saved for later
+	 *            retrieval by the {@link #getMessage()} method.
 	 */
-	public UnresolvedDomainException(String message) {
+	public UnresolvedDomainException(final String message) {
 		super(message);
 	}
 

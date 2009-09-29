@@ -45,26 +45,26 @@ import cn.net.openid.jos.domain.Password;
  */
 public class GenerateOneTimePasswordAfterReturningAdvice implements
 		AfterReturningAdvice {
+	/**
+	 * The password send task executor.
+	 */
 	private PasswordSendTaskExecutor passwordSendTaskExecutor;
 
 	/**
-	 * @param passwordSendTaskExecutor
-	 *            the passwordSendTaskExecutor to set
+	 * Constructor.
+	 * 
+	 * @param passwordSendTaskExecutor the passwordSendTaskExecutor
 	 */
-	public void setPasswordSendTaskExecutor(
-			PasswordSendTaskExecutor passwordSendTaskExecutor) {
+	public GenerateOneTimePasswordAfterReturningAdvice(
+			final PasswordSendTaskExecutor passwordSendTaskExecutor) {
 		this.passwordSendTaskExecutor = passwordSendTaskExecutor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.aop.AfterReturningAdvice#afterReturning(java.lang
-	 * .Object, java.lang.reflect.Method, java.lang.Object[], java.lang.Object)
+	/**
+	 * {@inheritDoc}
 	 */
-	public void afterReturning(Object returnValue, Method method,
-			Object[] args, Object target) throws Throwable {
+	public void afterReturning(final Object returnValue, final Method method,
+			final Object[] args, final Object target) throws Throwable {
 		Password password = (Password) returnValue;
 		// User user = (User) args[0];
 		Email email = (Email) args[1];

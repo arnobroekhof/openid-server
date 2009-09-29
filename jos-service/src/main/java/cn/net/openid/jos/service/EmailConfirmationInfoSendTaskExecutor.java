@@ -45,28 +45,40 @@ import org.springframework.mail.SimpleMailMessage;
 import cn.net.openid.jos.domain.EmailConfirmationInfo;
 
 /**
- * @author Sutra Zhou
+ * The email confirmation info send task executor.
  * 
+ * @author Sutra Zhou
  */
 public class EmailConfirmationInfoSendTaskExecutor {
 	/**
 	 * Email confirmation info send task.
 	 * 
 	 * @author Sutra Zhou
-	 * 
 	 */
 	private class EmailConfirmationInfoSendTask implements Runnable {
+		/**
+		 * The email confirmation info.
+		 */
 		private EmailConfirmationInfo emailConfirmationInfo;
 
+		/**
+		 * Constructor.
+		 * 
+		 * @param emailConfirmationInfo
+		 *            the email confirmation info.
+		 */
 		public EmailConfirmationInfoSendTask(
-				EmailConfirmationInfo emailConfirmationInfo) {
+				final EmailConfirmationInfo emailConfirmationInfo) {
 			this.emailConfirmationInfo = emailConfirmationInfo;
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		public void run() {
 			Locale currentLocale = emailConfirmationInfo.getEmail().getLocale();
-			log.debug("Current locale: " + currentLocale);
-			log.debug("Sending mail to: "
+			LOG.debug("Current locale: " + currentLocale);
+			LOG.debug("Sending mail to: "
 					+ this.emailConfirmationInfo.getEmail().getAddress());
 			ResourceBundle emailConfirmationResources = ResourceBundle
 					.getBundle("email-confirmation", currentLocale);
@@ -91,25 +103,50 @@ public class EmailConfirmationInfoSendTaskExecutor {
 		}
 	}
 
-	private static final Log log = LogFactory
+	/**
+	 * Logger.
+	 */
+	private static final Log LOG = LogFactory
 			.getLog(EmailConfirmationInfoSendTaskExecutor.class);
 
+	/**
+	 * The task executor.
+	 */
 	private TaskExecutor taskExecutor;
+
+	/**
+	 * The mail sender.
+	 */
 	private MailSender mailSender;
 
-	public EmailConfirmationInfoSendTaskExecutor(TaskExecutor taskExecutor) {
+	/**
+	 * Constructor.
+	 * 
+	 * @param taskExecutor
+	 *            the task executor
+	 */
+	public EmailConfirmationInfoSendTaskExecutor(
+			final TaskExecutor taskExecutor) {
 		this.taskExecutor = taskExecutor;
 	}
 
 	/**
+	 * Set mail sender.
+	 * 
 	 * @param mailSender
 	 *            the mailSender to set
 	 */
-	public void setMailSender(MailSender mailSender) {
+	public void setMailSender(final MailSender mailSender) {
 		this.mailSender = mailSender;
 	}
 
-	public void sendEmail(EmailConfirmationInfo emailConfirmationInfo) {
+	/**
+	 * Send mail.
+	 * 
+	 * @param emailConfirmationInfo
+	 *            the email confirmation info to send to the mail
+	 */
+	public void sendEmail(final EmailConfirmationInfo emailConfirmationInfo) {
 		taskExecutor.execute(new EmailConfirmationInfoSendTask(
 				emailConfirmationInfo));
 	}
