@@ -81,6 +81,9 @@
 				<property name="realmDao" ref="realmDao" />
 				<property name="siteDao" ref="siteDao" />
 				<property name="passwordGenerator" ref="passwordGenerator" />
+				<property name="oneTimePasswordMinLength" value="16" />
+				<property name="oneTimePasswordMaxLength" value="32" />
+				<property name="emailConfirmationCodeSeedLength" value="40" />
 				<property name="availableLocales">
 					<set>
 						<value>ba</value>
@@ -142,14 +145,16 @@
 
 	<bean id="insertEmailAfterReturningAdvice"
 		class="cn.net.openid.jos.service.InsertEmailAfterReturningAdvice">
-		<property name="emailConfirmationInfoSendTaskExecutor"
-			ref="emailConfirmationInfoSendTaskExecutor" />
+		<constructor-arg>
+			<ref local="emailConfirmationInfoSendTaskExecutor" />
+		</constructor-arg>
 	</bean>
 
 	<bean id="generateOneTimePasswordAfterReturningAdvice"
 		class="cn.net.openid.jos.service.GenerateOneTimePasswordAfterReturningAdvice">
-		<property name="passwordSendTaskExecutor"
-			ref="passwordSendTaskExecutor" />
+		<constructor-arg>
+			<ref local="passwordSendTaskExecutor" />
+		</constructor-arg>
 	</bean>
 
 	<!-- ================ TASK EXECUTOR DEFINITIONS ================ -->

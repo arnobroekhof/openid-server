@@ -56,6 +56,9 @@
 			</plugin>
 		</plugins>
 	</build>
+	<reporting>
+		<outputDirectory>../target/site/${project.artifactId}/</outputDirectory>
+	</reporting>
 	<dependencies>
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
@@ -76,6 +79,7 @@
 		<dependency>
 			<groupId>commons-dbcp</groupId>
 			<artifactId>commons-dbcp</artifactId>
+			<optional>true</optional>
 		</dependency>
 
 		<!-- Transaction Manager: jotm -->
