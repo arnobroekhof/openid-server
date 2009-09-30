@@ -42,19 +42,13 @@ import cn.net.openid.jos.web.AbstractJosController;
 
 /**
  * @author Sutra Zhou
- * 
  */
 public class SetPrimaryEmailController extends AbstractJosController {
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.Controller#handleRequest(javax.servlet
-	 * .http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	/**
+	 * {@inheritDoc}
 	 */
-	public ModelAndView handleRequest(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public ModelAndView handleRequest(final HttpServletRequest request,
+			final HttpServletResponse response) throws Exception {
 		String id = request.getParameter("id");
 		if (!StringUtils.isEmpty(id)) {
 			getJosService().setPrimaryEmail(getUser(request), id);
@@ -62,5 +56,4 @@ public class SetPrimaryEmailController extends AbstractJosController {
 		request.getRequestDispatcher("/email").forward(request, response);
 		return null;
 	}
-
 }

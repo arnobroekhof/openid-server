@@ -47,50 +47,43 @@ import cn.net.openid.jos.web.WebUtils;
  * 
  */
 public class UserLoggedInInterceptor implements HandlerInterceptor {
+	/**
+	 * The login path.
+	 */
 	private String loginPath = "login";
 
 	/**
 	 * @param loginPath
 	 *            the loginPath to set
 	 */
-	public void setLoginPath(String loginPath) {
+	public void setLoginPath(final String loginPath) {
 		this.loginPath = loginPath;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.springframework.web.servlet.HandlerInterceptor#afterCompletion(javax.servlet.http.HttpServletRequest,
-	 *      javax.servlet.http.HttpServletResponse, java.lang.Object,
-	 *      java.lang.Exception)
+	/**
+	 * {@inheritDoc}
 	 */
-	public void afterCompletion(HttpServletRequest request,
-			HttpServletResponse response, Object handler, Exception ex)
+	public void afterCompletion(final HttpServletRequest request,
+			final HttpServletResponse response, final Object handler,
+			final Exception ex) throws Exception {
+
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public void postHandle(final HttpServletRequest request,
+			final HttpServletResponse response, final Object handler,
+			final ModelAndView modelAndView) throws Exception {
+
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public boolean preHandle(final HttpServletRequest request,
+			final HttpServletResponse response, final Object handler)
 			throws Exception {
-
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.springframework.web.servlet.HandlerInterceptor#postHandle(javax.servlet.http.HttpServletRequest,
-	 *      javax.servlet.http.HttpServletResponse, java.lang.Object,
-	 *      org.springframework.web.servlet.ModelAndView)
-	 */
-	public void postHandle(HttpServletRequest request,
-			HttpServletResponse response, Object handler,
-			ModelAndView modelAndView) throws Exception {
-
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.springframework.web.servlet.HandlerInterceptor#preHandle(javax.servlet.http.HttpServletRequest,
-	 *      javax.servlet.http.HttpServletResponse, java.lang.Object)
-	 */
-	public boolean preHandle(HttpServletRequest request,
-			HttpServletResponse response, Object handler) throws Exception {
 		boolean ret = false;
 		HttpSession session = request.getSession(false);
 		if (session != null) {
@@ -100,12 +93,11 @@ public class UserLoggedInInterceptor implements HandlerInterceptor {
 				ret = true;
 			}
 		}
-		if (ret == false) {
+		if (!ret) {
 			response.sendRedirect(response.encodeRedirectURL(request
 					.getContextPath()
 					+ this.loginPath));
 		}
 		return ret;
 	}
-
 }

@@ -38,8 +38,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.openid4java.server.ServerManager;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
@@ -60,20 +58,12 @@ import cn.net.openid.jos.web.interceptor.CaptchaInterceptor;
  * 
  */
 public class LoginController extends AbstractJosSimpleFormController {
-	@SuppressWarnings("unused")
-	private static final Log log = LogFactory.getLog(LoginController.class);
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.BaseCommandController#onBindAndValidate
-	 * (javax.servlet.http.HttpServletRequest, java.lang.Object,
-	 * org.springframework.validation.BindException)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	protected void onBindAndValidate(HttpServletRequest request,
-			Object command, BindException errors) throws Exception {
+	protected void onBindAndValidate(final HttpServletRequest request,
+			final Object command, final BindException errors) throws Exception {
 		LoginForm lf = (LoginForm) command;
 		User user = getJosService().login(this.getDomain(request),
 				lf.getUsername(), lf.getPassword());
@@ -91,18 +81,13 @@ public class LoginController extends AbstractJosSimpleFormController {
 		super.onBindAndValidate(request, command, errors);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax
-	 * .servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse,
-	 * java.lang.Object, org.springframework.validation.BindException)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	protected ModelAndView onSubmit(HttpServletRequest request,
-			HttpServletResponse response, Object command, BindException errors)
-			throws Exception {
+	protected ModelAndView onSubmit(final HttpServletRequest request,
+			final HttpServletResponse response, final Object command,
+			final BindException errors) throws Exception {
 		String token = (String) request.getAttribute("token");
 		UserSession userSession = getUserSession(request);
 		ApprovingRequest checkIdRequest = userSession
@@ -128,17 +113,13 @@ public class LoginController extends AbstractJosSimpleFormController {
 		return super.onSubmit(request, response, command, errors);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.SimpleFormController#referenceData
-	 * (javax.servlet.http.HttpServletRequest, java.lang.Object,
-	 * org.springframework.validation.Errors)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	protected Map<Object, Object> referenceData(HttpServletRequest request,
-			Object command, Errors errors) throws Exception {
+	protected Map<Object, Object> referenceData(
+			final HttpServletRequest request, final Object command,
+			final Errors errors) throws Exception {
 		LoginForm form = (LoginForm) command;
 
 		if (StringUtils.isEmpty(form.getUsername())) {

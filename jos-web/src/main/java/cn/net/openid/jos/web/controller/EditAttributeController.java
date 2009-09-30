@@ -41,18 +41,13 @@ import cn.net.openid.jos.web.AbstractJosSimpleFormController;
 
 /**
  * @author Sutra Zhou
- * 
  */
 public class EditAttributeController extends AbstractJosSimpleFormController {
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.AbstractFormController#formBackingObject
-	 * (javax.servlet.http.HttpServletRequest)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	protected Object formBackingObject(HttpServletRequest request)
+	protected Object formBackingObject(final HttpServletRequest request)
 			throws Exception {
 		String id = request.getParameter("id");
 		if (StringUtils.isNotEmpty(id)) {
@@ -62,20 +57,15 @@ public class EditAttributeController extends AbstractJosSimpleFormController {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.SimpleFormController#doSubmitAction
-	 * (java.lang.Object)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	protected void doSubmitAction(Object command) throws Exception {
+	protected void doSubmitAction(final Object command) throws Exception {
 		Attribute attribute = (Attribute) command;
 		if (StringUtils.isEmpty(attribute.getId())) {
 			attribute.setId(null);
 		}
 		this.getJosService().saveAttribute(attribute);
 	}
-
 }

@@ -46,19 +46,15 @@ import cn.net.openid.jos.web.AbstractJosController;
 
 /**
  * @author Sutra Zhou
- * 
  */
 public class AttributesController extends AbstractJosController {
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.Controller#handleRequest(javax.servlet
-	 * .http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	/**
+	 * {@inheritDoc}
 	 */
-	public ModelAndView handleRequest(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		Map<String, Collection<Attribute>> model = new HashMap<String, Collection<Attribute>>();
+	public ModelAndView handleRequest(final HttpServletRequest request,
+			final HttpServletResponse response) throws Exception {
+		Map<String, Collection<Attribute>> model =
+			new HashMap<String, Collection<Attribute>>();
 		model.put("attributes", this.getJosService().getAttributes());
 		return new ModelAndView("attributes", model);
 	}

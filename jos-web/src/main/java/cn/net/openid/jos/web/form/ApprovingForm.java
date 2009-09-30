@@ -45,20 +45,36 @@ import cn.net.openid.jos.domain.Persona;
 
 /**
  * @author Sutra Zhou
- * 
  */
 public class ApprovingForm implements Serializable {
-
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 2752745018691700211L;
 
-	private static final Log log = LogFactory.getLog(Attribute.class);
+	/**
+	 * The logger.
+	 */
+	private static final Log LOG = LogFactory.getLog(Attribute.class);
 
+	/**
+	 * The token.
+	 */
 	private String token;
+
+	/**
+	 * The persona ID.
+	 */
 	private String personaId;
+
+	/**
+	 * The attributes.
+	 */
 	private List<Attribute> attributes;
+
+	/**
+	 * The authenticate request.
+	 */
 	private AuthRequest authRequest;
 
 	/**
@@ -79,7 +95,7 @@ public class ApprovingForm implements Serializable {
 	 * @param token
 	 *            the check id request token to set
 	 */
-	public void setToken(String token) {
+	public void setToken(final String token) {
 		this.token = token;
 	}
 
@@ -94,7 +110,7 @@ public class ApprovingForm implements Serializable {
 	 * @param personaId
 	 *            the personaId to set
 	 */
-	public void setPersonaId(String personaId) {
+	public void setPersonaId(final String personaId) {
 		this.personaId = personaId;
 	}
 
@@ -109,33 +125,58 @@ public class ApprovingForm implements Serializable {
 	 * @param authRequest
 	 *            the authRequest to set
 	 */
-	public void setAuthRequest(AuthRequest authRequest) {
+	public void setAuthRequest(final AuthRequest authRequest) {
 		this.authRequest = authRequest;
 	}
 
+	/**
+	 * Attribute.
+	 * 
+	 * @author Sutra Zhou
+	 */
 	public class Attribute {
-
+		/**
+		 * The name.
+		 */
 		private String name;
+
+		/**
+		 * The value.
+		 */
 		private String value;
-		private boolean isRequired;
+
+		/**
+		 * Indicate the attribute value is required.
+		 */
+		private boolean required;
+
+		/**
+		 * The label.
+		 */
 		private String label;
 
 		/**
-		 * 
+		 * Construct an attribute.
 		 */
 		public Attribute() {
 		}
 
 		/**
+		 * Construct an attribute with specified filed.
+		 * 
 		 * @param name
+		 *            the name
 		 * @param persona
+		 *            the persona
 		 * @param isRequired
+		 *            is the value required
 		 * @param label
+		 *            the label
 		 */
-		public Attribute(String name, Persona persona, boolean isRequired,
-				String label) {
+		public Attribute(final String name, final Persona persona,
+				final boolean isRequired, final String label) {
 			this.name = name;
-			this.isRequired = isRequired;
+			this.required = isRequired;
 			this.label = label;
 			if (persona != null) {
 				if (name.equals("email")) {
@@ -156,7 +197,7 @@ public class ApprovingForm implements Serializable {
 					this.value = persona.getTimezone();
 				}
 			}
-			log.debug("attribute name & value is: " + this.name + "="
+			LOG.debug("attribute name & value is: " + this.name + "="
 					+ this.value);
 		}
 
@@ -171,7 +212,7 @@ public class ApprovingForm implements Serializable {
 		 * @param name
 		 *            the name to set
 		 */
-		public void setName(String name) {
+		public void setName(final String name) {
 			this.name = name;
 		}
 
@@ -186,7 +227,7 @@ public class ApprovingForm implements Serializable {
 		 * @param value
 		 *            the value to set
 		 */
-		public void setValue(String value) {
+		public void setValue(final String value) {
 			this.value = value;
 		}
 
@@ -194,15 +235,15 @@ public class ApprovingForm implements Serializable {
 		 * @return the isRequired
 		 */
 		public boolean isRequired() {
-			return isRequired;
+			return required;
 		}
 
 		/**
 		 * @param isRequired
 		 *            the isRequired to set
 		 */
-		public void setRequired(boolean isRequired) {
-			this.isRequired = isRequired;
+		public void setRequired(final boolean isRequired) {
+			this.required = isRequired;
 		}
 
 		/**
@@ -216,7 +257,7 @@ public class ApprovingForm implements Serializable {
 		 * @param label
 		 *            the label to set
 		 */
-		public void setLabel(String label) {
+		public void setLabel(final String label) {
 			this.label = label;
 		}
 	}
@@ -232,14 +273,12 @@ public class ApprovingForm implements Serializable {
 	 * @param attributes
 	 *            the attributes to set
 	 */
-	public void setAttributes(List<Attribute> attributes) {
+	public void setAttributes(final List<Attribute> attributes) {
 		this.attributes = attributes;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public String toString() {

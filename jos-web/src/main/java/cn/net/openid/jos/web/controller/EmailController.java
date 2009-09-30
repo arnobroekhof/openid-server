@@ -48,28 +48,26 @@ import cn.net.openid.jos.web.AbstractJosSimpleFormController;
 
 /**
  * @author Sutra Zhou
- * 
  */
 public class EmailController extends AbstractJosSimpleFormController {
+	/**
+	 * The locale resolver.
+	 */
 	private LocaleResolver localeResolver;
 
 	/**
 	 * @param localeResolver
 	 *            the localeResolver to set
 	 */
-	public void setLocaleResolver(LocaleResolver localeResolver) {
+	public void setLocaleResolver(final LocaleResolver localeResolver) {
 		this.localeResolver = localeResolver;
 	}
 
-	/*
-	 * （非 Javadoc）
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.AbstractFormController#formBackingObject
-	 * (javax.servlet.http.HttpServletRequest)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	protected Object formBackingObject(HttpServletRequest request)
+	protected Object formBackingObject(final HttpServletRequest request)
 			throws Exception {
 		User user = getUser(request);
 
@@ -92,22 +90,16 @@ public class EmailController extends AbstractJosSimpleFormController {
 		return email;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax
-	 * .servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse,
-	 * java.lang.Object, org.springframework.validation.BindException)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	protected ModelAndView onSubmit(HttpServletRequest request,
-			HttpServletResponse response, Object command, BindException errors)
-			throws Exception {
+	protected ModelAndView onSubmit(final HttpServletRequest request,
+			final HttpServletResponse response, final Object command,
+			final BindException errors) throws Exception {
 		Email email = (Email) command;
 		email.setLocale(localeResolver.resolveLocale(request));
 		getJosService().insertEmail(getUser(request), email);
 		return super.onSubmit(request, response, command, errors);
 	}
-
 }

@@ -36,7 +36,6 @@ import java.io.Serializable;
 
 /**
  * @author Sutra Zhou
- * 
  */
 public class ConfirmEmailForm implements Serializable {
 	/**
@@ -44,6 +43,9 @@ public class ConfirmEmailForm implements Serializable {
 	 */
 	private static final long serialVersionUID = -7981706918543691401L;
 
+	/**
+	 * The confirmation code.
+	 */
 	private String confirmationCode;
 
 	/**
@@ -57,8 +59,7 @@ public class ConfirmEmailForm implements Serializable {
 	 * @param confirmationCode
 	 *            the confirmationCode to set
 	 */
-	public void setConfirmationCode(String confirmationCode) {
+	public void setConfirmationCode(final String confirmationCode) {
 		this.confirmationCode = confirmationCode;
 	}
-
 }

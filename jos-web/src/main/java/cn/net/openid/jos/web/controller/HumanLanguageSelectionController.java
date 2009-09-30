@@ -45,19 +45,28 @@ import cn.net.openid.jos.web.AbstractJosController;
  * @author Sutra Zhou
  */
 public class HumanLanguageSelectionController extends AbstractJosController {
+	/**
+	 * The model and view.
+	 */
 	private ModelAndView modelAndView;
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public ModelAndView handleRequest(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public ModelAndView handleRequest(final HttpServletRequest request,
+			final HttpServletResponse response) throws Exception {
 		request.setAttribute("locales", this.getJosService()
 				.getAvailableLocales());
 		return modelAndView;
 	}
 
-	public void setFormView(String formView) {
+	/**
+	 * Sets the form view.
+	 * 
+	 * @param formView
+	 *            the form view
+	 */
+	public void setFormView(final String formView) {
 		this.modelAndView = new ModelAndView(formView);
 	}
 }

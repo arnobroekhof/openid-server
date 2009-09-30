@@ -43,11 +43,13 @@ import cn.net.openid.jos.web.UserSession;
 
 /**
  * @author Sutra Zhou
- * 
  */
 public class DeleteEmailController extends AbstractJosController {
-	public ModelAndView handleRequest(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	/**
+	 * {@inheritDoc}
+	 */
+	public ModelAndView handleRequest(final HttpServletRequest request,
+			final HttpServletResponse response) throws Exception {
 		UserSession userSession = getUserSession(request);
 		String id = request.getParameter("id");
 		if (!StringUtils.isEmpty(id)) {

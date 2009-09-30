@@ -46,33 +46,27 @@ import cn.net.openid.jos.domain.Domain;
 
 /**
  * @author Sutra Zhou
- * 
  */
 public class MemberFilter extends OncePerRequestServiceFilter {
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.filter.OncePerRequestFilter#doFilterInternal(
-	 * javax.servlet.http.HttpServletRequest,
-	 * javax.servlet.http.HttpServletResponse, javax.servlet.FilterChain)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	protected void doFilterInternal(HttpServletRequest request,
-			HttpServletResponse response, FilterChain filterChain)
+	protected void doFilterInternal(final HttpServletRequest request,
+			final HttpServletResponse response, final FilterChain filterChain)
 			throws ServletException, IOException {
-		log.debug("Begin of member filter.");
+		getLog().debug("Begin of member filter.");
 		Domain domain = null;
 		domain = DomainFilter.getDomain(request.getSession(false));
 
-		log.debug("Parse username from the request.");
+		getLog().debug("Parse username from the request.");
 		String username = null;
 		if (domain != null) {
 			username = getService().parseUsername(domain, request);
 		}
 
-		if (log.isDebugEnabled()) {
-			log.debug(String.format("username@domain: %1$s@%2$s", username,
+		if (getLog().isDebugEnabled()) {
+			getLog().debug(String.format("username@domain: %1$s@%2$s", username,
 					domain));
 		}
 		if (username == null
@@ -80,18 +74,35 @@ public class MemberFilter extends OncePerRequestServiceFilter {
 				|| username.equalsIgnoreCase(domain.getServerHost())
 				|| !domain.getUsernameConfiguration().isUsername(username)
 				|| domain.getUsernameConfiguration().isUnallowable(username)) {
-			log.debug("The url is not matches.");
+			getLog().debug("The url is not matches.");
 			filterChain.doFilter(request, response);
 		} else {
 			this.dispatch(request, response, username);
 		}
-		log.debug("End of member filter.");
+		getLog().debug("End of member filter.");
 	}
 
-	private void dispatch(ServletRequest request, ServletResponse response,
-			String username) throws ServletException, IOException {
-		String path = "/member/" + username;// ->/member/$1
-		log.debug("path: " + path);
+	/**
+	 * Dispatch to the identity page for the user.
+	 * 
+	 * @param request
+	 *            the HTTP request
+	 * @param response
+	 *            the HTTp response
+	 * @param username
+	 *            the username of the user
+	 * @throws ServletException
+	 *             if dispatch failed
+	 * @throws IOException
+	 *             indicate IO error
+	 */
+	private void dispatch(final ServletRequest request,
+			final ServletResponse response, final String username)
+			throws ServletException, IOException {
+		String path = "/member/" + username;
+		if (getLog().isDebugEnabled()) {
+			getLog().debug("path: " + path);
+		}
 		RequestDispatcher rd = this.getServletContext().getRequestDispatcher(
 				path);
 		rd.forward(request, response);

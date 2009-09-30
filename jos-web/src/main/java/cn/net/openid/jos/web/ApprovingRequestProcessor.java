@@ -67,31 +67,82 @@ import cn.net.openid.jos.service.JosService;
  * Approving request processor.
  * 
  * @author Sutra Zhou
- * 
  */
 public class ApprovingRequestProcessor {
-	private static final Log log = LogFactory
+	/**
+	 * The logger.
+	 */
+	private static final Log LOG = LogFactory
 			.getLog(ApprovingRequestProcessor.class);
 
+	/**
+	 * The value of allow auto.
+	 */
 	public static final int ALLOW_AUTO = 0;
+
+	/**
+	 * The value of allow once.
+	 */
 	public static final int ALLOW_ONCE = 1;
+
+	/**
+	 * The value of allow forever.
+	 */
 	public static final int ALLOW_FOREVER = 2;
+
+	/**
+	 * The value of deny.
+	 */
 	public static final int DENY = -1;
 
+	/**
+	 * The JOS service.
+	 */
 	private final JosService josService;
+
+	/**
+	 * The OpenID server manager.
+	 */
 	private final ServerManager serverManager;
 
+	/**
+	 * The HTTP Servlet request.
+	 */
 	private final HttpServletRequest httpReq;
+
+	/**
+	 * The HTTP Servlet response.
+	 */
 	private final HttpServletResponse httpResp;
 
+	/**
+	 * The user session.
+	 */
 	private final UserSession userSession;
+
+	/**
+	 * The user.
+	 */
 	private final User user;
 
+	/**
+	 * The approving request.
+	 */
 	private final ApprovingRequest checkIdRequest;
+
+	/**
+	 * The OpenID authentication request.
+	 */
 	private final AuthRequest authRequest;
+
+	/**
+	 * The realm.
+	 */
 	private final String realm;
 
 	/**
+	 * Construct a new {@link ApprovingRequestProcessor}.
+	 * 
 	 * @param httpReq
 	 *            the http request
 	 * @param httpResp
@@ -100,12 +151,13 @@ public class ApprovingRequestProcessor {
 	 *            the jos service
 	 * @param serverManager
 	 *            the serverManager
-	 * @param userSession
-	 * @param authRequest
+	 * @param checkIdRequest
+	 *            the approving request
 	 */
-	public ApprovingRequestProcessor(HttpServletRequest httpReq,
-			HttpServletResponse httpResp, JosService josService,
-			ServerManager serverManager, ApprovingRequest checkIdRequest) {
+	public ApprovingRequestProcessor(final HttpServletRequest httpReq,
+			final HttpServletResponse httpResp, final JosService josService,
+			final ServerManager serverManager,
+			final ApprovingRequest checkIdRequest) {
 		this.httpReq = httpReq;
 		this.httpResp = httpResp;
 
@@ -121,6 +173,12 @@ public class ApprovingRequestProcessor {
 		this.realm = this.authRequest.getRealm();
 	}
 
+	/**
+	 * Execute OpenID checkId.
+	 * 
+	 * @throws IOException
+	 *             if HTTP error
+	 */
 	public void checkId() throws IOException {
 		if (this.isLoggedInUserOwnClaimedId()) {
 			this.checkApproval();
@@ -136,10 +194,14 @@ public class ApprovingRequestProcessor {
 	 * If user logged in, do check site, otherwise redirect to login page.
 	 * 
 	 * @param allowType
+	 *            the allow type: once, forever or deny
 	 * @param persona
+	 *            the persona selected
 	 * @throws IOException
+	 *             if HTTP error
 	 */
-	public void checkId(int allowType, Persona persona) throws IOException {
+	public void checkId(final int allowType, final Persona persona)
+			throws IOException {
 		if (this.isLoggedInUserOwnClaimedId()) {
 			switch (allowType) {
 			case ALLOW_ONCE:
@@ -163,6 +225,11 @@ public class ApprovingRequestProcessor {
 		}
 	}
 
+	/**
+	 * Check the logged in user own the claimed ID.
+	 * 
+	 * @return true if own, otherwise false.
+	 */
 	private boolean isLoggedInUserOwnClaimedId() {
 		boolean ret;
 		if (userSession.isLoggedIn()
@@ -179,7 +246,7 @@ public class ApprovingRequestProcessor {
 	 * If this site is always approve, redirect to return_to page, otherwise
 	 * redirect to approving page.
 	 * 
-	 * @throws IOException
+	 * @throws IOException if HTTP error
 	 */
 	private void checkApproval() throws IOException {
 		boolean approved;
@@ -212,15 +279,12 @@ public class ApprovingRequestProcessor {
 	/**
 	 * Redirect to return_to page.
 	 * 
-	 * @param httpReq
-	 * @param httpResp
-	 * @param approved
-	 * @param persona
-	 * @throws MessageException
-	 * @throws IOException
+	 * @param approved is approved
+	 * @param persona the persona to send to the request realm
+	 * @throws IOException if HTTP error
 	 */
-	private void redirectToReturnToPage(boolean approved, Persona persona)
-			throws IOException {
+	private void redirectToReturnToPage(final boolean approved,
+			final Persona persona) throws IOException {
 		Message response;
 		// interact with the user and obtain data needed to continue
 
@@ -231,6 +295,7 @@ public class ApprovingRequestProcessor {
 		// if the user chose a different claimed_id than the one in request
 		if (userSelectedClaimedId != null
 				&& userSelectedClaimedId.equals(authRequest.getClaimed())) {
+			// TODO
 			// opLocalId = lookupLocalId(userSelectedClaimedId);
 		}
 
@@ -249,16 +314,16 @@ public class ApprovingRequestProcessor {
 					addExtension(response);
 					addSRegExtension(response, persona);
 				} catch (MessageException e) {
-					log.error("", e);
+					LOG.error("", e);
 				}
 			}
 
 			try {
 				serverManager.sign((AuthSuccess) response);
 			} catch (ServerException e) {
-				log.error("", e);
+				LOG.error("", e);
 			} catch (AssociationException e) {
-				log.error("", e);
+				LOG.error("", e);
 			}
 
 			// caller will need to decide which of the following to use:
@@ -281,12 +346,31 @@ public class ApprovingRequestProcessor {
 		userSession.removeApprovingRequest(checkIdRequest.getToken());
 	}
 
-	private String directResponse(String response) throws IOException {
+	/**
+	 * Write string to the HTTP response out stream.
+	 * 
+	 * @param response
+	 *            the response string to write to
+	 * @return always returns null
+	 * @throws IOException
+	 *             if write failed
+	 */
+	private String directResponse(final String response) throws IOException {
 		WebUtils.writeResponse(httpResp, response);
 		return null;
 	}
 
-	private void addSRegExtension(Message response, Persona persona)
+	/**
+	 * Add Simple Register extension message to the response message.
+	 * 
+	 * @param response
+	 *            the response message to add to
+	 * @param persona
+	 *            the persona
+	 * @throws MessageException
+	 *             if add extension failed
+	 */
+	private void addSRegExtension(final Message response, final Persona persona)
 			throws MessageException {
 		if (authRequest.hasExtension(SRegMessage.OPENID_NS_SREG)) {
 			MessageExtension ext = authRequest
@@ -309,8 +393,16 @@ public class ApprovingRequestProcessor {
 		}
 	}
 
+	/**
+	 * Add extension to the response message.
+	 * 
+	 * @param response
+	 *            the response message to add to
+	 * @throws MessageException
+	 *             if add failed
+	 */
 	@SuppressWarnings("unchecked")
-	private void addExtension(Message response) throws MessageException {
+	private void addExtension(final Message response) throws MessageException {
 		if (authRequest.hasExtension(AxMessage.OPENID_NS_AX)) {
 			MessageExtension ext = authRequest
 					.getExtension(AxMessage.OPENID_NS_AX);
@@ -330,8 +422,7 @@ public class ApprovingRequestProcessor {
 							"http://schema.openid.net/contact/email", "email");
 					response.addExtension(fetchResp);
 				}
-			} else // if (ext instanceof StoreRequest)
-			{
+			} else { // if (ext instanceof StoreRequest)
 				throw new UnsupportedOperationException("TODO");
 			}
 		}

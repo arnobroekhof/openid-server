@@ -43,19 +43,13 @@ import cn.net.openid.jos.web.AbstractJosController;
 
 /**
  * @author Sutra Zhou
- * 
  */
 public class PersonasController extends AbstractJosController {
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.Controller#handleRequest(javax.servlet
-	 * .http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	/**
+	 * {@inheritDoc}
 	 */
-	public ModelAndView handleRequest(HttpServletRequest request,
-			HttpServletResponse response) {
+	public ModelAndView handleRequest(final HttpServletRequest request,
+			final HttpServletResponse response) {
 		User user = getUser(request);
 
 		// Delete checked personas.
@@ -72,5 +66,4 @@ public class PersonasController extends AbstractJosController {
 		return new ModelAndView("personas", "personas", getJosService()
 				.getPersonas(user));
 	}
-
 }

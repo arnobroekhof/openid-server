@@ -298,7 +298,7 @@ public interface JosService {
 	 * Delete the {@link Password} of the specified {@link User}.
 	 * <p>
 	 * Deletes only the passwords that owned by the specified user. Throws
-	 * {@link LastPasswordException} if no infinite password after deleted.
+	 * LastPasswordException if no infinite password after deleted.
 	 * </p>
 	 * 
 	 * @param user
@@ -461,7 +461,7 @@ public interface JosService {
 	 * @param user
 	 *            the {@link User}
 	 * @param realmUrl
-	 *            the {@link RealmDao} URL
+	 *            the {@link Realm} URL
 	 * @return the {@link Site}
 	 */
 	Site getSite(User user, String realmUrl);

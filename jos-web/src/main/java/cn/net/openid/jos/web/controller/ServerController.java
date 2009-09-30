@@ -51,42 +51,48 @@ import cn.net.openid.jos.web.WebUtils;
 
 /**
  * @author Sutra Zhou
- * 
  */
 public class ServerController extends AbstractJosController {
-
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -2796635946888123803L;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.Controller#handleRequest(javax.servlet
-	 * .http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	/**
+	 * {@inheritDoc}
 	 */
-	public ModelAndView handleRequest(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		log.debug("Received a request.");
+	public ModelAndView handleRequest(final HttpServletRequest request,
+			final HttpServletResponse response) throws Exception {
+		getLog().debug("Received a request.");
 		try {
 			String responseText = processRequest(request, response);
 			WebUtils.writeResponse(response, responseText);
 		} catch (Exception e) {
-			log.error("error.", e);
+			getLog().error("error.", e);
 			throw new ServletException(e);
 		}
 		return null;
 	}
 
-	private String processRequest(HttpServletRequest httpReq,
-			HttpServletResponse httpResp) throws Exception {
+	/**
+	 * Process the request.
+	 * 
+	 * @param httpReq
+	 *            the HTTP request
+	 * @param httpResp
+	 *            the HTTp resposne
+	 * @return process result string
+	 * @throws Exception
+	 *             indicate authenticate error
+	 */
+	private String processRequest(final HttpServletRequest httpReq,
+			final HttpServletResponse httpResp) throws Exception {
 		Domain domain = this.getDomain(httpReq);
-		if (log.isDebugEnabled()) {
-			log.debug("domain: " + domain);
+		if (getLog().isDebugEnabled()) {
+			getLog().debug("domain: " + domain);
 		}
-		ServerManager serverManager = this.getJosService().getServerManager(domain);
+		ServerManager serverManager =
+			this.getJosService().getServerManager(domain);
 
 		// extract the parameters from the request
 		ParameterList request = new ParameterList(httpReq.getParameterMap());

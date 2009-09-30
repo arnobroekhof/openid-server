@@ -45,15 +45,33 @@ import cn.net.openid.jos.service.JosService;
 import cn.net.openid.jos.web.filter.DomainFilter;
 
 /**
- * @author Sutra Zhou
+ * Abstract JOS controller, provides domain and session accessor.
  * 
+ * @author Sutra Zhou
  */
 public abstract class AbstractJosController implements Controller {
-	protected final Log log = LogFactory.getLog(getClass());
+	/**
+	 * The logger.
+	 */
+	private final Log log = LogFactory.getLog(getClass());
 
+	/**
+	 * The JOS service.
+	 */
 	private JosService josService;
 
 	/**
+	 * Gets the logger.
+	 * 
+	 * @return the logger
+	 */
+	public Log getLog() {
+		return log;
+	}
+
+	/**
+	 * Get the JOS service.
+	 * 
 	 * @return the josService
 	 */
 	public JosService getJosService() {
@@ -61,10 +79,12 @@ public abstract class AbstractJosController implements Controller {
 	}
 
 	/**
+	 * Set the JOS service.
+	 * 
 	 * @param josService
 	 *            the josService to set
 	 */
-	public void setJosService(JosService josService) {
+	public void setJosService(final JosService josService) {
 		this.josService = josService;
 	}
 
@@ -76,25 +96,55 @@ public abstract class AbstractJosController implements Controller {
 	 * @return current domain which parsed from the request url by
 	 *         {@link DomainFilter}.
 	 */
-	public Domain getDomain(HttpServletRequest request) {
+	public Domain getDomain(final HttpServletRequest request) {
 		return DomainFilter.getDomain(request);
 	}
 
 	/* User Session */
 
-	public UserSession getUserSession(HttpSession session) {
+	/**
+	 * Get user session object.
+	 * 
+	 * @param session
+	 *            the HTTP session.
+	 * @return User session object in the HTTP session, if not found, create a
+	 *         new one
+	 */
+	public UserSession getUserSession(final HttpSession session) {
 		return WebUtils.getOrCreateUserSession(session);
 	}
 
-	public UserSession getUserSession(HttpServletRequest request) {
+	/**
+	 * Get user session object.
+	 * 
+	 * @param request
+	 *            the HTTP Servlet request.
+	 * @return User session object in the HTTP session of the sepcifeid HTTP
+	 *         request, if not found, create a new one
+	 */
+	public UserSession getUserSession(final HttpServletRequest request) {
 		return getUserSession(request.getSession());
 	}
 
-	public User getUser(HttpSession session) {
+	/**
+	 * Get the user object from the HTTP session.
+	 * 
+	 * @param session
+	 *            the HTTP session
+	 * @return the user object
+	 */
+	public User getUser(final HttpSession session) {
 		return this.getUserSession(session).getUser();
 	}
 
-	public User getUser(HttpServletRequest request) {
+	/**
+	 * Get the user object from the HTTP Servlet request.
+	 * 
+	 * @param request
+	 *            the HTTP Servlet request
+	 * @return the user object
+	 */
+	public User getUser(final HttpServletRequest request) {
 		return this.getUserSession(request).getUser();
 	}
 

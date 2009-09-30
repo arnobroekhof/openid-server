@@ -52,11 +52,32 @@ import cn.net.openid.jos.web.MessageCodes;
  * 
  */
 public class PersonaValidator implements Validator {
-	private static final Pattern dobPattern = Pattern
+	/**
+	 * The date of birth checking pattern.
+	 */
+	private static final Pattern DOB_PATTERN = Pattern
 			.compile("(\\d{4})-(\\d{2})-(\\d{2})");
+
+	/**
+	 * ISO countries.
+	 */
 	private static Collection<String> isoCountries;
+
+	/**
+	 * ISO languages.
+	 */
 	private static Collection<String> isoLanguages;
+
+	/**
+	 * Genders.
+	 */
 	private static Collection<String> genders;
+
+	/**
+	 * Total count of genders for choosing.
+	 */
+	private static final int GENDER_COUNT = 5;
+
 	static {
 		String[] c = Locale.getISOCountries();
 		isoCountries = new ArrayList<String>(c.length);
@@ -66,7 +87,7 @@ public class PersonaValidator implements Validator {
 		isoLanguages = new ArrayList<String>(c.length);
 		Collections.addAll(isoLanguages, c);
 
-		genders = new ArrayList<String>(5);
+		genders = new ArrayList<String>(GENDER_COUNT);
 		genders.add("U");
 		genders.add("M");
 		genders.add("F");
@@ -74,29 +95,33 @@ public class PersonaValidator implements Validator {
 		genders.add("E");
 	}
 
+	/**
+	 * The email address checking pattern.
+	 */
 	private Pattern emailAddressPattern;
 
-	public void setEmailAddressPattern(String emailAddressPattern) {
+	/**
+	 * Sets the email address checking pattern.
+	 * 
+	 * @param emailAddressPattern
+	 *            the email address checking pattern to set
+	 */
+	public void setEmailAddressPattern(final String emailAddressPattern) {
 		this.emailAddressPattern = Pattern.compile(emailAddressPattern.trim());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.springframework.validation.Validator#supports(java.lang.Class)
+	/**
+	 * {@inheritDoc}
 	 */
 	@SuppressWarnings("unchecked")
-	public boolean supports(Class clazz) {
+	public boolean supports(final Class clazz) {
 		return Persona.class.isAssignableFrom(clazz);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.springframework.validation.Validator#validate(java.lang.Object,
-	 * org.springframework.validation.Errors)
+	/**
+	 * {@inheritDoc}
 	 */
-	public void validate(Object target, Errors errors) {
+	public void validate(final Object target, final Errors errors) {
 		Persona persona = (Persona) target;
 
 		// Name is required.
@@ -133,10 +158,8 @@ public class PersonaValidator implements Validator {
 
 		// dob check.
 		if (StringUtils.isNotEmpty(persona.getDob())) {
-			Matcher matcher = dobPattern.matcher(persona.getDob());
-			if (matcher.matches()) {
-
-			} else {
+			Matcher matcher = DOB_PATTERN.matcher(persona.getDob());
+			if (!matcher.matches()) {
 				errors.rejectValue("dob", MessageCodes.Persona.Error.DOB,
 						"Incorrect birth date.");
 			}

@@ -66,31 +66,36 @@ import cn.net.openid.jos.web.filter.UserAgentLocalesFilter;
  * The controller to add/modify a persona.
  * 
  * @author Sutra Zhou
- * 
  */
 public class PersonaController extends AbstractJosSimpleFormController {
-	private static final Log log = LogFactory.getLog(PersonaController.class);
+	/**
+	 * The logger.
+	 */
+	private static final Log LOG = LogFactory.getLog(PersonaController.class);
 
+	/**
+	 * The formatter for offset.
+	 */
 	private TimeZoneOffsetFormat offsetFormat = new TimeZoneOffsetFormat();
+
+	/**
+	 * The locale resolver.
+	 */
 	private LocaleResolver localeResolver;
 
 	/**
 	 * @param localeResolver
 	 *            the localeResolver to set
 	 */
-	public void setLocaleResolver(LocaleResolver localeResolver) {
+	public void setLocaleResolver(final LocaleResolver localeResolver) {
 		this.localeResolver = localeResolver;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.AbstractFormController#formBackingObject
-	 * (javax.servlet.http.HttpServletRequest)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	protected Object formBackingObject(HttpServletRequest request)
+	protected Object formBackingObject(final HttpServletRequest request)
 			throws Exception {
 		User user = getUser(request);
 		String id = request.getParameter("id");
@@ -106,17 +111,12 @@ public class PersonaController extends AbstractJosSimpleFormController {
 		return persona;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.BaseCommandController#initBinder(
-	 * javax.servlet.http.HttpServletRequest,
-	 * org.springframework.web.bind.ServletRequestDataBinder)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	protected void initBinder(HttpServletRequest request,
-			ServletRequestDataBinder binder) throws Exception {
+	protected void initBinder(final HttpServletRequest request,
+			final ServletRequestDataBinder binder) throws Exception {
 		super.initBinder(request, binder);
 		/*
 		 * binder.registerCustomEditor(Date.class, "dob", new CustomDateEditor(
@@ -124,31 +124,26 @@ public class PersonaController extends AbstractJosSimpleFormController {
 		 */
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.BaseCommandController#onBindAndValidate
-	 * (javax.servlet.http.HttpServletRequest, java.lang.Object,
-	 * org.springframework.validation.BindException)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	protected void onBindAndValidate(HttpServletRequest request,
-			Object command, BindException errors) throws Exception {
+	protected void onBindAndValidate(final HttpServletRequest request,
+			final Object command, final BindException errors) throws Exception {
 		Persona persona = (Persona) command;
 
 		persona.clearAttributes();
 		addAttributes(persona, request);
 
-		if (log.isDebugEnabled()) {
-			log.debug("isSessionForm: " + isSessionForm());
-			log.debug("persona dob: " + persona.getDob());
-			log.debug("---- attibutes ----");
-			log.debug("attribute count: " + persona.getAttributes().size());
+		if (LOG.isDebugEnabled()) {
+			LOG.debug("isSessionForm: " + isSessionForm());
+			LOG.debug("persona dob: " + persona.getDob());
+			LOG.debug("---- attibutes ----");
+			LOG.debug("attribute count: " + persona.getAttributes().size());
 			for (Iterator<Attribute> iterator = persona.getAttributes()
 					.iterator(); iterator.hasNext();) {
 				Attribute attribute = iterator.next();
-				log.debug(String.format("%1$s(%2$s)=%3$s",
+				LOG.debug(String.format("%1$s(%2$s)=%3$s",
 						attribute.getAlias(), attribute.getType(), attribute
 								.getValues()));
 			}
@@ -157,16 +152,13 @@ public class PersonaController extends AbstractJosSimpleFormController {
 		super.onBindAndValidate(request, command, errors);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.SimpleFormController#referenceData
-	 * (javax.servlet.http.HttpServletRequest)
+	/**
+	 * {@inheritDoc}
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	protected Map referenceData(HttpServletRequest request) throws Exception {
+	protected Map referenceData(final HttpServletRequest request)
+			throws Exception {
 		Map data = super.referenceData(request);
 		if (data == null) {
 			data = new HashMap<Object, Object>();
@@ -176,8 +168,10 @@ public class PersonaController extends AbstractJosSimpleFormController {
 
 		// Locale
 		String c, l;
-		final Map<String, String> relatedCountries = new LinkedHashMap<String, String>();
-		final Map<String, String> relatedLanguages = new LinkedHashMap<String, String>();
+		final Map<String, String> relatedCountries =
+			new LinkedHashMap<String, String>();
+		final Map<String, String> relatedLanguages =
+			new LinkedHashMap<String, String>();
 
 		c = locale.getCountry();
 		l = locale.getLanguage();
@@ -206,8 +200,10 @@ public class PersonaController extends AbstractJosSimpleFormController {
 			userAgentLanguages.add(l);
 		}
 
-		final Map<String, String> countries = new LinkedHashMap<String, String>();
-		final Map<String, String> languages = new LinkedHashMap<String, String>();
+		final Map<String, String> countries =
+			new LinkedHashMap<String, String>();
+		final Map<String, String> languages =
+			new LinkedHashMap<String, String>();
 
 		Locale[] locales = Locale.getAvailableLocales();
 		String displayCountry, displayLanguage;
@@ -251,12 +247,14 @@ public class PersonaController extends AbstractJosSimpleFormController {
 		data.put("languages", m);
 
 		// TimeZone
-		final Map<String, String> relatedTimeZones = new LinkedHashMap<String, String>();
+		final Map<String, String> relatedTimeZones =
+			new LinkedHashMap<String, String>();
 		Integer userAgentOffset = org.apache.commons.lang.math.NumberUtils
 				.createInteger(request.getParameter("offset"));
 		int userAgentOffsetValue = userAgentOffset != null ? userAgentOffset
 				.intValue() : 0;
-		final Map<String, String> timeZones = new LinkedHashMap<String, String>();
+		final Map<String, String> timeZones =
+			new LinkedHashMap<String, String>();
 		String[] timeZoneIds = TimeZone.getAvailableIDs();
 		String format = this.getMessageSourceAccessor().getMessage("timeZone");
 		for (String timeZoneId : timeZoneIds) {
@@ -286,18 +284,13 @@ public class PersonaController extends AbstractJosSimpleFormController {
 		return data;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax
-	 * .servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse,
-	 * java.lang.Object, org.springframework.validation.BindException)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	protected ModelAndView onSubmit(HttpServletRequest request,
-			HttpServletResponse response, Object command, BindException errors)
-			throws Exception {
+	protected ModelAndView onSubmit(final HttpServletRequest request,
+			final HttpServletResponse response, final Object command,
+			final BindException errors) throws Exception {
 		Persona persona = (Persona) command;
 		if (StringUtils.isEmpty(persona.getId())) {
 			getJosService().insertPersona(getUser(request), persona);
@@ -308,7 +301,7 @@ public class PersonaController extends AbstractJosSimpleFormController {
 	}
 
 	/**
-	 * Add attributes from request to persona.
+	 * Adds attributes from request to persona.
 	 * 
 	 * @param persona
 	 *            the persona
@@ -316,8 +309,8 @@ public class PersonaController extends AbstractJosSimpleFormController {
 	 *            the HTTP servlet request
 	 */
 	@SuppressWarnings("unchecked")
-	private static void addAttributes(Persona persona,
-			HttpServletRequest request) {
+	private static void addAttributes(final Persona persona,
+			final HttpServletRequest request) {
 		String key, id, alias, type;
 		String[] values;
 		for (Enumeration<String> names = request.getParameterNames(); names
@@ -331,9 +324,14 @@ public class PersonaController extends AbstractJosSimpleFormController {
 				values = request.getParameterValues("attribute.value." + key);
 
 				// Remove all empty strings.
-				while (values.length != (values = (String[]) ArrayUtils
-						.removeElement(values, StringUtils.EMPTY)).length)
-					;
+				int oldLen = 0;
+				int newLen = values.length;
+				do {
+					oldLen = newLen;
+					values = (String[]) ArrayUtils.removeElement(values,
+							StringUtils.EMPTY);
+					newLen = values.length;
+				} while (newLen != oldLen);
 
 				if (StringUtils.isNotEmpty(alias)
 						&& !ArrayUtils.isEmpty(values)) {
@@ -343,8 +341,8 @@ public class PersonaController extends AbstractJosSimpleFormController {
 						attribute.setId(id);
 					}
 					persona.addAttribute(attribute);
-					if (log.isDebugEnabled()) {
-						log.debug(String.format(
+					if (LOG.isDebugEnabled()) {
+						LOG.debug(String.format(
 								"id: %1$s, alias: %2$s, values: %3$s.",
 								attribute.getId(), attribute.getAlias(),
 								attribute.getValues()));

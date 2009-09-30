@@ -48,17 +48,23 @@ import javax.servlet.http.HttpServletResponse;
  * When I using <xmp> <div id="hl">
  * <ul>
  * #foreach($l in $request.locales)
- * <li><a href="?hl=$l#if($!request.getParameter('self'))&amp;self=$!request.getParameter('self')#end"
+ * <li><a href=
+ * "?hl=$l#if($!request.getParameter('self'))&amp;self=$!request
+ * .getParameter('self')#end"
  * >$l.getDisplayName($l)</a></li>
  * #end <li class="last-child"><a href=
- * "hl#if($!request.getParameter('self'))?self=$!request.getParameter('self')#end"
+ * "hl#if($!request.getParameter('self'))?self=$!request
+ * .getParameter('self')#end"
  * >»</a></li>
  * </ul>
  * </div> </xmp>cause a warning:
  * 
- * <pre>
- * [org.apache.velocity.app.VelocityEngine:46] - Warning! The iterative  is an Enumeration in the #foreach() loop at [0,0] in template header.vm. Because it's not resetable, if used in more than once, this may lead to unexpected results.
- * </pre>
+ * <code>
+ * [org.apache.velocity.app.VelocityEngine:46] - Warning!
+ * The iterative  is an Enumeration in the #foreach() loop at [0,0] in template
+ * header.vm. Because it's not resetable, if used in more than once, this may
+ * lead to unexpected results.
+ * </code>
  * 
  * So I create this filter.
  * <p>
@@ -67,29 +73,37 @@ import javax.servlet.http.HttpServletResponse;
  * </p>
  * 
  * @author Sutra Zhou
- * 
  */
 public class UserAgentLocalesFilter extends OncePerRequestServiceFilter {
-	private static final String USER_AGENT_LOCALES = "userAgentLocales";
+	/**
+	 * The user agent locales attribute name in HTTP request.
+	 */
+	private static final String USER_AGENT_LOCALES_ATTRIBUTE_NAME
+		= "userAgentLocales";
 
+	/**
+	 * Gets user agent locales from the HTTP reques.
+	 * 
+	 * @param request
+	 *            the HTTP request
+	 * @return user agent locales
+	 */
 	@SuppressWarnings("unchecked")
-	public static Collection<Locale> getUserAgentLocales(ServletRequest request) {
-		return (Collection<Locale>) request.getAttribute(USER_AGENT_LOCALES);
+	public static Collection<Locale> getUserAgentLocales(
+			final ServletRequest request) {
+		return (Collection<Locale>) request
+				.getAttribute(USER_AGENT_LOCALES_ATTRIBUTE_NAME);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.filter.OncePerRequestFilter#doFilterInternal(
-	 * javax.servlet.http.HttpServletRequest,
-	 * javax.servlet.http.HttpServletResponse, javax.servlet.FilterChain)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	protected void doFilterInternal(HttpServletRequest request,
-			HttpServletResponse response, FilterChain filterChain)
+	protected void doFilterInternal(final HttpServletRequest request,
+			final HttpServletResponse response, final FilterChain filterChain)
 			throws ServletException, IOException {
-		request.setAttribute(USER_AGENT_LOCALES, this.getLocales(request));
+		request.setAttribute(USER_AGENT_LOCALES_ATTRIBUTE_NAME, this
+				.getLocales(request));
 		filterChain.doFilter(request, response);
 	}
 
@@ -102,7 +116,7 @@ public class UserAgentLocalesFilter extends OncePerRequestServiceFilter {
 	 * @return a collection
 	 */
 	@SuppressWarnings("unchecked")
-	private Collection<Locale> getLocales(HttpServletRequest request) {
+	private Collection<Locale> getLocales(final HttpServletRequest request) {
 		Enumeration<Locale> localesEnum = request.getLocales();
 		Collection<Locale> localesCollection = Collections.list(localesEnum);
 		localesCollection.retainAll(this.getService().getAvailableLocales());

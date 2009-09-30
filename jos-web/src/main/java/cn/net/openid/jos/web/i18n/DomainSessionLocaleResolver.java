@@ -53,20 +53,29 @@ import cn.net.openid.jos.web.filter.DomainFilter;
  * use request.getLocale().
  * 
  * @author Sutra Zhou
- * 
  */
 public class DomainSessionLocaleResolver extends SessionLocaleResolver {
-	private static final Log log = LogFactory
+	/**
+	 * The logger.
+	 */
+	private static final Log LOG = LogFactory
 			.getLog(DomainSessionLocaleResolver.class);
-	private static final boolean DEBUG = log.isDebugEnabled();
 
+	/**
+	 * Indicate if the logger is in debug mode.
+	 */
+	private static final boolean DEBUG = LOG.isDebugEnabled();
+
+	/**
+	 * The JOS service.
+	 */
 	private JosService josService;
 
 	/**
 	 * @param josService
 	 *            the josService to set
 	 */
-	public void setJosService(JosService josService) {
+	public void setJosService(final JosService josService) {
 		this.josService = josService;
 	}
 
@@ -74,7 +83,7 @@ public class DomainSessionLocaleResolver extends SessionLocaleResolver {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected Locale determineDefaultLocale(HttpServletRequest request) {
+	protected Locale determineDefaultLocale(final HttpServletRequest request) {
 		Locale defaultLocale = getDefaultLocale();
 		if (defaultLocale == null) {
 			// Find prefer locale of UserAgent which in available languages.
@@ -91,8 +100,17 @@ public class DomainSessionLocaleResolver extends SessionLocaleResolver {
 		return defaultLocale;
 	}
 
+	/**
+	 * Find user agent locale which is available in JOS.
+	 * 
+	 * @param request
+	 *            the HTTP request
+	 * @return the locale sent from the user agent which is available in JOS,
+	 *         null if use agent does not provide locale information or no one
+	 *         is available
+	 */
 	@SuppressWarnings("unchecked")
-	private Locale findUserAgentLocale(HttpServletRequest request) {
+	private Locale findUserAgentLocale(final HttpServletRequest request) {
 		Locale ret = null;
 		Collection<Locale> availableLocales = this.josService
 				.getAvailableLocales();
@@ -106,7 +124,7 @@ public class DomainSessionLocaleResolver extends SessionLocaleResolver {
 			}
 		}
 		if (DEBUG) {
-			log.debug("find user agent locale: " + ret);
+			LOG.debug("find user agent locale: " + ret);
 		}
 		return ret;
 	}
@@ -119,18 +137,18 @@ public class DomainSessionLocaleResolver extends SessionLocaleResolver {
 	 * @return the defaultLocale of current domain, null if not specified or
 	 *         domain is null.
 	 */
-	private Locale getDomainDefaultLocale(HttpServletRequest request) {
+	private Locale getDomainDefaultLocale(final HttpServletRequest request) {
 		Domain domain = DomainFilter.getDomain(request);
 		if (domain != null) {
 			String defaultLocale = domain.getConfiguration().get(
 					"defaultLocale");
 			if (DEBUG) {
-				log.debug("domain default locale: " + defaultLocale);
+				LOG.debug("domain default locale: " + defaultLocale);
 			}
 			return LocaleUtils.toLocale(defaultLocale);
 		} else {
 			if (DEBUG) {
-				log.debug("domain is null.");
+				LOG.debug("domain is null.");
 			}
 			return null;
 		}

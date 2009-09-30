@@ -48,25 +48,30 @@ import cn.net.openid.jos.web.WebUtils;
 
 /**
  * @author Sutra Zhou
- * 
  */
 public class ApprovingRequestFilter extends OncePerRequestFilter {
+	/**
+	 * Token attribute name in HTTP request.
+	 */
 	private static final String TOKEN_ATTRIBUTE_NAME = "token";
-	private static final String APPROVING_REQUEST_ATTRIBUTE_NAME = "approvingRequest";
 
-	private final boolean DEBUG = logger.isDebugEnabled();
+	/**
+	 * Approving request attribute name in HTTP request.
+	 */
+	private static final String APPROVING_REQUEST_ATTRIBUTE_NAME =
+		"approvingRequest";
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.filter.OncePerRequestFilter#doFilterInternal(
-	 * javax.servlet.http.HttpServletRequest,
-	 * javax.servlet.http.HttpServletResponse, javax.servlet.FilterChain)
+	/**
+	 * Indicate the logger is in debug mode.
+	 */
+	private final boolean debug = logger.isDebugEnabled();
+
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	protected void doFilterInternal(HttpServletRequest request,
-			HttpServletResponse response, FilterChain filterChain)
+	protected void doFilterInternal(final HttpServletRequest request,
+			final HttpServletResponse response, final FilterChain filterChain)
 			throws ServletException, IOException {
 		String token = request.getParameter("token");
 		request.setAttribute(TOKEN_ATTRIBUTE_NAME, StringUtils.defaultString(
@@ -78,7 +83,7 @@ public class ApprovingRequestFilter extends OncePerRequestFilter {
 			request.setAttribute(APPROVING_REQUEST_ATTRIBUTE_NAME, userSession
 					.getApprovingRequest(token));
 		}
-		if (DEBUG) {
+		if (debug) {
 			logger.debug("Add attribute `token' to request: " + token);
 		}
 		filterChain.doFilter(request, response);

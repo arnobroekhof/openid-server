@@ -40,23 +40,41 @@ import cn.net.openid.jos.service.JosService;
 
 /**
  * @author Sutra Zhou
- * 
  */
 public abstract class OncePerRequestServiceFilter extends OncePerRequestFilter {
-	protected final Log log = LogFactory.getLog(this.getClass());
+	/**
+	 * The logger.
+	 */
+	private final Log log = LogFactory.getLog(this.getClass());
 
+	/**
+	 * The JOS service.
+	 */
 	private JosService service;
 
 	/**
+	 * @return the log
+	 */
+	public Log getLog() {
+		return log;
+	}
+
+	/**
+	 * Sets JOS service.
+	 * 
 	 * @param service
 	 *            the service to set
 	 */
-	public void setService(JosService service) {
+	public void setService(final JosService service) {
 		this.service = service;
 	}
 
+	/**
+	 * Gets JOS service.
+	 * 
+	 * @return the JOS service
+	 */
 	protected JosService getService() {
 		return this.service;
 	}
-
 }

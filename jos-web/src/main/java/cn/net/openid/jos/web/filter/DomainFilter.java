@@ -51,20 +51,29 @@ import cn.net.openid.jos.domain.Domain;
  * session and request.
  * 
  * @author Sutra Zhou
- * 
  */
 public class DomainFilter extends OncePerRequestServiceFilter {
-	private static final Log log = LogFactory.getLog(DomainFilter.class);
+	/**
+	 * The logger.
+	 */
+	private static final Log LOG = LogFactory.getLog(DomainFilter.class);
+
+	/**
+	 * Domain attribute name in HTTP session.
+	 */
 	private static final String DOMAIN_ATTRIBUTE_NAME = "domain";
 
+	/**
+	 * The pattern for URL that should be skip from this filter.
+	 */
 	private Pattern skipPattern;
 
 	/**
 	 * @param skipPattern
 	 *            the skipPattern to set
 	 */
-	public void setSkipPattern(String skipPattern) {
-		log.debug("skipPattern setted: " + skipPattern.trim());
+	public void setSkipPattern(final String skipPattern) {
+		LOG.debug("skipPattern setted: " + skipPattern.trim());
 		this.skipPattern = Pattern.compile(skipPattern.trim());
 	}
 
@@ -76,7 +85,7 @@ public class DomainFilter extends OncePerRequestServiceFilter {
 	 * @return the domain in the session, null if session is null or not found.
 	 * @see DomainFilter#getDomain(HttpSession)
 	 */
-	public static Domain getDomain(HttpServletRequest request) {
+	public static Domain getDomain(final HttpServletRequest request) {
 		return getDomain(request.getSession(false));
 	}
 
@@ -87,7 +96,7 @@ public class DomainFilter extends OncePerRequestServiceFilter {
 	 *            the HTTP session
 	 * @return the domain in the session, null if session is null or not found.
 	 */
-	public static Domain getDomain(HttpSession session) {
+	public static Domain getDomain(final HttpSession session) {
 		return session != null ? checkRuntime((Domain) session
 				.getAttribute(DOMAIN_ATTRIBUTE_NAME)) : null;
 	}
@@ -108,59 +117,80 @@ public class DomainFilter extends OncePerRequestServiceFilter {
 	 * @return null if runtime is null, else itself.
 	 * @see java.io.Serializable
 	 */
-	private static Domain checkRuntime(Domain domain) {
+	private static Domain checkRuntime(final Domain domain) {
 		return (domain != null && domain.getRuntime() != null) ? domain : null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.filter.OncePerRequestFilter#doFilterInternal(
-	 * javax.servlet.http.HttpServletRequest,
-	 * javax.servlet.http.HttpServletResponse, javax.servlet.FilterChain)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	protected void doFilterInternal(HttpServletRequest request,
-			HttpServletResponse response, FilterChain filterChain)
+	protected void doFilterInternal(final HttpServletRequest request,
+			final HttpServletResponse response, final FilterChain filterChain)
 			throws ServletException, IOException {
-		log.debug("Begin of domain filter.");
+		LOG.debug("Begin of domain filter.");
 		if (!skip(request)) {
 			this.parseDomain(request);
 
 			// Put domain to request.
 			this.setDomain(request, getDomain(request.getSession(false)));
-		} else if (log.isDebugEnabled()) {
-			log.debug("Skipped domain parsing.");
+		} else if (LOG.isDebugEnabled()) {
+			LOG.debug("Skipped domain parsing.");
 		}
 		filterChain.doFilter(request, response);
-		log.debug("End of domain filter.");
+		LOG.debug("End of domain filter.");
 	}
 
-	private boolean skip(HttpServletRequest request) {
+	/**
+	 * Checks if the HTTP request URL should be skip from this filter.
+	 * 
+	 * @param request
+	 *            the HTTP request
+	 * @return true if the request URL should be skipped
+	 */
+	private boolean skip(final HttpServletRequest request) {
 		String path = request.getRequestURI().substring(
 				request.getContextPath().length());
-		if (this.skipPattern.matcher(path).matches()) {
-			return true;
-		} else {
-			return false;
-		}
+		return this.skipPattern.matcher(path).matches();
 	}
 
-	private void parseDomain(HttpServletRequest request) {
+	/**
+	 * Parse domain from the HTTP request.
+	 * 
+	 * @param request
+	 *            the HTTP request
+	 */
+	private void parseDomain(final HttpServletRequest request) {
 		if (getDomain(request.getSession(false)) == null) {
 			Domain domain = getService().parseDomain(request);
 			this.setDomain(request.getSession(), domain);
 		}
 	}
 
-	private void setDomain(HttpSession session, Domain domain) {
-		log.debug("Put domain info into session.");
+	/**
+	 * Set domain to the HTTP session.
+	 * 
+	 * @param session
+	 *            the HTTP session to set to
+	 * @param domain
+	 *            the domain to set
+	 */
+	private void setDomain(final HttpSession session, final Domain domain) {
+		LOG.debug("Put domain info into session.");
 		session.setAttribute(DOMAIN_ATTRIBUTE_NAME, domain);
 	}
 
-	private void setDomain(HttpServletRequest request, Domain domain) {
-		log.debug("Put domain info into request.");
+	/**
+	 * Set domain to the HTTP request.
+	 * 
+	 * @param request
+	 *            the HTTP request to set to
+	 * @param domain
+	 *            the domain to set
+	 */
+	private void setDomain(final HttpServletRequest request,
+			final Domain domain) {
+		LOG.debug("Put domain info into request.");
 		request.setAttribute(DOMAIN_ATTRIBUTE_NAME, domain);
 	}
 }

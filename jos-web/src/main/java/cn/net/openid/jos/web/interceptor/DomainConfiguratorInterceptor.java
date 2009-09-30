@@ -42,30 +42,28 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
  * Domain configurator login check interceptor.
  * 
  * @author Sutra Zhou
- * 
  */
 public class DomainConfiguratorInterceptor extends HandlerInterceptorAdapter {
+	/**
+	 * The login path.
+	 */
 	private String loginPath;
 
 	/**
 	 * @param loginPath
 	 *            the loginPath to set
 	 */
-	public void setLoginPath(String loginPath) {
+	public void setLoginPath(final String loginPath) {
 		this.loginPath = loginPath;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.handler.HandlerInterceptorAdapter#preHandle
-	 * (javax.servlet.http.HttpServletRequest,
-	 * javax.servlet.http.HttpServletResponse, java.lang.Object)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean preHandle(HttpServletRequest request,
-			HttpServletResponse response, Object handler) throws Exception {
+	public boolean preHandle(final HttpServletRequest request,
+			final HttpServletResponse response, final Object handler)
+			throws Exception {
 		boolean loggedIn = false;
 		HttpSession session = request.getSession(false);
 		if (session != null) {
@@ -74,7 +72,7 @@ public class DomainConfiguratorInterceptor extends HandlerInterceptorAdapter {
 				loggedIn = (Boolean) o;
 			}
 		}
-		if (loggedIn == false) {
+		if (!loggedIn) {
 			response.sendRedirect(response.encodeRedirectURL(request
 					.getContextPath()
 					+ this.loginPath));

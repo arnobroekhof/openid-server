@@ -42,19 +42,13 @@ import cn.net.openid.jos.web.UserSession;
 
 /**
  * @author Sutra Zhou
- * 
  */
 public class HomeController extends AbstractJosController {
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.Controller#handleRequest(javax.servlet
-	 * .http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	/**
+	 * {@inheritDoc}
 	 */
-	public ModelAndView handleRequest(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public ModelAndView handleRequest(final HttpServletRequest request,
+			final HttpServletResponse response) throws Exception {
 		String username = request.getParameter("username");
 		if (username != null) {
 			String redirectPath;

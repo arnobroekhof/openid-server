@@ -45,8 +45,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * @author Sutra Zhou
+ * The servlet of member page.
  * 
+ * @author Sutra Zhou
  */
 public class MemberServlet extends HttpServlet {
 	/**
@@ -54,32 +55,33 @@ public class MemberServlet extends HttpServlet {
 	 */
 	private static final long serialVersionUID = -6670900579691443871L;
 
+	/**
+	 * The logger.
+	 */
 	@SuppressWarnings("unused")
-	private static final Log log = LogFactory.getLog(MemberServlet.class);
+	private static final Log LOG = LogFactory.getLog(MemberServlet.class);
 
+	/**
+	 * The HTTP Servlet context.
+	 */
 	private ServletContext context;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.servlet.GenericServlet#init(javax.servlet.ServletConfig)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	public void init(ServletConfig config) throws ServletException {
+	public void init(final ServletConfig config) throws ServletException {
 		super.init(config);
 		this.context = config.getServletContext();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest
-	 * , javax.servlet.http.HttpServletResponse)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
+	protected void doGet(final HttpServletRequest req,
+			final HttpServletResponse resp) throws ServletException,
+			IOException {
 		String pathInfo = req.getPathInfo();
 		if (pathInfo != null && pathInfo.length() > 1) {
 			req.setAttribute("username", req.getPathInfo().substring(1));
@@ -88,5 +90,4 @@ public class MemberServlet extends HttpServlet {
 			resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
 		}
 	}
-
 }

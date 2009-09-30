@@ -44,23 +44,46 @@ import cn.net.openid.jos.web.filter.DomainFilter;
 
 /**
  * @author Sutra Zhou
- * 
  */
 public class CaptchaInterceptor extends HandlerInterceptorAdapter {
+	/**
+	 * The session name of human flag, the flag indicates that the request if
+	 * the HTTP request is sent by human.
+	 */
 	private static final String HUMAN_SESSION_NAME = CaptchaInterceptor.class
 			.getName()
 			+ "IS_HUMAN";
+
+	/**
+	 * The captcha previous page.
+	 */
 	private static final String FROM_SESSION_NAME = CaptchaInterceptor.class
 			.getName()
 			+ "FROM";
 
-	public static boolean isHuman(HttpServletRequest request) {
+	/**
+	 * Returns if the request is sent by human.
+	 * 
+	 * @param request
+	 *            the HTTP request
+	 * @return true if is by human, otherwise false
+	 */
+	public static boolean isHuman(final HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		return session != null
 				&& session.getAttribute(HUMAN_SESSION_NAME) != null;
 	}
 
-	public static void setHuman(HttpServletRequest request, boolean value) {
+	/**
+	 * Sets the human value to specified value.
+	 * 
+	 * @param request
+	 *            the HTTP request
+	 * @param value
+	 *            the value to set
+	 */
+	public static void setHuman(final HttpServletRequest request,
+			final boolean value) {
 		if (value) {
 			request.getSession().setAttribute(HUMAN_SESSION_NAME, value);
 		} else {
@@ -72,9 +95,10 @@ public class CaptchaInterceptor extends HandlerInterceptorAdapter {
 	 * Get the captcha previous page, if null return contextPath.
 	 * 
 	 * @param request
-	 * @return
+	 *            the HTTP request
+	 * @return the path of the previous page
 	 */
-	public static String getFrom(HttpServletRequest request) {
+	public static String getFrom(final HttpServletRequest request) {
 		String ret = null;
 		HttpSession session = request.getSession(false);
 		if (session != null) {
@@ -84,21 +108,26 @@ public class CaptchaInterceptor extends HandlerInterceptorAdapter {
 		return StringUtils.defaultString(ret, request.getContextPath());
 	}
 
-	private static void setFrom(HttpServletRequest request, String value) {
+	/**
+	 * Sets the from.
+	 * 
+	 * @param request
+	 *            the HTTP request
+	 * @param value
+	 *            the value to set
+	 */
+	private static void setFrom(final HttpServletRequest request,
+			final String value) {
 		request.getSession().setAttribute(FROM_SESSION_NAME, value);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.handler.HandlerInterceptorAdapter#preHandle
-	 * (javax.servlet.http.HttpServletRequest,
-	 * javax.servlet.http.HttpServletResponse, java.lang.Object)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean preHandle(HttpServletRequest request,
-			HttpServletResponse response, Object handler) throws Exception {
+	public boolean preHandle(final HttpServletRequest request,
+			final HttpServletResponse response, final Object handler)
+			throws Exception {
 		boolean ret;
 
 		Domain domain = DomainFilter.getDomain(request);

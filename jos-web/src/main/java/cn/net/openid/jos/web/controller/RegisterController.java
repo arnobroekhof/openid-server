@@ -50,20 +50,15 @@ import cn.net.openid.jos.web.interceptor.CaptchaInterceptor;
 
 /**
  * @author Sutra Zhou
- * 
  */
 public class RegisterController extends AbstractJosSimpleFormController {
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.SimpleFormController#referenceData
-	 * (javax.servlet.http.HttpServletRequest, java.lang.Object,
-	 * org.springframework.validation.Errors)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	protected Map<Object, Object> referenceData(HttpServletRequest request,
-			Object command, Errors errors) throws Exception {
+	protected Map<Object, Object> referenceData(
+			final HttpServletRequest request, final Object command,
+			final Errors errors) throws Exception {
 		RegisterForm form = (RegisterForm) command;
 
 		// Set current domain to the user.
@@ -73,15 +68,11 @@ public class RegisterController extends AbstractJosSimpleFormController {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.AbstractFormController#formBackingObject
-	 * (javax.servlet.http.HttpServletRequest)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	protected Object formBackingObject(HttpServletRequest request)
+	protected Object formBackingObject(final HttpServletRequest request)
 			throws Exception {
 		RegisterForm form = (RegisterForm) super.formBackingObject(request);
 
@@ -91,17 +82,12 @@ public class RegisterController extends AbstractJosSimpleFormController {
 		return form;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.BaseCommandController#onBindAndValidate
-	 * (javax.servlet.http.HttpServletRequest, java.lang.Object,
-	 * org.springframework.validation.BindException)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	protected void onBindAndValidate(HttpServletRequest request,
-			Object command, BindException errors) throws Exception {
+	protected void onBindAndValidate(final HttpServletRequest request,
+			final Object command, final BindException errors) throws Exception {
 		RegisterForm form = (RegisterForm) command;
 
 		String username = form.getUser().getUsername();
@@ -123,16 +109,12 @@ public class RegisterController extends AbstractJosSimpleFormController {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(java
-	 * .lang.Object, org.springframework.validation.BindException)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	protected ModelAndView onSubmit(Object command, BindException errors)
-			throws Exception {
+	protected ModelAndView onSubmit(final Object command,
+			final BindException errors) throws Exception {
 		RegisterForm form = (RegisterForm) command;
 		User user = form.getUser();
 		String passwordShaHex = DigestUtils.shaHex(form.getPassword());
@@ -145,5 +127,4 @@ public class RegisterController extends AbstractJosSimpleFormController {
 		this.getJosService().insertUser(user, password);
 		return super.onSubmit(command, errors);
 	}
-
 }

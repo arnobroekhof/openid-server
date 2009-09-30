@@ -48,39 +48,40 @@ import cn.net.openid.jos.web.form.RegisterForm;
  * 
  */
 public class RegisterFormValidator implements Validator {
-	private static final Log log = LogFactory
+	/**
+	 * The logger.
+	 */
+	private static final Log LOG = LogFactory
 			.getLog(RegisterFormValidator.class);
 
+	/**
+	 * The JOS service.
+	 */
 	private JosService josService;
 
 	/**
 	 * @param josService
 	 *            the josService to set
 	 */
-	public void setJosService(JosService josService) {
+	public void setJosService(final JosService josService) {
 		this.josService = josService;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.springframework.validation.Validator#supports(java.lang.Class)
+	/**
+	 * {@inheritDoc}
 	 */
 	@SuppressWarnings("unchecked")
-	public boolean supports(Class clazz) {
+	public boolean supports(final Class clazz) {
 		return RegisterForm.class.isAssignableFrom(clazz);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.springframework.validation.Validator#validate(java.lang.Object,
-	 * org.springframework.validation.Errors)
+	/**
+	 * {@inheritDoc}
 	 */
-	public void validate(Object target, Errors errors) {
+	public void validate(final Object target, final Errors errors) {
 		final RegisterForm form = (RegisterForm) target;
-		if (log.isDebugEnabled()) {
-			log.debug("Username configuration: "
+		if (LOG.isDebugEnabled()) {
+			LOG.debug("Username configuration: "
 					+ form.getUser().getDomain().getUsernameConfiguration());
 		}
 

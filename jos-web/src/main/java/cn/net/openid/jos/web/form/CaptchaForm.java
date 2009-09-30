@@ -40,13 +40,19 @@ import java.util.Locale;
  * 
  */
 public class CaptchaForm implements Serializable {
-
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -7661908793403102686L;
 
+	/**
+	 * The captcha string.
+	 */
 	private String captcha;
+
+	/**
+	 * The locale.
+	 */
 	private Locale locale;
 
 	/**
@@ -60,7 +66,7 @@ public class CaptchaForm implements Serializable {
 	 * @param captcha
 	 *            the captcha to set
 	 */
-	public void setCaptcha(String captcha) {
+	public void setCaptcha(final String captcha) {
 		this.captcha = captcha;
 	}
 
@@ -75,8 +81,7 @@ public class CaptchaForm implements Serializable {
 	 * @param locale
 	 *            the locale to set
 	 */
-	public void setLocale(Locale locale) {
+	public void setLocale(final Locale locale) {
 		this.locale = locale;
 	}
-
 }

@@ -46,7 +46,6 @@ import cn.net.openid.jos.domain.User;
  * The user session, stored the data of user who are logging or logged in.
  * 
  * @author Sutra Zhou
- * 
  */
 public class UserSession implements Serializable {
 
@@ -55,21 +54,40 @@ public class UserSession implements Serializable {
 	 */
 	private static final long serialVersionUID = -8227402637586478669L;
 
-	private static final Log log = LogFactory.getLog(UserSession.class);
-
-	private User user = new User();
-	private boolean loggedIn = false;
-	private Map<String, ApprovingRequest> approvingRequests = new HashMap<String, ApprovingRequest>();
+	/**
+	 * The logger.
+	 */
+	private static final Log LOG = LogFactory.getLog(UserSession.class);
 
 	/**
+	 * The user.
+	 */
+	private User user = new User();
+
+	/**
+	 * Indicate if the user logged in.
+	 */
+	private boolean loggedIn = false;
+
+	/**
+	 * The approving requests.
+	 */
+	private Map<String, ApprovingRequest> approvingRequests =
+		new HashMap<String, ApprovingRequest>();
+
+	/**
+	 * Sets the user.
+	 * 
 	 * @param user
 	 *            the user to set
 	 */
-	public void setUser(User user) {
+	public void setUser(final User user) {
 		this.user = user;
 	}
 
 	/**
+	 * Gets the user.
+	 * 
 	 * @return the user
 	 */
 	public User getUser() {
@@ -77,23 +95,34 @@ public class UserSession implements Serializable {
 	}
 
 	/**
-	 * @return the loggedIn
+	 * Returns if the user is logged in.
+	 * 
+	 * @return the loggedIn true if the user is logged in, otherwise false
 	 */
 	public boolean isLoggedIn() {
 		return loggedIn;
 	}
 
 	/**
+	 * Modify the logged in status of the user.
+	 * 
 	 * @param loggedIn
 	 *            the loggedIn to set
 	 */
-	public void setLoggedIn(boolean loggedIn) {
+	public void setLoggedIn(final boolean loggedIn) {
 		this.loggedIn = loggedIn;
 	}
 
 	/* Authentication Requests */
 
-	public String addApprovingRequest(ApprovingRequest approvingRequest) {
+	/**
+	 * Adds approving request.
+	 * 
+	 * @param approvingRequest
+	 *            the approving request to add
+	 * @return the token for retrieving the added approving request
+	 */
+	public String addApprovingRequest(final ApprovingRequest approvingRequest) {
 		if (approvingRequest.getToken() == null) {
 			String id = WebUtils.generateToken();
 			approvingRequest.setToken(id);
@@ -102,26 +131,45 @@ public class UserSession implements Serializable {
 			this.approvingRequests.put(approvingRequest.getToken(),
 					approvingRequest);
 		}
-		if (log.isDebugEnabled()) {
-			log.debug("Add approving request: " + approvingRequest.getToken());
+		if (LOG.isDebugEnabled()) {
+			LOG.debug("Add approving request: " + approvingRequest.getToken());
 		}
 		return approvingRequest.getToken();
 	}
 
-	public ApprovingRequest getApprovingRequest(String token) {
-		if (log.isDebugEnabled()) {
-			log.debug("get approving request: " + token);
+	/**
+	 * Gets the approving request by the token.
+	 * 
+	 * @param token
+	 *            the token
+	 * @return the approving request associated to the token
+	 */
+	public ApprovingRequest getApprovingRequest(final String token) {
+		if (LOG.isDebugEnabled()) {
+			LOG.debug("get approving request: " + token);
 		}
 		return this.approvingRequests.get(token);
 	}
 
-	public ApprovingRequest removeApprovingRequest(String token) {
-		if (log.isDebugEnabled()) {
-			log.debug("Remove approving request: " + token);
+	/**
+	 * Removes the approving request by the token.
+	 * 
+	 * @param token
+	 *            the token
+	 * @return the removed approving request
+	 */
+	public ApprovingRequest removeApprovingRequest(final String token) {
+		if (LOG.isDebugEnabled()) {
+			LOG.debug("Remove approving request: " + token);
 		}
 		return this.approvingRequests.remove(token);
 	}
 
+	/**
+	 * Gets all approving requests in this user session.
+	 * 
+	 * @return all approving requests
+	 */
 	public Collection<ApprovingRequest> getApprovingRequests() {
 		return this.approvingRequests.values();
 	}

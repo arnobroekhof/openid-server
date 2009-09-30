@@ -39,25 +39,20 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 
-import cn.net.openid.jos.service.exception.EmailConfirmationInfoNotFoundException;
+import cn.net.openid.jos.service.exception.
+EmailConfirmationInfoNotFoundException;
 import cn.net.openid.jos.web.AbstractJosSimpleFormController;
 import cn.net.openid.jos.web.form.ConfirmEmailForm;
 
 /**
  * @author Sutra Zhou
- * 
  */
 public class ConfirmEmailController extends AbstractJosSimpleFormController {
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.AbstractFormController#formBackingObject
-	 * (javax.servlet.http.HttpServletRequest)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	protected Object formBackingObject(HttpServletRequest request)
+	protected Object formBackingObject(final HttpServletRequest request)
 			throws Exception {
 		ConfirmEmailForm command = (ConfirmEmailForm) super
 				.formBackingObject(request);
@@ -68,25 +63,13 @@ public class ConfirmEmailController extends AbstractJosSimpleFormController {
 		return command;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(java
-	 * .lang.Object, org.springframework.validation.BindException)
-	 */
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax
-	 * .servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse,
-	 * java.lang.Object, org.springframework.validation.BindException)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	protected ModelAndView onSubmit(HttpServletRequest request,
-			HttpServletResponse response, Object command, BindException errors)
-			throws Exception {
+	protected ModelAndView onSubmit(final HttpServletRequest request,
+			final HttpServletResponse response, final Object command,
+			final BindException errors) throws Exception {
 		ConfirmEmailForm form = (ConfirmEmailForm) command;
 		try {
 			this.getJosService().confirmEmail(form.getConfirmationCode());

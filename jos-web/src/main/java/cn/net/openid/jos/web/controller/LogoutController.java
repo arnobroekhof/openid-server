@@ -43,24 +43,17 @@ import org.springframework.web.servlet.mvc.Controller;
  * Clean up the session of current session.
  * 
  * @author Sutra Zhou
- * 
  */
 public class LogoutController implements Controller {
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.Controller#handleRequest(javax.servlet
-	 * .http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	/**
+	 * {@inheritDoc}
 	 */
-	public ModelAndView handleRequest(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public ModelAndView handleRequest(final HttpServletRequest request,
+			final HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession(false);
 		if (session != null) {
 			session.invalidate();
 		}
 		return new ModelAndView("logout");
 	}
-
 }

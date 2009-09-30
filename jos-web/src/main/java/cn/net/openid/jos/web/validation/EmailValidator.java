@@ -47,34 +47,42 @@ import cn.net.openid.jos.web.MessageCodes;
  * @author Sutra Zhou
  */
 public class EmailValidator implements Validator {
-	private static final Log log = LogFactory.getLog(EmailValidator.class);
+	/**
+	 * The logger.
+	 */
+	private static final Log LOG = LogFactory.getLog(EmailValidator.class);
+
+	/**
+	 * The regular expression pattern to check email address.
+	 */
 	private Pattern emailAddressPattern;
 
-	public void setEmailAddressPattern(String emailAddressPattern) {
+	/**
+	 * Set the email address checking pattern.
+	 * 
+	 * @param emailAddressPattern
+	 *            the email address checking pattern to set
+	 */
+	public void setEmailAddressPattern(final String emailAddressPattern) {
 		this.emailAddressPattern = Pattern.compile(emailAddressPattern.trim());
-		if (log.isDebugEnabled()) {
-			log.debug("setEmailAddressPattern, emailAddressPattern.pattern: "
+		if (LOG.isDebugEnabled()) {
+			LOG.debug("setEmailAddressPattern, emailAddressPattern.pattern: "
 					+ this.emailAddressPattern.pattern());
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.springframework.validation.Validator#supports(java.lang.Class)
+	/**
+	 * {@inheritDoc}
 	 */
 	@SuppressWarnings("unchecked")
-	public boolean supports(Class clazz) {
+	public boolean supports(final Class clazz) {
 		return Email.class.isAssignableFrom(clazz);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.springframework.validation.Validator#validate(java.lang.Object,
-	 * org.springframework.validation.Errors)
+	/**
+	 * {@inheritDoc}
 	 */
-	public void validate(Object target, Errors errors) {
+	public void validate(final Object target, final Errors errors) {
 		Email email = (Email) target;
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "address",
 				"required", "Field is required.");

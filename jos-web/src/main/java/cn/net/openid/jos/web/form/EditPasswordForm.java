@@ -46,7 +46,14 @@ public class EditPasswordForm implements Serializable {
 	 */
 	private static final long serialVersionUID = -5154439238450014108L;
 
+	/**
+	 * The password.
+	 */
 	private Password password = new Password();
+
+	/**
+	 * The retyped password.
+	 */
 	private String retypedPassword;
 
 	/**
@@ -60,7 +67,7 @@ public class EditPasswordForm implements Serializable {
 	 * @param password
 	 *            the password to set
 	 */
-	public void setPassword(Password password) {
+	public void setPassword(final Password password) {
 		this.password = password;
 	}
 
@@ -75,8 +82,7 @@ public class EditPasswordForm implements Serializable {
 	 * @param retypedPassword
 	 *            the retypedPassword to set
 	 */
-	public void setRetypedPassword(String retypedPassword) {
+	public void setRetypedPassword(final String retypedPassword) {
 		this.retypedPassword = retypedPassword;
 	}
-
 }

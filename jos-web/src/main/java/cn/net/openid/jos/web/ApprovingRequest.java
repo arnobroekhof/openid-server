@@ -38,7 +38,6 @@ import org.openid4java.message.AuthRequest;
 
 /**
  * @author Sutra Zhou
- * 
  */
 public class ApprovingRequest implements Serializable {
 	/**
@@ -46,32 +45,49 @@ public class ApprovingRequest implements Serializable {
 	 */
 	private static final long serialVersionUID = 6688267787986929480L;
 
+	/**
+	 * The token of the approving request.
+	 */
 	private String token;
+
+	/**
+	 * The authentication request.
+	 */
 	private AuthRequest authRequest;
 
 	/**
-	 * 
+	 * Constructs an approving request.
 	 */
 	public ApprovingRequest() {
 	}
 
 	/**
+	 * Constructs an approving request with the authentication request.
+	 * 
 	 * @param authRequest
+	 *            the authentication request
 	 */
-	public ApprovingRequest(AuthRequest authRequest) {
+	public ApprovingRequest(final AuthRequest authRequest) {
 		this.authRequest = authRequest;
 	}
 
 	/**
+	 * Constructs an approving request with the token and authentication
+	 * request.
+	 * 
 	 * @param token
+	 *            the token
 	 * @param authRequest
+	 *            the authentication request
 	 */
-	public ApprovingRequest(String token, AuthRequest authRequest) {
+	public ApprovingRequest(final String token, final AuthRequest authRequest) {
 		this.token = token;
 		this.authRequest = authRequest;
 	}
 
 	/**
+	 * Gets the token.
+	 * 
 	 * @return the token
 	 */
 	public String getToken() {
@@ -79,14 +95,18 @@ public class ApprovingRequest implements Serializable {
 	}
 
 	/**
+	 * Sets the token.
+	 * 
 	 * @param token
 	 *            the token to set
 	 */
-	public void setToken(String token) {
+	public void setToken(final String token) {
 		this.token = token;
 	}
 
 	/**
+	 * Gets the authentication request.
+	 * 
 	 * @return the authRequest
 	 */
 	public AuthRequest getAuthRequest() {
@@ -94,17 +114,17 @@ public class ApprovingRequest implements Serializable {
 	}
 
 	/**
+	 * Sets the authentication request.
+	 * 
 	 * @param authRequest
 	 *            the authRequest to set
 	 */
-	public void setAuthRequest(AuthRequest authRequest) {
+	public void setAuthRequest(final AuthRequest authRequest) {
 		this.authRequest = authRequest;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public int hashCode() {
@@ -114,26 +134,28 @@ public class ApprovingRequest implements Serializable {
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
+	public boolean equals(final Object obj) {
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		final ApprovingRequest other = (ApprovingRequest) obj;
 		if (token == null) {
-			if (other.token != null)
+			if (other.token != null) {
 				return false;
-		} else if (!token.equals(other.token))
+			}
+		} else if (!token.equals(other.token)) {
 			return false;
+		}
 		return true;
 	}
-
 }

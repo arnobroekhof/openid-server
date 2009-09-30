@@ -44,22 +44,42 @@ import org.apache.commons.lang.RandomStringUtils;
  * The utilities for web.
  * 
  * @author Sutra Zhou
- * 
  */
-public class WebUtils {
+public final class WebUtils {
+	/**
+	 * The HTTP session key of user session object.
+	 */
 	private static final String USER_SESSION = "userSession";
 
-	public static String generateToken() {
-		return RandomStringUtils.randomAlphanumeric(32);
+	/**
+	 * The length of token.
+	 */
+	private static final int TOKEN_LENGTH = 32;
+
+	/**
+	 * Utility classes should not have a public or default constructor.
+	 */
+	private WebUtils() {
 	}
 
 	/**
-	 * Retrieve user session from http session.
+	 * Generate a approving request token.
+	 * 
+	 * @return a token string
+	 */
+	public static String generateToken() {
+		return RandomStringUtils.randomAlphanumeric(TOKEN_LENGTH);
+	}
+
+	/**
+	 * Retrieve user session from HTTP session.
 	 * 
 	 * @param session
-	 * @return the user session, if not found in http session, create a new one.
+	 *            the HTTP session
+	 * @return the user session, if not found in HTTP session, create a new one.
 	 */
-	public static UserSession getOrCreateUserSession(HttpSession session) {
+	public static UserSession getOrCreateUserSession(
+			final HttpSession session) {
 		return (UserSession) org.springframework.web.util.WebUtils
 				.getOrCreateSessionAttribute(session, USER_SESSION,
 						UserSession.class);
@@ -73,9 +93,10 @@ public class WebUtils {
 	 * @param response
 	 *            the text which to write, if null, do nothing.
 	 * @throws IOException
+	 *             indicate IO error
 	 */
-	public static void writeResponse(HttpServletResponse httpResp,
-			String response) throws IOException {
+	public static void writeResponse(final HttpServletResponse httpResp,
+			final String response) throws IOException {
 		if (response == null) {
 			return;
 		}

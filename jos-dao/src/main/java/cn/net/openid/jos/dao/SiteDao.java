@@ -44,7 +44,7 @@ import cn.net.openid.jos.domain.User;
  */
 public interface SiteDao {
 	/**
-	 * Get {@link Site} by {@link User} and {@link Realm} URL.
+	 * Get {@link Site} by {@link User} and realm URL.
 	 * 
 	 * @param user
 	 *            the {@link User}
@@ -103,12 +103,12 @@ public interface SiteDao {
 
 	/**
 	 * Update if the the {@link User} always approve the authentication requests
-	 * from the {@link Realm}.
+	 * from the realm.
 	 * 
 	 * @param user
 	 *            the {@link User}
 	 * @param realmId
-	 *            the {@link Reaml} ID
+	 *            the realm ID
 	 * @param alwaysApprove
 	 *            indicate if always approve
 	 */

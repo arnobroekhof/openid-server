@@ -46,16 +46,11 @@ import cn.net.openid.jos.web.AbstractJosController;
  * 
  */
 public class PasswordsController extends AbstractJosController {
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.Controller#handleRequest(javax.servlet
-	 * .http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	/**
+	 * {@inheritDoc}
 	 */
-	public ModelAndView handleRequest(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public ModelAndView handleRequest(final HttpServletRequest request,
+			final HttpServletResponse response) throws Exception {
 		User user = getUser(request);
 
 		// Delete checked password.
@@ -66,11 +61,11 @@ public class PasswordsController extends AbstractJosController {
 				getJosService().deletePasswords(user, deletePasswordIds);
 			} catch (LastPasswordException e) {
 				// Last password exception.
+				// TODO
 			}
 		}
 
 		return new ModelAndView("passwords", "passwords", getJosService()
 				.getPasswords(user));
 	}
-
 }

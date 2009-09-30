@@ -56,43 +56,25 @@ import cn.net.openid.jos.web.form.ApprovingForm;
 
 /**
  * @author Sutra Zhou
- * 
  */
 public class ApprovingController extends AbstractJosSimpleFormController {
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.BaseCommandController#initBinder(
-	 * javax.servlet.http.HttpServletRequest,
-	 * org.springframework.web.bind.ServletRequestDataBinder)
-	 */
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.AbstractFormController#isFormSubmission
-	 * (javax.servlet.http.HttpServletRequest)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	protected boolean isFormSubmission(HttpServletRequest request) {
+	protected boolean isFormSubmission(final HttpServletRequest request) {
 		return request.getParameter("allow_once") != null
 				|| request.getParameter("allow_forever") != null
 				|| request.getParameter("deny") != null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.SimpleFormController#referenceData
-	 * (javax.servlet.http.HttpServletRequest, java.lang.Object,
-	 * org.springframework.validation.Errors)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	protected Map<String, Object> referenceData(HttpServletRequest request,
-			Object command, Errors errors) throws Exception {
+	protected Map<String, Object> referenceData(
+			final HttpServletRequest request, final Object command,
+			final Errors errors) throws Exception {
 		Map<String, Object> models = new HashMap<String, Object>();
 
 		ApprovingForm form = (ApprovingForm) command;
@@ -121,17 +103,12 @@ public class ApprovingController extends AbstractJosSimpleFormController {
 		return models;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.BaseCommandController#onBindAndValidate
-	 * (javax.servlet.http.HttpServletRequest, java.lang.Object,
-	 * org.springframework.validation.BindException)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	protected void onBindAndValidate(HttpServletRequest request,
-			Object command, BindException errors) throws Exception {
+	protected void onBindAndValidate(final HttpServletRequest request,
+			final Object command, final BindException errors) throws Exception {
 		ApprovingForm form = (ApprovingForm) command;
 		boolean allow = request.getParameter("allow_once") != null
 				|| request.getParameter("allow_forever") != null;
@@ -147,18 +124,13 @@ public class ApprovingController extends AbstractJosSimpleFormController {
 		super.onBindAndValidate(request, command, errors);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax
-	 * .servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse,
-	 * java.lang.Object, org.springframework.validation.BindException)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	protected ModelAndView onSubmit(HttpServletRequest request,
-			HttpServletResponse response, Object command, BindException errors)
-			throws Exception {
+	protected ModelAndView onSubmit(final HttpServletRequest request,
+			final HttpServletResponse response, final Object command,
+			final BindException errors) throws Exception {
 		Domain domain = this.getDomain(request);
 		ApprovingForm form = (ApprovingForm) command;
 

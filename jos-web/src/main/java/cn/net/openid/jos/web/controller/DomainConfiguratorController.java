@@ -53,14 +53,33 @@ import cn.net.openid.jos.web.AbstractJosSimpleFormController;
  */
 public class DomainConfiguratorController extends
 		AbstractJosSimpleFormController {
+	/**
+	 * The logger.
+	 */
 	private static final Log LOG = LogFactory
 			.getLog(DomainConfiguratorController.class);
+
+	/**
+	 * The default host name.
+	 */
+	private static final String DEFAULT_HOST = "www";
+
+	/**
+	 * The default host prefix.
+	 */
+	private static final String DEFAULT_HOST_PREFIX = DEFAULT_HOST + ".";
+
+	/**
+	 * The length of default host prefix.
+	 */
+	private static final int DEFAULT_HOST_PREFIX_LENGTH = DEFAULT_HOST_PREFIX
+			.length();
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected Object formBackingObject(HttpServletRequest request)
+	protected Object formBackingObject(final HttpServletRequest request)
 			throws Exception {
 		Map<Integer, String> types = new LinkedHashMap<Integer, String>();
 		types.put(Domain.TYPE_SUBDOMAIN, getMessageSourceAccessor().getMessage(
@@ -78,7 +97,8 @@ public class DomainConfiguratorController extends
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void onBind(HttpServletRequest request, Object command)
+	protected void onBind(final HttpServletRequest request,
+			final Object command)
 			throws Exception {
 		super.onBind(request, command);
 		Domain domain = (Domain) command;
@@ -88,7 +108,8 @@ public class DomainConfiguratorController extends
 		String[] keys = request.getParameterValues("key");
 		String[] values = request.getParameterValues("value");
 		int l = keys.length;
-		Map<String, String> configuration = new LinkedHashMap<String, String>(l);
+		Map<String, String> configuration =
+			new LinkedHashMap<String, String>(l);
 		for (int i = 0; i < l; i++) {
 			if (StringUtils.isNotEmpty(keys[i])
 					&& StringUtils.isNotEmpty(values[i])) {
@@ -102,7 +123,7 @@ public class DomainConfiguratorController extends
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void doSubmitAction(Object command) throws Exception {
+	protected void doSubmitAction(final Object command) throws Exception {
 		this.getJosService().saveDomain((Domain) command);
 	}
 
@@ -113,7 +134,7 @@ public class DomainConfiguratorController extends
 	 *            the host of the request URL.
 	 * @return a stored domain or a new domain
 	 */
-	private Domain getOrCreateDomain(String host) {
+	private Domain getOrCreateDomain(final String host) {
 		String name = host;
 		Domain domain = this.getJosService().getDomainByName(name);
 		LOG.debug("Stored domain: " + domain);
@@ -133,9 +154,9 @@ public class DomainConfiguratorController extends
 	private Domain createDomain(final String host) {
 		final Domain domain = new Domain();
 		String name = host;
-		if (host.startsWith("www.")) {
-			name = host.substring(4);
-			domain.setServerHost("www");
+		if (host.startsWith(DEFAULT_HOST_PREFIX)) {
+			name = host.substring(DEFAULT_HOST_PREFIX_LENGTH);
+			domain.setServerHost(DEFAULT_HOST);
 		}
 		domain.setName(name);
 		if (!host.equals("localhost")) {

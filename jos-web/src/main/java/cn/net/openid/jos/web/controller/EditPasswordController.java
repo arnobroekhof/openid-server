@@ -45,18 +45,13 @@ import cn.net.openid.jos.web.form.EditPasswordForm;
 
 /**
  * @author Sutra Zhou
- * 
  */
 public class EditPasswordController extends AbstractJosSimpleFormController {
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.AbstractFormController#formBackingObject
-	 * (javax.servlet.http.HttpServletRequest)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	protected Object formBackingObject(HttpServletRequest request)
+	protected Object formBackingObject(final HttpServletRequest request)
 			throws Exception {
 		EditPasswordForm editPasswordForm = (EditPasswordForm) super
 				.formBackingObject(request);
@@ -70,23 +65,19 @@ public class EditPasswordController extends AbstractJosSimpleFormController {
 		return editPasswordForm;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.BaseCommandController#onBindAndValidate
-	 * (javax.servlet.http.HttpServletRequest, java.lang.Object,
-	 * org.springframework.validation.BindException)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	protected void onBindAndValidate(HttpServletRequest request,
-			Object command, BindException errors) throws Exception {
+	protected void onBindAndValidate(final HttpServletRequest request,
+			final Object command, final BindException errors) throws Exception {
 		super.onBindAndValidate(request, command, errors);
 		EditPasswordForm editPasswordForm = (EditPasswordForm) command;
 		if (StringUtils.isEmpty(editPasswordForm.getPassword().getName())) {
 			errors.rejectValue("password.name", "password.error.nameRequired");
 		}
-		if (StringUtils.isEmpty(editPasswordForm.getPassword().getPlaintext())) {
+		if (StringUtils.isEmpty(editPasswordForm.getPassword()
+				.getPlaintext())) {
 			errors.rejectValue("password.plaintext",
 					"password.error.plaintextRequired");
 		}
@@ -96,18 +87,13 @@ public class EditPasswordController extends AbstractJosSimpleFormController {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax
-	 * .servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse,
-	 * java.lang.Object, org.springframework.validation.BindException)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	protected ModelAndView onSubmit(HttpServletRequest request,
-			HttpServletResponse response, Object command, BindException errors)
-			throws Exception {
+	protected ModelAndView onSubmit(final HttpServletRequest request,
+			final HttpServletResponse response, final Object command,
+			final BindException errors) throws Exception {
 		EditPasswordForm editPasswordForm = (EditPasswordForm) command;
 		Password password = editPasswordForm.getPassword();
 		getJosService().updatePassword(getUser(request), password.getId(),

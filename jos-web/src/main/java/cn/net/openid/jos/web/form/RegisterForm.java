@@ -41,14 +41,24 @@ import cn.net.openid.jos.domain.User;
  * 
  */
 public class RegisterForm implements Serializable {
-
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 8100263157196112732L;
 
+	/**
+	 * The user object.
+	 */
 	private User user = new User();
+
+	/**
+	 * The password object.
+	 */
 	private String password;
+
+	/**
+	 * The confirming password.
+	 */
 	private String confirmingPassword;
 
 	/**
@@ -62,7 +72,7 @@ public class RegisterForm implements Serializable {
 	 * @param user
 	 *            the user to set
 	 */
-	public void setUser(User user) {
+	public void setUser(final User user) {
 		this.user = user;
 	}
 
@@ -77,7 +87,7 @@ public class RegisterForm implements Serializable {
 	 * @param password
 	 *            the password to set
 	 */
-	public void setPassword(String password) {
+	public void setPassword(final String password) {
 		this.password = password;
 	}
 
@@ -92,8 +102,7 @@ public class RegisterForm implements Serializable {
 	 * @param confirmingPassword
 	 *            the confirmingPassword to set
 	 */
-	public void setConfirmingPassword(String confirmingPassword) {
+	public void setConfirmingPassword(final String confirmingPassword) {
 		this.confirmingPassword = confirmingPassword;
 	}
-
 }

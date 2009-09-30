@@ -41,18 +41,13 @@ import cn.net.openid.jos.web.AbstractJosController;
 
 /**
  * @author Sutra Zhou
- * 
  */
 public class RemoveAttributeController extends AbstractJosController {
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.Controller#handleRequest(javax.servlet
-	 * .http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	/**
+	 * {@inheritDoc}
 	 */
-	public ModelAndView handleRequest(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public ModelAndView handleRequest(final HttpServletRequest request,
+			final HttpServletResponse response) throws Exception {
 		String id = request.getParameter("id");
 		if (id != null) {
 			this.getJosService().deleteAttribute(id);

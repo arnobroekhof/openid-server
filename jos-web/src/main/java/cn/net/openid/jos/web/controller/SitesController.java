@@ -47,18 +47,13 @@ import cn.net.openid.jos.web.AbstractJosController;
 
 /**
  * @author Sutra Zhou
- * 
  */
 public class SitesController extends AbstractJosController {
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.Controller#handleRequest(javax.servlet
-	 * .http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	/**
+	 * {@inheritDoc}
 	 */
-	public ModelAndView handleRequest(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public ModelAndView handleRequest(final HttpServletRequest request,
+			final HttpServletResponse response) throws Exception {
 		// Update alwaysApprove.
 		String[] realmIds = request.getParameterValues("realmId");
 		User user = getUser(request);
@@ -77,12 +72,18 @@ public class SitesController extends AbstractJosController {
 		return new ModelAndView("sites", getModel(user));
 	}
 
-	private Map<String, Collection<Site>> getModel(User user) {
+	/**
+	 * Gets model.
+	 * 
+	 * @param user
+	 *            the user
+	 * @return the model
+	 */
+	private Map<String, Collection<Site>> getModel(final User user) {
 		Collection<Site> sites = getJosService().getSites(user);
-		Map<String, Collection<Site>> model = new HashMap<String, Collection<Site>>(
-				1);
+		Map<String, Collection<Site>> model =
+			new HashMap<String, Collection<Site>>(1);
 		model.put("sites", sites);
 		return model;
 	}
-
 }

@@ -51,28 +51,28 @@ import cn.net.openid.jos.web.interceptor.CaptchaInterceptor;
 
 /**
  * @author Sutra Zhou
- * 
  */
 public class CaptchaController extends AbstractJosSimpleFormController {
+	/**
+	 * The locale resolver.
+	 */
 	private LocaleResolver localeResolver;
 
 	/**
+	 * Sets the locale resolver.
+	 * 
 	 * @param localeResolver
 	 *            the localeResolver to set
 	 */
-	public void setLocaleResolver(LocaleResolver localeResolver) {
+	public void setLocaleResolver(final LocaleResolver localeResolver) {
 		this.localeResolver = localeResolver;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.AbstractFormController#formBackingObject
-	 * (javax.servlet.http.HttpServletRequest)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	protected Object formBackingObject(HttpServletRequest request)
+	protected Object formBackingObject(final HttpServletRequest request)
 			throws Exception {
 		CaptchaForm captchaForm = (CaptchaForm) super
 				.formBackingObject(request);
@@ -80,17 +80,12 @@ public class CaptchaController extends AbstractJosSimpleFormController {
 		return captchaForm;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.BaseCommandController#onBindAndValidate
-	 * (javax.servlet.http.HttpServletRequest, java.lang.Object,
-	 * org.springframework.validation.BindException)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	protected void onBindAndValidate(HttpServletRequest request,
-			Object command, BindException errors) throws Exception {
+	protected void onBindAndValidate(final HttpServletRequest request,
+			final Object command, final BindException errors) throws Exception {
 		// Validate the reCAPTCHA
 		String remoteAddr = request.getRemoteAddr();
 
@@ -115,22 +110,16 @@ public class CaptchaController extends AbstractJosSimpleFormController {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax
-	 * .servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse,
-	 * java.lang.Object, org.springframework.validation.BindException)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	protected ModelAndView onSubmit(HttpServletRequest request,
-			HttpServletResponse response, Object command, BindException errors)
-			throws Exception {
+	protected ModelAndView onSubmit(final HttpServletRequest request,
+			final HttpServletResponse response, final Object command,
+			final BindException errors) throws Exception {
 		CaptchaInterceptor.setHuman(request, true);
 		response.sendRedirect(response.encodeRedirectURL(CaptchaInterceptor
 				.getFrom(request)));
 		return null;
 	}
-
 }

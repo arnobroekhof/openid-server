@@ -36,7 +36,6 @@ import java.io.Serializable;
 
 /**
  * @author Sutra Zhou
- * 
  */
 public class LoginForm implements Serializable {
 	/**
@@ -44,7 +43,14 @@ public class LoginForm implements Serializable {
 	 */
 	private static final long serialVersionUID = -5037879147649703902L;
 
+	/**
+	 * The username.
+	 */
 	private String username;
+
+	/**
+	 * The password.
+	 */
 	private String password;
 
 	/**
@@ -65,7 +71,7 @@ public class LoginForm implements Serializable {
 	 * @param password
 	 *            the password to set
 	 */
-	public void setPassword(String password) {
+	public void setPassword(final String password) {
 		this.password = password;
 	}
 
@@ -73,7 +79,7 @@ public class LoginForm implements Serializable {
 	 * @param username
 	 *            the username to set
 	 */
-	public void setUsername(String username) {
+	public void setUsername(final String username) {
 		this.username = username;
 	}
 

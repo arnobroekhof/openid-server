@@ -42,7 +42,6 @@ import org.springframework.validation.BindException;
 import cn.net.openid.jos.domain.Email;
 import cn.net.openid.jos.domain.User;
 import cn.net.openid.jos.web.AbstractJosSimpleFormController;
-import cn.net.openid.jos.web.MessageCodes;
 import cn.net.openid.jos.web.interceptor.CaptchaInterceptor;
 
 /**
@@ -50,18 +49,12 @@ import cn.net.openid.jos.web.interceptor.CaptchaInterceptor;
  * 
  */
 public class ForgotPasswordController extends AbstractJosSimpleFormController {
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.BaseCommandController#onBindAndValidate
-	 * (javax.servlet.http.HttpServletRequest, java.lang.Object,
-	 * org.springframework.validation.BindException)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	protected void onBindAndValidate(HttpServletRequest request,
-			Object command, BindException errors) throws Exception {
+	protected void onBindAndValidate(final HttpServletRequest request,
+			final Object command, final BindException errors) throws Exception {
 		super.onBindAndValidate(request, command, errors);
 
 		Email email = (Email) command;
@@ -72,7 +65,7 @@ public class ForgotPasswordController extends AbstractJosSimpleFormController {
 
 		User user = this.getJosService().getUser(this.getDomain(request),
 				email.getUser().getUsername());
-		String errorCode = MessageCodes.Password.Error.USERNAME_OR_EMAIL_ADDRESS_INCORRECT;
+		String errorCode = "password.error.usernameOrEmailAddressIncorrect";
 		if (user == null) {
 			errors.rejectValue("address", errorCode);
 		} else {
