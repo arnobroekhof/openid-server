@@ -314,27 +314,33 @@ public class Domain extends BaseEntity {
 	 * your-domain.
 	 */
 	private String name;
+
 	/**
 	 * Domain type.
 	 */
 	private int type;
+
 	/**
 	 * The server host of the domain.
 	 */
 	private String serverHost;
+
 	/**
 	 * Member page path.
 	 */
 	private String memberPath;
+
 	/**
 	 * Username configuration.
 	 */
 	private UsernameConfiguration usernameConfiguration =
 		new UsernameConfiguration();
+
 	/**
 	 * Extended configuration.
 	 */
 	private Map<String, String> configuration;
+
 	/**
 	 * Domain runtime inforation.
 	 */
