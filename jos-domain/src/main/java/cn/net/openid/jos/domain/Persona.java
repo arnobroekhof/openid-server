@@ -128,12 +128,13 @@ public class Persona extends BaseEntity {
 	 *      href="http://openid.net/specs/openid-attribute-exchange-1_0.html">
 	 *      OpenID Attribute Exchange 1.0</a>
 	 */
-	private HashSet<Attribute> attributes = new HashSet<Attribute>();
+	private Set<Attribute> attributes;
 
 	/**
 	 * Construct a default persona.
 	 */
 	public Persona() {
+		this.attributes = new HashSet<Attribute>();
 	}
 
 	/**
@@ -371,7 +372,7 @@ public class Persona extends BaseEntity {
 	 *            the attributes to set
 	 */
 	public void setAttributes(final Set<Attribute> attributes) {
-		this.attributes = new HashSet<Attribute>(attributes);
+		this.attributes = attributes;
 	}
 
 	/**
