@@ -93,13 +93,15 @@
 	<bean id="emailController"
 		class="cn.net.openid.jos.web.controller.EmailController"
 		parent="abstractJosSimpleFormController">
+		<constructor-arg>
+			<ref local="localeResolver" />
+		</constructor-arg>
 		<property name="commandName" value="email" />
 		<property name="commandClass"
 			value="cn.net.openid.jos.domain.Email" />
 		<property name="formView" value="email" />
 		<property name="successView" value="email-success" />
 		<property name="validator" ref="emailValidator" />
-		<property name="localeResolver" ref="localeResolver" />
 	</bean>
 	<bean id="deleteEmailController"
 		class="cn.net.openid.jos.web.controller.DeleteEmailController"
@@ -201,9 +203,11 @@
 	<bean id="captchaController"
 		class="cn.net.openid.jos.web.controller.CaptchaController"
 		parent="abstractJosSimpleFormController">
+		<constructor-arg>
+			<ref local="localeResolver" />
+		</constructor-arg>
 		<property name="commandClass" value="cn.net.openid.jos.web.form.CaptchaForm" />
 		<property name="formView" value="captcha" />
-		<property name="localeResolver" ref="localeResolver" />
 	</bean>
 
 

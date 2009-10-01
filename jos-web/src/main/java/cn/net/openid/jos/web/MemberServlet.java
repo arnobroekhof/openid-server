@@ -64,7 +64,7 @@ public class MemberServlet extends HttpServlet {
 	/**
 	 * The HTTP Servlet context.
 	 */
-	private ServletContext context;
+	private transient ServletContext context;
 
 	/**
 	 * {@inheritDoc}

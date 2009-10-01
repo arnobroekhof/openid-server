@@ -59,14 +59,15 @@ public class CaptchaController extends AbstractJosSimpleFormController {
 	private LocaleResolver localeResolver;
 
 	/**
-	 * Sets the locale resolver.
+	 * Constructs captcha controller.
 	 * 
 	 * @param localeResolver
-	 *            the localeResolver to set
+	 *            the local resolver
 	 */
-	public void setLocaleResolver(final LocaleResolver localeResolver) {
+	public CaptchaController(LocaleResolver localeResolver) {
 		this.localeResolver = localeResolver;
 	}
+
 
 	/**
 	 * {@inheritDoc}

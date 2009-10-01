@@ -189,9 +189,9 @@
 
 	<bean id="personaValidator"
 		class="cn.net.openid.jos.web.validation.PersonaValidator">
-		<property name="emailAddressPattern">
+		<constructor-arg>
 			<ref local="email.address.pattern" />
-		</property>
+		</constructor-arg>
 	</bean>
 	<bean id="emailValidator"
 		class="cn.net.openid.jos.web.validation.EmailValidator">

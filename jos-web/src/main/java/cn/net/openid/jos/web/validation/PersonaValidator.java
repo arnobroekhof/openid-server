@@ -48,8 +48,9 @@ import cn.net.openid.jos.domain.Persona;
 import cn.net.openid.jos.web.MessageCodes;
 
 /**
- * @author Sutra Zhou
+ * Persona validator.
  * 
+ * @author Sutra Zhou
  */
 public class PersonaValidator implements Validator {
 	/**
@@ -101,13 +102,13 @@ public class PersonaValidator implements Validator {
 	private Pattern emailAddressPattern;
 
 	/**
-	 * Sets the email address checking pattern.
+	 * Initializes persona validator.
 	 * 
 	 * @param emailAddressPattern
 	 *            the email address checking pattern to set
 	 */
-	public void setEmailAddressPattern(final String emailAddressPattern) {
-		this.emailAddressPattern = Pattern.compile(emailAddressPattern.trim());
+	public PersonaValidator(Pattern emailAddressPattern) {
+		this.emailAddressPattern = emailAddressPattern;
 	}
 
 	/**

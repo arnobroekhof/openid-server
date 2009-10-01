@@ -56,10 +56,12 @@ public class EmailController extends AbstractJosSimpleFormController {
 	private LocaleResolver localeResolver;
 
 	/**
+	 * Constructs an email controller.
+	 * 
 	 * @param localeResolver
-	 *            the localeResolver to set
+	 *            the locale resolver
 	 */
-	public void setLocaleResolver(final LocaleResolver localeResolver) {
+	public EmailController(LocaleResolver localeResolver) {
 		this.localeResolver = localeResolver;
 	}
 

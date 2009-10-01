@@ -76,13 +76,10 @@ public class ApprovingRequestFilter extends OncePerRequestFilter {
 		String token = request.getParameter("token");
 		request.setAttribute(TOKEN_ATTRIBUTE_NAME, StringUtils.defaultString(
 				token, StringUtils.EMPTY));
-		if (request instanceof HttpServletRequest) {
-			HttpServletRequest httpReq = (HttpServletRequest) request;
-			HttpSession session = httpReq.getSession();
-			UserSession userSession = WebUtils.getOrCreateUserSession(session);
-			request.setAttribute(APPROVING_REQUEST_ATTRIBUTE_NAME, userSession
-					.getApprovingRequest(token));
-		}
+		HttpSession session = request.getSession();
+		UserSession userSession = WebUtils.getOrCreateUserSession(session);
+		request.setAttribute(APPROVING_REQUEST_ATTRIBUTE_NAME, userSession
+				.getApprovingRequest(token));
 		if (debug) {
 			logger.debug("Add attribute `token' to request: " + token);
 		}
