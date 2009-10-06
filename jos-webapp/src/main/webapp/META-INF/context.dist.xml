@@ -1,0 +1,118 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+
+    Copyright (c) 2006-2009, Redv.com
+    All rights reserved.
+
+    Redistribution and use in source and binary forms, with or without
+    modification, are permitted provided that the following conditions
+    are met:
+        * Redistributions of source code must retain the above copyright
+          notice, this list of conditions and the following disclaimer.
+        * Redistributions in binary form must reproduce the above copyright
+          notice, this list of conditions and the following disclaimer in the
+          documentation and/or other materials provided with the distribution.
+        * Neither the name of the Redv.com nor the
+          names of its contributors may be used to endorse or promote products
+          derived from this software without specific prior written permission.
+
+    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+    "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+    LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+    FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+    COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+    INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+    BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+    LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+    CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+    LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+    ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+    POSSIBILITY OF SUCH DAMAGE.
+
+-->
+<Context>
+
+
+	<!-- ================ DATASOURCE SETTING ================ -->
+
+	<Resource
+		name="jdbc/jos"
+		type="javax.sql.DataSource"
+		driverClassName="org.hsqldb.jdbcDriver"
+		url="jdbc:hsqldb:mem:jos"
+		username="sa"
+		password="" />
+
+
+	<!-- ================ MAIL SESSION SETTING ================ -->
+
+	<Resource
+		name="mail/Session"
+		type="javax.mail.Session"
+		mail.smtp.host="smtp.YOURCOMPANY.com"
+		mail.smtp.socketFactory.class="javax.net.ssl.SSLSocketFactory"
+		mail.smtp.socketFactory.fallback="false"
+		mail.smtp.port="465"
+		mail.smtp.socketFactory.port="465"
+		mail.smtp.auth="true"
+		mail.smtp.timeout="10000"
+		mail.smtp.from="noreply@YOURCOMPANY.com"
+		mail.smtp.user="noreply@YOURCOMPANY.com"
+		mail.smtp.password="YOURPASSWORD" />
+
+
+	<!-- ================ HIBERNATE SETTINGS ================ -->
+
+	<Environment
+		name="hibernate.dialect"
+		type="java.lang.String"
+		value="org.hibernate.dialect.HSQLDialect" />
+	<!--
+	<Environment
+		name="hibernate.hbm2ddl.auto"
+		type="java.lang.String"
+		value="update"
+		override="false" />
+	<Environment
+		name="hibernate.show_sql"
+		type="java.lang.String"
+		value="false"
+		override="false" />
+	<Environment
+		name="jdbc.fetch_size"
+		type="java.lang.String"
+		value="50"
+		override="false" />
+	<Environment
+		name="jdbc.batch_size"
+		type="java.lang.String"
+		value="25"
+		override="false" />
+	-->
+
+
+	<!-- ================ DOMAIN CONFIGURATOR SETTING ================ -->
+
+	<!-- 
+		The password for domain configurator. Keep value "BLANK" then no
+		body can login.
+	-->
+	<!--
+	<Environment
+		name="domain.configurator.password"
+		type="java.lang.String"
+		value="BLANK"
+		override="false" />
+	-->
+
+
+	<!-- ================ EMAIL ADDRESS PATTERN SETTING ================ -->
+
+	<!--
+	<Environment
+		name="email.address.pattern"
+		type="java.lang.String"
+		value="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"
+		override="false" />
+	-->
+</Context>
