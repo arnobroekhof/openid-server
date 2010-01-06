@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>jos-i18n</artifactId>
+		<groupId>cn.net.openid.jos</groupId>
+		<version>1.2-SNAPSHOT</version>
+	</parent>
+	<artifactId>jos-i18n-de</artifactId>
+	<packaging>jar</packaging>
+	<name>Java OpenID Server - Internationalization - de</name>
+	<reporting>
+		<outputDirectory>../../target/site/${project.parent.artifactId}/${project.artifactId}/</outputDirectory>
+	</reporting>
+	<developers>
+		<developer>
+			<id>leif.janzik</id>
+			<name>Leif Janzik</name>
+			<email>leif.janzik@gmail.com</email>
+		</developer>
+	</developers>
+</project>

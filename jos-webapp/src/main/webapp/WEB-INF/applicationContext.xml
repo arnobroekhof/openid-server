@@ -87,6 +87,7 @@
 				<property name="availableLocales">
 					<set>
 						<value>ba</value>
+						<value>de</value>
 						<value>en_US</value>
 						<value>hr</value>
 						<value>ja</value>

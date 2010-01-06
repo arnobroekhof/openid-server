@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-						http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0       http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>cn.net.openid.jos</groupId>
@@ -15,10 +13,11 @@
 	<modules>
 		<!-- Sort alphabetically  -->
 		<module>jos-i18n-ba</module>
+		<module>jos-i18n-de</module>
 		<module>jos-i18n-en_US</module>
 		<module>jos-i18n-hr</module>
 		<module>jos-i18n-ja</module>
-<!--		<module>jos-i18n-mk</module> -->
+		<!-- <module>jos-i18n-mk</module> -->
 		<module>jos-i18n-pt</module>
 		<module>jos-i18n-sr</module>
 		<module>jos-i18n-zh_CN</module>
