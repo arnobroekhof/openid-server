@@ -36,7 +36,7 @@
 	<class name="EmailConfirmationInfo"
 		table="jos_email_confirmation_info">
 		<id name="id" unsaved-value="null" length="32"
-			column="email_confirmation_info_id">
+			column="eci_id">
 			<generator class="foreign">
 				<param name="property">email</param>
 			</generator>
@@ -44,16 +44,16 @@
 		<one-to-one name="email" constrained="true" fetch="join"
 			lazy="false" />
 		<property name="confirmationCode" length="40" update="false"
-			column="email_confirmation_info_confirmation_code" />
+			column="eci_confirmation_code" />
 		<property name="sent" not-null="true"
-			column="email_confirmation_info_sent" />
+			column="eci_sent" />
 		<property name="sentDate" type="timestamp"
-			column="email_confirmation_info_sent_date" />
+			column="eci_sent_date" />
 		<property name="confirmed" not-null="true"
-			column="email_confirmation_info_confirmed" />
+			column="eci_confirmed" />
 		<property name="confirmedDate" type="timestamp"
-			column="email_confirmation_info_confirmed_date" />
+			column="eci_confirmed_date" />
 		<property name="creationDate" type="timestamp" not-null="true"
-			column="email_confirmation_info_creation_date" update="false" />
+			column="eci_creation_date" update="false" />
 	</class>
 </hibernate-mapping>

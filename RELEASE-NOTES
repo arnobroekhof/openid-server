@@ -4,10 +4,20 @@
  Upgrade note:
   * drop table jos_attribute_value;
     drop table jos_attribute;
+    alter table jos_password rename password_maximum_service_times to password_max_service_times;
+    alter table jos_email_confirmation_info rename email_confirmation_info_id to eci_id;
+    alter table jos_email_confirmation_info rename email_confirmation_info_confirmation_code to eci_confirmation_code;
+    alter table jos_email_confirmation_info rename email_confirmation_info_sent to eci_sent;
+    alter table jos_email_confirmation_info rename email_confirmation_info_sent_date to eci_sent_date;
+    alter table jos_email_confirmation_info rename email_confirmation_info_confirmed to eci_confirmed;
+    alter table jos_email_confirmation_info rename email_confirmation_info_confirmed_date to eci_confirmed_date;
+    alter table jos_email_confirmation_info rename email_confirmation_info_creation_date to eci_creation_date;
  New features:
   * Extended attributes modification for persona.
  Bugfixes:
   * Trim email pattern of email address validator for email addition.
+  * Shorten some column names of table jos_password and
+ jos_email_confirmation_info as the maximum column length of Oracle is 30.
 
 
  * 2008-09-18 - jos 1.2.0 released
