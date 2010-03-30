@@ -94,6 +94,11 @@ public class JosServiceImpl implements JosService {
 	private static final Log LOG = LogFactory.getLog(JosServiceImpl.class);
 
 	/**
+	 * Indicate the logger is debug enabled.
+	 */
+	private static final boolean DEBUG = LOG.isDebugEnabled();
+
+	/**
 	 * Server managers.
 	 */
 	private final Map<Domain, ServerManager> serverManagers =
@@ -480,7 +485,7 @@ public class JosServiceImpl implements JosService {
 			final HttpServletRequest request) {
 		LOG.debug("parseUsername is called.");
 
-		String username = null;
+		final String username;
 		switch (domain.getType()) {
 		case Domain.TYPE_SUBDOMAIN:
 			URL url = this.buildURLQuietly(request.getRequestURL().toString());
@@ -493,17 +498,38 @@ public class JosServiceImpl implements JosService {
 					domain.getMemberPath(), uri);
 			break;
 		default:
+			username = null;
 			break;
 		}
 
-		if (username == null) {
-			return null;
+		final String ret;
+		if (username != null && isUsername(domain, username)) {
+			ret = username;
 		} else {
-			// Check whether it's an unallowable username.
-			Pattern pattern = domain.getUsernameConfiguration()
-					.getUnallowablePattern();
-			return isMatches(pattern, username) ? null : username;
+			ret = null;
 		}
+		if (DEBUG) {
+			LOG.debug("username: " + username);
+		}
+		return ret;
+	}
+
+	/**
+	 * Returns whether the username is correct.
+	 * 
+	 * @param domain
+	 *            the domain
+	 * @param username
+	 *            the username
+	 * @return true if it is a correct username
+	 */
+	private boolean isUsername(final Domain domain, final String username) {
+		boolean isUsername = !isSystemReservedWord(username)
+				&& !username.equalsIgnoreCase(domain.getServerHost())
+				&& domain.getUsernameConfiguration().isUsername(username)
+				&& !domain.getUsernameConfiguration().isReserved(username)
+				&& !domain.getUsernameConfiguration().isUnallowable(username);
+		return isUsername;
 	}
 
 	/**
@@ -576,8 +602,35 @@ public class JosServiceImpl implements JosService {
 	 */
 	private String parseUsernameFromSubdirectory(final String contextPath,
 			final String memberPath, final String requestURI) {
-		int memberPathLength = memberPath == null ? 0 : memberPath.length() + 1;
-		return requestURI.substring(contextPath.length() + memberPathLength);
+		String prefix = buildMemberPageUriPrefix(contextPath, memberPath);
+		String username;
+		if (requestURI.startsWith(prefix)) {
+			username = StringUtils.removeStart(requestURI, prefix);
+		} else {
+			username = null;
+		}
+		return username;
+	}
+
+	/**
+	 * Returns the prefix of member page URI.
+	 * 
+	 * @param contextPath
+	 *            the context path of the HTTP request
+	 * @param memberPath
+	 *            the member path of the domain
+	 * @return the prefix of member page URI
+	 */
+	private String buildMemberPageUriPrefix(final String contextPath,
+			final String memberPath) {
+		StringBuilder sb = new StringBuilder().append(contextPath);
+		if (StringUtils.isNotBlank(memberPath)) {
+			sb.append("/").append(memberPath);
+		}
+		sb.append("/");
+
+		String prefix = sb.toString();
+		return prefix;
 	}
 
 	/***

@@ -60,20 +60,18 @@ public class MemberFilter extends OncePerRequestServiceFilter {
 		domain = DomainFilter.getDomain(request.getSession(false));
 
 		getLog().debug("Parse username from the request.");
-		String username = null;
+		final String username;
 		if (domain != null) {
 			username = getService().parseUsername(domain, request);
+		} else {
+			username = null;
 		}
 
 		if (getLog().isDebugEnabled()) {
 			getLog().debug(String.format("username@domain: %1$s@%2$s", username,
 					domain));
 		}
-		if (username == null
-				|| this.getService().isSystemReservedWord(username)
-				|| username.equalsIgnoreCase(domain.getServerHost())
-				|| !domain.getUsernameConfiguration().isUsername(username)
-				|| domain.getUsernameConfiguration().isUnallowable(username)) {
+		if (username == null) {
 			getLog().debug("The url is not matches.");
 			filterChain.doFilter(request, response);
 		} else {
