@@ -14,6 +14,7 @@
     alter table jos_email_confirmation_info rename email_confirmation_info_creation_date to eci_creation_date;
  New features:
   * Extended attributes modification for persona.
+  * Add Spanish support.
  Bugfixes:
   * Trim email pattern of email address validator for email addition.
   * Shorten some column names of table jos_password and
