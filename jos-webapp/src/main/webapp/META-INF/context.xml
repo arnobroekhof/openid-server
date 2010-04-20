@@ -67,12 +67,12 @@
 		name="hibernate.dialect"
 		type="java.lang.String"
 		value="org.hibernate.dialect.HSQLDialect" />
-	<!--
 	<Environment
 		name="hibernate.hbm2ddl.auto"
 		type="java.lang.String"
 		value="update"
 		override="false" />
+	<!--
 	<Environment
 		name="hibernate.show_sql"
 		type="java.lang.String"

@@ -1,57 +1,35 @@
 Quick Install Guide
 
-1. Modify the configuration files
-    All configuration files are in the directory WEB-INF/config/, and there are
-  some examples in WEB-INF/config.samples.
+1. Add JDBC driver JAR, java mail JAR to CLASSPATH.
+For Tomcat, you can copy(or link) them to $CATALINA_BASE/lib/.
 
-1.1 Database configuration
+By default, HSQLDB JDBC driver is required, you can download it from
+http://hsqldb.org/, except you're going to use PostgreSQL, MySQL, etc.
 
-1.1.1 Copy the jdbc driver libraries into your classpath(WEB-INF/lib
-  or ${TOMCAT_HOME}/lib)
+You can download Java mail JAR from http://java.sun.com/products/javamail/.
 
-1.1.2 Write jdbc.properties
-    Copy file form jdbc.dist.properties to jdbc.properties.
-    Modify the following parameters(You can choose a template for your database
-  such as MySQL, PostgreSQL etc.):
-    * jdbc.driverClassName: the jdbc driver for your database;
-    * jdbc.url: the jdbc url to connect to your database;
-    * jdbc.username: the username to connect to your database, at installation
-        time, you should grant create tables, read, write privileges to it.
-    * jdbc.password: the password of the user.
-    * hibernate.dialect: the dialect of the database for hibernate3.
+2. Deploy the WAR into your webapp container (such as Tomcat, Jetty).
+There are several ways to deploy into Tomcat, such as coping the WAR
+into the $CATALINA_BASE/webapp directory, using Tomcat 6 "Manager" web
+application to deploy and undeploy. More about this please see
+http://tomcat.apache.org/tomcat-6.0-doc/appdev/deployment.html#Deployment%20With%20Tomcat%206.
 
-1.2 Mail sender configuration
-    Copy file applicationContext-mail.dist.xml to applicationContext-mail.xml
-  and modify for yours.
+3. Configuration
+After deployed into Tomcat, the file /META-INF/context.xml in the WAR
+will be copied to $CATALINA_BASE/conf/[enginename]/[hostname]/ and renamed
+to match the application's context path(for example, if your context path is
+"/jos", then the file is "jos.xml", and if your context path is "/", in
+another words the name of WAR is ROOT.war, the file will be "ROOT.xml").
+See http://tomcat.apache.org/tomcat-6.0-doc/config/context.html#Introduction
 
-2. Download JavaScript Calendar and install it
-    The calendar is for persona modification page.
-    Download from http://www.dynarch.com/projects/calendar/
-    Unpack to directory /resources/jscalendar/ in the webapp
+Then you should modify the file
+in $CATALINA_BASE/conf/[enginename]/[hostname]/,
+especially the database and mail configurations, and the password for
+domain configurator(the name of the environment variable is
+"domain.configurator.password").
 
-3. Package the files as a war(optional).
-
-4. Deploy the war or the webapp directory into your webapp container(such as
-  Tomcat).
-
-5. Add domain(s)
-  Open "http://localhost:your-port/your-webapp" or
-  "http://your-domain:your-port/your-webapp" by your browser, 
-  you'll see "Unresolved domain", navigate the link
-  "configure this domain", then password is required, the default password is
-  "CHANGE ME" which defined in WEB-INF/config/jos.xml with key
-  "domain.configurator.password". 
-
-Appendix
-  How to test on localhost with type "Subdomain"?
-  Add the following block to your hosts file(/etc/hosts on Unix-like operating
-  systems, more about hosts file see http://en.wikipedia.org/wiki/Hosts_file):
-
-127.0.0.1	www.example1.com
-127.0.0.1	sutra.example1.com
-127.0.0.1	test.example1.com
-
-  Then you can register a username "sutra" or "test" to test by your browser
-  on "http://www.example1.com/".
-  Attention, under this mode as using 127.0.0.1 as your IP, you can't test on
-  an external OpenID-enalbed site(RP) which IP is not "127.0.0.1".
+4. Add domain(s)
+Open "http://localhost:your-port/your-webapp" or
+"http://your-domain:your-port/your-webapp" by your browser, you'll see
+"Unresolved domain", navigate the link "configure this domain", then
+password is required, the password is configured in the previous step. 
