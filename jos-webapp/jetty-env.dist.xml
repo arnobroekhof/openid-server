@@ -83,12 +83,12 @@
 		<Arg>hibernate.dialect</Arg>
 		<Arg type="java.lang.String">org.hibernate.dialect.HSQLDialect</Arg>
 	</New>
-	<!--
 	<New class="org.mortbay.jetty.plus.naming.EnvEntry">
 		<Arg>hibernate.hbm2ddl.auto</Arg>
 		<Arg type="java.lang.String">update</Arg>
 		<Arg type="boolean">true</Arg>
 	</New>
+	<!--
 	<New class="org.mortbay.jetty.plus.naming.EnvEntry">
 		<Arg>hibernate.show_sql</Arg>
 		<Arg type="java.lang.String">false</Arg>
