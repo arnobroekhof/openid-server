@@ -58,7 +58,7 @@ input[type=text],input[type=password] {
 	border: 1px #A5ACB2 solid;
 }
 
-input[type=text]:hover,input[type=password]:hover {
+input[type=text]:enabled:hover,input[type=password]:enabled:hover {
 	border-color: red;
 }
 
