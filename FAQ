@@ -1,7 +1,8 @@
 Q: How to test on localhost with type "Subdomain"?
 
-A: Add the following block to your hosts file(/etc/hosts on Unix-like operating
-systems, more about hosts file see http://en.wikipedia.org/wiki/Hosts_file):
+A: Add the following block to your hosts file(/etc/hosts on Unix-like
+operating systems, more about hosts file see
+http://en.wikipedia.org/wiki/Hosts_file):
 
 127.0.0.1	www.example1.com
 127.0.0.1	sutra.example1.com
@@ -17,10 +18,10 @@ an external OpenID-enalbed site(RP) which IP is not "127.0.0.1".
 Q: Where is the database schema files?
 
 A: We use Hibernate to generate the database automatically, so the database
-schema will be updated if needed. You can disable this by removing the following
-block in context.xml(in directory $CATALINA_BASE/conf/[enginename]/[hostname]/,
-the file name may be ROOT.xml or others which depends on the application's
-context path): 
+schema will be updated if needed. You can disable this by removing the
+following block in context.xml(in directory
+$CATALINA_BASE/conf/[enginename]/[hostname]/, the file name may be
+ROOT.xml or others which depends on the application's context path): 
 	<Environment
 		name="hibernate.hbm2ddl.auto"
 		type="java.lang.String"
