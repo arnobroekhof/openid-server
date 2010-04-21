@@ -8,7 +8,7 @@
 	<artifactId>jos</artifactId>
 	<packaging>pom</packaging>
 	<name>Java OpenID Server</name>
-	<version>1.2-SNAPSHOT</version>
+	<version>1.2.1</version>
 	<url>http://openid.net.cn</url>
 	<modules>
 		<module>jos-domain</module>

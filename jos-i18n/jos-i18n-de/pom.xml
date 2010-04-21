@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>jos-i18n</artifactId>
 		<groupId>cn.net.openid.jos</groupId>
-		<version>1.2-SNAPSHOT</version>
+		<version>1.2.1</version>
 	</parent>
 	<artifactId>jos-i18n-de</artifactId>
 	<packaging>jar</packaging>
