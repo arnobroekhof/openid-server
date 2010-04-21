@@ -1,8 +1,17 @@
- * 2008-??-?? - jos 1.2.1 released
+ * 2010-??-?? - jos 1.2.1 released
  [http://openid-server.googlecode.com/svn/tags/jos-1.2.1/INSTALL Quick Install Guide]
 
- Upgrade note:
-  * drop table jos_attribute_value;
+ New features:
+  * Extended attributes modification for persona.
+  * Add Bashkir, Chinese (Hong Kong), Chinese (Taiwan), Croatian, German, Serbian, Spanish support.
+ Bugfixes:
+  * Trim email pattern of email address validator for email addition.
+  * Shorten some column names of table jos_password and jos_email_confirmation_info as the maximum column length of Oracle is 30.
+  * Some issues of parseUsername in subdirectory mode, see issue 21, issue 23.
+ Upgrade notes:
+  * Because of the maximum column length limit of Oracle, the following tables have been altered, so if you upgrade from version 1.2.0, the following instructions should be executed BEFORE the new WAR deployed:
+{{{
+    drop table jos_attribute_value;
     drop table jos_attribute;
     alter table jos_password rename password_maximum_service_times to password_max_service_times;
     alter table jos_email_confirmation_info rename email_confirmation_info_id to eci_id;
@@ -12,13 +21,7 @@
     alter table jos_email_confirmation_info rename email_confirmation_info_confirmed to eci_confirmed;
     alter table jos_email_confirmation_info rename email_confirmation_info_confirmed_date to eci_confirmed_date;
     alter table jos_email_confirmation_info rename email_confirmation_info_creation_date to eci_creation_date;
- New features:
-  * Extended attributes modification for persona.
-  * Add Spanish support.
- Bugfixes:
-  * Trim email pattern of email address validator for email addition.
-  * Shorten some column names of table jos_password and
- jos_email_confirmation_info as the maximum column length of Oracle is 30.
+}}}
 
 
  * 2008-09-18 - jos 1.2.0 released

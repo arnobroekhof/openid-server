@@ -15,4 +15,9 @@
 	<reporting>
 		<outputDirectory>../../target/site/${project.parent.artifactId}/${project.artifactId}/</outputDirectory>
 	</reporting>
+	<developers>
+		<developer>
+			<name>Jose Javier García Zornoza</name>
+		</developer>
+	</developers>
 </project>

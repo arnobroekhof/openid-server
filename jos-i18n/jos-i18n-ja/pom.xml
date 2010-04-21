@@ -15,4 +15,9 @@
 	<reporting>
 		<outputDirectory>../../target/site/${project.parent.artifactId}/${project.artifactId}/</outputDirectory>
 	</reporting>
+	<developers>
+		<developer>
+			<name>wengzhiwen</name>
+		</developer>
+	</developers>
 </project>
