@@ -26,3 +26,13 @@ context path):
 		type="java.lang.String"
 		value="update"
 		override="false" />
+
+
+Q: I'd like to use URL "http://www.example.com:8080/" instead of
+"http://www.example.com:8080/jos/", how to do this in Tomcat? In other
+word, how to deploy JOS as the default context in Tomcat?
+
+A: The default or ROOT context in Tomcat would be deployed as
+ROOT.war (WAR) or ROOT (directory). So rename "jos.war" to "ROOT.war"
+and then deploy it to Tomcat. For more information see
+http://tomcat.apache.org/tomcat-6.0-doc/virtual-hosting-howto.html#Configuring%20Your%20Contexts
