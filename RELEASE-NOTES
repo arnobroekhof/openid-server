@@ -1,13 +1,14 @@
- * 2010-??-?? - jos 1.2.1 released
+ * 2010-04-23 - jos 1.2.1 released
  [http://openid-server.googlecode.com/svn/tags/jos-1.2.1/INSTALL Quick Install Guide]
 
  New features:
   * Extended attributes modification for persona.
   * Add Bashkir, Chinese (Hong Kong), Chinese (Taiwan), Croatian, German, Serbian, Spanish support.
- Bugfixes:
+ Bugfixes and minor changes:
   * Trim email pattern of email address validator for email addition.
   * Shorten some column names of table jos_password and jos_email_confirmation_info as the maximum column length of Oracle is 30.
   * Some issues of parseUsername in subdirectory mode, see issue 21, issue 23.
+  * Upgrade jquery from 1.2.6 to 1.4.2.
  Upgrade notes:
   * Because of the maximum column length limit of Oracle, the following tables have been altered, so if you upgrade from version 1.2.0, the following instructions should be executed BEFORE the new WAR deployed:
 {{{
