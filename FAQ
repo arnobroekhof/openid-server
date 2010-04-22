@@ -37,3 +37,10 @@ A: The default or ROOT context in Tomcat would be deployed as
 ROOT.war (WAR) or ROOT (directory). So rename "jos.war" to "ROOT.war"
 and then deploy it to Tomcat. For more information see
 http://tomcat.apache.org/tomcat-6.0-doc/virtual-hosting-howto.html#Configuring%20Your%20Contexts
+
+
+Q: How to use the file *.asc?
+
+A: *.asc is the detached PGP signature, you can use PGP utility to verify
+the signature.
+For example: gpg --verify jos-webapp-1.2.1.war.asc jos-webapp-1.2.1.war
