@@ -144,6 +144,7 @@ public class Persona extends BaseEntity {
 	 *            the owner of the persona
 	 */
 	public Persona(final User user) {
+		this();
 		this.user = user;
 	}
 

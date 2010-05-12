@@ -71,6 +71,25 @@ public class PersonaTest {
 	}
 
 	/**
+	 * Test method for {@link cn.net.openid.jos.domain.Persona#Persona()}.
+	 */
+	@Test
+	public void testNewPersona() {
+		Persona persona = new Persona();
+		assertNotNull(persona.getAttributes());
+	}
+
+	/**
+	 * Test method for {@link cn.net.openid.jos.domain.Persona#Persona(User)}.
+	 */
+	@Test
+	public void testNewPersonaWithUser() {
+		User user = new User();
+		Persona persona = new Persona(user);
+		assertNotNull(persona.getAttributes());
+	}
+
+	/**
 	 * Test method for {@link cn.net.openid.jos.domain.Persona#getAttributes()}.
 	 */
 	@Test
