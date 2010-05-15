@@ -33,7 +33,7 @@
 package cn.net.openid.jos.domain;
 
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
@@ -128,13 +128,13 @@ public class Persona extends BaseEntity {
 	 *      href="http://openid.net/specs/openid-attribute-exchange-1_0.html">
 	 *      OpenID Attribute Exchange 1.0</a>
 	 */
-	private Set<Attribute> attributes;
+	private LinkedHashSet<Attribute> attributes;
 
 	/**
 	 * Construct a default persona.
 	 */
 	public Persona() {
-		this.attributes = new HashSet<Attribute>();
+		this.attributes = new LinkedHashSet<Attribute>();
 	}
 
 	/**
@@ -373,7 +373,7 @@ public class Persona extends BaseEntity {
 	 *            the attributes to set
 	 */
 	public void setAttributes(final Set<Attribute> attributes) {
-		this.attributes = attributes;
+		this.attributes.addAll(attributes);
 	}
 
 	/**
