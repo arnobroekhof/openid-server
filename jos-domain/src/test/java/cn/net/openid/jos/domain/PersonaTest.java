@@ -35,9 +35,14 @@ package cn.net.openid.jos.domain;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.AbstractSet;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang.SerializationUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -56,7 +61,8 @@ public class PersonaTest {
 	@Before
 	public void setUp() throws Exception {
 		persona = new Persona();
-		Attribute attribute = new Attribute();
+
+		attribute = new Attribute();
 		attribute.setId("test Id");
 		attribute.setAlias("testAlias");
 		attribute.setType("testType");
@@ -95,6 +101,7 @@ public class PersonaTest {
 	@Test
 	public void testGetAttributes() {
 		assertNotNull(persona.getAttributes());
+		assertNotNull(attribute);
 		persona.addAttribute(attribute);
 		assertEquals(1, persona.getAttributes().size());
 	}
@@ -106,8 +113,59 @@ public class PersonaTest {
 	@Test
 	public void testSetAttributes() {
 		Set<Attribute> attributes = new HashSet<Attribute>();
+		assertNotNull(attribute);
 		attributes.add(attribute);
 		persona.setAttributes(attributes);
 		assertEquals(1, persona.getAttributes().size());
+	}
+
+	/**
+	 * Test method for
+	 * {@link cn.net.openid.jos.domain.Persona#readExternal(java.io.ObjectInput)}
+	 * and
+	 * {@link cn.net.openid.jos.domain.Persona#writeExternal(java.io.ObjectOutput)}
+	 * .
+	 */
+	@Test
+	public void testExternalizable() {
+		persona.setAttributes(new AbstractSet<Attribute>() {
+			private List<Attribute> attributes = new ArrayList<Attribute>();
+
+			/**
+			 * {@inheritDoc}
+			 */
+			@Override
+			public boolean add(Attribute o) {
+				return attributes.add(o);
+			}
+
+			/**
+			 * {@inheritDoc}
+			 */
+			@Override
+			public Iterator<Attribute> iterator() {
+				return attributes.iterator();
+			}
+
+			/**
+			 * {@inheritDoc}
+			 */
+			@Override
+			public int size() {
+				return attributes.size();
+			}
+		});
+
+		persona.addAttribute(attribute);
+		assertEquals(1, persona.getAttributes().size());
+
+		// Serialize
+		byte[] bytes = SerializationUtils.serialize(persona);
+
+		// Deserialize
+		Persona p = (Persona) SerializationUtils.deserialize(bytes);
+
+		assertEquals(1, p.getAttributes().size());
+		assertEquals("testAlias", p.getAttributes().iterator().next().getAlias());
 	}
 }

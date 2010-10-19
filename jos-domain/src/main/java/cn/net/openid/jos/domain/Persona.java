@@ -32,6 +32,10 @@
  */
 package cn.net.openid.jos.domain;
 
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Locale;
@@ -43,7 +47,7 @@ import java.util.Set;
  * 
  * @author Sutra Zhou
  */
-public class Persona extends BaseEntity {
+public class Persona extends BaseEntity implements Externalizable {
 	/**
 	 * 
 	 */
@@ -128,7 +132,7 @@ public class Persona extends BaseEntity {
 	 *      href="http://openid.net/specs/openid-attribute-exchange-1_0.html">
 	 *      OpenID Attribute Exchange 1.0</a>
 	 */
-	private LinkedHashSet<Attribute> attributes;
+	private Set<Attribute> attributes;
 
 	/**
 	 * Construct a default persona.
@@ -373,7 +377,7 @@ public class Persona extends BaseEntity {
 	 *            the attributes to set
 	 */
 	public void setAttributes(final Set<Attribute> attributes) {
-		this.attributes.addAll(attributes);
+		this.attributes = attributes;
 	}
 
 	/**
@@ -465,5 +469,50 @@ public class Persona extends BaseEntity {
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public void readExternal(ObjectInput in) throws IOException,
+			ClassNotFoundException {
+		setUser((User) in.readObject());
+		setName((String) in.readObject());
+		setNickname((String) in.readObject());
+		setEmail((String) in.readObject());
+		setFullname((String) in.readObject());
+		setDob((String) in.readObject());
+		setGender((String) in.readObject());
+		setPostcode((String) in.readObject());
+		setCountry((String) in.readObject());
+		setLanguage((String) in.readObject());
+		setTimezone((String) in.readObject());
+		Attribute[] attributeArray = (Attribute[]) in.readObject();
+		Set<Attribute> attributes = new LinkedHashSet<Attribute>();
+		for (Attribute attribute : attributeArray) {
+			attributes.add(attribute);
+		}
+		setAttributes(attributes);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public void writeExternal(ObjectOutput out) throws IOException {
+		out.writeObject(getUser());
+		out.writeObject(getName());
+		out.writeObject(getNickname());
+		out.writeObject(getEmail());
+		out.writeObject(getFullname());
+		out.writeObject(getDob());
+		out.writeObject(getGender());
+		out.writeObject(getPostcode());
+		out.writeObject(getCountry());
+		out.writeObject(getLanguage());
+		out.writeObject(getTimezone());
+		Set<Attribute> attributes = getAttributes();
+		Attribute[] attributeArray = attributes
+				.toArray(new Attribute[attributes.size()]);
+		out.writeObject(attributeArray);
 	}
 }
