@@ -156,6 +156,7 @@ public class PersonaTest {
 			}
 		});
 
+		persona.setId("testId");
 		persona.addAttribute(attribute);
 		assertEquals(1, persona.getAttributes().size());
 
@@ -163,9 +164,12 @@ public class PersonaTest {
 		byte[] bytes = SerializationUtils.serialize(persona);
 
 		// Deserialize
-		Persona p = (Persona) SerializationUtils.deserialize(bytes);
+		Persona deserialized = (Persona) SerializationUtils.deserialize(bytes);
 
-		assertEquals(1, p.getAttributes().size());
-		assertEquals("testAlias", p.getAttributes().iterator().next().getAlias());
+		assertEquals(persona, deserialized);
+		assertEquals("testId", deserialized.getId());
+		assertEquals(persona.getCreationDate(), deserialized.getCreationDate());
+		assertEquals(1, deserialized.getAttributes().size());
+		assertEquals("testAlias", deserialized.getAttributes().iterator().next().getAlias());
 	}
 }

@@ -36,6 +36,7 @@ import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Locale;
@@ -476,6 +477,8 @@ public class Persona extends BaseEntity implements Externalizable {
 	 */
 	public void readExternal(ObjectInput in) throws IOException,
 			ClassNotFoundException {
+		setId((String) in.readObject());
+		setCreationDate((Date) in.readObject());
 		setUser((User) in.readObject());
 		setName((String) in.readObject());
 		setNickname((String) in.readObject());
@@ -499,6 +502,8 @@ public class Persona extends BaseEntity implements Externalizable {
 	 * {@inheritDoc}
 	 */
 	public void writeExternal(ObjectOutput out) throws IOException {
+		out.writeObject(getId());
+		out.writeObject(getCreationDate());
 		out.writeObject(getUser());
 		out.writeObject(getName());
 		out.writeObject(getNickname());
