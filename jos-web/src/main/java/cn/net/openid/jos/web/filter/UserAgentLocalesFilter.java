@@ -36,6 +36,8 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.FilterChain;
@@ -45,20 +47,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * When I using <xmp> <div id="hl">
- * <ul>
+ * <p>
+ * Gets all locales from user agent and retains all that in the human language
+ * selection list, then stores it in the request attributes.
+ * </p>
+ * 
+ * When I using
+ * 
+ * <pre>
+ * &lt;div id="hl"&gt;
+ * &lt;ul&gt;
  * #foreach($l in $request.locales)
- * <li><a href=
+ * &lt;li&gt;&lt;a href=
  * "?hl=$l#if($!request.getParameter('self'))&amp;self=$!request
  * .getParameter('self')#end"
- * >$l.getDisplayName($l)</a></li>
- * #end <li class="last-child"><a href=
+ * &gt;$l.getDisplayName($l)&lt;/a&gt;&lt;/li&gt;
+ * #end &lt;li class="last-child"&gt;&lt;a href=
  * "hl#if($!request.getParameter('self'))?self=$!request
  * .getParameter('self')#end"
- * >»</a></li>
- * </ul>
- * </div> </xmp>cause a warning:
+ * >»&lt;/a&gt;&lt;/li&gt;
+ * &lt;/ul&gt;
+ * &lt;/div&gt;
+ * </pre>
  * 
+ * but got a warning:
  * <code>
  * [org.apache.velocity.app.VelocityEngine:46] - Warning!
  * The iterative  is an Enumeration in the #foreach() loop at [0,0] in template
@@ -67,10 +79,6 @@ import javax.servlet.http.HttpServletResponse;
  * </code>
  * 
  * So I create this filter.
- * <p>
- * Get all locales from user agent and retain all that in the human language
- * selection list.
- * </p>
  * 
  * @author Sutra Zhou
  */
@@ -118,7 +126,12 @@ public class UserAgentLocalesFilter extends OncePerRequestServiceFilter {
 	@SuppressWarnings("unchecked")
 	private Collection<Locale> getLocales(final HttpServletRequest request) {
 		Enumeration<Locale> localesEnum = request.getLocales();
-		Collection<Locale> localesCollection = Collections.list(localesEnum);
+		List<Locale> localesList = Collections.list(localesEnum);
+
+		// Use LinkedHashSet to eliminate duplication as the user agent may send
+		// duplicated locales.
+		Collection<Locale> localesCollection = new LinkedHashSet(localesList);
+
 		localesCollection.retainAll(this.getService().getAvailableLocales());
 		return localesCollection;
 	}
