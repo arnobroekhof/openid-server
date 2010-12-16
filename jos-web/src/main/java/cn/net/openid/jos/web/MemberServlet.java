@@ -58,7 +58,6 @@ public class MemberServlet extends HttpServlet {
 	/**
 	 * The logger.
 	 */
-	@SuppressWarnings("unused")
 	private static final Log LOG = LogFactory.getLog(MemberServlet.class);
 
 	/**
@@ -83,10 +82,14 @@ public class MemberServlet extends HttpServlet {
 			final HttpServletResponse resp) throws ServletException,
 			IOException {
 		String pathInfo = req.getPathInfo();
+		LOG.debug("pathInfo: " + pathInfo);
 		if (pathInfo != null && pathInfo.length() > 1) {
-			req.setAttribute("username", req.getPathInfo().substring(1));
+			String username = pathInfo.substring(1);
+			LOG.debug("username: " + username);
+			req.setAttribute("username", username);
 			this.context.getRequestDispatcher("/member.jsp").forward(req, resp);
 		} else {
+			LOG.debug("pathInfo is empty.");
 			resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
 		}
 	}
