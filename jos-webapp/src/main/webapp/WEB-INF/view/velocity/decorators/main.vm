@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
 	"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="$request.getAttribute("org.springframework.web.servlet.DispatcherServlet.LOCALE_RESOLVER").resolveLocale($request).language">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xml:lang="$request.getAttribute("org.springframework.web.servlet.DispatcherServlet.LOCALE_RESOLVER").resolveLocale($request).language">
 	<head>
 		<title>$title</title>
 		<meta http-equiv="Content-Type"
@@ -10,12 +11,13 @@
 		<meta name="keywords" content="openid" />
 		<meta name="description" content="OpenID Provider" />
 		<link rel="icon" href="$base/favicon.ico" type="image/x-icon" />
-		<link rel="shortcut icon" href="$response.encodeURL("$base/favicon.ico")" type="image/x-icon" />
+		<link rel="shortcut icon" href="$base/favicon.ico"
+			type="image/x-icon" />
 		<link rel="stylesheet" type="text/css" media="screen"
-			href="$response.encodeURL("$base/resources/styles/jos.css")" />
+			href="$base/resources/styles/jos.css" />
 		#if($domain)
 		<link rel="stylesheet" type="text/css" media="screen"
-			href="$response.encodeURL("$base/resources/custom/${domain.name}.css")" />
+			href="$base/resources/custom/${domain.name}.css" />
 		#end
 		$head
 	</head>
@@ -25,7 +27,10 @@
 			$body
 			#parse("footer.vm")
 			<div id="poweredBy">
-				<a href="http://code.google.com/p/openid-server/"><img src="#josUrl("/resources/images/logos/powered-by.png")" alt="Powered by JOS" /></a>
+				<a href="http://code.google.com/p/openid-server/">
+					<img src="$base/resources/images/logos/powered-by.png"
+						alt="Powered by JOS" />
+				</a>
 			</div>
 		</div>
 	</body>
