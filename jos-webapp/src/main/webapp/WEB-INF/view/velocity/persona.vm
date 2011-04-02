@@ -65,7 +65,7 @@
 					</tr>
 					<tr>
 						<td class="label">
-							<label for="email">#springMessage("persona.label.email")</lable>
+							<label for="email">#springMessage("persona.label.email")</label>
 						</td>
 						<td>
 							#springFormInput("persona.email" "")
@@ -143,6 +143,7 @@
 					<tr>
 						<td class="label">
 							<label for="timezone">#springMessage("persona.label.timezone")</label>
+						</td>
 						<td>
 							#josFormSingleSelect("persona.timezone" $relatedTimeZones $timeZones "id='timezone'")
 							#springShowErrors("" "error")
