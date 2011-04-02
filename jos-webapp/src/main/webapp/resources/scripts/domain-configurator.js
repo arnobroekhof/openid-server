@@ -1,5 +1,7 @@
-var TYPE_SUBDOMAIN = 1;
-var TYPE_SUBDIRECTORY = 2;
+var TYPE_SUBDOMAIN = 1,
+	TYPE_SUBDIRECTORY = 2,
+	oldNameValue = "",
+	oldServerHostValue = "";
 
 /**
  * Get the identifer type from the form.
@@ -69,7 +71,7 @@ function getIdentifierPrefix() {
 		p += document.location.protocol + "//";
 		p += document.getElementById("name").value;
 		p += getAppendedPort();
-		p += getAppendedContextPath() + "/"
+		p += getAppendedContextPath() + "/";
 		p += getAppendedMemberPath();
 		break;
 	}
@@ -103,17 +105,18 @@ function getIdentifierSuffix() {
  * Show identifier pattern.
  */
 function showIdentifierPattern() {
-	document.getElementById("openid_identifier_pattern").innerHTML = getIdentifierPrefix()
-			+ "<span class='username'>username</span>" + getIdentifierSuffix();
+	document.getElementById("openid_identifier_pattern").innerHTML =
+		getIdentifierPrefix() +
+		"<span class='username'>username</span>" +
+		getIdentifierSuffix();
 	document.getElementById("identifierPatternDiv").style.display = "inherit";
 }
 
-var oldNameValue = oldServerHostValue = "";
 /**
  * When domain type changed, invoke this.
  */
 function changeDomainType(domainType) {
-	var disabled = false;
+	var disabled = false, nameObject, serverHostObject;
 	switch (domainType) {
 	case TYPE_SUBDOMAIN:
 		disabled = false;
@@ -122,8 +125,8 @@ function changeDomainType(domainType) {
 		disabled = true;
 		break;
 	}
-	var nameObject = document.getElementById("name");
-	var serverHostObject = document.getElementById("serverHost");
+	nameObject = document.getElementById("name");
+	serverHostObject = document.getElementById("serverHost");
 	if (disabled) {
 		oldNameValue = nameObject.value;
 		oldServerHostValue = serverHostObject.value;

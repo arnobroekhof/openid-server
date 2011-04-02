@@ -7,10 +7,11 @@
  * @return a random string
  */
 function nextRandomId() {
-	var g = "";
-	for ( var i = 0; i < 32; i++)
-		g += Math.floor(Math.random() * 0xF).toString(0xF)
-				+ (i == 8 || i == 12 || i == 16 || i == 20 ? "-" : "");
+	var g = "", i;
+	for (i = 0; i < 32; i++) {
+		g += Math.floor(Math.random() * 0xF).toString(0xF) +
+			(i == 8 || i == 12 || i == 16 || i == 20 ? "-" : "");
+	}
 	g += "-" + new Date().getTime();
 	return g.toUpperCase();
 }
@@ -22,14 +23,13 @@ function nextRandomId() {
  *            the add action handler
  */
 function personaAddAttribute(handler) {
-	var attribute = $(handler).parent().parent();
-	var newAttribute = attribute.clone();
-	var key = nextRandomId();
-
-	var attributeId = $("input[name^='attribute.id']", newAttribute);
-	var attributeAlias = $("input[name^='attribute.alias']", newAttribute);
-	var attributeType = $("input[name^='attribute.type']", newAttribute);
-	var attributeValue = $("input[name^='attribute.value']", newAttribute);
+	var attribute = $(handler).parent().parent(),
+		newAttribute = attribute.clone(),
+		key = nextRandomId(),
+		attributeId = $("input[name^='attribute.id']", newAttribute),
+		attributeAlias = $("input[name^='attribute.alias']", newAttribute),
+		attributeType = $("input[name^='attribute.type']", newAttribute),
+		attributeValue = $("input[name^='attribute.value']", newAttribute);
 
 	attributeId.attr("name", "attribute.id" + key);
 	attributeAlias.attr("name", "attribute.alias." + key);
@@ -62,8 +62,8 @@ function personaRemoveAttribute(handler) {
  *            the add action handler
  */
 function personaAddAttributeValue(handler) {
-	var value = $(handler).parent();
-	var newValue = value.clone();
+	var value = $(handler).parent(),
+		newValue = value.clone();
 	$("input", newValue).val("");
 	value.after(newValue);
 }
