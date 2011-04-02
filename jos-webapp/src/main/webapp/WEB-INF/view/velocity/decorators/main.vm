@@ -14,7 +14,7 @@
 		<link rel="shortcut icon" href="$base/favicon.ico"
 			type="image/x-icon" />
 		<link rel="stylesheet" type="text/css" media="screen"
-			href="$base/resources/styles/jos.css" />
+			href="$base/resources/styles/joids-all.css" />
 		#if($domain)
 		<link rel="stylesheet" type="text/css" media="screen"
 			href="$base/resources/custom/${domain.name}.css" />

@@ -15,6 +15,40 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>net.alchim31.maven</groupId>
+				<artifactId>yuicompressor-maven-plugin</artifactId>
+				<version>1.1</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compress</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<nosuffix>true</nosuffix>
+					<excludes>
+						<exclude>**/jscalendar/**</exclude>
+						<exclude>**/custom/**</exclude>
+					</excludes>
+					<aggregations>
+						<aggregation>
+							<output>${project.build.directory}/${project.build.finalName}/resources/scripts/joids-all.js</output>
+							<includes>
+								<include>jquery-1.4.2.min.js</include>
+								<include>persona.js</include>
+							</includes>
+						</aggregation>
+						<aggregation>
+							<output>${project.build.directory}/${project.build.finalName}/resources/styles/joids-all.css</output>
+							<includes>
+								<include>jos.css</include>
+							</includes>
+						</aggregation>
+					</aggregations>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
 				<configuration>
