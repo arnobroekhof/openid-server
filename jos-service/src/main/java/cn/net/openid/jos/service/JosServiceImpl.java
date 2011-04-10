@@ -439,24 +439,19 @@ public class JosServiceImpl implements JosService {
 
 		Domain domain = null;
 
-		URL requestUrl = this.buildURLQuietly(request.getRequestURL()
-				.toString());
+		URL requestUrl = this.buildURLQuietly(request.getRequestURL());
 
 		// e.g. www.example.com
 		String host = requestUrl.getHost();
-		int dotCount = StringUtils.countMatches(host, ".");
-		if (dotCount >= 2) {
-			int firstDot = host.indexOf(".");
-			String domainNameType1 = host.substring(firstDot + 1);
-			// If we split the host, it must be type subdomain.
-			// And the first segement of the host is username.
-			domain = this.getDomainByName(domainNameType1,
-					Domain.TYPE_SUBDOMAIN);
-		}
 
 		// Find domain by whole host if domain was not found.
-		if (domain == null) {
-			domain = this.getDomainByName(host);
+		domain = this.getDomainByName(host);
+
+		while (domain == null && StringUtils.countMatches(host, ".") >= 1) {
+			host = host.substring(host.indexOf(".") + 1);
+			// If we split the host, it must be type subdomain.
+			// And the first segment of the host is username.
+			domain = this.getDomainByName(host, Domain.TYPE_SUBDOMAIN);
 		}
 
 		if (domain != null) {
@@ -488,7 +483,7 @@ public class JosServiceImpl implements JosService {
 		final String username;
 		switch (domain.getType()) {
 		case Domain.TYPE_SUBDOMAIN:
-			URL url = this.buildURLQuietly(request.getRequestURL().toString());
+			URL url = this.buildURLQuietly(request.getRequestURL());
 			username = parseUsernameFromSubdomain(domain.getName(), url
 					.getHost());
 			break;
@@ -535,10 +530,25 @@ public class JosServiceImpl implements JosService {
 	/**
 	 * Build URL quietly.
 	 * 
+	 * @param sb
+	 *            the URL StringBuffer.
+	 * @return the URL object from the string buffer.
+	 * @throws IllegalArgumentException
+	 *             if the url string buffer is malformed
+	 * @see #buildURLQuietly(String)
+	 */
+	private URL buildURLQuietly(final StringBuffer sb) {
+		return buildURLQuietly(sb.toString());
+	}
+
+	/**
+	 * Build URL quietly.
+	 * 
 	 * @param urlString
 	 *            the url string
-	 * @return the URL object from the string, IllegalArgumentException will be
-	 *         thrown if malformed
+	 * @return the URL object from the string.
+	 * @throws IllegalArgumentException
+	 *             if the url string is malformed
 	 */
 	private URL buildURLQuietly(final String urlString) {
 		try {
