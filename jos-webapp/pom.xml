@@ -165,20 +165,12 @@
 			<artifactId>sitemesh</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>velocity</groupId>
+			<groupId>org.apache.velocity</groupId>
 			<artifactId>velocity</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>velocity-tools</groupId>
+			<groupId>org.apache.velocity</groupId>
 			<artifactId>velocity-tools</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>velocity-tools</groupId>
-			<artifactId>velocity-tools-generic</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>velocity-tools</groupId>
-			<artifactId>velocity-tools-view</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>commons-digester</groupId>
