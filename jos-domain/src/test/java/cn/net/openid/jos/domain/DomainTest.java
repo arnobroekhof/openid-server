@@ -57,6 +57,21 @@ public class DomainTest {
 		domain = new Domain();
 	}
 
+	@Test
+	public void testGetBooleanAttribute() {
+		Boolean nonexistent = domain.getBooleanAttribute("nonexistent");
+		assertNull(nonexistent);
+
+		Boolean defaultValue = domain.getBooleanAttribute("nonexistent",
+				Boolean.TRUE);
+		assertTrue(defaultValue.booleanValue());
+
+		Map<String, String> configuration = new HashMap<String, String>();
+		domain.setConfiguration(configuration);
+		nonexistent = domain.getBooleanAttribute("nonexistent");
+		assertNull(nonexistent);
+	}
+
 	/**
 	 * Test method for
 	 * {@link cn.net.openid.jos.domain.Domain#getIdentifierPrefix()}.
