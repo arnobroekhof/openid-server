@@ -97,8 +97,13 @@ public class DomainRuntime implements Serializable {
 	public static URL buildEndpointUrl(final Domain domain,
 			final URL serverBaseUrl) {
 		// protocol
-		boolean httpsEnabled = domain.getBooleanAttribute("https.endpoint.enabled");
-		final String protocol = httpsEnabled ? "https" : "http";
+		Boolean httpsEnabled = domain.getBooleanAttribute("https.endpoint.enabled");
+		final String protocol;
+		if (httpsEnabled != null) {
+			protocol = httpsEnabled.booleanValue() ? "https" : "http";
+		} else {
+			protocol = serverBaseUrl.getProtocol();
+		}
 
 		// host
 		final String host = serverBaseUrl.getHost();

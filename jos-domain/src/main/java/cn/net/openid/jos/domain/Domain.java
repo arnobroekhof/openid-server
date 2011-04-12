@@ -492,8 +492,13 @@ public class Domain extends BaseEntity {
 		URL baseUrl = this.getRuntime().getServerBaseUrl();
 
 		// protocol
-		boolean httpsEnabled = getBooleanAttribute("https.identifier.enabled");
-		final String protocol = httpsEnabled ? "https" : "http";
+		Boolean httpsEnabled = getBooleanAttribute("https.identifier.enabled");
+		final String protocol;
+		if (httpsEnabled != null) {
+			protocol = httpsEnabled.booleanValue() ? "https" : "http";
+		} else {
+			protocol = baseUrl.getProtocol();
+		}
 		sb.append(protocol).append("://");
 
 		switch (getType()) {
@@ -573,10 +578,10 @@ public class Domain extends BaseEntity {
 	 * 
 	 * @param attributeName
 	 *            the attribute name
-	 * @return boolean value of the attribute. False, if no such attribute
+	 * @return boolean value of the attribute. null, if no such attribute
 	 */
-	public boolean getBooleanAttribute(final String attributeName) {
-		return getBooleanAttribute(attributeName, false);
+	public Boolean getBooleanAttribute(final String attributeName) {
+		return getBooleanAttribute(attributeName, null);
 	}
 
 	/**
@@ -589,7 +594,8 @@ public class Domain extends BaseEntity {
 	 * @return boolean value of the attribute. Returns the
 	 *         <code>defaultValue</code> if no such attribute
 	 */
-	public boolean getBooleanAttribute(final String attributeName, final boolean defaultValue) {
+	public Boolean getBooleanAttribute(final String attributeName,
+			final Boolean defaultValue) {
 		final String attributeValue = getAttribute(attributeName);
 		if (attributeValue != null) {
 			return Boolean.parseBoolean(attributeValue);
@@ -597,6 +603,7 @@ public class Domain extends BaseEntity {
 			return defaultValue;
 		}
 	}
+
 	/**
 	 * Get int value of an extended attribute.
 	 * 

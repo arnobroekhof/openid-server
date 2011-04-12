@@ -131,7 +131,8 @@ public class CaptchaInterceptor extends HandlerInterceptorAdapter {
 		boolean ret;
 
 		Domain domain = DomainFilter.getDomain(request);
-		boolean captcha = domain.getBooleanAttribute("captcha");
+		boolean captcha = domain.getBooleanAttribute("captcha", Boolean.FALSE)
+				.booleanValue();
 		if (!captcha || isHuman(request)) {
 			ret = true;
 		} else {
