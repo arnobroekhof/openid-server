@@ -110,8 +110,8 @@
 	<!-- ================ DOMAIN CONFIGURATOR SETTING ================ -->
 
 	<!-- 
-		The password for domain configurator. Keep value "BLANK" then no
-		body can login.
+		The password for domain configurator. Keep value "BLANK" then nobody
+		can login.
 	-->
 	<!--
 	<New class="org.mortbay.jetty.plus.naming.EnvEntry">
