@@ -342,9 +342,40 @@ public class Domain extends BaseEntity {
 	private Map<String, String> configuration;
 
 	/**
-	 * Domain runtime inforation.
+	 * Domain runtime information.
 	 */
-	private DomainRuntime runtime = new DomainRuntime();
+	private DomainRuntime runtime;
+
+	/**
+	 * Construct a new domain.
+	 */
+	public Domain() {
+		runtime = new DomainRuntime();
+	}
+
+	/**
+	 * Construct a new domain.
+	 * 
+	 * @param name the name
+	 * @param type the type
+	 */
+	public Domain(final String name, final int type) {
+		this();
+		this.name = name;
+		this.type = type;
+	}
+
+	/**
+	 * Construct a new domain.
+	 * 
+	 * @param name the name
+	 * @param type the type
+	 * @param serverHost the server host
+	 */
+	public Domain(final String name, final int type, final String serverHost) {
+		this(name, type);
+		this.serverHost = serverHost;
+	}
 
 	/**
 	 * @return the name
@@ -502,17 +533,67 @@ public class Domain extends BaseEntity {
 	}
 
 	/**
+	 * Get the value of an extended attribute.
+	 * 
+	 * @param attributeName
+	 *            the attribute name
+	 * @return the value of the attribute, null if no such attribute
+	 */
+	public String getAttribute(final String attributeName) {
+		return getAttribute(attributeName, null);
+	}
+
+	/**
+	 * Get the value of the extended attribute.
+	 * 
+	 * @param attributeName
+	 *            the attribute name
+	 * @param defaultValue
+	 *            the default value while no such attribute
+	 * @return the value of the attribute, returns the <code>defaultValue</code>
+	 *         if no such attribute
+	 */
+	public String getAttribute(final String attributeName,
+			final String defaultValue) {
+		Map<String, String> configuration = this.getConfiguration();
+		final String attributeValue;
+		if (configuration != null) {
+			attributeValue = configuration.get(attributeName);
+		} else {
+			attributeValue = defaultValue;
+		}
+		return attributeValue;
+	}
+
+	/**
 	 * Get boolean value of an extended attribute.
 	 * 
 	 * @param attributeName
 	 *            the attribute name
-	 * @return boolean value of the attribute
+	 * @return boolean value of the attribute. False, if no such attribute
 	 */
 	public boolean getBooleanAttribute(final String attributeName) {
-		String attributeValue = this.getConfiguration().get(attributeName);
-		return Boolean.parseBoolean(attributeValue);
+		return getBooleanAttribute(attributeName, false);
 	}
 
+	/**
+	 * Get boolean value of an extended attribute.
+	 * 
+	 * @param attributeName
+	 *            the attribute name
+	 * @param defaultValue
+	 *            the default value while no such attribute
+	 * @return boolean value of the attribute. Returns the
+	 *         <code>defaultValue</code> if no such attribute
+	 */
+	public boolean getBooleanAttribute(final String attributeName, final boolean defaultValue) {
+		final String attributeValue = getAttribute(attributeName);
+		if (attributeValue != null) {
+			return Boolean.parseBoolean(attributeValue);
+		} else {
+			return defaultValue;
+		}
+	}
 	/**
 	 * Get int value of an extended attribute.
 	 * 

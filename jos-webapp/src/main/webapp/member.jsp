@@ -3,8 +3,8 @@
 	"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-<link rel="openid.server" href="${domain.runtime.openidServerUrl}" />
-<link rel="openid2.provider" href="${domain.runtime.openidServerUrl}" />
+<link rel="openid.server" href="${domain.runtime.endpointUrl}" />
+<link rel="openid2.provider" href="${domain.runtime.endpointUrl}" />
 <title>Identity Endpoint For ${username}</title>
 </head>
 <body>

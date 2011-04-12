@@ -414,7 +414,7 @@ public class JosServiceImpl implements JosService {
 			LOG.debug("new a serverManager for " + domain);
 			serverManager = new ServerManager();
 			serverManager.setOPEndpointUrl(domain.getRuntime()
-					.getOpenidServerUrl().toString());
+					.getEndpointUrl().toString());
 			this.serverManagers.put(domain, serverManager);
 		}
 		return serverManager;
@@ -455,17 +455,14 @@ public class JosServiceImpl implements JosService {
 		}
 
 		if (domain != null) {
-			domain.getRuntime().setServerBaseUrl(
-					DomainRuntime.buildServerBaseUrl(domain, requestUrl,
-							request.getContextPath()));
+			DomainRuntime dr = domain.getRuntime();
+			URL serverBaseUrl = DomainRuntime.buildServerBaseUrl(domain,
+					requestUrl, request.getContextPath());
+			dr.setServerBaseUrl(serverBaseUrl);
 
-			try {
-				URL openidServerUrl = new URL(domain.getRuntime()
-						.getServerBaseUrl(), "server");
-				domain.getRuntime().setOpenidServerUrl(openidServerUrl);
-			} catch (MalformedURLException e) {
-				throw new IllegalArgumentException(e);
-			}
+			URL endpointUrl = DomainRuntime.buildEndpointUrl(domain,
+					serverBaseUrl);
+			dr.setEndpointUrl(endpointUrl);
 
 		} else {
 			throw new UnresolvedDomainException(host);

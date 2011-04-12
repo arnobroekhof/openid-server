@@ -96,7 +96,7 @@
 			<input type="text" name="value" value="$attribute.value" />
 		</li>
 		#end
-		#set($keys = ["inceptionYear", "organization.url", "organization.name", "privacy.url", "defaultLocale"])
+		#set($keys = ["inceptionYear", "organization.url", "organization.name", "privacy.url", "defaultLocale", "https.endpoint.enabled"])
 		#set($keySet = $command.configuration.keySet())
 		#foreach($key in $keys)
 			#if(!$keySet.contains($key))

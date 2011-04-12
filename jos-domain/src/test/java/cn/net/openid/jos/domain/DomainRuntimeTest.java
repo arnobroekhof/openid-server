@@ -1,4 +1,4 @@
-#*
+/**
  * Copyright (c) 2006-2009, Redv.com
  * All rights reserved.
  *
@@ -26,57 +26,48 @@
  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- *#
-#set($springXhtmlCompliant = true)
-<fieldset>
-#springBind("userSession.user")
-<legend>#springMessageText("user.message.usingYourOwnOpenIDURL" "Using Your Own OpenID URL")</legend>
-<p>
-	#springMessage("message.yourOpenid")
-</p>
-<pre>
-<a href="$!{status.value.identifier}">$!{status.value.identifier}</a>
-</pre>
+ */
+/**
+ * Created on 2011-4-12 15:08:48
+ */
+package cn.net.openid.jos.domain;
 
-#if(!$request.getParameter("advanced"))
-	<div style="text-align: right;">
-		<a href="#josUrl("/home?advanced=true")">#springMessage("button.advanced")</a>
-	</div>
-#else
-<p>
-#josMessageEscaped("message.yourOpenid.1" false)
-<pre>
-&lt;link rel="openid2.provider openid.server" href="${userSession.user.domain.runtime.endpointUrl}" /&gt;
-&lt;link rel="openid2.local_id openid.delegate" href="$!{userSession.user.identifier}" /&gt;
-</pre>
-#josMessageEscaped("message.yourOpenid.2" false)
-</p>
-#end
-</fieldset>
+import static org.junit.Assert.assertEquals;
 
-<fieldset>
-	<legend>#springMessageText("title.latestSites" "Latest Sites I Logged on")</legend>
-	<ul>
-		#foreach($site in $latestSites)
-		<li><a href="$site.realm.url">$site.realm.url</a></li>
-		#end
-	</ul>
-</fieldset>
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
-<fieldset>
-	<legend>#springMessageText("title.topSites" "Top Sites I Logged on")</legend>
-	<ul>
-		#foreach($site in $topSites)
-		<li><a href="$site.realm.url">$site.realm.url</a></li>
-		#end
-	</ul>
-</fieldset>
+import org.junit.Test;
 
-<fieldset>
-	<legend title="#springMessageText("title.latestRealms.tip" "The newest additions")">#springMessageText("title.latestRealms" "Latest Sites")</legend>
-	<ul>
-		#foreach($realm in $latestRealms)
-		<li><a href="$realm.url">$realm.url</a></li>
-		#end
-	</ul>
-</fieldset>
+public class DomainRuntimeTest {
+
+	@Test
+	public void testHttp() throws MalformedURLException {
+		Domain domain = new Domain("example.com", Domain.TYPE_SUBDOMAIN, "www");
+		URL requestUrl = new URL("http://username.example.com/login");
+		String requestContextPath = "/joids";
+		URL serverBaseUrl = DomainRuntime.buildServerBaseUrl(domain,
+				requestUrl, requestContextPath);
+		assertEquals(new URL("http://www.example.com/joids/"), serverBaseUrl);
+	}
+
+	@Test
+	public void testHttpsEndpointEnabled() throws MalformedURLException {
+		Map<String, String> configuration = new HashMap<String, String>();
+		configuration.put("https.endpoint.enabled", "true");
+		Domain domain = new Domain("example.com", Domain.TYPE_SUBDOMAIN, "www");
+		domain.setConfiguration(configuration);
+		URL requestUrl = new URL("http://username.example.com/login");
+		String requestContextPath = "/joids";
+
+		URL serverBaseUrl = DomainRuntime.buildServerBaseUrl(domain,
+				requestUrl, requestContextPath);
+		assertEquals(new URL("http://www.example.com/joids/"), serverBaseUrl);
+
+		URL endpointUrl = DomainRuntime.buildEndpointUrl(domain, serverBaseUrl);
+		assertEquals(new URL("https://www.example.com/joids/server"),
+				endpointUrl);
+	}
+}

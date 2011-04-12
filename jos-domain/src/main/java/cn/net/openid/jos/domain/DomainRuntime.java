@@ -62,15 +62,59 @@ public class DomainRuntime implements Serializable {
 	 */
 	public static URL buildServerBaseUrl(final Domain domain,
 			final URL requestUrl, final String requestContextPath) {
-		StringBuilder sb = new StringBuilder();
+		// protocol
+		final String protocol = requestUrl.getProtocol();
+
+		// host
+		StringBuilder host = new StringBuilder();
 		if (!StringUtils.isEmpty(domain.getServerHost())) {
-			sb.append(domain.getServerHost()).append('.');
+			host.append(domain.getServerHost()).append('.');
 		}
-		sb.append(domain.getName());
+		host.append(domain.getName());
+
+		// port
+		final int port = requestUrl.getPort();
+
+		// path
+		final String path = requestContextPath + "/";
 
 		try {
-			return new URL(requestUrl.getProtocol(), sb.toString(), requestUrl
-					.getPort(), requestContextPath + "/");
+			return new URL(protocol, host.toString(), port, path);
+		} catch (MalformedURLException e) {
+			throw new IllegalArgumentException(e);
+		}
+	}
+
+	/**
+	 * Build OP(OpenID Provider) Endpoint URL.
+	 * 
+	 * @param domain
+	 *            the domain
+	 * @param serverBaseUrl
+	 *            the server base URL
+	 * @return the OpenID server URL
+	 */
+	public static URL buildEndpointUrl(final Domain domain,
+			final URL serverBaseUrl) {
+		// protocol
+		final String protocol;
+		if (domain.getBooleanAttribute("https.endpoint.enabled")) {
+			protocol = "https";
+		} else {
+			protocol = serverBaseUrl.getProtocol();
+		}
+
+		// host
+		final String host = serverBaseUrl.getHost();
+
+		// port
+		final int port = serverBaseUrl.getPort();
+
+		// path
+		final String path = serverBaseUrl.getPath() + "server";
+
+		try {
+			return new URL(protocol, host, port, path);
 		} catch (MalformedURLException e) {
 			throw new IllegalArgumentException(e);
 		}
@@ -80,10 +124,16 @@ public class DomainRuntime implements Serializable {
 	 * Server base URL.
 	 */
 	private URL serverBaseUrl;
+
 	/**
-	 * OpenID Server URL.
+	 * OP Endpoint URL.
+	 * <p>
+	 * The URL which accepts OpenID Authentication protocol messages, obtained
+	 * by performing discovery on the User-Supplied Identifier. This value MUST
+	 * be an absolute HTTP or HTTPS URL.
+	 * </p>
 	 */
-	private URL openidServerUrl;
+	private URL endpointUrl;
 
 	/**
 	 * @return the serverBaseUrl
@@ -101,18 +151,18 @@ public class DomainRuntime implements Serializable {
 	}
 
 	/**
-	 * @return the openidServerUrl
+	 * @return the OP Endpoint URL
 	 */
-	public URL getOpenidServerUrl() {
-		return openidServerUrl;
+	public URL getEndpointUrl() {
+		return endpointUrl;
 	}
 
 	/**
-	 * @param openidServerUrl
-	 *            the openidServerUrl to set
+	 * @param endpointUrl
+	 *            the OP Endpoint URL to set
 	 */
-	public void setOpenidServerUrl(final URL openidServerUrl) {
-		this.openidServerUrl = openidServerUrl;
+	public void setEndpointUrl(final URL endpointUrl) {
+		this.endpointUrl = endpointUrl;
 	}
 
 }
