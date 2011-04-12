@@ -36,6 +36,8 @@ import static org.junit.Assert.*;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -129,6 +131,32 @@ public class DomainTest {
 		domain.setName("example1.com");
 		domain.setType(Domain.TYPE_SUBDOMAIN);
 		assertEquals(".example1.com/jos-webapp/", domain.getIdentifierSuffix());
+	}
+
+	@Test
+	public void testGetIdentifierPrefixHttpsIdentifierEnabled()
+			throws MalformedURLException {
+		Map<String, String> configuration = new HashMap<String, String>();
+		configuration.put("https.identifier.enabled", "true");
+		domain.setConfiguration(configuration);
+		URL url = new URL("http://example.com/joids/");
+		domain.getRuntime().setServerBaseUrl(url);
+		domain.setName("example.com");
+		domain.setType(Domain.TYPE_SUBDOMAIN);
+		assertEquals("https://", domain.getIdentifierPrefix());
+	}
+
+	@Test
+	public void testGetIdentifierPrefixHttpsIdentifierDisabled()
+			throws MalformedURLException {
+		Map<String, String> configuration = new HashMap<String, String>();
+		configuration.put("https.identifier.enabled", "false");
+		domain.setConfiguration(configuration);
+		URL url = new URL("https://example.com/joids/");
+		domain.getRuntime().setServerBaseUrl(url);
+		domain.setName("example.com");
+		domain.setType(Domain.TYPE_SUBDOMAIN);
+		assertEquals("http://", domain.getIdentifierPrefix());
 	}
 
 }

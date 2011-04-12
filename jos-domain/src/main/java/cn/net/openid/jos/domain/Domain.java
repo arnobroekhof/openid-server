@@ -491,12 +491,15 @@ public class Domain extends BaseEntity {
 		StringBuilder sb = new StringBuilder();
 		URL baseUrl = this.getRuntime().getServerBaseUrl();
 
+		// protocol
+		boolean httpsEnabled = getBooleanAttribute("https.identifier.enabled");
+		final String protocol = httpsEnabled ? "https" : "http";
+		sb.append(protocol).append("://");
+
 		switch (getType()) {
 		case Domain.TYPE_SUBDOMAIN:
-			sb.append(baseUrl.getProtocol()).append("://");
 			break;
 		case Domain.TYPE_SUBDIRECTORY:
-			sb.append(baseUrl.getProtocol()).append("://");
 			sb.append(getName());
 			appendPort(sb, baseUrl);
 			sb.append(baseUrl.getPath());

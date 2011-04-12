@@ -70,4 +70,23 @@ public class DomainRuntimeTest {
 		assertEquals(new URL("https://www.example.com/joids/server"),
 				endpointUrl);
 	}
+
+	@Test
+	public void testHttpsEndpointDisabled() throws MalformedURLException {
+		Map<String, String> configuration = new HashMap<String, String>();
+		configuration.put("https.endpoint.enabled", "false");
+		Domain domain = new Domain("example.com", Domain.TYPE_SUBDOMAIN, "www");
+		domain.setConfiguration(configuration);
+		URL requestUrl = new URL("https://username.example.com/login");
+		String requestContextPath = "/joids";
+
+		URL serverBaseUrl = DomainRuntime.buildServerBaseUrl(domain,
+				requestUrl, requestContextPath);
+		assertEquals(new URL("https://www.example.com/joids/"), serverBaseUrl);
+
+		URL endpointUrl = DomainRuntime.buildEndpointUrl(domain, serverBaseUrl);
+		assertEquals(new URL("http://www.example.com/joids/server"),
+				endpointUrl);
+	}
+
 }
