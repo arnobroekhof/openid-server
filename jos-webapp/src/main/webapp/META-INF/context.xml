@@ -46,19 +46,37 @@
 
 	<!-- ================ MAIL SESSION SETTING ================ -->
 
+	<!-- Using TLS connection -->
 	<Resource
 		name="mail/Session"
 		type="javax.mail.Session"
+		username="noreply@YOURCOMPANY.com"
+		password="YOURPASSWORD"
+		mail.debug="false"
+		mail.user="noreply@YOURCOMPANY.com"
+		mail.smtp.host="smtp.YOURCOMPANY.com"
+		mail.smtp.port="587"
+		mail.smtp.starttls.enable="true"
+		mail.smtp.auth="true" />
+
+	<!-- Using SSL connection -->
+	<!--
+	<Resource
+		name="mail/Session"
+		type="javax.mail.Session"
+		username="noreply@YOURCOMPANY.com"
+		password="YOURPASSWORD"
+		mail.debug="false"
+		mail.user="noreply@YOURCOMPANY.com"
+		mail.from="noreply@YOURCOMPANY.com"
 		mail.smtp.host="smtp.YOURCOMPANY.com"
 		mail.smtp.socketFactory.class="javax.net.ssl.SSLSocketFactory"
 		mail.smtp.socketFactory.fallback="false"
 		mail.smtp.port="465"
 		mail.smtp.socketFactory.port="465"
 		mail.smtp.auth="true"
-		mail.smtp.timeout="10000"
-		mail.smtp.from="noreply@YOURCOMPANY.com"
-		mail.smtp.user="noreply@YOURCOMPANY.com"
-		mail.smtp.password="YOURPASSWORD" />
+		mail.smtp.timeout="10000" />
+	-->
 
 
 	<!-- ================ HIBERNATE SETTINGS ================ -->
