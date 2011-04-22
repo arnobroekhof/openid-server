@@ -30,10 +30,6 @@
 			<artifactId>sitemesh</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.openid4java</groupId>
-			<artifactId>openid4java-server</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>net.tanesha.recaptcha4j</groupId>
 			<artifactId>recaptcha4j</artifactId>
 		</dependency>

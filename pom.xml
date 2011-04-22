@@ -302,7 +302,8 @@
 			<dependency>
 				<groupId>org.openid4java</groupId>
 				<artifactId>openid4java-server</artifactId>
-				<version>0.9.5</version>
+				<version>0.9.6</version>
+				<type>pom</type>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>
