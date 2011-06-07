@@ -128,7 +128,6 @@
 		<dependency>
 			<groupId>jboss</groupId>
 			<artifactId>jboss-j2ee</artifactId>
-			<version>4.0.0</version>
 		</dependency>
 
 		<!-- Mail -->
@@ -183,7 +182,7 @@
 		<dependency>
 			<groupId>org.tuckey</groupId>
 			<artifactId>urlrewritefilter</artifactId>
-		</dependency> 
+		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>jos-web</artifactId>
