@@ -63,7 +63,6 @@
 				<version>7.0.0pre3</version>
 				<configuration>
 					<contextPath>/</contextPath>
-					<jettyEnvXml>jetty-env.xml</jettyEnvXml>
 					<stopPort>9966</stopPort>
 					<stopKey>foo</stopKey>
 				</configuration>
