@@ -208,6 +208,15 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
+		<repository>
+			<id>maven2-repository.dev.java.net-oss-mirror</id>
+			<name>Mirror of Java.net Repository for Maven</name>
+			<url>https://oss.sonatype.org/service/local/repositories/java.net2/content/</url>
+			<layout>default</layout>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
 
 		<!-- For ReCaptcha -->
 		<repository>
