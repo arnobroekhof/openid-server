@@ -310,12 +310,19 @@ public class ApprovingRequestProcessor {
 			httpResp.sendRedirect(response.getDestinationUrl(true));
 		} else {
 			if (authenticatedAndApproved) {
+
 				try {
 					addExtension(response);
+				} catch (MessageException e) {
+					LOG.error(e.getMessage(), e);
+				}
+
+				try {
 					addSRegExtension(response, persona);
 				} catch (MessageException e) {
-					LOG.error("", e);
+					LOG.error(e.getMessage(), e);
 				}
+
 			}
 
 			try {
