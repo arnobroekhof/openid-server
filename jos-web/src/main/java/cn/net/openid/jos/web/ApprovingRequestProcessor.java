@@ -312,7 +312,7 @@ public class ApprovingRequestProcessor {
 			if (authenticatedAndApproved) {
 
 				try {
-					addExtension(response);
+					addExtension(response, persona.toMap());
 				} catch (MessageException e) {
 					LOG.error(e.getMessage(), e);
 				}
@@ -408,27 +408,30 @@ public class ApprovingRequestProcessor {
 	 * @throws MessageException
 	 *             if add failed
 	 */
-	@SuppressWarnings("unchecked")
-	private void addExtension(final Message response) throws MessageException {
+	private void addExtension(final Message response, Map<String, String> persona)
+			throws MessageException {
 		if (authRequest.hasExtension(AxMessage.OPENID_NS_AX)) {
 			MessageExtension ext = authRequest
 					.getExtension(AxMessage.OPENID_NS_AX);
 			if (ext instanceof FetchRequest) {
 				FetchRequest fetchReq = (FetchRequest) ext;
-				Map required = fetchReq.getAttributes(true);
-				Map optional = fetchReq.getAttributes(false);
-				if (required.containsKey("email")
-						|| optional.containsKey("email")) {
-					Map userDataExt = new HashMap();
-					// userDataExt.put("email", userData.get(3));
 
-					FetchResponse fetchResp = FetchResponse
-							.createFetchResponse(fetchReq, userDataExt);
-					// (alternatively) manually add attribute values
-					fetchResp.addAttribute("email",
-							"http://schema.openid.net/contact/email", "email");
-					response.addExtension(fetchResp);
+				Map<String, String> userDataExt = new HashMap<String, String>();
+				FetchResponse fetchResp = FetchResponse
+						.createFetchResponse(fetchReq, userDataExt);
+
+				@SuppressWarnings("unchecked")
+				Map<String, String> attrs = (Map<String, String>) fetchReq
+						.getAttributes();
+				for (Map.Entry<String, String> entry : attrs.entrySet()) {
+					String value = persona.get(entry.getKey());
+					if (value != null) {
+						fetchResp.addAttribute(entry.getKey(),
+								entry.getValue(), value);
+					}
 				}
+
+				response.addExtension(fetchResp);
 			} else { // if (ext instanceof StoreRequest)
 				throw new UnsupportedOperationException("TODO");
 			}
