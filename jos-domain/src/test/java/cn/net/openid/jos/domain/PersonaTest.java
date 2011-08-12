@@ -37,9 +37,11 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.AbstractSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.SerializationUtils;
@@ -93,6 +95,29 @@ public class PersonaTest {
 		User user = new User();
 		Persona persona = new Persona(user);
 		assertNotNull(persona.getAttributes());
+	}
+
+	@Test
+	public void testToAliasValueMap() {
+		Persona persona = new Persona();
+		persona.setNickname("My Nickname");
+		Map<String, String> actual = persona.toAliasValueMap();
+		Map<String, String> expected = new HashMap<String, String>();
+		expected.put("nickname", "My Nickname");
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void testToTypeValueMap() {
+		Persona persona = new Persona();
+		persona.setNickname("My Nickname");
+		Map<String, String> actual = persona.toTypeValueMap();
+		Map<String, String> expected = new HashMap<String, String>();
+		expected.put("http://schema.openid.net/namePerson/friendly",
+				persona.getNickname());
+		expected.put("http://axschema.org/namePerson/friendly",
+				persona.getNickname());
+		assertEquals(expected, actual);
 	}
 
 	/**

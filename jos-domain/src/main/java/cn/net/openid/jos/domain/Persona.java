@@ -34,14 +34,19 @@ package cn.net.openid.jos.domain;
 
 import java.io.Externalizable;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
+
+import org.apache.commons.lang.StringUtils;
 
 /**
  * Persona entity. One user may have many personas.
@@ -58,6 +63,35 @@ public class Persona extends BaseEntity implements Externalizable {
 	 * The prime value for hash code calculating.
 	 */
 	private static final int PRIME = 31;
+
+	/**
+	 * a {@code Map<String type, String alias>} contains
+	 * the attribute type identifiers of Simple Registration Extension
+	 */
+	private static final Map<String, String> sregTypes = initSregTypes();
+
+	private static Map<String, String> initSregTypes() {
+		InputStream in = Persona.class.getResourceAsStream("sreg.properties");
+		try {
+			Properties p = new Properties();
+			p.load(in);
+			Map<String, String> types = new HashMap<String, String>();
+			Enumeration<?> names = p.propertyNames();
+			while (names.hasMoreElements()) {
+				String type = (String) names.nextElement();
+				types.put(type, p.getProperty(type));
+			}
+			return types;
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		} finally {
+			try {
+				in.close();
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		}
+	}
 
 	/**
 	 * The owner of the persona.
@@ -418,23 +452,83 @@ public class Persona extends BaseEntity implements Externalizable {
 		return new Locale(this.language, this.country);
 	}
 
+	public Attribute getAttributeByAlias(String alias) {
+		Set<Attribute> attributes = this.getAttributes();
+		for (Attribute attribute : attributes) {
+			if (StringUtils.equals(attribute.getAlias(), alias)) {
+				return attribute;
+			}
+		}
+		return null;
+	}
+
+	public Attribute getAttributeByType(String type) {
+		Set<Attribute> attributes = this.getAttributes();
+		for (Attribute attribute : attributes) {
+			if (StringUtils.equals(attribute.getType(), type)) {
+				return attribute;
+			}
+		}
+		return null;
+	}
+
 	/**
 	 * Convert the persona as a map.
 	 * 
-	 * @return the map contains all properties of the persona.
+	 * @return a {@code Map<String alias, String value>} contains all
+	 * properties of the persona.
 	 */
-	public Map<String, String> toMap() {
+	public Map<String, String> toAliasValueMap() {
 		Map<String, String> ret = new HashMap<String, String>();
-		ret.put("nickname", this.getNickname());
-		ret.put("email", this.getEmail());
-		ret.put("fullname", this.getFullname());
-		ret.put("dob", this.getDob());
-		ret.put("gender", this.getGender());
-		ret.put("postcode", this.getPostcode());
-		ret.put("country", this.getCountry());
-		ret.put("language", this.getLanguage());
-		ret.put("timezone", this.getTimezone());
+		if (getNickname() != null) {
+			ret.put("nickname", getNickname());
+		}
+		if (getEmail() != null) {
+			ret.put("email", getEmail());
+		}
+		if (getFullname() != null) {
+			ret.put("fullname", getFullname());
+		}
+		if (getDob() != null) {
+			ret.put("dob", getDob());
+		}
+		if (getGender() != null) {
+			ret.put("gender", getGender());
+		}
+		if (getPostcode() != null) {
+			ret.put("postcode", getPostcode());
+		}
+		if (getCountry() != null) {
+			ret.put("country", getCountry());
+		}
+		if (getLanguage() != null) {
+			ret.put("language", getLanguage());
+		}
+		if (getTimezone() != null) {
+			ret.put("timezone", getTimezone());
+		}
 		return ret;
+	}
+
+	/**
+	 * Convert the person as a map.
+	 * 
+	 * @return a Map<String type, String value> contains all
+	 * properties of the persona.
+	 */
+	public Map<String, String> toTypeValueMap() {
+		Map<String, String> userData = toAliasValueMap();
+		Map<String, String> attributes = new HashMap<String, String>();
+		for (Map.Entry<String, String> sregType : sregTypes.entrySet()) {
+			String type = sregType.getKey();
+			String alias = sregType.getValue();
+			String value = userData.get(alias);
+
+			if (value != null) {
+				attributes.put(type, value);
+			}
+		}
+		return attributes;
 	}
 
 	/**

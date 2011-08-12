@@ -33,7 +33,6 @@
 package cn.net.openid.jos.web;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -58,6 +57,7 @@ import org.openid4java.message.sreg.SRegResponse;
 import org.openid4java.server.ServerException;
 import org.openid4java.server.ServerManager;
 
+import cn.net.openid.jos.domain.Attribute;
 import cn.net.openid.jos.domain.Persona;
 import cn.net.openid.jos.domain.Site;
 import cn.net.openid.jos.domain.User;
@@ -312,13 +312,13 @@ public class ApprovingRequestProcessor {
 			if (authenticatedAndApproved) {
 
 				try {
-					addExtension(response, persona.toMap());
+					addAttributes(response, persona);
 				} catch (MessageException e) {
 					LOG.error(e.getMessage(), e);
 				}
 
 				try {
-					addSRegExtension(response, persona);
+					addSReg(response, persona);
 				} catch (MessageException e) {
 					LOG.error(e.getMessage(), e);
 				}
@@ -328,9 +328,9 @@ public class ApprovingRequestProcessor {
 			try {
 				serverManager.sign((AuthSuccess) response);
 			} catch (ServerException e) {
-				LOG.error("", e);
+				LOG.error(e.getMessage(), e);
 			} catch (AssociationException e) {
-				LOG.error("", e);
+				LOG.error(e.getMessage(), e);
 			}
 
 			// caller will need to decide which of the following to use:
@@ -377,7 +377,7 @@ public class ApprovingRequestProcessor {
 	 * @throws MessageException
 	 *             if add extension failed
 	 */
-	private void addSRegExtension(final Message response, final Persona persona)
+	private void addSReg(final Message response, final Persona persona)
 			throws MessageException {
 		if (authRequest.hasExtension(SRegMessage.OPENID_NS_SREG)) {
 			MessageExtension ext = authRequest
@@ -386,7 +386,7 @@ public class ApprovingRequestProcessor {
 				SRegRequest sregReq = (SRegRequest) ext;
 				// data released by the user
 				if (persona != null) {
-					Map<String, String> userDataSReg = persona.toMap();
+					Map<String, String> userDataSReg = persona.toAliasValueMap();
 
 					SRegResponse sregResp = SRegResponse.createSRegResponse(
 							sregReq, userDataSReg);
@@ -395,20 +395,21 @@ public class ApprovingRequestProcessor {
 					response.addExtension(sregResp);
 				}
 			} else {
-				throw new UnsupportedOperationException("TODO");
+				throw new UnsupportedOperationException(ext.getClass()
+						+ " is unsupported.");
 			}
 		}
 	}
 
 	/**
-	 * Add extension to the response message.
+	 * Add attributes to the response message.
 	 * 
 	 * @param response
 	 *            the response message to add to
 	 * @throws MessageException
 	 *             if add failed
 	 */
-	private void addExtension(final Message response, Map<String, String> persona)
+	private void addAttributes(final Message response, Persona persona)
 			throws MessageException {
 		if (authRequest.hasExtension(AxMessage.OPENID_NS_AX)) {
 			MessageExtension ext = authRequest
@@ -416,24 +417,39 @@ public class ApprovingRequestProcessor {
 			if (ext instanceof FetchRequest) {
 				FetchRequest fetchReq = (FetchRequest) ext;
 
-				Map<String, String> userDataExt = new HashMap<String, String>();
-				FetchResponse fetchResp = FetchResponse
-						.createFetchResponse(fetchReq, userDataExt);
+				FetchResponse fetchResp = FetchResponse.createFetchResponse();
 
 				@SuppressWarnings("unchecked")
-				Map<String, String> attrs = (Map<String, String>) fetchReq
+				Map<String, String> attributes = (Map<String, String>) fetchReq
 						.getAttributes();
-				for (Map.Entry<String, String> entry : attrs.entrySet()) {
-					String value = persona.get(entry.getKey());
+
+				Map<String, String> typeValueMap = persona.toTypeValueMap();
+				Map<String, String> aliasValueMap = persona.toAliasValueMap();
+
+				for (Map.Entry<String, String> entry : attributes.entrySet()) {
+					String alias = entry.getKey();
+					String type = entry.getValue();
+
+					String value = typeValueMap.get(type);
+					if (value == null) {
+						value = aliasValueMap.get(alias);
+					}
 					if (value != null) {
-						fetchResp.addAttribute(entry.getKey(),
-								entry.getValue(), value);
+						fetchResp.addAttribute(alias, type, value);
+					}
+
+					Attribute attribute = persona.getAttributeByType(type);
+					if (attribute != null) {
+						for (String v : attribute.getValues()) {
+							fetchResp.addAttribute(alias, type, v);
+						}
 					}
 				}
 
 				response.addExtension(fetchResp);
 			} else { // if (ext instanceof StoreRequest)
-				throw new UnsupportedOperationException("TODO");
+				throw new UnsupportedOperationException(ext.getClass()
+						+ " is unsupported.");
 			}
 		}
 	}
