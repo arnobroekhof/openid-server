@@ -34,7 +34,7 @@ package cn.net.openid.jos.domain;
 
 import java.util.regex.Pattern;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  * The username configuration of {@link Domain}.

@@ -36,7 +36,7 @@ import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Represents {@link Domain} runtime properties.

@@ -35,8 +35,8 @@ package cn.net.openid.jos.domain;
 import java.net.URL;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.math.NumberUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 
 /**
  * Virtual domain model.
