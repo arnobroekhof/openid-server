@@ -309,7 +309,7 @@ public class ApprovingRequestProcessor {
 		} else if (response instanceof AuthFailure) {
 			httpResp.sendRedirect(response.getDestinationUrl(true));
 		} else {
-			if (authenticatedAndApproved) {
+			if (authenticatedAndApproved && persona != null) {
 
 				try {
 					addAttributes(response, persona);
