@@ -201,13 +201,13 @@
 						<tr>
 							<td class="label">
 								<input type="hidden" name="attribute.id.0" value="" />
-								<input type="text" name="attribute.alias.0" class="alias" />
-								<input type="text" name="attribute.type.0" class="type" />
+								<input type="text" name="attribute.alias.0" class="alias" placeholder="#springMessage('persona.placeholder.attribute.alias')" />
+								<input type="text" name="attribute.type.0" class="type" placeholder="#springMessage('persona.placeholder.attribute.type')" />
 							</td>
 							<td class="value">
 								<ul>
 									<li>
-										<input type="text" name="attribute.value.0" class="value" />
+										<input type="text" name="attribute.value.0" class="value" placeholder="#springMessage('persona.placeholder.attribute.value')" />
 										<a href="#" onclick="personaAddAttributeValue(this);return false;">
 											<img src="#springUrl('/resources/images/plus.gif')" class="value" />
 										</a>
