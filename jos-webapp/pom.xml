@@ -115,20 +115,6 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Transaction Manager: jotm -->
-		<dependency>
-			<groupId>jotm</groupId>
-			<artifactId>jotm</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.experlog</groupId>
-			<artifactId>xapool</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>jboss</groupId>
-			<artifactId>jboss-j2ee</artifactId>
-		</dependency>
-
 		<!-- Mail -->
 		<dependency>
 			<groupId>javax.mail</groupId>
