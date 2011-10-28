@@ -45,6 +45,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import cn.net.openid.jos.domain.Domain;
+import cn.net.openid.jos.service.ThreadLocalDomain;
 
 /**
  * Domain filter. Parse domain information from request URL, and put into
@@ -190,6 +191,9 @@ public class DomainFilter extends OncePerRequestServiceFilter {
 	 */
 	private void setDomain(final HttpServletRequest request,
 			final Domain domain) {
+		LOG.debug("Put domain info into ThreadLocalDomain.");
+		ThreadLocalDomain.set(domain);
+
 		LOG.debug("Put domain info into request.");
 		request.setAttribute(DOMAIN_ATTRIBUTE_NAME, domain);
 	}
