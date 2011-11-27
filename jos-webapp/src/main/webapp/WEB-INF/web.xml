@@ -41,11 +41,12 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-			/WEB-INF/applicationContext.xml,
-			/WEB-INF/dataAccessContext-hibernate.xml,
-			/WEB-INF/config/applicationContext-transactionManager.xml,
-			/WEB-INF/config/applicationContext-dataSource.xml,
+			/WEB-INF/applicationContext.xml
+			/WEB-INF/dataAccessContext-hibernate.xml
+			/WEB-INF/config/applicationContext-transactionManager.xml
+			/WEB-INF/config/applicationContext-dataSource.xml
 			/WEB-INF/config/applicationContext-mail.xml
+			/WEB-INF/security.xml
 		</param-value>
 	</context-param>
 
@@ -67,6 +68,15 @@
 
 
 	<!-- ================ FILTER DEFINITIONS ================ -->
+
+	<filter>
+		<filter-name>securityFilter</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+		<init-param>
+			<param-name>targetBeanName</param-name>
+			<param-value>springSecurityFilterChain</param-value>
+		</init-param>
+	</filter>
 
 	<!-- Character Encoding. -->
 	<filter>
@@ -179,6 +189,10 @@
 
 	<!-- ================ FILTER MAPPING ================ -->
 
+	<filter-mapping>
+		<filter-name>securityFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 	<filter-mapping>
 		<filter-name>Set Character Encoding Filter</filter-name>
 		<url-pattern>/*</url-pattern>
