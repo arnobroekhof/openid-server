@@ -37,6 +37,7 @@ import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
 import static org.easymock.EasyMock.verify;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -45,6 +46,7 @@ import org.junit.Test;
 
 import cn.net.openid.jos.dao.DomainDao;
 import cn.net.openid.jos.domain.Domain;
+import cn.net.openid.jos.service.exception.UnresolvedDomainException;
 
 /**
  * @author Sutra Zhou
@@ -126,6 +128,30 @@ public class JosServiceImplTest {
 		Domain parsedDomain = service.parseDomain(request);
 		verify(domainDao, request);
 		assertEquals("openid.example.com", parsedDomain.getName());
+	}
+
+	@Test
+	public void testParseDomainUnresolvedDomainException() {
+		DomainDao domainDao = createMock(DomainDao.class);
+		expect(domainDao.getDomainByName("example.com")).andReturn(null).once();
+		expect(domainDao.getDomainByName("com")).andReturn(null).once();
+
+		JosServiceImpl service = new JosServiceImpl();
+		service.setDomainDao(domainDao);
+
+		HttpServletRequest request = createMock(HttpServletRequest.class);
+		expect(request.getRequestURL()).andReturn(
+				new StringBuffer("http://example.com"))
+				.once();
+
+		replay(domainDao, request);
+		try {
+			service.parseDomain(request);
+			fail("Should throw unresolved domain exception.");
+		} catch (UnresolvedDomainException e) {
+			assertEquals("example.com", e.getMessage());
+		}
+		verify(domainDao, request);
 	}
 
 }

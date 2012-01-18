@@ -75,8 +75,7 @@ import cn.net.openid.jos.domain.Persona;
 import cn.net.openid.jos.domain.Realm;
 import cn.net.openid.jos.domain.Site;
 import cn.net.openid.jos.domain.User;
-import cn.net.openid.jos.service.exception.
-EmailConfirmationInfoNotFoundException;
+import cn.net.openid.jos.service.exception.EmailConfirmationInfoNotFoundException;
 import cn.net.openid.jos.service.exception.LastPasswordException;
 import cn.net.openid.jos.service.exception.NoPermissionException;
 import cn.net.openid.jos.service.exception.PersonaInUseException;
@@ -442,7 +441,9 @@ public class JosServiceImpl implements JosService {
 		URL requestUrl = this.buildURLQuietly(request.getRequestURL());
 
 		// e.g. www.example.com
-		String host = requestUrl.getHost();
+		final String requestHost = requestUrl.getHost();
+
+		String host = requestHost;
 
 		// Find domain by whole host if domain was not found.
 		domain = this.getDomainByName(host);
@@ -465,7 +466,7 @@ public class JosServiceImpl implements JosService {
 			dr.setEndpointUrl(endpointUrl);
 
 		} else {
-			throw new UnresolvedDomainException(host);
+			throw new UnresolvedDomainException(requestHost);
 		}
 		return domain;
 	}
