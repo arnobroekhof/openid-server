@@ -95,6 +95,23 @@
 	</reporting>
 	<profiles>
 		<profile>
+			<id>release</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-war-plugin</artifactId>
+						<configuration>
+							<packagingExcludes>
+								WEB-INF/jetty-env.xml,
+								META-INF/context.xml
+							</packagingExcludes>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
 			<id>tomcat</id>
 			<build>
 				<plugins>

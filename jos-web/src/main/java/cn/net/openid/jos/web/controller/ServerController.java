@@ -32,6 +32,8 @@
  */
 package cn.net.openid.jos.web.controller;
 
+import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,6 +41,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.openid4java.message.AuthRequest;
 import org.openid4java.message.DirectError;
 import org.openid4java.message.Message;
+import org.openid4java.message.MessageException;
 import org.openid4java.message.ParameterList;
 import org.openid4java.server.ServerManager;
 import org.springframework.web.servlet.ModelAndView;
@@ -53,22 +56,16 @@ import cn.net.openid.jos.web.WebUtils;
  * @author Sutra Zhou
  */
 public class ServerController extends AbstractJosController {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -2796635946888123803L;
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public ModelAndView handleRequest(final HttpServletRequest request,
 			final HttpServletResponse response) throws Exception {
-		getLog().debug("Received a request.");
 		try {
 			String responseText = processRequest(request, response);
 			WebUtils.writeResponse(response, responseText);
-		} catch (Exception e) {
-			getLog().error("error.", e);
+		} catch (IOException e) {
 			throw new ServletException(e);
 		}
 		return null;
@@ -76,7 +73,7 @@ public class ServerController extends AbstractJosController {
 
 	/**
 	 * Process the request.
-	 * 
+	 *
 	 * @param httpReq
 	 *            the HTTP request
 	 * @param httpResp
@@ -86,7 +83,8 @@ public class ServerController extends AbstractJosController {
 	 *             indicate authenticate error
 	 */
 	private String processRequest(final HttpServletRequest httpReq,
-			final HttpServletResponse httpResp) throws Exception {
+			final HttpServletResponse httpResp) throws MessageException,
+			IOException {
 		Domain domain = this.getDomain(httpReq);
 		if (getLog().isDebugEnabled()) {
 			getLog().debug("domain: " + domain);

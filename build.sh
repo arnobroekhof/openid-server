@@ -10,4 +10,4 @@ if [ ! -f "$jscalendar/calendar_stripped.js" ]; then
 		exit 2
 fi
 
-mvn clean package assembly:assembly
+mvn -P release clean package assembly:assembly
