@@ -66,7 +66,7 @@ public class HibernateEmailDao extends BaseHibernateEntityDao<Email> implements
 	 * {@inheritDoc}
 	 */
 	public Collection<Email> getEmails(final User user) {
-		return find("from Email where user.id = ?", user.getId());
+		return findAll("from Email where user.id = ?", user.getId());
 	}
 
 	/**

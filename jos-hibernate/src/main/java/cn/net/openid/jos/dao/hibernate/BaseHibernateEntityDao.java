@@ -91,7 +91,7 @@ public abstract class BaseHibernateEntityDao<T> extends HibernateDaoSupport {
 	 * @return a List containing the results of the query execution
 	 */
 	@SuppressWarnings("unchecked")
-	protected List<T> find(final String queryString, final Object... values) {
+	protected List<T> findAll(final String queryString, final Object... values) {
 		return (List<T>) getHibernateTemplate().find(queryString, values);
 	}
 
@@ -139,7 +139,7 @@ public abstract class BaseHibernateEntityDao<T> extends HibernateDaoSupport {
 	 *         IncorrectResultSizeDataAccessException if more than 1 row found.
 	 */
 	protected T findUnique(final String queryString, final Object... values) {
-		List<T> list = this.find(queryString, values);
+		List<T> list = this.findAll(queryString, values);
 		int size = list.size();
 		T t;
 		if (size == 0) {

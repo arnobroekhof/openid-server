@@ -56,7 +56,7 @@ public class HibernateAttributeValueDao extends
 	 * .jos.domain.User, java.lang.String)
 	 */public String getAttributeValue(User user, String attributeId) {
 		String q = "from AttributeValue where user.id = ? and attribute.id = ? order by index";
-		List<AttributeValue> attributeValues = this.find(q, user.getId(),
+		List<AttributeValue> attributeValues = this.findAll(q, user.getId(),
 				attributeId);
 		if (!attributeValues.isEmpty()) {
 			return attributeValues.get(0).getValue();
@@ -74,7 +74,7 @@ public class HibernateAttributeValueDao extends
 	 */
 	public Collection<String> getAttributeValues(User user, String attributeId) {
 		String q = "from AttributeValue where user.id = ? and attribute.id = ? order by index";
-		List<AttributeValue> attributeValues = this.find(q, user.getId(),
+		List<AttributeValue> attributeValues = this.findAll(q, user.getId(),
 				attributeId);
 		if (!attributeValues.isEmpty()) {
 			List<String> ret = new ArrayList<String>(attributeValues.size());
@@ -95,7 +95,7 @@ public class HibernateAttributeValueDao extends
 	 * .openid.jos.domain.User)
 	 */
 	public List<AttributeValue> getUserAttributeValues(User user) {
-		return find("from AttributeValue where user.id = ? order by index",
+		return findAll("from AttributeValue where user.id = ? order by index",
 				user.getId());
 	}
 

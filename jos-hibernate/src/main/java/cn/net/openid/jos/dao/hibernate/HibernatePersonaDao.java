@@ -58,7 +58,7 @@ public class HibernatePersonaDao extends BaseHibernateEntityDao<Persona>
 	 * {@inheritDoc}
 	 */
 	public Collection<Persona> getPersonas(final User user) {
-		return find("from Persona where user.id = ?", user.getId());
+		return findAll("from Persona where user.id = ?", user.getId());
 	}
 
 	/**

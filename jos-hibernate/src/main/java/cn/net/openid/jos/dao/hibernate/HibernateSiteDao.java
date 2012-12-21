@@ -50,7 +50,7 @@ public class HibernateSiteDao extends BaseHibernateEntityDao<Site> implements
 	 * {@inheritDoc}
 	 */
 	public Collection<Site> getSites(final User user) {
-		return find("from Site where user.id = ?", user.getId());
+		return findAll("from Site where user.id = ?", user.getId());
 	}
 
 	/**

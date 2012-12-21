@@ -57,7 +57,7 @@ public class HibernateAttributeDao extends BaseHibernateEntityDao<Attribute>
 	 * {@inheritDoc}
 	 */
 	public Collection<Attribute> getAttributes() {
-		return this.find("from Attribute");
+		return this.findAll("from Attribute");
 	}
 
 	/**

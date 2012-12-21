@@ -65,7 +65,7 @@ public class HibernatePasswordDao extends BaseHibernateEntityDao<Password>
 	 * {@inheritDoc}
 	 */
 	public Collection<Password> getPasswords(final User user) {
-		return find("from Password where user.id = ?", user.getId());
+		return findAll("from Password where user.id = ?", user.getId());
 	}
 
 	/**

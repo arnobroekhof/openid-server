@@ -52,7 +52,7 @@ public class HibernateEmailConfirmationInfoDao extends
 	 */
 	public EmailConfirmationInfo getEmailConfirmationInfo(
 			final String confirmationCode) {
-		List<EmailConfirmationInfo> emailConfirmationInfos = this.find(
+		List<EmailConfirmationInfo> emailConfirmationInfos = this.findAll(
 				"from EmailConfirmationInfo where confirmationCode = ?",
 				confirmationCode);
 		EmailConfirmationInfo ret;
