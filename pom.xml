@@ -332,9 +332,8 @@
 			</dependency>
 			<dependency>
 				<groupId>org.openid4java</groupId>
-				<artifactId>openid4java-server</artifactId>
-				<version>0.9.6</version>
-				<type>pom</type>
+				<artifactId>openid4java</artifactId>
+				<version>0.9.7</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>
@@ -370,7 +369,7 @@
 				<groupId>org.tuckey</groupId>
 				<artifactId>urlrewritefilter</artifactId>
 				<version>3.1.0</version>
-			</dependency> 
+			</dependency>
 			<dependency>
 				<groupId>opensymphony</groupId>
 				<artifactId>sitemesh</artifactId>
@@ -404,7 +403,7 @@
 				<groupId>javax.activation</groupId>
 				<artifactId>activation</artifactId>
 				<version>1.1</version>
-			</dependency> 
+			</dependency>
 
 			<!-- JDBC Drivers -->
 			<dependency>

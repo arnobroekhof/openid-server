@@ -58,8 +58,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.openid4java</groupId>
-			<artifactId>openid4java-server</artifactId>
-			<type>pom</type>
+			<artifactId>openid4java</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
