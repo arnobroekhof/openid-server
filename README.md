@@ -1,23 +1,3 @@
 Java OpenID Server (JOS) fork / clone from https://code.google.com/p/openid-server/
 
-BUILD           : Build instructions.
-build.sh        : Build script according to the build instructions.
-release.sh      : The script to build distribution packages.
-CREDITS	        : List of code and documentation maintainers and
-                  contributors, and others that we thanks to.
-FAQ             : Frequently asked questions
-INSTALL         : Installation instructions.
-LICENSE         : JOS license (BSD).
-README          : This file.
-RELEASE-NOTES   : Version highlight changes.
-checkstyle.xml  : Coding conventions check definition.
-pom.xml         : Root project object model of Maven.
-jos-domain/     : Domain objects.
-jos-dao/        : Data Access Objects.
-jos-hibernate/  : DAO implementation with hibernate3.
-jos-service/    : Service layer.
-jos-web/        : Web classes.
-jos-webapp/     : Web resources, such as jsp, js, images.
-jos-tools/      : Tools, such as database migration.
-jos-i18n/       : Internationalization.
-doc/            : Documents.
+[![Travis Build Status](https://secure.travis-ci.org/arnobroekhof/openid-server.png)](http://travis-ci.org/arnobroekhof/openid-server)
