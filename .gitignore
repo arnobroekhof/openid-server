@@ -1,0 +1,24 @@
+# Maven build
+target/
+
+# Java
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# eclipse
+.project
+.settings/
+.classpath
+
+# idea
+.idea
+*.iml
+
+.build/
+
+# MacOSX specific files
+.AppleDouble
